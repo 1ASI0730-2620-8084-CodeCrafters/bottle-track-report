@@ -1,0 +1,19 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", fontname="Inter", nodesep=0.45, ranksep=0.55, pad=0.3, newrank=true];
+  node [fontname="Inter", fontsize=12, color="#78716c"];
+  edge [fontname="Inter", fontsize=11, arrowsize=0.8];
+  s [shape=circle, style=filled, fillcolor="#1f2937", fontcolor="white", label="Inicio", width=0.8, fixedsize=true];
+  scr [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/sign-in.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Inicio de sesión</B></TD></TR></TABLE>>];
+  act [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<Acción del usuario>];
+  dec [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<Condición>];
+  err [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>Mensaje o estado de error>];
+  ok [shape=box, style="rounded,filled,bold", fillcolor="#dcfce7", color="#15803d", penwidth=2, label=<<B>Fin</B><BR/>Objetivo cumplido>];
+  alt [shape=box, style="rounded,filled", fillcolor="#e7e5e4", color="#78716c", label=<<B>Fin alternativo</B><BR/>El usuario abandona el<BR/>flujo>];
+  s -> scr [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  scr -> act [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Happy path</B>>];
+  act -> dec [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  dec -> ok [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  dec -> err [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  err -> alt [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Unhappy path</B>>];
+  { rank=same; dec; err; }
+}

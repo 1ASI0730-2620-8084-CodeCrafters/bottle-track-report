@@ -1,0 +1,36 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", fontname="Inter", nodesep=0.45, ranksep=0.55, pad=0.3, newrank=true];
+  node [fontname="Inter", fontsize=12, color="#78716c"];
+  edge [fontname="Inter", fontsize=11, arrowsize=0.8];
+  start [shape=circle, style=filled, fillcolor="#1f2937", fontcolor="white", label="Inicio", width=0.8, fixedsize=true];
+  list [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/incident-list.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Lista de incidencias</B></TD></TR></TABLE>>];
+  a1 [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<Filtra por estado o tipo<BR/>y selecciona una<BR/>incidencia>];
+  detail [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/incident-detail.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Detalle de la incidencia</B></TD></TR></TABLE>>];
+  d0 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Actualiza o<BR/>cierra el panel?>];
+  x1 [shape=box, style="rounded,filled", fillcolor="#e7e5e4", color="#78716c", label=<<B>Fin alternativo</B><BR/>Vuelve a la lista sin<BR/>modificar la incidencia>];
+  a2 [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<Revisa la evidencia y<BR/>elige el siguiente<BR/>estado>];
+  d1 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿El nuevo estado<BR/>es «Resuelta»?>];
+  d2 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Registró la<BR/>resolución?>];
+  e2 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>El panel exige describir<BR/>la acción tomada para<BR/>resolverla>];
+  d3 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿El servicio<BR/>guardó el cambio?>];
+  e3 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>Mensaje «No pudimos<BR/>guardar los cambios»; el<BR/>estado no cambia>];
+  end [shape=box, style="rounded,filled,bold", fillcolor="#dcfce7", color="#15803d", penwidth=2, label=<<B>Fin</B><BR/>La incidencia muestra su<BR/>nuevo estado en la lista>];
+  start -> list [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  list -> a1 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  a1 -> detail [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  detail -> d0 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  d0 -> a2 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Actualizar</B>>];
+  d0 -> x1 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Cerrar</B>>];
+  a2 -> d1 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  d1 -> d2 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d1 -> d3 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>No</B>>];
+  d2 -> d3 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d2 -> e2 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  e2 -> detail [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Completa</B>>, constraint=false];
+  d3 -> end [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d3 -> e3 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  e3 -> detail [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Reintenta</B>>, constraint=false];
+  { rank=same; d0; x1; }
+  { rank=same; d2; e2; }
+  { rank=same; d3; e3; }
+}

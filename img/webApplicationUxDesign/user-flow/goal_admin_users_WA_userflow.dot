@@ -1,0 +1,33 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", fontname="Inter", nodesep=0.45, ranksep=0.55, pad=0.3, newrank=true];
+  node [fontname="Inter", fontsize=12, color="#78716c"];
+  edge [fontname="Inter", fontsize=11, arrowsize=0.8];
+  start [shape=circle, style=filled, fillcolor="#1f2937", fontcolor="white", label="Inicio", width=0.8, fixedsize=true];
+  dash [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/admin-dashboard.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Dashboard del administrador</B></TD></TR></TABLE>>];
+  a1 [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<Selecciona «Usuarios» en<BR/>el menú y presiona<BR/>«Nuevo usuario»>];
+  panel [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/admin-users-new.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Usuarios · Nuevo usuario</B></TD></TR></TABLE>>];
+  d0 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Guarda o cancela?>];
+  x1 [shape=box, style="rounded,filled", fillcolor="#e7e5e4", color="#78716c", label=<<B>Fin alternativo</B><BR/>El panel se cierra sin<BR/>crear el usuario>];
+  a2 [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<Completa nombres,<BR/>correo, contraseña, rol<BR/>y estado>];
+  d1 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Campos<BR/>obligatorios<BR/>completos y<BR/>válidos?>];
+  e1 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>El panel marca junto a<BR/>cada campo el dato que<BR/>falta o es inválido>];
+  d2 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿El correo ya está<BR/>registrado?>];
+  e2 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>Mensaje «El correo ya está<BR/>registrado»; no se crea el<BR/>usuario>];
+  end [shape=box, style="rounded,filled,bold", fillcolor="#dcfce7", color="#15803d", penwidth=2, label=<<B>Fin</B><BR/>El usuario aparece en la<BR/>lista con su rol y puede<BR/>iniciar sesión>];
+  start -> dash [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  dash -> a1 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  a1 -> panel [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  panel -> a2 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  a2 -> d0 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  d0 -> d1 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Guardar</B>>];
+  d0 -> x1 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Cancelar</B>>];
+  d1 -> d2 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d1 -> e1 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  e1 -> panel [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Corrige</B>>, constraint=false];
+  d2 -> end [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>No</B>>];
+  d2 -> e2 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Sí</B>>];
+  e2 -> panel [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Cambia el correo</B>>, constraint=false];
+  { rank=same; d0; x1; }
+  { rank=same; d1; e1; }
+  { rank=same; d2; e2; }
+}

@@ -2129,117 +2129,167 @@ Los mock-ups aplican el design system sobre los wireframes. La barra lateral usa
 <a id="444-web-applications-user-flow-diagrams"></a>
 ### 4.4.4. Web Applications User Flow Diagrams.
 
-Los User Flow Diagrams muestran, para cada User Goal, el recorrido que sigue el usuario sobre los mock-ups, incluyendo el camino principal y los caminos alternativos.
+Los User Flow Diagrams describen, para cada User Goal, el recorrido que sigue el usuario en la Web Application. Cada goal se enuncia desde el rol que lo persigue, con la forma *Como [rol], quiero [acción] para [beneficio]*. Los diagramas combinan las pantallas de los mock-ups de la sección 4.4.3 con las acciones del usuario y las condiciones que deciden el camino: el **happy path**, en verde, lleva al usuario a cumplir su objetivo, y cada **unhappy path**, en rojo, muestra lo que ocurre cuando una condición no se cumple y cómo el usuario retoma el flujo.
 
-| User Goal | Rol | Happy path | Flujos alternativos |
-| :-------- | :-- | :--------- | :------------------ |
-| Crear y despachar una operación de transporte | Supervisor | Operaciones → Nueva operación → Datos → Vehículo disponible → Conductor disponible → Puntos de entrega → Guardar | No hay vehículos disponibles: la vista lo informa y ofrece volver al listado. Falta un dato obligatorio: el formulario marca el campo y no avanza. El supervisor cancela: la operación no se registra. |
-| Registrar el resultado de una entrega | Supervisor | Operación en curso → Punto de entrega → Completada | Entrega parcial: se registra la cantidad entregada y el motivo. Entrega no realizada: se registra el motivo. |
-| Registrar una incidencia con evidencia | Supervisor | Operación → Registrar incidencia → Tipo y descripción → Adjuntar foto → Guardar | La foto supera el tamaño permitido: se informa el límite. Falta el tipo de incidencia: no se permite guardar. |
-| Gestionar los usuarios de la empresa | Administrador | Dashboard → Usuarios → Nuevo usuario → Asignar rol → Guardar | El correo ya está registrado: se informa y no se crea el usuario. |
-| Iniciar sesión | Ambos | Login → Credenciales válidas → Dashboard según rol | Credenciales inválidas: se muestra el error y se mantiene el correo ingresado. |
+Los diagramas se elaboraron como Diagram-as-Code con Graphviz; sus fuentes `.dot` se encuentran en `img/webApplicationUxDesign/user-flow/`.
 
-**Administrador**
+**Leyenda**
 
-<img src="img/webApplicationUxDesign/mock-ups-wireflow/mockup_admin_WA_wireflow.png" alt="User flow del administrador sobre los mock-ups" width="800">
-
-**Supervisor**
-
-<img src="img/webApplicationUxDesign/mock-ups-wireflow/mockup_super_WA_wireflow.png" alt="User flow del supervisor sobre los mock-ups" width="800">
-
-A continuación se presentan los User Flow Diagrams organizados por User Goal para cada rol, construidos sobre los mock-ups de la Web Application.
+<p align="center"><a href="img/webApplicationUxDesign/user-flow/user_flow_legend.png"><img src="img/webApplicationUxDesign/user-flow/user_flow_legend.png" alt="Leyenda de los User Flow Diagrams" width="433"></a></p>
 
 #### Administrador
 
 **Goal 1: Iniciar sesión y revisar el estado de la operación.**
 
-<img src="img/webApplicationUxDesign/mock-ups-wireflow/goal_admin_login_WA_userflow.png" alt="User flow del administrador: iniciar sesión y revisar el estado de la operación" width="800">
+**User Goal:** Como administrador de la distribuidora, quiero iniciar sesión y revisar el estado de las operaciones del día para detectar a tiempo las entregas con problemas.
 
-**Goal:** El administrador quiere iniciar sesión en BottleTrack y revisar el estado general de las operaciones del día.
+<p align="center"><a href="img/webApplicationUxDesign/user-flow/goal_admin_login_WA_userflow.png"><img src="img/webApplicationUxDesign/user-flow/goal_admin_login_WA_userflow.png" alt="User flow: iniciar sesión y revisar el estado de la operación" width="595"></a></p>
 
-El administrador completa su correo y su contraseña, y puede marcar «Recordarme» o cambiar el idioma entre español e inglés. Al presionar «Iniciar sesión» llega al Dashboard, donde el indicador «Con incidencias» se resalta en rojo para llamar su atención y los estados de la tabla se distinguen por color (en curso, pendiente y completada). Camino alternativo: si el correo o la contraseña son incorrectos, el formulario muestra un mensaje de error y el administrador permanece en la pantalla de inicio de sesión.
+**Happy path.** El administrador ingresa su correo y su contraseña en la pantalla de inicio de sesión. Como los datos tienen un formato válido, las credenciales son correctas y su cuenta está activa, BottleTrack lo lleva al Dashboard del administrador. Si el indicador «Con incidencias» muestra operaciones afectadas, lo abre y revisa esas operaciones; si no, revisa el avance de las operaciones del día.
+
+**Unhappy paths.**
+
+- **Formato inválido:** si el correo o la contraseña están vacíos o el correo no tiene formato válido, el formulario marca el campo y no envía la solicitud.
+- **Credenciales incorrectas:** se muestra «El correo o la contraseña son incorrectos» y se conserva el correo ingresado para que lo corrija.
+- **Cuenta inactiva:** se muestra «Tu cuenta está inactiva» y el usuario no ingresa a la aplicación.
 
 **Goal 2: Registrar un nuevo usuario.**
 
-<img src="img/webApplicationUxDesign/mock-ups-wireflow/goal_admin_users_WA_userflow.png" alt="User flow del administrador: registrar un nuevo usuario" width="800">
+**User Goal:** Como administrador, quiero registrar a un nuevo usuario de mi empresa y asignarle un rol para que acceda solo a las funciones que le corresponden.
 
-**Goal:** El administrador quiere registrar un nuevo usuario de la empresa y asignarle un rol.
+<p align="center"><a href="img/webApplicationUxDesign/user-flow/goal_admin_users_WA_userflow.png"><img src="img/webApplicationUxDesign/user-flow/goal_admin_users_WA_userflow.png" alt="User flow: registrar un nuevo usuario" width="616"></a></p>
 
-El administrador entra a «Usuarios» desde el menú lateral y abre el panel «Nuevo usuario», que se muestra sobre la lista oscurecida para mantener el contexto. Completa los datos, elige el rol y el estado, y confirma con el botón naranja «Guardar». Caminos alternativos: si el correo ya está registrado o falta un campo obligatorio, el panel marca el error junto al campo; si presiona «Cancelar», el panel se cierra sin guardar cambios.
+**Happy path.** Desde el Dashboard, el administrador entra a «Usuarios» y abre el panel «Nuevo usuario». Completa nombres, correo, contraseña, rol y estado, y presiona «Guardar». Como los datos son válidos y el correo no está registrado, el usuario aparece en la lista con su rol y ya puede iniciar sesión.
+
+**Unhappy paths.**
+
+- **Datos incompletos o inválidos:** el panel marca junto a cada campo el dato que falta o es inválido, y el administrador lo corrige sin perder lo ingresado.
+- **Correo ya registrado:** se muestra «El correo ya está registrado» y no se crea el usuario hasta que el administrador use otro correo.
+- **Cancelar:** el panel se cierra sin crear el usuario.
 
 **Goal 3: Registrar vehículos y conductores de la flota.**
 
-<img src="img/webApplicationUxDesign/mock-ups-wireflow/goal_admin_fleet_WA_userflow.png" alt="User flow del administrador: registrar vehículos y conductores de la flota" width="800">
+**User Goal:** Como administrador, quiero registrar los vehículos y los conductores de mi flota para que el supervisor pueda asignarlos a las operaciones de transporte.
 
-**Goal:** El administrador quiere registrar los vehículos y los conductores de la flota para que estén disponibles al planificar operaciones.
+<p align="center"><a href="img/webApplicationUxDesign/user-flow/goal_admin_fleet_WA_userflow.png"><img src="img/webApplicationUxDesign/user-flow/goal_admin_fleet_WA_userflow.png" alt="User flow: registrar vehículos y conductores de la flota" width="597"></a></p>
 
-El administrador recorre el submenú Flota: primero registra un vehículo y después un conductor, en paneles laterales con la misma estructura, lo que hace el flujo predecible. Los vehículos y conductores que quedan con estado «Disponible» aparecen después como opciones al crear una operación de transporte. Camino alternativo: si la placa, el DNI o el número de licencia ya existen, o tienen un formato inválido, el panel muestra el error y no guarda el registro.
+**Happy path.** El administrador entra a Flota › Vehículos y registra un vehículo con una placa válida y su capacidad; el vehículo queda con estado «Disponible». Luego entra a Flota › Conductores y registra un conductor con su DNI y su licencia. Ambos quedan disponibles para asignarse al crear una operación.
+
+**Unhappy paths.**
+
+- **Formato inválido:** si la placa no sigue el formato ABC-123, la capacidad no es mayor que cero, el DNI no tiene 8 dígitos o la licencia no es válida, el panel marca el campo y no guarda.
+- **Datos duplicados:** si la placa, el DNI o la licencia ya existen en la empresa, se muestra el dato duplicado y no se guarda el registro.
 
 **Goal 4: Configurar los datos de la empresa.**
 
-<img src="img/webApplicationUxDesign/mock-ups-wireflow/goal_admin_company_WA_userflow.png" alt="User flow del administrador: configurar los datos de la empresa" width="800">
+**User Goal:** Como administrador, quiero mantener actualizados los datos de mi empresa para que la información de contacto de BottleTrack sea correcta.
 
-**Goal:** El administrador quiere mantener actualizados los datos de su empresa en BottleTrack.
+<p align="center"><a href="img/webApplicationUxDesign/user-flow/goal_admin_company_WA_userflow.png"><img src="img/webApplicationUxDesign/user-flow/goal_admin_company_WA_userflow.png" alt="User flow: configurar los datos de la empresa" width="621"></a></p>
 
-La pantalla agrupa los datos de la empresa en una sola tarjeta con el logo en la parte superior. El administrador edita los campos necesarios y confirma con el botón naranja «Guardar cambios». Camino alternativo: si el RUC no tiene 11 dígitos o el correo no es válido, el formulario señala el campo y no guarda hasta que se corrija.
+**Happy path.** El administrador entra a «Empresa», edita la razón social, el teléfono o la dirección y presiona «Guardar cambios». Como los campos obligatorios están completos y el servicio guarda los cambios, la tarjeta de la empresa muestra los datos actualizados.
+
+**Unhappy paths.**
+
+- **Campo obligatorio vacío:** el formulario señala el campo y no guarda hasta que se complete.
+- **Error del servicio:** se muestra «No pudimos guardar los cambios. Inténtalo de nuevo» y los datos anteriores se mantienen.
+- **Cancelar:** se descartan los cambios.
 
 **Goal 5: Recuperar el acceso a la cuenta.**
 
-<img src="img/webApplicationUxDesign/mock-ups-wireflow/goal_admin_password_WA_userflow.png" alt="User flow del administrador: recuperar el acceso a la cuenta" width="800">
+**User Goal:** Como usuario de BottleTrack, quiero recuperar el acceso a mi cuenta cuando olvido mi contraseña para seguir trabajando sin depender de soporte.
 
-**Goal:** El usuario quiere recuperar el acceso a su cuenta cuando olvidó su contraseña.
+<p align="center"><a href="img/webApplicationUxDesign/user-flow/goal_admin_password_WA_userflow.png"><img src="img/webApplicationUxDesign/user-flow/goal_admin_password_WA_userflow.png" alt="User flow: recuperar el acceso a la cuenta" width="614"></a></p>
 
-La pantalla de recuperación mantiene la misma composición que el inicio de sesión, por lo que el usuario no pierde el contexto. Un recuadro informativo le recuerda la vigencia del enlace y le sugiere revisar la carpeta de spam. Caminos alternativos: si el correo no tiene un formato válido, se marca el campo; con «Volver a iniciar sesión» puede regresar sin enviar el enlace.
+**Happy path.** Desde el inicio de sesión, el usuario presiona «¿Olvidaste tu contraseña?», ingresa su correo y presiona «Enviar enlace». La pantalla confirma el envío y le recuerda que el enlace vence en 30 minutos. El usuario recibe el correo, define una nueva contraseña e inicia sesión.
+
+**Unhappy paths.**
+
+- **Correo inválido:** el campo se marca como inválido y no se envía el enlace.
+- **El correo no llega:** el recuadro informativo le sugiere revisar la carpeta de spam o solicitar un nuevo enlace.
+- **Volver:** con «Volver a iniciar sesión» regresa sin enviar el enlace.
 
 #### Supervisor de flota
 
 **Goal 1: Iniciar sesión y monitorear las operaciones del día.**
 
-<img src="img/webApplicationUxDesign/mock-ups-wireflow/goal_super_login_WA_userflow.png" alt="User flow del supervisor de flota: iniciar sesión y monitorear las operaciones del día" width="800">
+**User Goal:** Como supervisor de flota, quiero iniciar sesión y conocer de inmediato el estado de las operaciones y entregas del día para priorizar las que necesitan atención.
 
-**Goal:** El supervisor quiere iniciar sesión y conocer de inmediato el estado de las operaciones y entregas del día.
+<p align="center"><a href="img/webApplicationUxDesign/user-flow/goal_super_login_WA_userflow.png"><img src="img/webApplicationUxDesign/user-flow/goal_super_login_WA_userflow.png" alt="User flow: iniciar sesión y monitorear las operaciones del día" width="589"></a></p>
 
-Tras iniciar sesión, el supervisor ve su Dashboard con el indicador de incidencias resaltado en rojo y los estados de las operaciones diferenciados por color. Desde la barra superior puede buscar una operación o una incidencia específica. Camino alternativo: si las credenciales no son válidas, se muestra un mensaje de error en el formulario de inicio de sesión.
+**Happy path.** El supervisor inicia sesión con credenciales correctas y llega a su Dashboard. Si hay entregas retrasadas o con incidencias, busca la operación desde la barra superior y abre su detalle para atenderla; si no, sigue el avance de las operaciones en curso.
+
+**Unhappy paths.**
+
+- **Credenciales incorrectas:** se muestra «El correo o la contraseña son incorrectos» y vuelve a intentarlo.
+- **Servicio no disponible:** se muestra «No pudimos conectar con BottleTrack» y el supervisor reintenta en unos minutos.
 
 **Goal 2: Crear una operación de transporte y definir su ruta.**
 
-<img src="img/webApplicationUxDesign/mock-ups-wireflow/goal_super_create_operation_WA_userflow.png" alt="User flow del supervisor de flota: crear una operación de transporte y definir su ruta" width="800">
+**User Goal:** Como supervisor de flota, quiero crear una operación de transporte con su vehículo, su conductor y sus puntos de entrega para planificar el reparto del día.
 
-**Goal:** El supervisor quiere crear una operación de transporte, asignarle un vehículo y un conductor, y definir los puntos de entrega de su ruta.
+<p align="center"><a href="img/webApplicationUxDesign/user-flow/goal_super_create_operation_WA_userflow.png"><img src="img/webApplicationUxDesign/user-flow/goal_super_create_operation_WA_userflow.png" alt="User flow: crear una operación de transporte y definir su ruta" width="558"></a></p>
 
-El formulario de creación numera los pasos y resalta en naranja el vehículo y el conductor seleccionados; solo se listan los que tienen estado «Disponible». En la pantalla de ruta, el supervisor ve las paradas sobre el mapa y en la lista «Orden de paradas», y confirma la secuencia con «Guardar orden de ruta». Caminos alternativos: si no hay vehículos o conductores disponibles para la fecha, el paso correspondiente lo indica y no permite continuar; con «Cancelar» vuelve a la lista sin crear la operación.
+**Happy path.** En la lista de operaciones, el supervisor presiona «Nueva operación», ingresa la descripción y la fecha, elige un vehículo y un conductor disponibles y presiona «Guardar y continuar a Ruta». En la pantalla de ruta agrega los puntos de entrega con su cantidad y ordena las paradas. La operación queda «Pendiente», lista para iniciarse.
 
-**Goal 3: Hacer seguimiento a una operación y finalizarla.**
+**Unhappy paths.**
 
-<img src="img/webApplicationUxDesign/mock-ups-wireflow/goal_super_finish_operation_WA_userflow.png" alt="User flow del supervisor de flota: hacer seguimiento a una operación y finalizarla" width="800">
+- **Descripción o fecha inválidas:** el formulario marca el campo y no avanza.
+- **Sin recursos disponibles:** la vista informa que no hay vehículos o conductores disponibles y el supervisor vuelve a la lista sin crear la operación.
+- **Recurso tomado por otra operación:** si el vehículo o el conductor dejó de estar disponible al guardar, se muestra «Ese recurso ya no está disponible. Elige otro».
+- **Parada inválida:** si falta el punto de entrega o la cantidad no es mayor que cero, el diálogo lo marca y no agrega la parada.
 
-**Goal:** El supervisor quiere revisar el avance de una operación en curso y finalizarla cuando termine el recorrido.
+**Goal 3: Registrar las entregas y finalizar una operación.**
 
-La barra de progreso naranja y las etiquetas de color de cada entrega permiten al supervisor ver de un vistazo qué falta. La ventana de confirmación le advierte que las entregas pendientes se registrarán como no entregadas, para evitar cierres por error. Caminos alternativos: con «Cancelar» la operación sigue en curso; con «Ver ruta» puede revisar las paradas en el mapa antes de finalizar.
+**User Goal:** Como supervisor de flota, quiero registrar el resultado de cada entrega y finalizar la operación para cerrar la jornada con información completa sobre lo entregado.
+
+<p align="center"><a href="img/webApplicationUxDesign/user-flow/goal_super_finish_operation_WA_userflow.png"><img src="img/webApplicationUxDesign/user-flow/goal_super_finish_operation_WA_userflow.png" alt="User flow: registrar las entregas y finalizar una operación" width="1122"></a></p>
+
+**Happy path.** El supervisor abre la operación «En curso» y registra el resultado de cada entrega: completa, parcial o no realizada. Repite el registro mientras queden entregas pendientes. Cuando no queda ninguna, presiona «Finalizar operación» y confirma. La operación queda «Completada» y su vehículo y su conductor vuelven a estar disponibles.
+
+**Unhappy paths.**
+
+- **Entrega parcial incompleta:** el diálogo exige una cantidad mayor que cero y menor que la planificada, y el motivo de la diferencia.
+- **Entrega no realizada sin motivo:** el diálogo exige el motivo antes de registrarla.
+- **Cancelar la finalización:** la operación sigue «En curso» y el supervisor vuelve al detalle.
 
 **Goal 4: Gestionar las incidencias de las operaciones.**
 
-<img src="img/webApplicationUxDesign/mock-ups-wireflow/goal_super_incidents_WA_userflow.png" alt="User flow del supervisor de flota: gestionar las incidencias de las operaciones" width="800">
+**User Goal:** Como supervisor de flota, quiero revisar las incidencias de mis operaciones y actualizar su estado para resolverlas antes del cierre de la jornada.
 
-**Goal:** El supervisor quiere revisar las incidencias reportadas durante las operaciones y actualizar su estado.
+<p align="center"><a href="img/webApplicationUxDesign/user-flow/goal_super_incidents_WA_userflow.png"><img src="img/webApplicationUxDesign/user-flow/goal_super_incidents_WA_userflow.png" alt="User flow: gestionar las incidencias de las operaciones" width="812"></a></p>
 
-En los mockups, cada tipo de incidencia (retraso, producto dañado, falla de vehículo, dirección incorrecta) tiene un ícono, y los estados se distinguen por color: en revisión en amarillo, abierta en rojo y resuelta en verde. Al seleccionar una incidencia se abre el panel de detalle, donde el supervisor revisa la evidencia, cambia el estado y deja un comentario sobre la acción tomada. Camino alternativo: con «Cerrar» vuelve a la lista sin modificar la incidencia.
+**Happy path.** El supervisor filtra la lista de incidencias y abre una. En el panel de detalle revisa la evidencia y elige el siguiente estado; si la marca como «Resuelta», describe la acción tomada. El servicio guarda el cambio y la incidencia muestra su nuevo estado en la lista.
+
+**Unhappy paths.**
+
+- **Resolución vacía:** el panel no permite marcar la incidencia como «Resuelta» sin describir la acción tomada.
+- **Error del servicio:** se muestra «No pudimos guardar los cambios» y el estado no cambia.
+- **Cerrar:** vuelve a la lista sin modificar la incidencia.
 
 **Goal 5: Consultar el historial de operaciones.**
 
-<img src="img/webApplicationUxDesign/mock-ups-wireflow/goal_super_history_WA_userflow.png" alt="User flow del supervisor de flota: consultar el historial de operaciones" width="800">
+**User Goal:** Como supervisor de flota, quiero consultar las operaciones finalizadas para analizar sus resultados y la merma de cada jornada.
 
-**Goal:** El supervisor quiere consultar las operaciones finalizadas para analizar su resultado.
+<p align="center"><a href="img/webApplicationUxDesign/user-flow/goal_super_history_WA_userflow.png"><img src="img/webApplicationUxDesign/user-flow/goal_super_history_WA_userflow.png" alt="User flow: consultar el historial de operaciones" width="602"></a></p>
 
-La tabla del historial agrega la ruta y la duración de cada operación, y los estados finales se diferencian por color (completada en verde y cancelada en rojo). El supervisor puede exportar el historial filtrado con el botón «Exportar». Al abrir una operación, el detalle se muestra sin acciones de edición, porque la operación ya está cerrada.
+**Happy path.** El supervisor entra a «Historial» y filtra por rango de fechas, conductor o estado. Con los resultados, abre el detalle de una operación en modo lectura para revisar sus entregas, incidencias y merma, o exporta el historial filtrado.
+
+**Unhappy paths.**
+
+- **Sin resultados:** la tabla indica que no hay operaciones con esos filtros y el supervisor los cambia.
 
 **Goal 6: Revisar el perfil y cerrar sesión.**
 
-<img src="img/webApplicationUxDesign/mock-ups-wireflow/goal_super_profile_WA_userflow.png" alt="User flow del supervisor de flota: revisar el perfil y cerrar sesión" width="800">
+**User Goal:** Como supervisor de flota, quiero revisar los datos de mi cuenta y cerrar sesión de forma segura para que nadie use mi cuenta en un equipo compartido.
 
-**Goal:** El supervisor quiere revisar los datos de su cuenta y cerrar sesión de forma segura.
+<p align="center"><a href="img/webApplicationUxDesign/user-flow/goal_super_profile_WA_userflow.png"><img src="img/webApplicationUxDesign/user-flow/goal_super_profile_WA_userflow.png" alt="User flow: revisar el perfil y cerrar sesión" width="911"></a></p>
 
-La tarjeta de perfil muestra el rol del usuario como una etiqueta destacada y separa claramente las dos acciones: «Editar datos» y el botón naranja «Cerrar sesión». Al cerrar sesión, el sistema invalida la sesión actual y redirige al inicio de sesión, por lo que nadie puede volver a la aplicación con el botón «Atrás» del navegador.
+**Happy path.** Desde el menú, el supervisor abre su perfil. Puede editar sus nombres y su correo y guardarlos, o presionar «Cerrar sesión». Al cerrar sesión, BottleTrack invalida la sesión y lo lleva al inicio de sesión.
+
+**Unhappy paths.**
+
+- **Correo ya registrado:** se muestra «El correo ya está registrado» y no se guardan los cambios.
+- **Intento de volver con «Atrás»:** las rutas de la aplicación están protegidas, por lo que el navegador regresa al inicio de sesión.
 
 <a id="45-web-applications-prototyping"></a>
 ## 4.5. Web Applications Prototyping.
@@ -3448,6 +3498,7 @@ Los diagramas de arquitectura, de clases y de base de datos se elaboraron como D
 
 | Diagrama | Lenguaje | Archivo fuente |
 | :------- | :------- | :------------- |
+| User Flow Diagrams | Graphviz DOT | `img/webApplicationUxDesign/user-flow/*.dot` |
 | C4 - System Context | Structurizr DSL | `img/DD-SoftwareArchitecture/contextDiagram.txt` |
 | C4 - Containers | Structurizr DSL | `img/DD-SoftwareArchitecture/containerDiagram.txt` |
 | C4 - Components, Identity and Access Management | Structurizr DSL | `img/DD-SoftwareArchitecture/componentIAM_D.txt` |

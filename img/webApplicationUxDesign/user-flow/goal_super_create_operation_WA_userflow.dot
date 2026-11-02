@@ -1,0 +1,43 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", fontname="Inter", nodesep=0.45, ranksep=0.55, pad=0.3, newrank=true];
+  node [fontname="Inter", fontsize=12, color="#78716c"];
+  edge [fontname="Inter", fontsize=11, arrowsize=0.8];
+  start [shape=circle, style=filled, fillcolor="#1f2937", fontcolor="white", label="Inicio", width=0.8, fixedsize=true];
+  list [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/operation-list.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Lista de operaciones</B></TD></TR></TABLE>>];
+  a1 [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<Presiona «Nueva<BR/>operación»>];
+  new [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/operation-new.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Crear operación</B></TD></TR></TABLE>>];
+  d1 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Descripción y<BR/>fecha válidas?>];
+  e1 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>El formulario marca la<BR/>descripción o la fecha y<BR/>no avanza>];
+  d2 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Hay vehículo y<BR/>conductor<BR/>disponibles?>];
+  x1 [shape=box, style="rounded,filled", fillcolor="#e7e5e4", color="#78716c", label=<<B>Fin alternativo</B><BR/>La vista informa que no<BR/>hay recursos; vuelve a la<BR/>lista sin crear la<BR/>operación>];
+  a2 [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<Elige vehículo y<BR/>conductor y presiona<BR/>«Guardar y continuar a<BR/>Ruta»>];
+  d3 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿El recurso sigue<BR/>disponible?>];
+  e3 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>Mensaje «Ese recurso ya no<BR/>está disponible. Elige<BR/>otro»>];
+  route [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/operation-route.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Ruta y orden de paradas</B></TD></TR></TABLE>>];
+  a3 [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<Agrega los puntos de<BR/>entrega con su cantidad<BR/>y ordena las paradas>];
+  d4 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Punto y cantidad<BR/>válidos?>];
+  e4 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>El diálogo marca el punto<BR/>o la cantidad y no agrega<BR/>la parada>];
+  end [shape=box, style="rounded,filled,bold", fillcolor="#dcfce7", color="#15803d", penwidth=2, label=<<B>Fin</B><BR/>La operación queda<BR/>«Pendiente» con su ruta<BR/>lista para iniciarse>];
+  start -> list [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  list -> a1 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  a1 -> new [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  new -> d1 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  d1 -> d2 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d1 -> e1 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  e1 -> new [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Corrige</B>>, constraint=false];
+  d2 -> a2 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d2 -> x1 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  a2 -> d3 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  d3 -> route [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d3 -> e3 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  e3 -> new [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Elige otro</B>>, constraint=false];
+  route -> a3 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  a3 -> d4 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  d4 -> end [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d4 -> e4 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  e4 -> route [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Corrige</B>>, constraint=false];
+  { rank=same; d1; e1; }
+  { rank=same; d2; x1; }
+  { rank=same; d3; e3; }
+  { rank=same; d4; e4; }
+}

@@ -1,0 +1,42 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", fontname="Inter", nodesep=0.45, ranksep=0.55, pad=0.3, newrank=true];
+  node [fontname="Inter", fontsize=12, color="#78716c"];
+  edge [fontname="Inter", fontsize=11, arrowsize=0.8];
+  start [shape=circle, style=filled, fillcolor="#1f2937", fontcolor="white", label="Inicio", width=0.8, fixedsize=true];
+  dash [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/admin-dashboard.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Dashboard del administrador</B></TD></TR></TABLE>>];
+  a1 [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<Flota › Vehículos ›<BR/>«Nuevo vehículo»>];
+  veh [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/admin-vehicle-new.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Registrar vehículo</B></TD></TR></TABLE>>];
+  d1 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Placa ABC-123 y<BR/>capacidad mayor<BR/>que cero?>];
+  e1 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>El panel marca la placa o<BR/>la capacidad con formato<BR/>inválido>];
+  d2 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿La placa ya está<BR/>registrada?>];
+  e2 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>Mensaje «La placa ya está<BR/>registrada»; no se guarda<BR/>el vehículo>];
+  a2 [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<El vehículo queda<BR/>«Disponible»; Flota ›<BR/>Conductores › «Nuevo<BR/>conductor»>];
+  drv [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/admin-driver-new.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Registrar conductor</B></TD></TR></TABLE>>];
+  d3 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿DNI de 8 dígitos<BR/>y licencia válida?>];
+  e3 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>El panel marca el DNI o la<BR/>licencia con formato<BR/>inválido>];
+  d4 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿El DNI o la<BR/>licencia ya<BR/>existen?>];
+  e4 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>Mensaje indicando el dato<BR/>duplicado; no se guarda el<BR/>conductor>];
+  end [shape=box, style="rounded,filled,bold", fillcolor="#dcfce7", color="#15803d", penwidth=2, label=<<B>Fin</B><BR/>Vehículo y conductor<BR/>disponibles para asignarse<BR/>a una operación>];
+  start -> dash [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  dash -> a1 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  a1 -> veh [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  veh -> d1 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  d1 -> d2 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d1 -> e1 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  e1 -> veh [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Corrige</B>>, constraint=false];
+  d2 -> a2 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>No</B>>];
+  d2 -> e2 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Sí</B>>];
+  e2 -> veh [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Revisa la placa</B>>, constraint=false];
+  a2 -> drv [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  drv -> d3 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  d3 -> d4 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d3 -> e3 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  e3 -> drv [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Corrige</B>>, constraint=false];
+  d4 -> end [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>No</B>>];
+  d4 -> e4 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Sí</B>>];
+  e4 -> drv [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Revisa los datos</B>>, constraint=false];
+  { rank=same; d1; e1; }
+  { rank=same; d2; e2; }
+  { rank=same; d3; e3; }
+  { rank=same; d4; e4; }
+}

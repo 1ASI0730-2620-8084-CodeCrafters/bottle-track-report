@@ -1,0 +1,42 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", fontname="Inter", nodesep=0.45, ranksep=0.55, pad=0.3, newrank=true];
+  node [fontname="Inter", fontsize=12, color="#78716c"];
+  edge [fontname="Inter", fontsize=11, arrowsize=0.8];
+  start [shape=circle, style=filled, fillcolor="#1f2937", fontcolor="white", label="Inicio", width=0.8, fixedsize=true];
+  list [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/operation-list.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Lista de operaciones</B></TD></TR></TABLE>>];
+  a1 [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<Selecciona la operación<BR/>«En curso»>];
+  detail [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/operation-detail.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Detalle de la operación</B></TD></TR></TABLE>>];
+  a2 [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<Registra el resultado de<BR/>una entrega>];
+  d1 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Cuál es el<BR/>resultado?>];
+  d2 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Cantidad menor<BR/>que la planificada<BR/>y motivo?>];
+  e2 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>El diálogo exige una<BR/>cantidad válida y el<BR/>motivo de la entrega<BR/>parcial>];
+  d3 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Registró el<BR/>motivo?>];
+  e3 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>El diálogo exige el motivo<BR/>de la entrega no realizada>];
+  d4 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Quedan entregas<BR/>pendientes?>];
+  a3 [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<Presiona «Finalizar<BR/>operación»>];
+  fin [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/operation-finish.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Confirmar finalización</B></TD></TR></TABLE>>];
+  d5 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Confirma la<BR/>finalización?>];
+  end [shape=box, style="rounded,filled,bold", fillcolor="#dcfce7", color="#15803d", penwidth=2, label=<<B>Fin</B><BR/>La operación queda<BR/>«Completada» y sus<BR/>recursos vuelven a estar<BR/>disponibles>];
+  start -> list [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  list -> a1 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  a1 -> detail [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  detail -> a2 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  a2 -> d1 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  d1 -> d4 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Completa</B>>];
+  d1 -> d2 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Parcial</B>>];
+  d1 -> d3 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>No realizada</B>>];
+  d2 -> d4 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d2 -> e2 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  e2 -> d2 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Corrige</B>>, constraint=false];
+  d3 -> d4 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d3 -> e3 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  e3 -> d3 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Corrige</B>>, constraint=false];
+  d4 -> detail [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí: registra la siguiente</B>>, constraint=false];
+  d4 -> a3 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>No</B>>];
+  a3 -> fin [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  fin -> d5 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  d5 -> end [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d5 -> detail [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Cancelar: sigue en curso</B>>, constraint=false];
+  { rank=same; d2; e2; }
+  { rank=same; d3; e3; }
+}

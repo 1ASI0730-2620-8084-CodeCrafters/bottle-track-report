@@ -1,0 +1,35 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", fontname="Inter", nodesep=0.45, ranksep=0.55, pad=0.3, newrank=true];
+  node [fontname="Inter", fontsize=12, color="#78716c"];
+  edge [fontname="Inter", fontsize=11, arrowsize=0.8];
+  start [shape=circle, style=filled, fillcolor="#1f2937", fontcolor="white", label="Inicio", width=0.8, fixedsize=true];
+  login [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/sign-in.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Inicio de sesión</B></TD></TR></TABLE>>];
+  a1 [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<Ingresa su correo y<BR/>contraseña y presiona<BR/>«Iniciar sesión»>];
+  d1 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Correo y<BR/>contraseña con<BR/>formato válido?>];
+  e1 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>El formulario marca el<BR/>campo con error y no envía<BR/>la solicitud>];
+  d2 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Las credenciales<BR/>son correctas?>];
+  e2 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>Mensaje «El correo o la<BR/>contraseña son<BR/>incorrectos»; se conserva<BR/>el correo>];
+  d3 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿La cuenta está<BR/>activa?>];
+  x1 [shape=box, style="rounded,filled", fillcolor="#e7e5e4", color="#78716c", label=<<B>Fin alternativo</B><BR/>Mensaje «Tu cuenta está<BR/>inactiva»; no ingresa a la<BR/>aplicación>];
+  dash [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/admin-dashboard.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Dashboard del administrador</B></TD></TR></TABLE>>];
+  d4 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Hay operaciones<BR/>con incidencias?>];
+  end1 [shape=box, style="rounded,filled,bold", fillcolor="#dcfce7", color="#15803d", penwidth=2, label=<<B>Fin</B><BR/>Abre el indicador «Con<BR/>incidencias» y revisa las<BR/>operaciones afectadas>];
+  end2 [shape=box, style="rounded,filled,bold", fillcolor="#dcfce7", color="#15803d", penwidth=2, label=<<B>Fin</B><BR/>Revisa el avance de las<BR/>operaciones del día>];
+  start -> login [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  login -> a1 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  a1 -> d1 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  d1 -> d2 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d1 -> e1 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  e1 -> login [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Corrige</B>>, constraint=false];
+  d2 -> d3 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d2 -> e2 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  e2 -> login [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Reintenta</B>>, constraint=false];
+  d3 -> dash [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d3 -> x1 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  dash -> d4 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  d4 -> end1 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d4 -> end2 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>No</B>>];
+  { rank=same; d1; e1; }
+  { rank=same; d2; e2; }
+  { rank=same; d3; x1; }
+}

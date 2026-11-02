@@ -1,0 +1,32 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", fontname="Inter", nodesep=0.45, ranksep=0.55, pad=0.3, newrank=true];
+  node [fontname="Inter", fontsize=12, color="#78716c"];
+  edge [fontname="Inter", fontsize=11, arrowsize=0.8];
+  start [shape=circle, style=filled, fillcolor="#1f2937", fontcolor="white", label="Inicio", width=0.8, fixedsize=true];
+  login [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/sign-in.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Inicio de sesión</B></TD></TR></TABLE>>];
+  a1 [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<Ingresa su correo y<BR/>contraseña y presiona<BR/>«Iniciar sesión»>];
+  d1 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Las credenciales<BR/>son correctas?>];
+  e1 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>Mensaje «El correo o la<BR/>contraseña son<BR/>incorrectos»>];
+  d2 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿El servicio<BR/>respondió?>];
+  e2 [shape=box, style="rounded,filled", fillcolor="#fee2e2", color="#dc2626", penwidth=1.5, label=<<B>Unhappy path</B><BR/>Mensaje «No pudimos<BR/>conectar con BottleTrack»;<BR/>reintenta en unos minutos>];
+  dash [shape=plain, label=<<TABLE BORDER="2" COLOR="#f97316" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="white"><TR><TD FIXEDSIZE="TRUE" WIDTH="224" HEIGHT="140"><IMG SRC="screens/supervisor-dashboard.png" SCALE="TRUE"/></TD></TR><TR><TD BGCOLOR="#fff7ed"><B>Dashboard del supervisor</B></TD></TR></TABLE>>];
+  d3 [shape=diamond, style=filled, fillcolor="#fef3c7", color="#d97706", penwidth=1.5, margin="0.02,0.02", label=<¿Hay entregas<BR/>retrasadas o con<BR/>incidencias?>];
+  a2 [shape=box, style="rounded,filled", fillcolor="#f5f5f4", color="#a8a29e", label=<Busca la operación desde<BR/>la barra superior y abre<BR/>su detalle>];
+  end1 [shape=box, style="rounded,filled,bold", fillcolor="#dcfce7", color="#15803d", penwidth=2, label=<<B>Fin</B><BR/>Atiende la operación<BR/>afectada>];
+  end2 [shape=box, style="rounded,filled,bold", fillcolor="#dcfce7", color="#15803d", penwidth=2, label=<<B>Fin</B><BR/>Sigue el avance de las<BR/>operaciones en curso>];
+  start -> login [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  login -> a1 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  a1 -> d1 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  d1 -> d2 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d1 -> e1 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  e1 -> login [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Reintenta</B>>, constraint=false];
+  d2 -> dash [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  d2 -> e2 [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>No</B>>];
+  e2 -> login [color="#dc2626", fontcolor="#dc2626", style=dashed, penwidth=1.6, label=<<B>Reintenta</B>>, constraint=false];
+  dash -> d3 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  d3 -> a2 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>Sí</B>>];
+  a2 -> end1 [color="#15803d", fontcolor="#15803d", penwidth=2.2];
+  d3 -> end2 [color="#15803d", fontcolor="#15803d", penwidth=2.2, label=<<B>No</B>>];
+  { rank=same; d1; e1; }
+  { rank=same; d2; e2; }
+}
