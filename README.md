@@ -2377,32 +2377,77 @@ Se elaboró un diagrama de componentes por bounded context. Todos siguen la mism
 <a id="471-class-diagrams"></a>
 ### 4.7.1. Class Diagrams.
 
-El diagrama de clases representa el modelo de dominio de cada bounded context. Sigue las convenciones de C#: clases, enumeraciones y métodos en PascalCase, atributos en camelCase y todos los nombres en inglés, tomados del Ubiquitous Language de la sección 2.5. Cada clase se marca con su estereotipo de DDD (*Aggregate Root*, *Entity* o *Value Object*). Las relaciones entre contextos se representan con dependencias por identificador, ya que un agregado nunca contiene a otro de un contexto distinto.
+Los diagramas de clases se presentan en dos versiones, una por producto, porque cada uno se programa en un lenguaje distinto y sigue sus propias convenciones de nomenclatura: la Frontend Web Application en JavaScript y el Backend en C#. Ambas se organizan por bounded context, con nombres en inglés tomados del Ubiquitous Language de la sección 2.5.
 
-El diagrama se elaboró como Diagram-as-Code con PlantUML; su fuente es `img/Software-Object-Oriented-Design/class-diagrams.puml`.
+Ambos diagramas se elaboraron como Diagram-as-Code con PlantUML, y sus fuentes son `img/Software-Object-Oriented-Design/frontend-class-diagrams.puml` y `img/Software-Object-Oriented-Design/backend-class-diagrams.puml`. Cada miembro muestra su visibilidad (`+` público, `-` privado) y todas las relaciones indican su nombre, su dirección y su multiplicidad. Los getters del frontend se indican con una barra antes del nombre (`/fullName`).
 
-<img src="img/Software-Object-Oriented-Design/ClassDiagrams.png" alt="Diagrama de clases completo de BottleTrack" width="800">
+**Frontend Web Application (JavaScript)**
 
-**Identity and Access Management.** `Organization` y `User` son agregados independientes; el rol del usuario determina las vistas a las que accede.
+<img src="img/Software-Object-Oriented-Design/frontend-class-diagrams.png" alt="Diagrama de clases completo de la Frontend Web Application" width="800">
 
-<img src="img/Software-Object-Oriented-Design/class-identity-access.png" alt="Diagrama de clases de Identity and Access Management" width="800">
+**Backend (C#)**
 
-**Fleet Management.** `Vehicle` y `Driver` controlan su propia disponibilidad mediante `Reserve` y `Release`.
+<img src="img/Software-Object-Oriented-Design/backend-class-diagrams.png" alt="Diagrama de clases completo del Backend" width="800">
 
-<img src="img/Software-Object-Oriented-Design/class-fleet-management.png" alt="Diagrama de clases de Fleet Management" width="800">
+#### Identity and Access Management
 
-**Operations and Routes.** `TransportOperation` es la raíz de agregado y contiene sus `DeliveryStop`. Toda modificación de una parada pasa por la operación, que valida las transiciones de estado y calcula el avance.
+Gestiona la organización y sus usuarios. `Organization` y `User` son agregados independientes, y el rol del usuario determina las vistas a las que accede. En el frontend, los comandos llevan los datos de cada acción (iniciar sesión, registrar o actualizar un usuario) y los assemblers los convierten en recursos del API. En el backend, `IUserRepository` e `IOrganizationRepository` definen cómo se guardan y buscan.
 
-<img src="img/Software-Object-Oriented-Design/class-operations-routes.png" alt="Diagrama de clases de Operations and Routes" width="800">
+*Frontend*
 
-**IoT Monitoring.** `IoTDevice` evalúa cada `SensorReading` contra su `SafeRange` y genera una `Alert` cuando la lectura sale del rango o supera el umbral de impacto.
+<img src="img/Software-Object-Oriented-Design/frontend-class-identity-access.png" alt="Diagrama de clases de Identity and Access Management en el frontend" width="800">
 
-<img src="img/Software-Object-Oriented-Design/class-iot-monitoring.png" alt="Diagrama de clases de IoT Monitoring" width="800">
+*Backend*
 
-**Incident Management.** `Incident` contiene sus `Evidence` y registra su origen: el supervisor, la bodega o una alerta IoT.
+<img src="img/Software-Object-Oriented-Design/backend-class-identity-access.png" alt="Diagrama de clases de Identity and Access Management en el backend" width="800">
 
-<img src="img/Software-Object-Oriented-Design/class-incident-management.png" alt="Diagrama de clases de Incident Management" width="800">
+#### Fleet Management
 
+Administra los vehículos y los conductores de la empresa. Cada uno controla su propia disponibilidad: en el backend mediante `Reserve` y `Release`, y en el frontend con el getter `isAvailable`, que se deriva de su estado.
+
+*Frontend*
+
+<img src="img/Software-Object-Oriented-Design/frontend-class-fleet-management.png" alt="Diagrama de clases de Fleet Management en el frontend" width="800">
+
+*Backend*
+
+<img src="img/Software-Object-Oriented-Design/backend-class-fleet-management.png" alt="Diagrama de clases de Fleet Management en el backend" width="800">
+
+#### Operations and Routes
+
+Planifica y ejecuta las operaciones de transporte. `TransportOperation` es la raíz del agregado y contiene sus `DeliveryStop`; toda modificación de una parada pasa por la operación, que valida las transiciones de estado y calcula el avance. En el frontend, `DeliveryOrder` es la vista de la bodega sobre una parada, y los comandos validan el resultado de cada entrega y los problemas de recepción.
+
+*Frontend*
+
+<img src="img/Software-Object-Oriented-Design/frontend-class-operations-routes.png" alt="Diagrama de clases de Operations and Routes en el frontend" width="800">
+
+*Backend*
+
+<img src="img/Software-Object-Oriented-Design/backend-class-operations-routes.png" alt="Diagrama de clases de Operations and Routes en el backend" width="800">
+
+#### IoT Monitoring
+
+Vigila la carga con las lecturas de los sensores. `IoTDevice` evalúa cada `SensorReading` contra su rango seguro y genera una `Alert` cuando la lectura sale del rango o supera el umbral de impacto. En el frontend, `MonitoredOperation` agrupa una operación con su dispositivo y su última lectura.
+
+*Frontend*
+
+<img src="img/Software-Object-Oriented-Design/frontend-class-iot-monitoring.png" alt="Diagrama de clases de IoT Monitoring en el frontend" width="800">
+
+*Backend*
+
+<img src="img/Software-Object-Oriented-Design/backend-class-iot-monitoring.png" alt="Diagrama de clases de IoT Monitoring en el backend" width="800">
+
+#### Incident Management
+
+Registra y da seguimiento a las incidencias. `Incident` contiene sus `Evidence` y guarda su origen: el supervisor, la bodega o una alerta IoT. Avanza por sus estados hasta cerrarse; en el frontend, los comandos validan el reporte, el avance y el adjunto de evidencias.
+
+*Frontend*
+
+<img src="img/Software-Object-Oriented-Design/frontend-class-incident-management.png" alt="Diagrama de clases de Incident Management en el frontend" width="800">
+
+*Backend*
+
+<img src="img/Software-Object-Oriented-Design/backend-class-incident-management.png" alt="Diagrama de clases de Incident Management en el backend" width="800">
 <a id="48-database-design"></a>
 ## 4.8. Database Design.
 
