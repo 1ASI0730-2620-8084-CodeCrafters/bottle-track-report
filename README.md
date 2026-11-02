@@ -2131,8 +2131,6 @@ Los mock-ups aplican el design system sobre los wireframes. La barra lateral usa
 
 Los User Flow Diagrams describen, para cada User Goal, el recorrido que sigue el usuario en la Web Application. Cada goal se enuncia desde el rol que lo persigue, con la forma *Como [rol], quiero [acción] para [beneficio]*. Los diagramas combinan las pantallas de los mock-ups de la sección 4.4.3 con las acciones del usuario y las condiciones que deciden el camino: el **happy path**, en verde, lleva al usuario a cumplir su objetivo, y cada **unhappy path**, en rojo, muestra lo que ocurre cuando una condición no se cumple y cómo el usuario retoma el flujo.
 
-Los diagramas se elaboraron como Diagram-as-Code con Graphviz; sus fuentes `.dot` se encuentran en `img/webApplicationUxDesign/user-flow/`.
-
 **Leyenda**
 
 <p align="center"><a href="img/webApplicationUxDesign/user-flow/user_flow_legend.png"><img src="img/webApplicationUxDesign/user-flow/user_flow_legend.png" alt="Leyenda de los User Flow Diagrams" width="433"></a></p>

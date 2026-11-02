@@ -1,41 +1,217 @@
-workspace "BottleTrack" "Container diagram" {
+workspace "BottleTrack" "C4 model: context, containers and components of BottleTrack" {
 
     !identifiers hierarchical
 
     model {
-        administrator = person "Distributor Administrator" "Manages the company, its users, its fleet and reviews operation indicators."
-        fleetSupervisor = person "Fleet Supervisor" "Plans transport operations, records delivery results and follows up incidents."
-        deliveryPointOwner = person "Delivery Point Owner" "Owner of a convenience store or minimarket that tracks its orders and reports reception problems."
+        visitor = person "Visitor" "Person who is not authenticated in BottleTrack and explores the website to learn about the product. May belong to any target segment."
+        administrator = person "Distributor Administrator" "Authenticated user who manages the company, its users, its fleet and reviews operation indicators."
+        fleetSupervisor = person "Fleet Supervisor" "Authenticated user who plans transport operations, records delivery results and follows up incidents."
+        deliveryPointOwner = person "Delivery Point Owner" "Authenticated user, owner of a convenience store or minimarket, who tracks its orders and reports reception problems."
         driver = person "Driver" "Drives the vehicle and reports delivery results to the fleet supervisor. Does not use the application."
         iotDevice = softwareSystem "Vehicle IoT Device" "Sends location, cargo temperature and impact readings during the trip." "External"
         mapsService = softwareSystem "Maps and Geolocation Service" "Third party service that geocodes delivery addresses and draws routes." "External"
 
         bottleTrack = softwareSystem "BottleTrack" "Manages and tracks bottled beverage transport operations with IoT monitoring and incident reporting." {
-            landingPage = container "Landing Page" "Presents the business model and redirects each segment to the web application." "HTML5, CSS3, JavaScript - GitHub Pages"
-            webApplication = container "Web Application" "Single page application organized by bounded contexts." "Vue 3, PrimeVue, Pinia, Vue Router, vue-i18n, axios - Vercel"
-            backendApi = container "Backend API" "RESTful API organized as a modular monolith, one module per bounded context, each one with a hexagonal architecture." "ASP.NET Core, C#, Entity Framework Core" {
+            website = container "Website" "Static website that presents BottleTrack, its value proposition and the benefits for each target segment." "HTML5, CSS3, JavaScript - Netlify" "Static Content"
+            webApplicationStatic = container "Web Application Static Content" "Serves the HTML, CSS and JavaScript files that contain the single-page application." "Vue 3 build - Vercel" "Static Content"
+            singlePageApplication = container "Single-Page Application" "Runs entirely in the user's web browser and provides the features of each role, organized by bounded contexts." "Vue 3, PrimeVue, Pinia, Vue Router, vue-i18n, axios" "Web Browser"
+            webServices = container "Web Services" "RESTful API organized as a modular monolith, one module per bounded context, each one with a hexagonal architecture." "ASP.NET Core, C#, Entity Framework Core" {
 
+                group "Identity and Access Management" {
+                    iamController = component "Authentication, Users and Organizations Controllers" "Inbound REST adapter. Exposes sign in, users, roles and organization endpoints." "ASP.NET Core Controller" "Iam"
+                    iamCommandService = component "User and Organization Command Services" "Application services. Sign users in, register users, assign roles and update the organization." "C# Application Service" "Iam"
+                    iamQueryService = component "IAM Query Service" "Application service. Resolves the profile, the users and the organization." "C# Application Service" "Iam"
+                    iamDomain = component "IAM Domain Model" "Aggregates User and Organization, value objects EmailAddress and TaxId." "C# Domain Model" "Iam"
+                    iamRepositories = component "User and Organization Repositories" "Outbound ports declared by the domain." "C# Interfaces" "Iam,Port"
+                    iamPersistence = component "EF Core IAM Repositories" "Outbound persistence adapter that implements the repository ports." "Entity Framework Core" "Iam"
+                    iamTokenService = component "Token Service" "Outbound adapter that issues and validates JSON Web Tokens." "ASP.NET Core Authentication" "Iam"
+                    iamHashingService = component "Hashing Service" "Outbound adapter that hashes and verifies passwords." "BCrypt" "Iam"
+                }
+
+                group "Fleet Management" {
+                    fleetController = component "Vehicles and Drivers Controllers" "Inbound REST adapter. Exposes vehicle, driver and availability endpoints." "ASP.NET Core Controller" "Fleet"
+                    fleetCommandService = component "Fleet Command Service" "Application service. Registers and updates vehicles and drivers." "C# Application Service" "Fleet"
+                    fleetQueryService = component "Fleet Query Service" "Application service. Resolves the vehicles and drivers of the company and their availability." "C# Application Service" "Fleet"
+                    fleetDomain = component "Fleet Domain Model" "Aggregates Vehicle and Driver, value objects PlateNumber, DocumentNumber and LicenseNumber." "C# Domain Model" "Fleet"
+                    fleetRepositories = component "Vehicle and Driver Repositories" "Outbound ports declared by the domain." "C# Interfaces" "Fleet,Port"
+                    fleetPersistence = component "EF Core Fleet Repositories" "Outbound persistence adapter that implements the repository ports." "Entity Framework Core" "Fleet"
+                    fleetFacade = component "Fleet Context Facade" "Inbound port used by other bounded contexts to reserve and release vehicles and drivers." "C# Facade" "Fleet"
+                }
+
+                group "Operations and Routes" {
+                    operationsController = component "Operations and Delivery Points Controllers" "Inbound REST adapter. Exposes transport operations, delivery stops and order tracking endpoints." "ASP.NET Core Controller" "Operations"
+                    operationsCommandService = component "Transport Operation Command Service" "Application service. Creates, starts, completes and cancels operations, assigns resources and records delivery results." "C# Application Service" "Operations"
+                    operationsQueryService = component "Operations Query Service" "Application service. Resolves operations, their progress, their history and the orders of a delivery point." "C# Application Service" "Operations"
+                    operationsDomain = component "Operations Domain Model" "Aggregates TransportOperation and DeliveryPoint, entity DeliveryStop and value objects OperationCode, Quantity and GeoLocation." "C# Domain Model" "Operations"
+                    operationsRepositories = component "Transport Operation and Delivery Point Repositories" "Outbound ports declared by the domain." "C# Interfaces" "Operations,Port"
+                    operationsPersistence = component "EF Core Operations Repositories" "Outbound persistence adapter that implements the repository ports." "Entity Framework Core" "Operations"
+                    operationsFleetAcl = component "External Fleet Service" "Anti-corruption layer that reserves and releases resources through the Fleet Context Facade." "C# Adapter" "Operations"
+                    operationsGeocoding = component "Geocoding Service" "Outbound adapter that geocodes delivery addresses through the maps service." "C# HTTP Client" "Operations"
+                }
+
+                group "IoT Monitoring" {
+                    monitoringController = component "Devices, Readings and Alerts Controllers" "Inbound REST adapter. Receives sensor readings and exposes devices, safe ranges and alerts." "ASP.NET Core Controller" "Monitoring"
+                    monitoringCommandService = component "Monitoring Command Service" "Application service. Records readings, evaluates them against the safe range, raises and acknowledges alerts." "C# Application Service" "Monitoring"
+                    monitoringQueryService = component "Monitoring Query Service" "Application service. Resolves devices, the latest reading of an operation and the pending alerts." "C# Application Service" "Monitoring"
+                    monitoringDomain = component "Monitoring Domain Model" "Aggregates IoTDevice, SensorReading and Alert, value object SafeRange." "C# Domain Model" "Monitoring"
+                    monitoringRepositories = component "Device, Reading and Alert Repositories" "Outbound ports declared by the domain." "C# Interfaces" "Monitoring,Port"
+                    monitoringPersistence = component "EF Core Monitoring Repositories" "Outbound persistence adapter that implements the repository ports." "Entity Framework Core" "Monitoring"
+                    monitoringEvents = component "Alert Event Publisher" "Outbound adapter that publishes AlertRaised so Incident Management can open an incident." "C# Domain Event Publisher" "Monitoring"
+                }
+
+                group "Incident Management" {
+                    incidentsController = component "Incidents and Analytics Controllers" "Inbound REST adapter. Exposes incident, evidence, status and operational indicator endpoints." "ASP.NET Core Controller" "Incidents"
+                    incidentsCommandService = component "Incident Command Service" "Application service. Reports incidents, attaches evidence and advances their status until they are closed." "C# Application Service" "Incidents"
+                    incidentsQueryService = component "Incident Query Service" "Application service. Resolves incidents by operation and calculates the operational indicators." "C# Application Service" "Incidents"
+                    incidentsDomain = component "Incident Domain Model" "Aggregate Incident with entity Evidence and value object IncidentCode." "C# Domain Model" "Incidents"
+                    incidentsRepositories = component "Incident Repository" "Outbound port declared by the domain." "C# Interface" "Incidents,Port"
+                    incidentsPersistence = component "EF Core Incident Repository" "Outbound persistence adapter that implements the repository port." "Entity Framework Core" "Incidents"
+                    incidentsEvidenceStorage = component "Evidence Storage Service" "Outbound adapter that validates and stores the evidence files." "C# File Storage Adapter" "Incidents"
+                    incidentsEventHandler = component "Alert Event Handler" "Inbound adapter that opens an incident when IoT Monitoring publishes AlertRaised." "C# Domain Event Handler" "Incidents"
+                }
             }
             database = container "Database" "Stores the data of every bounded context in its own set of tables." "MySQL" "Database"
         }
 
-        administrator -> bottleTrack.landingPage "Visits"
-        deliveryPointOwner -> bottleTrack.landingPage "Visits"
-        administrator -> bottleTrack.webApplication "Uses" "HTTPS"
-        fleetSupervisor -> bottleTrack.webApplication "Uses" "HTTPS"
-        deliveryPointOwner -> bottleTrack.webApplication "Tracks orders" "HTTPS"
-        bottleTrack.landingPage -> bottleTrack.webApplication "Redirects each segment to its view" "HTTPS"
-        bottleTrack.webApplication -> bottleTrack.backendApi "Makes API requests" "HTTPS / JSON"
-        bottleTrack.backendApi -> bottleTrack.database "Reads from and writes to" "Entity Framework Core"
-        bottleTrack.backendApi -> mapsService "Geocodes addresses" "HTTPS / JSON"
-        iotDevice -> bottleTrack.backendApi "Sends telemetry readings" "HTTPS / JSON"
+        # System context level
+        visitor -> bottleTrack "Learns about BottleTrack through its website" "HTTPS"
+        administrator -> bottleTrack "Manages the company, fleet and users, and reviews indicators" "HTTPS"
+        fleetSupervisor -> bottleTrack "Plans operations, records deliveries and follows up incidents" "HTTPS"
+        deliveryPointOwner -> bottleTrack "Tracks orders and reports reception problems" "HTTPS"
+        driver -> fleetSupervisor "Reports delivery results and incidents by phone"
+        iotDevice -> bottleTrack "Sends telemetry readings to" "HTTPS / JSON"
+        bottleTrack -> mapsService "Geocodes addresses and gets routes using" "HTTPS / JSON"
+
+        # Container level
+        visitor -> bottleTrack.website "Visits to learn about BottleTrack" "HTTPS"
+        bottleTrack.website -> bottleTrack.webApplicationStatic "Links each segment to the web application" "HTTPS"
+        administrator -> bottleTrack.webApplicationStatic "Visits the web application URL" "HTTPS"
+        fleetSupervisor -> bottleTrack.webApplicationStatic "Visits the web application URL" "HTTPS"
+        deliveryPointOwner -> bottleTrack.webApplicationStatic "Visits the web application URL" "HTTPS"
+        bottleTrack.webApplicationStatic -> bottleTrack.singlePageApplication "Delivers to the user's web browser"
+        administrator -> bottleTrack.singlePageApplication "Manages the company, users and fleet, and reviews indicators using"
+        fleetSupervisor -> bottleTrack.singlePageApplication "Plans operations, records deliveries and follows up incidents using"
+        deliveryPointOwner -> bottleTrack.singlePageApplication "Tracks orders and reports reception problems using"
+        bottleTrack.singlePageApplication -> bottleTrack.webServices "Makes API calls to" "HTTPS / JSON"
+        bottleTrack.webServices -> bottleTrack.database "Reads from and writes to" "Entity Framework Core"
+        bottleTrack.webServices -> mapsService "Geocodes addresses and gets routes using" "HTTPS / JSON"
+        iotDevice -> bottleTrack.webServices "Sends telemetry readings to" "HTTPS / JSON"
+
+        # Identity and Access Management
+        bottleTrack.singlePageApplication -> bottleTrack.webServices.iamController "Signs in and manages users and the organization" "HTTPS / JSON"
+        bottleTrack.webServices.iamController -> bottleTrack.webServices.iamCommandService "Sends commands to"
+        bottleTrack.webServices.iamController -> bottleTrack.webServices.iamQueryService "Sends queries to"
+        bottleTrack.webServices.iamCommandService -> bottleTrack.webServices.iamDomain "Applies business rules of"
+        bottleTrack.webServices.iamCommandService -> bottleTrack.webServices.iamRepositories "Persists aggregates through"
+        bottleTrack.webServices.iamQueryService -> bottleTrack.webServices.iamRepositories "Reads through"
+        bottleTrack.webServices.iamCommandService -> bottleTrack.webServices.iamTokenService "Issues tokens with"
+        bottleTrack.webServices.iamCommandService -> bottleTrack.webServices.iamHashingService "Hashes and verifies passwords with"
+        bottleTrack.webServices.iamPersistence -> bottleTrack.webServices.iamRepositories "Implements"
+        bottleTrack.webServices.iamPersistence -> bottleTrack.database "Reads from and writes to" "Entity Framework Core"
+
+        # Fleet Management
+        bottleTrack.singlePageApplication -> bottleTrack.webServices.fleetController "Manages vehicles and drivers" "HTTPS / JSON"
+        bottleTrack.webServices.fleetController -> bottleTrack.webServices.fleetCommandService "Sends commands to"
+        bottleTrack.webServices.fleetController -> bottleTrack.webServices.fleetQueryService "Sends queries to"
+        bottleTrack.webServices.fleetCommandService -> bottleTrack.webServices.fleetDomain "Applies business rules of"
+        bottleTrack.webServices.fleetCommandService -> bottleTrack.webServices.fleetRepositories "Persists aggregates through"
+        bottleTrack.webServices.fleetQueryService -> bottleTrack.webServices.fleetRepositories "Reads through"
+        bottleTrack.webServices.fleetFacade -> bottleTrack.webServices.fleetDomain "Reserves and releases resources of"
+        bottleTrack.webServices.fleetFacade -> bottleTrack.webServices.fleetRepositories "Persists availability through"
+        bottleTrack.webServices.fleetPersistence -> bottleTrack.webServices.fleetRepositories "Implements"
+        bottleTrack.webServices.fleetPersistence -> bottleTrack.database "Reads from and writes to" "Entity Framework Core"
+
+        # Operations and Routes
+        bottleTrack.singlePageApplication -> bottleTrack.webServices.operationsController "Plans operations, records deliveries and tracks orders" "HTTPS / JSON"
+        bottleTrack.webServices.operationsController -> bottleTrack.webServices.operationsCommandService "Sends commands to"
+        bottleTrack.webServices.operationsController -> bottleTrack.webServices.operationsQueryService "Sends queries to"
+        bottleTrack.webServices.operationsCommandService -> bottleTrack.webServices.operationsDomain "Applies business rules of"
+        bottleTrack.webServices.operationsCommandService -> bottleTrack.webServices.operationsRepositories "Persists aggregates through"
+        bottleTrack.webServices.operationsQueryService -> bottleTrack.webServices.operationsRepositories "Reads through"
+        bottleTrack.webServices.operationsCommandService -> bottleTrack.webServices.operationsFleetAcl "Reserves and releases resources through"
+        bottleTrack.webServices.operationsCommandService -> bottleTrack.webServices.operationsGeocoding "Geocodes delivery points through"
+        bottleTrack.webServices.operationsFleetAcl -> bottleTrack.webServices.fleetFacade "Calls"
+        bottleTrack.webServices.operationsGeocoding -> mapsService "Geocodes addresses using" "HTTPS / JSON"
+        bottleTrack.webServices.operationsPersistence -> bottleTrack.webServices.operationsRepositories "Implements"
+        bottleTrack.webServices.operationsPersistence -> bottleTrack.database "Reads from and writes to" "Entity Framework Core"
+
+        # IoT Monitoring
+        iotDevice -> bottleTrack.webServices.monitoringController "Sends telemetry readings to" "HTTPS / JSON"
+        bottleTrack.singlePageApplication -> bottleTrack.webServices.monitoringController "Monitors cargo and acknowledges alerts" "HTTPS / JSON"
+        bottleTrack.webServices.monitoringController -> bottleTrack.webServices.monitoringCommandService "Sends commands to"
+        bottleTrack.webServices.monitoringController -> bottleTrack.webServices.monitoringQueryService "Sends queries to"
+        bottleTrack.webServices.monitoringCommandService -> bottleTrack.webServices.monitoringDomain "Applies business rules of"
+        bottleTrack.webServices.monitoringCommandService -> bottleTrack.webServices.monitoringRepositories "Persists aggregates through"
+        bottleTrack.webServices.monitoringQueryService -> bottleTrack.webServices.monitoringRepositories "Reads through"
+        bottleTrack.webServices.monitoringCommandService -> bottleTrack.webServices.monitoringEvents "Publishes AlertRaised through"
+        bottleTrack.webServices.monitoringPersistence -> bottleTrack.webServices.monitoringRepositories "Implements"
+        bottleTrack.webServices.monitoringPersistence -> bottleTrack.database "Reads from and writes to" "Entity Framework Core"
+
+        # Incident Management
+        bottleTrack.singlePageApplication -> bottleTrack.webServices.incidentsController "Reports and follows up incidents" "HTTPS / JSON"
+        bottleTrack.webServices.incidentsController -> bottleTrack.webServices.incidentsCommandService "Sends commands to"
+        bottleTrack.webServices.incidentsController -> bottleTrack.webServices.incidentsQueryService "Sends queries to"
+        bottleTrack.webServices.incidentsCommandService -> bottleTrack.webServices.incidentsDomain "Applies business rules of"
+        bottleTrack.webServices.incidentsCommandService -> bottleTrack.webServices.incidentsRepositories "Persists aggregates through"
+        bottleTrack.webServices.incidentsQueryService -> bottleTrack.webServices.incidentsRepositories "Reads through"
+        bottleTrack.webServices.incidentsCommandService -> bottleTrack.webServices.incidentsEvidenceStorage "Stores evidence files through"
+        bottleTrack.webServices.monitoringEvents -> bottleTrack.webServices.incidentsEventHandler "Publishes AlertRaised to"
+        bottleTrack.webServices.incidentsEventHandler -> bottleTrack.webServices.incidentsCommandService "Opens incidents through"
+        bottleTrack.webServices.incidentsPersistence -> bottleTrack.webServices.incidentsRepositories "Implements"
+        bottleTrack.webServices.incidentsPersistence -> bottleTrack.database "Reads from and writes to" "Entity Framework Core"
     }
 
     views {
+        systemContext bottleTrack "SystemContext" {
+            include *
+            include driver
+            autolayout lr
+            title "System Context - BottleTrack"
+        }
+
         container bottleTrack "Containers" {
             include *
             autolayout lr
             title "Container Diagram - BottleTrack"
+        }
+
+        component bottleTrack.webServices "IdentityAndAccessManagement" {
+            include "element.tag==Iam"
+            include bottleTrack.singlePageApplication bottleTrack.database
+            autolayout lr
+            title "Component Diagram - Identity and Access Management Bounded Context"
+        }
+
+        component bottleTrack.webServices "FleetManagement" {
+            include "element.tag==Fleet"
+            include bottleTrack.singlePageApplication bottleTrack.database
+            include bottleTrack.webServices.operationsFleetAcl
+            autolayout lr
+            title "Component Diagram - Fleet Management Bounded Context"
+        }
+
+        component bottleTrack.webServices "OperationsAndRoutes" {
+            include "element.tag==Operations"
+            include bottleTrack.singlePageApplication bottleTrack.database mapsService
+            include bottleTrack.webServices.fleetFacade
+            autolayout lr
+            title "Component Diagram - Operations and Routes Bounded Context"
+        }
+
+        component bottleTrack.webServices "IoTMonitoring" {
+            include "element.tag==Monitoring"
+            include bottleTrack.singlePageApplication bottleTrack.database iotDevice
+            include bottleTrack.webServices.incidentsEventHandler
+            autolayout lr
+            title "Component Diagram - IoT Monitoring Bounded Context"
+        }
+
+        component bottleTrack.webServices "IncidentManagement" {
+            include "element.tag==Incidents"
+            include bottleTrack.singlePageApplication bottleTrack.database
+            include bottleTrack.webServices.monitoringEvents
+            autolayout lr
+            title "Component Diagram - Incident Management Bounded Context"
         }
 
         styles {
@@ -55,6 +231,12 @@ workspace "BottleTrack" "Container diagram" {
             element "Container" {
                 background #f97316
                 color #ffffff
+            }
+            element "Static Content" {
+                shape folder
+            }
+            element "Web Browser" {
+                shape webbrowser
             }
             element "Database" {
                 shape cylinder
