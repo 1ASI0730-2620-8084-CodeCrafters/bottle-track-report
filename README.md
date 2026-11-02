@@ -2379,87 +2379,87 @@ Se elaboró un diagrama de componentes por bounded context. Todos siguen la mism
 
 Los diagramas de clases se presentan en dos versiones, una por producto, porque cada uno se programa en un lenguaje distinto y sigue sus propias convenciones de nomenclatura: la Frontend Web Application en JavaScript y el Backend en C#. Ambas se organizan por bounded context, con nombres en inglés tomados del Ubiquitous Language de la sección 2.5.
 
-Ambos diagramas se elaboraron como Diagram-as-Code con PlantUML, y sus fuentes son `img/Software-Object-Oriented-Design/frontend-class-diagrams.puml` y `img/Software-Object-Oriented-Design/backend-class-diagrams.puml`. Cada miembro muestra su visibilidad (`+` público, `-` privado) y todas las relaciones indican su nombre, su dirección y su multiplicidad. Los getters del frontend se indican con una barra antes del nombre (`/fullName`).
+Ambos diagramas se elaboraron como Diagram-as-Code con PlantUML, y sus fuentes son `img/Software-Object-Oriented-Design/frontend-class-diagrams.puml` y `img/Software-Object-Oriented-Design/backend-class-diagrams.puml`.
+
+**Cómo leer los diagramas**
+
+- Cada clase muestra sus atributos y sus métodos con su visibilidad: `+` público y `-` privado. En el frontend, el prefijo `/` indica un getter, es decir, una propiedad derivada de solo lectura, como `/fullName`.
+- El estereotipo entre `« »` indica el rol de la clase. En el backend: *Aggregate Root* (raíz que controla un agregado), *Entity* y *Value Object*. En el frontend: *Entity*, *Command* (datos de una acción del usuario), *Assembler* (convierte entre recursos del API y entidades) e *Infrastructure* (acceso al API).
+- Una flecha continua con punta abierta es una asociación: una clase conoce a otra. Una flecha punteada es una dependencia: una clase usa o crea a otra. Un rombo relleno es una composición: la parte no existe sin el todo. Un triángulo hueco es herencia, o la extensión de una interfaz.
+- Cada relación tiene su nombre sobre la línea y su multiplicidad en los extremos (`1`, `0..1`, `0..*`, `1..*`).
+- El recuadro inferior de cada imagen contiene las clases compartidas. En el frontend son `BaseApi` y `BaseEndpoint`, de los que dependen todas las clases de acceso al API. En el backend son `IBaseRepository` e `IUnitOfWork`, del Shared Kernel.
 
 **Frontend Web Application (JavaScript)**
+
+El diagrama completo reúne los cinco bounded contexts y refleja las clases implementadas en el repositorio de la Web Application. Los stores de Pinia y los componentes de Vue no se incluyen porque no son clases.
 
 <img src="img/Software-Object-Oriented-Design/frontend-class-diagrams.png" alt="Diagrama de clases completo de la Frontend Web Application" width="800">
 
 **Backend (C#)**
 
+El diagrama completo reúne el modelo de dominio propuesto para los Web Services de los cinco bounded contexts. Las relaciones entre contextos se representan con dependencias por identificador, ya que un agregado nunca contiene a otro de un contexto distinto.
+
 <img src="img/Software-Object-Oriented-Design/backend-class-diagrams.png" alt="Diagrama de clases completo del Backend" width="800">
 
 #### Identity and Access Management
 
-Gestiona la organización y sus usuarios. `Organization` y `User` son agregados independientes, y el rol del usuario determina las vistas a las que accede. En el frontend, los comandos llevan los datos de cada acción (iniciar sesión, registrar o actualizar un usuario) y los assemblers los convierten en recursos del API. En el backend, `IUserRepository` e `IOrganizationRepository` definen cómo se guardan y buscan.
+Gestiona la organización de la empresa distribuidora y los usuarios que acceden a BottleTrack con su rol.
 
-*Frontend*
+*Frontend.* `User` y `Organization` son las entidades. `User` guarda sus datos y su rol, y ofrece getters como `fullName` e `isActive` y el método `hasAnyRole` para validar el acceso a cada vista. Cada usuario tiene un único rol de `USER_ROLES` (administrador, supervisor de flota o responsable de bodega). Los comandos (`SignInCommand`, `RegisterUserCommand`, `UpdateUserCommand`, `AssignRoleCommand` y `UpdateOrganizationCommand`) encapsulan los datos de cada acción. `UserAssembler`, `OrganizationAssembler` y `SignInAssembler` leen esos comandos y crean las entidades y el `SignInResource` (usuario y token). `IamApi` recibe el comando de inicio de sesión, hereda de `BaseApi` y contiene dos `BaseEndpoint`, uno para usuarios y otro para organizaciones.
 
 <img src="img/Software-Object-Oriented-Design/frontend-class-identity-access.png" alt="Diagrama de clases de Identity and Access Management en el frontend" width="800">
 
-*Backend*
+*Backend.* `Organization` y `User` son agregados independientes. Muchos usuarios (`1..*`) pertenecen a una organización, y cada usuario tiene un rol (`UserRole`) y un estado (`UserStatus`). `EmailAddress` y `TaxId` son value objects dentro de sus agregados: el correo identifica al usuario y la organización se registra con su `TaxId`. Los métodos expresan las reglas, como `Register`, `AssignRole` y `Deactivate`. `IOrganizationRepository` e `IUserRepository` definen cómo se guardan y buscan los agregados, por ejemplo buscar un usuario por correo.
 
 <img src="img/Software-Object-Oriented-Design/backend-class-identity-access.png" alt="Diagrama de clases de Identity and Access Management en el backend" width="800">
 
 #### Fleet Management
 
-Administra los vehículos y los conductores de la empresa. Cada uno controla su propia disponibilidad: en el backend mediante `Reserve` y `Release`, y en el frontend con el getter `isAvailable`, que se deriva de su estado.
+Administra los vehículos y los conductores que se asignan a las operaciones de transporte.
 
-*Frontend*
+*Frontend.* `Vehicle` y `Driver` son entidades con sus datos (placa, marca, modelo y capacidad en cajas para el vehículo; documento y licencia para el conductor). Cada una tiene un estado de `VEHICLE_STATUSES` o `DRIVER_STATUSES` (disponible, asignado y en mantenimiento o inactivo) y expone el getter `isAvailable`, que se calcula a partir de ese estado. `VehicleAssembler` y `DriverAssembler` crean las entidades a partir de las respuestas del API y las convierten en recursos para enviarlas. `FleetApi` accede al API con dos `BaseEndpoint`, uno para vehículos y otro para conductores.
 
 <img src="img/Software-Object-Oriented-Design/frontend-class-fleet-management.png" alt="Diagrama de clases de Fleet Management en el frontend" width="800">
 
-*Backend*
+*Backend.* `Vehicle` y `Driver` son raíces de agregado que controlan su propia disponibilidad: `Reserve` los marca como asignados, `Release` los libera y, en el vehículo, `SendToMaintenance` lo retira de circulación. `PlateNumber` y `LicenseNumber` son value objects que los identifican, y cada uno tiene un estado (`VehicleStatus` o `DriverStatus`). `IVehicleRepository` e `IDriverRepository` permiten buscar por placa, documento o licencia, para evitar duplicados, y listar los recursos disponibles de una organización.
 
 <img src="img/Software-Object-Oriented-Design/backend-class-fleet-management.png" alt="Diagrama de clases de Fleet Management en el backend" width="800">
 
 #### Operations and Routes
 
-Planifica y ejecuta las operaciones de transporte. `TransportOperation` es la raíz del agregado y contiene sus `DeliveryStop`; toda modificación de una parada pasa por la operación, que valida las transiciones de estado y calcula el avance. En el frontend, `DeliveryOrder` es la vista de la bodega sobre una parada, y los comandos validan el resultado de cada entrega y los problemas de recepción.
+Planifica y ejecuta las operaciones de transporte: sus recursos, su ruta de entregas y el resultado de cada entrega.
 
-*Frontend*
+*Frontend.* `TransportOperation` contiene (composición, `1` a `0..*`) a sus `DeliveryStop`, las paradas de entrega ordenadas por `sequenceNumber`. Sus getters indican qué puede hacerse en cada momento, como `canStart`, `canComplete` y `canCancel`, y calculan el avance (`progress`). `DeliveryOrder` es la vista de la bodega sobre una parada: muestra su estado de seguimiento y si ya se puede reportar un problema. Los estados salen de `OPERATION_STATUSES` y `DELIVERY_STATUSES`. Los comandos agregan una parada a una operación (`AddDeliveryStopCommand`), registran el resultado de una parada (`RecordDeliveryCommand`, que valida las cantidades y el motivo) y reportan un problema sobre un `DeliveryOrder` (`ReportReceptionProblemCommand`). Los assemblers leen esos comandos y crean las entidades. `TransportOperationsApi` y `OperationsApi` acceden al API con cinco y cuatro `BaseEndpoint`.
 
 <img src="img/Software-Object-Oriented-Design/frontend-class-operations-routes.png" alt="Diagrama de clases de Operations and Routes en el frontend" width="800">
 
-*Backend*
+*Backend.* `TransportOperation` es la raíz del agregado y contiene entre una y muchas `DeliveryStop` (`1..*`). Toda modificación de una parada pasa por la operación, que valida las transiciones de estado con `Dispatch`, `Start`, `Complete` y `Cancel`, registra los resultados con `RecordDelivery` y calcula el avance con `CalculateProgress`. Cada parada se entrega en un `DeliveryPoint` y tiene una cantidad planificada y otra entregada, modeladas con el value object `Quantity`. Los estados están en `OperationStatus` y `DeliveryStatus`. `ITransportOperationRepository` e `IDeliveryPointRepository` definen las consultas por organización, por estado y por responsable de la bodega.
 
 <img src="img/Software-Object-Oriented-Design/backend-class-operations-routes.png" alt="Diagrama de clases de Operations and Routes en el backend" width="800">
 
 #### IoT Monitoring
 
-Vigila la carga con las lecturas de los sensores. `IoTDevice` evalúa cada `SensorReading` contra su rango seguro y genera una `Alert` cuando la lectura sale del rango o supera el umbral de impacto. En el frontend, `MonitoredOperation` agrupa una operación con su dispositivo y su última lectura.
+Vigila la carga durante la operación con las lecturas de temperatura y golpes de los dispositivos IoT, y genera alertas cuando se sale del rango seguro.
 
-*Frontend*
+*Frontend.* `IoTDevice` guarda su rango seguro de temperatura y su umbral de impacto, y con `isTemperatureSafe`, `isImpactSafe` y `evaluate` decide qué tipos de alerta de `ALERT_TYPES` corresponden a una `SensorReading` (como máximo dos, por eso la multiplicidad `0..2`). `Alert` registra la alerta y si ya fue atendida (`isAcknowledged`). `SafeRange` valida los límites que el usuario configura para un dispositivo. `MonitoredOperation` es una vista de lectura que agrupa una operación con su dispositivo (`0..1`) y su última lectura (`0..1`), e indica si la carga está segura o si el dispositivo está sin conexión. `MonitoringAssembler` crea estas clases y `MonitoringApi` accede al API con seis `BaseEndpoint`.
 
 <img src="img/Software-Object-Oriented-Design/frontend-class-iot-monitoring.png" alt="Diagrama de clases de IoT Monitoring en el frontend" width="800">
 
-*Backend*
+*Backend.* `IoTDevice` es la raíz del agregado: se instala en un vehículo (`InstallOnVehicle`), se configura con un `SafeRange` (`ConfigureSafeRange`), registra muchas `SensorReading` y levanta muchas `Alert` cuando `Evaluate` detecta una lectura fuera de rango o un golpe fuerte. `Alert` es otra raíz de agregado, con tipo `AlertType` (temperatura fuera de rango, impacto detectado o dispositivo sin conexión), y se atiende con `Acknowledge`. `IIoTDeviceRepository` busca el dispositivo de un vehículo e `IAlertRepository` lista las alertas de las operaciones.
 
 <img src="img/Software-Object-Oriented-Design/backend-class-iot-monitoring.png" alt="Diagrama de clases de IoT Monitoring en el backend" width="800">
 
 #### Incident Management
 
-Registra y da seguimiento a las incidencias. `Incident` contiene sus `Evidence` y guarda su origen: el supervisor, la bodega o una alerta IoT. Avanza por sus estados hasta cerrarse; en el frontend, los comandos validan el reporte, el avance y el adjunto de evidencias.
+Registra y da seguimiento a las incidencias que afectan una operación o una entrega, con sus evidencias, hasta su cierre.
 
-*Frontend*
+*Frontend.* `Incident` guarda su código, su origen, su tipo, su severidad, la cantidad afectada y su estado. Avanza por `INCIDENT_STATUSES` (reportada, en revisión, resuelta y cerrada) y expone getters que guían la interfaz: `nextStatus`, `isOpen` y `requiresResolution`. Cada `Evidence` pertenece a una incidencia (`0..*` a `1`). Los comandos validan sus datos antes de enviarlos: `ReportIncidentCommand` para reportar, `AdvanceIncidentCommand` para pasar al siguiente estado y `AttachEvidenceCommand` para adjuntar una evidencia. `IncidentAssembler` y `EvidenceAssembler` leen esos comandos y crean las entidades, y `IncidentsApi` accede al API con cuatro `BaseEndpoint`.
 
 <img src="img/Software-Object-Oriented-Design/frontend-class-incident-management.png" alt="Diagrama de clases de Incident Management en el frontend" width="800">
 
-*Backend*
+*Backend.* `Incident` es la raíz del agregado y contiene sus `Evidence` (`0..*`). Su ciclo de vida se expresa con los métodos `Report`, `AttachEvidence`, `AssignSeverity`, `Review`, `Resolve` y `Close`. Cada incidencia se clasifica por tipo (`IncidentType`), tiene una severidad (`Severity`), un estado (`IncidentStatus`) y un origen (`IncidentSource`): el supervisor, la bodega o una alerta IoT. `IIncidentRepository` lista las incidencias de las operaciones y obtiene el siguiente código correlativo.
 
 <img src="img/Software-Object-Oriented-Design/backend-class-incident-management.png" alt="Diagrama de clases de Incident Management en el backend" width="800">
-<a id="48-database-design"></a>
-## 4.8. Database Design.
-
-<a id="481-database-diagrams"></a>
-### 4.8.1. Database Diagrams.
-
-El diagrama de base de datos corresponde al esquema relacional en MySQL. Las tablas se agrupan por bounded context y siguen una convención única: nombres de tablas en inglés, en plural y en snake_case, y columnas en snake_case. Las claves primarias son identificadores `CHAR(36)` generados por la aplicación, las claves foráneas se nombran como `<entidad>_id` y los estados se almacenan como `ENUM` con los mismos valores de las enumeraciones del diagrama de clases. La configuración de Entity Framework Core mapea las clases del dominio a estos nombres de tablas y columnas.
-
-El diagrama se elaboró como Diagram-as-Code con PlantUML; su fuente es `img/Database-Design/database-diagram.puml`.
-
-<img src="img/Database-Design/DatabaseDiagrams.png" alt="Diagrama de base de datos de BottleTrack" width="800">
-
 <hr>
 
 
