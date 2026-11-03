@@ -2337,25 +2337,30 @@ El diagrama de contenedores muestra las unidades desplegables de la solución:
 
 | Contenedor | Tecnología | Despliegue |
 | :--------- | :--------- | :--------- |
-| Landing Page | HTML5, CSS3, JavaScript | Netlify |
-| Web Application | Vue 3, PrimeVue, Pinia, Vue Router, vue-i18n, axios | Vercel |
-| Backend API | ASP.NET Core, C#, Entity Framework Core, documentado con OpenAPI | Proveedor de nube |
+| Website | HTML5, CSS3, JavaScript | Netlify (contenido estático) |
+| Web Application Static Content | Archivos HTML, CSS y JavaScript generados por el build de Vue 3 | Vercel (contenido estático) |
+| Single-Page Application | Vue 3, PrimeVue, Pinia, Vue Router, vue-i18n, axios | Navegador del usuario |
+| Web Services | ASP.NET Core (.NET 10), C#, Entity Framework Core, documentado con OpenAPI y Scalar | Proveedor de nube (monolito) |
 | Database | MySQL | Proveedor de nube |
 
-El Landing Page redirige a cada segmento a su vista de la Web Application. La Web Application consume el Backend API mediante HTTPS y JSON, y el Backend API es el único contenedor que accede a la base de datos y al servicio de mapas.
+El Website y la Web Application son dos productos distintos y ambos se despliegan como contenido estático, es decir, como una copia de carpetas con archivos HTML, CSS y JavaScript hacia un hosting. Por eso el diagrama los representa con el contenedor de tipo carpeta.
+
+La Web Application se representa con dos contenedores. Cuando el usuario escribe la URL de la aplicación, el hosting de Vercel le entrega los archivos, y desde ese momento toda la aplicación se ejecuta en su navegador como una Single-Page Application. A partir de allí el usuario interactúa únicamente con ese contenedor, que consume los Web Services mediante HTTPS y JSON.
+
+La persona que visita el Website todavía no está autenticada, por lo que el diagrama la representa como *Visitor*. Los roles Distributor Administrator, Fleet Supervisor y Delivery Point Owner aparecen cuando interactúan con la aplicación. Los Web Services son un único contenedor porque el backend es un monolito, y son el único contenedor que accede a la base de datos y al servicio de mapas.
 
 <img src="img/DD-SoftwareArchitecture/containerDiagram.png" alt="Diagrama de contenedores C4 de BottleTrack" width="800">
 
 <a id="464-software-architecture-components-diagrams"></a>
 ### 4.6.4. Software Architecture Components Diagrams.
 
-Se elaboró un diagrama de componentes por bounded context. Todos siguen la misma estructura hexagonal: un controller como adaptador de entrada, un command service y un query service en la capa de aplicación, el modelo de dominio con sus agregados, la interfaz del repositorio como puerto de salida (borde punteado) y el repositorio de Entity Framework Core como adaptador que lo implementa.
+Se elaboró un diagrama de componentes por bounded context. Los componentes dibujados con borde punteado y trazo tenue (*Planned*) todavía no existen en el código de los Web Services; el resto corresponde a lo que ya está implementado en el repositorio. Todos siguen la misma estructura hexagonal: un controller como adaptador de entrada, un command service y un query service en la capa de aplicación, el modelo de dominio con sus agregados, la interfaz del repositorio como puerto de salida (borde punteado) y el repositorio de Entity Framework Core como adaptador que lo implementa.
 
-**Identity and Access Management.** Gestiona la organización, los usuarios, sus roles y la autenticación. Incluye un servicio de tokens como adaptador de salida para emitir y validar JSON Web Tokens.
+**Identity and Access Management.** Gestiona las organizaciones y los usuarios con sus roles. Implementado: registro y consulta de organizaciones y de usuarios, y un adaptador de salida que calcula el hash de las contraseñas con PBKDF2. La autenticación con tokens aún no está implementada.
 
 <img src="img/DD-SoftwareArchitecture/componentIAM_D.png" alt="Diagrama de componentes de Identity and Access Management" width="800">
 
-**Fleet Management.** Gestiona los vehículos y los conductores y su disponibilidad. Expone una facade para que Operations and Routes reserve y libere recursos sin acceder a sus tablas.
+**Fleet Management.** Gestiona los vehículos y los conductores y su disponibilidad. Implementado: registro y consulta de vehículos y de conductores, con filtro por disponibilidad. La facade con la que Operations and Routes reservará y liberará recursos está planificada.
 
 <img src="img/DD-SoftwareArchitecture/componentFleetM_D.png" alt="Diagrama de componentes de Fleet Management" width="800">
 
@@ -2460,6 +2465,22 @@ Registra y da seguimiento a las incidencias que afectan una operación o una ent
 *Backend.* `Incident` es la raíz del agregado y contiene sus `Evidence` (`0..*`). Su ciclo de vida se expresa con los métodos `Report`, `AttachEvidence`, `AssignSeverity`, `Review`, `Resolve` y `Close`. Cada incidencia se clasifica por tipo (`IncidentType`), tiene una severidad (`Severity`), un estado (`IncidentStatus`) y un origen (`IncidentSource`): el supervisor, la bodega o una alerta IoT. `IIncidentRepository` lista las incidencias de las operaciones y obtiene el siguiente código correlativo.
 
 <img src="img/Software-Object-Oriented-Design/backend-class-incident-management.png" alt="Diagrama de clases de Incident Management en el backend" width="800">
+
+Los diagramas del backend de Identity and Access Management y de Fleet Management, junto con el Shared Kernel, reflejan el código del repositorio de los Web Services. Los diagramas de Operations and Routes, IoT Monitoring e Incident Management son diseño: su paquete lleva la marca *planned* porque todavía no se implementan.
+
+<a id="48-database-design"></a>
+## 4.8. Database Design.
+
+<a id="481-database-diagrams"></a>
+### 4.8.1. Database Diagrams.
+
+El diagrama de base de datos corresponde al esquema relacional en MySQL. Las tablas siguen una convención única: nombres en inglés, en plural y en snake_case, y columnas en snake_case. Las claves primarias son identificadores `CHAR(36)` generados por la aplicación y las claves foráneas se nombran como `<entidad>_id`.
+
+Las tablas `organizations`, `users`, `vehicles` y `drivers` reflejan la migración `InitialCreate` de los Web Services: los estados se guardan como texto (`VARCHAR`) y los correos, los RUC, las placas, los DNI y las licencias son únicos. Las demás tablas pertenecen a los bounded contexts que todavía no están implementados y son diseño.
+
+El diagrama se elaboró como Diagram-as-Code con PlantUML; su fuente es `img/Database-Design/database-diagram.puml`.
+
+<img src="img/Database-Design/DatabaseDiagrams.png" alt="Diagrama de base de datos de BottleTrack" width="800">
 <hr>
 
 
@@ -3542,12 +3563,7 @@ Los diagramas de arquitectura, de clases y de base de datos se elaboraron como D
 | Diagrama | Lenguaje | Archivo fuente |
 | :------- | :------- | :------------- |
 | User Flow Diagrams | Graphviz DOT | `img/webApplicationUxDesign/user-flow/*.dot` |
-| C4 - System Context | Structurizr DSL | `img/DD-SoftwareArchitecture/contextDiagram.txt` |
-| C4 - Containers | Structurizr DSL | `img/DD-SoftwareArchitecture/containerDiagram.txt` |
-| C4 - Components, Identity and Access Management | Structurizr DSL | `img/DD-SoftwareArchitecture/componentIAM_D.txt` |
-| C4 - Components, Fleet Management | Structurizr DSL | `img/DD-SoftwareArchitecture/componentFleetM_D.txt` |
-| C4 - Components, Operations and Routes | Structurizr DSL | `img/DD-SoftwareArchitecture/componentO&R_D.txt` |
-| C4 - Components, IoT Monitoring | Structurizr DSL | `img/DD-SoftwareArchitecture/componentIoTM_D.txt` |
-| C4 - Components, Incident Management | Structurizr DSL | `img/DD-SoftwareArchitecture/componentIM_D.txt` |
-| Class Diagram | PlantUML | `img/Software-Object-Oriented-Design/class-diagrams.puml` |
+| C4 - System Context, Containers y Components | Structurizr DSL | `img/DD-SoftwareArchitecture/containerDiagram.txt` |
+| Class Diagram, Backend | PlantUML | `img/Software-Object-Oriented-Design/backend-class-diagrams.puml` |
+| Class Diagram, Frontend | PlantUML | `img/Software-Object-Oriented-Design/frontend-class-diagrams.puml` |
 | Database Diagram | PlantUML | `img/Database-Design/database-diagram.puml` |
