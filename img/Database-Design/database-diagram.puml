@@ -1,4 +1,6 @@
 @startuml
+' Tables organizations, users, vehicles and drivers reflect the migration of the Web Services repository.
+' The remaining tables are design only and belong to bounded contexts that are not implemented yet.
 hide circle
 skinparam linetype ortho
 skinparam shadowing false
@@ -17,24 +19,22 @@ package "Identity and Access Management" {
   entity organizations {
     * id : CHAR(36) <<PK>>
     --
-    * business_name : VARCHAR(255)
-    * tax_id : VARCHAR(20) <<UQ>>
+    * business_name : VARCHAR(150)
+    * tax_id : VARCHAR(11) <<UQ>>
     * email : VARCHAR(255)
-    phone : VARCHAR(30)
-    address : VARCHAR(255)
-    * created_at : DATETIME
+    * phone : VARCHAR(30)
+    * address : VARCHAR(255)
   }
   entity users {
     * id : CHAR(36) <<PK>>
     --
     * organization_id : CHAR(36) <<FK>>
-    * first_name : VARCHAR(100)
-    * last_name : VARCHAR(100)
+    * first_name : VARCHAR(80)
+    * last_name : VARCHAR(80)
     * email : VARCHAR(255) <<UQ>>
     * password_hash : VARCHAR(255)
-    * role : ENUM('administrator','fleet_supervisor','delivery_point_owner')
-    * status : ENUM('active','inactive')
-    * created_at : DATETIME
+    * role : VARCHAR(30)
+    * status : VARCHAR(20)
   }
 }
 
@@ -43,22 +43,22 @@ package "Fleet Management" {
     * id : CHAR(36) <<PK>>
     --
     * organization_id : CHAR(36) <<FK>>
-    * plate_number : VARCHAR(10) <<UQ>>
+    * plate_number : VARCHAR(7) <<UQ>>
     * brand : VARCHAR(60)
     * model : VARCHAR(60)
     * capacity_in_boxes : INT
-    * status : ENUM('available','assigned','in_maintenance')
+    * status : VARCHAR(20)
   }
   entity drivers {
     * id : CHAR(36) <<PK>>
     --
     * organization_id : CHAR(36) <<FK>>
-    * first_name : VARCHAR(100)
-    * last_name : VARCHAR(100)
-    * document_number : VARCHAR(15) <<UQ>>
-    * license_number : VARCHAR(30) <<UQ>>
-    phone : VARCHAR(30)
-    * status : ENUM('available','assigned','inactive')
+    * first_name : VARCHAR(80)
+    * last_name : VARCHAR(80)
+    * document_number : VARCHAR(8) <<UQ>>
+    * license_number : VARCHAR(9) <<UQ>>
+    * phone : VARCHAR(30)
+    * status : VARCHAR(20)
   }
 }
 
@@ -86,6 +86,7 @@ package "Operations and Routes" {
     * status : ENUM('pending','dispatched','in_progress','completed','cancelled')
     dispatched_at : DATETIME
     completed_at : DATETIME
+    cancellation_reason : VARCHAR(255)
   }
   entity delivery_stops {
     * id : CHAR(36) <<PK>>

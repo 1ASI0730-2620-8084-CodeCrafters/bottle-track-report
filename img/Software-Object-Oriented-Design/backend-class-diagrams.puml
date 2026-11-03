@@ -1,5 +1,7 @@
 @startuml
 ' BottleTrack - Backend (C# / ASP.NET Core) - Domain model per bounded context
+' Shared Kernel, Identity and Access Management and Fleet Management reflect the code of the Web Services repository.
+' The packages marked as planned are design only.
 ' Naming conventions applied (C#):
 '   - Classes, enumerations and enumeration members: PascalCase
 '   - Properties: public, PascalCase (shown with +)
@@ -22,7 +24,7 @@ left to right direction
 package "Shared Kernel" {
   interface "IBaseRepository<TEntity>" as IBaseRepository {
     + AddAsync(entity: TEntity): Task
-    + FindByIdAsync(id: Guid): Task<TEntity>
+    + FindByIdAsync(id: Guid): Task<TEntity?>
     + ListAsync(): Task<IEnumerable<TEntity>>
     + Update(entity: TEntity): void
     + Remove(entity: TEntity): void
@@ -30,7 +32,19 @@ package "Shared Kernel" {
   interface IUnitOfWork {
     + CompleteAsync(): Task
   }
-  IUnitOfWork "1" ..> "0..*" IBaseRepository : commits the changes of
+  class "Result<TValue, TError>" as Result {
+    + IsSuccess: bool
+    + IsFailure: bool
+    + Value: TValue
+    + Error: TError
+    + Success(value: TValue): Result
+    + Failure(error: TError): Result
+    + Fold(onSuccess, onFailure): TResult
+  }
+  interface IAuditableEntity {
+    + CreatedAt: DateTimeOffset?
+    + UpdatedAt: DateTimeOffset?
+  }
 }
 
 package "Identity and Access Management" {
@@ -41,7 +55,7 @@ package "Identity and Access Management" {
     + Email: EmailAddress
     + Phone: string
     + Address: string
-    + Register(businessName, taxId, email): Organization
+    + {static} Register(businessName, taxId, email): Organization
     + UpdateProfile(businessName, phone, address): void
   }
   class User <<Aggregate Root>> {
@@ -53,7 +67,7 @@ package "Identity and Access Management" {
     + PasswordHash: string
     + Role: UserRole
     + Status: UserStatus
-    + Register(organizationId, firstName, lastName, email, role): User
+    + {static} Register(organizationId, firstName, lastName, email, passwordHash, role): User
     + AssignRole(role: UserRole): void
     + Deactivate(): void
   }
@@ -73,13 +87,13 @@ package "Identity and Access Management" {
     Inactive
   }
   interface IOrganizationRepository {
-    + FindByTaxIdAsync(taxId: TaxId): Task<Organization>
+    + FindByTaxIdAsync(taxId: TaxId): Task<Organization?>
   }
   interface IUserRepository {
-    + FindByEmailAsync(email: EmailAddress): Task<User>
+    + FindByEmailAsync(email: EmailAddress): Task<User?>
     + ListByOrganizationAsync(organizationId: Guid): Task<IEnumerable<User>>
   }
-  User "1..*" --> "1" Organization : belongs to
+  User "1..*" --> "1" Organization : belongs to (OrganizationId)
   User "1" --> "1" UserRole : has role
   User "1" --> "1" UserStatus : has status
   User "1" *-- "1" EmailAddress : is identified by
@@ -100,7 +114,7 @@ package "Fleet Management" {
     + Model: string
     + CapacityInBoxes: int
     + Status: VehicleStatus
-    + Register(organizationId, plateNumber, brand, model, capacityInBoxes): Vehicle
+    + {static} Register(organizationId, plateNumber, brand, model, capacityInBoxes): Vehicle
     + Reserve(): void
     + Release(): void
     + SendToMaintenance(): void
@@ -114,7 +128,7 @@ package "Fleet Management" {
     + LicenseNumber: LicenseNumber
     + Phone: string
     + Status: DriverStatus
-    + Register(organizationId, firstName, lastName, licenseNumber): Driver
+    + {static} Register(organizationId, firstName, lastName, documentNumber, licenseNumber, phone): Driver
     + Reserve(): void
     + Release(): void
   }
@@ -135,12 +149,14 @@ package "Fleet Management" {
     Inactive
   }
   interface IVehicleRepository {
-    + FindByPlateNumberAsync(plateNumber: PlateNumber): Task<Vehicle>
+    + FindByPlateNumberAsync(plateNumber: PlateNumber): Task<Vehicle?>
+    + ListByOrganizationAsync(organizationId: Guid): Task<IEnumerable<Vehicle>>
     + ListAvailableAsync(organizationId: Guid): Task<IEnumerable<Vehicle>>
   }
   interface IDriverRepository {
-    + FindByDocumentNumberAsync(documentNumber: string): Task<Driver>
-    + FindByLicenseNumberAsync(licenseNumber: LicenseNumber): Task<Driver>
+    + FindByDocumentNumberAsync(documentNumber: string): Task<Driver?>
+    + FindByLicenseNumberAsync(licenseNumber: LicenseNumber): Task<Driver?>
+    + ListByOrganizationAsync(organizationId: Guid): Task<IEnumerable<Driver>>
     + ListAvailableAsync(organizationId: Guid): Task<IEnumerable<Driver>>
   }
   Vehicle "1" *-- "1" PlateNumber : is identified by
@@ -153,7 +169,7 @@ package "Fleet Management" {
   IDriverRepository "1" ..> "0..*" Driver : persists
 }
 
-package "Operations and Routes" {
+package "Operations and Routes (planned, not implemented yet)" {
   class TransportOperation <<Aggregate Root>> {
     + Id: Guid
     + Code: string
@@ -165,6 +181,7 @@ package "Operations and Routes" {
     + Status: OperationStatus
     + DispatchedAt: DateTime
     + CompletedAt: DateTime
+    + CancellationReason: string
     + Create(organizationId, description, scheduledDate): TransportOperation
     + AssignResources(vehicleId, driverId): void
     + AddDeliveryStop(deliveryPointId, plannedQuantity): void
@@ -237,7 +254,7 @@ package "Operations and Routes" {
   IDeliveryPointRepository "1" ..> "0..*" DeliveryPoint : persists
 }
 
-package "IoT Monitoring" {
+package "IoT Monitoring (planned, not implemented yet)" {
   class IoTDevice <<Aggregate Root>> {
     + Id: Guid
     + SerialNumber: string
@@ -300,7 +317,7 @@ package "IoT Monitoring" {
   IAlertRepository "1" ..> "0..*" Alert : persists
 }
 
-package "Incident Management" {
+package "Incident Management (planned, not implemented yet)" {
   class Incident <<Aggregate Root>> {
     + Id: Guid
     + Code: string
