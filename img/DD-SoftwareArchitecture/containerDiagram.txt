@@ -18,56 +18,55 @@ workspace "BottleTrack" "C4 model: context, containers and components of BottleT
             webServices = container "Web Services" "RESTful API organized as a modular monolith, one module per bounded context, each one with a hexagonal architecture." "ASP.NET Core, C#, Entity Framework Core" {
 
                 group "Identity and Access Management" {
-                    iamController = component "Authentication, Users and Organizations Controllers" "Inbound REST adapter. Exposes sign in, users, roles and organization endpoints." "ASP.NET Core Controller" "Iam"
-                    iamCommandService = component "User and Organization Command Services" "Application services. Sign users in, register users, assign roles and update the organization." "C# Application Service" "Iam"
-                    iamQueryService = component "IAM Query Service" "Application service. Resolves the profile, the users and the organization." "C# Application Service" "Iam"
-                    iamDomain = component "IAM Domain Model" "Aggregates User and Organization, value objects EmailAddress and TaxId." "C# Domain Model" "Iam"
+                    iamController = component "Organizations and Users Controllers" "Inbound REST adapter. Registers and queries organizations and users." "ASP.NET Core Controller" "Iam"
+                    iamCommandService = component "Organization and User Command Services" "Application services. Register organizations and users." "C# Application Service" "Iam"
+                    iamQueryService = component "Organization and User Query Services" "Application services. Resolve organizations and the users of an organization." "C# Application Service" "Iam"
+                    iamDomain = component "IAM Domain Model" "Aggregates User and Organization, value objects EmailAddress and TaxId, enums UserRole and UserStatus." "C# Domain Model" "Iam"
                     iamRepositories = component "User and Organization Repositories" "Outbound ports declared by the domain." "C# Interfaces" "Iam,Port"
                     iamPersistence = component "EF Core IAM Repositories" "Outbound persistence adapter that implements the repository ports." "Entity Framework Core" "Iam"
-                    iamTokenService = component "Token Service" "Outbound adapter that issues and validates JSON Web Tokens." "ASP.NET Core Authentication" "Iam"
-                    iamHashingService = component "Hashing Service" "Outbound adapter that hashes and verifies passwords." "BCrypt" "Iam"
+                    iamHashingService = component "Password Hasher" "Outbound adapter that hashes passwords." "PBKDF2 (System.Security.Cryptography)" "Iam"
                 }
 
                 group "Fleet Management" {
-                    fleetController = component "Vehicles and Drivers Controllers" "Inbound REST adapter. Exposes vehicle, driver and availability endpoints." "ASP.NET Core Controller" "Fleet"
-                    fleetCommandService = component "Fleet Command Service" "Application service. Registers and updates vehicles and drivers." "C# Application Service" "Fleet"
-                    fleetQueryService = component "Fleet Query Service" "Application service. Resolves the vehicles and drivers of the company and their availability." "C# Application Service" "Fleet"
-                    fleetDomain = component "Fleet Domain Model" "Aggregates Vehicle and Driver, value objects PlateNumber, DocumentNumber and LicenseNumber." "C# Domain Model" "Fleet"
+                    fleetController = component "Vehicles and Drivers Controllers" "Inbound REST adapter. Registers and queries vehicles and drivers, optionally only the available ones." "ASP.NET Core Controller" "Fleet"
+                    fleetCommandService = component "Vehicle and Driver Command Services" "Application services. Register vehicles and drivers." "C# Application Service" "Fleet"
+                    fleetQueryService = component "Vehicle and Driver Query Services" "Application services. Resolve vehicles and drivers by id or by organization." "C# Application Service" "Fleet"
+                    fleetDomain = component "Fleet Domain Model" "Aggregates Vehicle and Driver, value objects PlateNumber and LicenseNumber, enums VehicleStatus and DriverStatus." "C# Domain Model" "Fleet"
                     fleetRepositories = component "Vehicle and Driver Repositories" "Outbound ports declared by the domain." "C# Interfaces" "Fleet,Port"
                     fleetPersistence = component "EF Core Fleet Repositories" "Outbound persistence adapter that implements the repository ports." "Entity Framework Core" "Fleet"
-                    fleetFacade = component "Fleet Context Facade" "Inbound port used by other bounded contexts to reserve and release vehicles and drivers." "C# Facade" "Fleet"
+                    fleetFacade = component "Fleet Context Facade" "Inbound port used by other bounded contexts to reserve and release vehicles and drivers." "C# Facade" "Fleet,Planned"
                 }
 
                 group "Operations and Routes" {
-                    operationsController = component "Operations and Delivery Points Controllers" "Inbound REST adapter. Exposes transport operations, delivery stops and order tracking endpoints." "ASP.NET Core Controller" "Operations"
-                    operationsCommandService = component "Transport Operation Command Service" "Application service. Creates, starts, completes and cancels operations, assigns resources and records delivery results." "C# Application Service" "Operations"
-                    operationsQueryService = component "Operations Query Service" "Application service. Resolves operations, their progress, their history and the orders of a delivery point." "C# Application Service" "Operations"
-                    operationsDomain = component "Operations Domain Model" "Aggregates TransportOperation and DeliveryPoint, entity DeliveryStop and value objects OperationCode, Quantity and GeoLocation." "C# Domain Model" "Operations"
-                    operationsRepositories = component "Transport Operation and Delivery Point Repositories" "Outbound ports declared by the domain." "C# Interfaces" "Operations,Port"
-                    operationsPersistence = component "EF Core Operations Repositories" "Outbound persistence adapter that implements the repository ports." "Entity Framework Core" "Operations"
-                    operationsFleetAcl = component "External Fleet Service" "Anti-corruption layer that reserves and releases resources through the Fleet Context Facade." "C# Adapter" "Operations"
-                    operationsGeocoding = component "Geocoding Service" "Outbound adapter that geocodes delivery addresses through the maps service." "C# HTTP Client" "Operations"
+                    operationsController = component "Operations and Delivery Points Controllers" "Inbound REST adapter. Exposes transport operations, delivery stops and order tracking endpoints." "ASP.NET Core Controller" "Operations,Planned"
+                    operationsCommandService = component "Transport Operation Command Service" "Application service. Creates, starts, completes and cancels operations, assigns resources and records delivery results." "C# Application Service" "Operations,Planned"
+                    operationsQueryService = component "Operations Query Service" "Application service. Resolves operations, their progress, their history and the orders of a delivery point." "C# Application Service" "Operations,Planned"
+                    operationsDomain = component "Operations Domain Model" "Aggregates TransportOperation and DeliveryPoint, entity DeliveryStop and value objects OperationCode, Quantity and GeoLocation." "C# Domain Model" "Operations,Planned"
+                    operationsRepositories = component "Transport Operation and Delivery Point Repositories" "Outbound ports declared by the domain." "C# Interfaces" "Operations,Port,Planned"
+                    operationsPersistence = component "EF Core Operations Repositories" "Outbound persistence adapter that implements the repository ports." "Entity Framework Core" "Operations,Planned"
+                    operationsFleetAcl = component "External Fleet Service" "Anti-corruption layer that reserves and releases resources through the Fleet Context Facade." "C# Adapter" "Operations,Planned"
+                    operationsGeocoding = component "Geocoding Service" "Outbound adapter that geocodes delivery addresses through the maps service." "C# HTTP Client" "Operations,Planned"
                 }
 
                 group "IoT Monitoring" {
-                    monitoringController = component "Devices, Readings and Alerts Controllers" "Inbound REST adapter. Receives sensor readings and exposes devices, safe ranges and alerts." "ASP.NET Core Controller" "Monitoring"
-                    monitoringCommandService = component "Monitoring Command Service" "Application service. Records readings, evaluates them against the safe range, raises and acknowledges alerts." "C# Application Service" "Monitoring"
-                    monitoringQueryService = component "Monitoring Query Service" "Application service. Resolves devices, the latest reading of an operation and the pending alerts." "C# Application Service" "Monitoring"
-                    monitoringDomain = component "Monitoring Domain Model" "Aggregates IoTDevice, SensorReading and Alert, value object SafeRange." "C# Domain Model" "Monitoring"
-                    monitoringRepositories = component "Device, Reading and Alert Repositories" "Outbound ports declared by the domain." "C# Interfaces" "Monitoring,Port"
-                    monitoringPersistence = component "EF Core Monitoring Repositories" "Outbound persistence adapter that implements the repository ports." "Entity Framework Core" "Monitoring"
-                    monitoringEvents = component "Alert Event Publisher" "Outbound adapter that publishes AlertRaised so Incident Management can open an incident." "C# Domain Event Publisher" "Monitoring"
+                    monitoringController = component "Devices, Readings and Alerts Controllers" "Inbound REST adapter. Receives sensor readings and exposes devices, safe ranges and alerts." "ASP.NET Core Controller" "Monitoring,Planned"
+                    monitoringCommandService = component "Monitoring Command Service" "Application service. Records readings, evaluates them against the safe range, raises and acknowledges alerts." "C# Application Service" "Monitoring,Planned"
+                    monitoringQueryService = component "Monitoring Query Service" "Application service. Resolves devices, the latest reading of an operation and the pending alerts." "C# Application Service" "Monitoring,Planned"
+                    monitoringDomain = component "Monitoring Domain Model" "Aggregates IoTDevice, SensorReading and Alert, value object SafeRange." "C# Domain Model" "Monitoring,Planned"
+                    monitoringRepositories = component "Device, Reading and Alert Repositories" "Outbound ports declared by the domain." "C# Interfaces" "Monitoring,Port,Planned"
+                    monitoringPersistence = component "EF Core Monitoring Repositories" "Outbound persistence adapter that implements the repository ports." "Entity Framework Core" "Monitoring,Planned"
+                    monitoringEvents = component "Alert Event Publisher" "Outbound adapter that publishes AlertRaised so Incident Management can open an incident." "C# Domain Event Publisher" "Monitoring,Planned"
                 }
 
                 group "Incident Management" {
-                    incidentsController = component "Incidents and Analytics Controllers" "Inbound REST adapter. Exposes incident, evidence, status and operational indicator endpoints." "ASP.NET Core Controller" "Incidents"
-                    incidentsCommandService = component "Incident Command Service" "Application service. Reports incidents, attaches evidence and advances their status until they are closed." "C# Application Service" "Incidents"
-                    incidentsQueryService = component "Incident Query Service" "Application service. Resolves incidents by operation and calculates the operational indicators." "C# Application Service" "Incidents"
-                    incidentsDomain = component "Incident Domain Model" "Aggregate Incident with entity Evidence and value object IncidentCode." "C# Domain Model" "Incidents"
-                    incidentsRepositories = component "Incident Repository" "Outbound port declared by the domain." "C# Interface" "Incidents,Port"
-                    incidentsPersistence = component "EF Core Incident Repository" "Outbound persistence adapter that implements the repository port." "Entity Framework Core" "Incidents"
-                    incidentsEvidenceStorage = component "Evidence Storage Service" "Outbound adapter that validates and stores the evidence files." "C# File Storage Adapter" "Incidents"
-                    incidentsEventHandler = component "Alert Event Handler" "Inbound adapter that opens an incident when IoT Monitoring publishes AlertRaised." "C# Domain Event Handler" "Incidents"
+                    incidentsController = component "Incidents and Analytics Controllers" "Inbound REST adapter. Exposes incident, evidence, status and operational indicator endpoints." "ASP.NET Core Controller" "Incidents,Planned"
+                    incidentsCommandService = component "Incident Command Service" "Application service. Reports incidents, attaches evidence and advances their status until they are closed." "C# Application Service" "Incidents,Planned"
+                    incidentsQueryService = component "Incident Query Service" "Application service. Resolves incidents by operation and calculates the operational indicators." "C# Application Service" "Incidents,Planned"
+                    incidentsDomain = component "Incident Domain Model" "Aggregate Incident with entity Evidence and value object IncidentCode." "C# Domain Model" "Incidents,Planned"
+                    incidentsRepositories = component "Incident Repository" "Outbound port declared by the domain." "C# Interface" "Incidents,Port,Planned"
+                    incidentsPersistence = component "EF Core Incident Repository" "Outbound persistence adapter that implements the repository port." "Entity Framework Core" "Incidents,Planned"
+                    incidentsEvidenceStorage = component "Evidence Storage Service" "Outbound adapter that validates and stores the evidence files." "C# File Storage Adapter" "Incidents,Planned"
+                    incidentsEventHandler = component "Alert Event Handler" "Inbound adapter that opens an incident when IoT Monitoring publishes AlertRaised." "C# Domain Event Handler" "Incidents,Planned"
                 }
             }
             database = container "Database" "Stores the data of every bounded context in its own set of tables." "MySQL" "Database"
@@ -98,14 +97,13 @@ workspace "BottleTrack" "C4 model: context, containers and components of BottleT
         iotDevice -> bottleTrack.webServices "Sends telemetry readings to" "HTTPS / JSON"
 
         # Identity and Access Management
-        bottleTrack.singlePageApplication -> bottleTrack.webServices.iamController "Signs in and manages users and the organization" "HTTPS / JSON"
+        bottleTrack.singlePageApplication -> bottleTrack.webServices.iamController "Registers and queries users and organizations" "HTTPS / JSON"
         bottleTrack.webServices.iamController -> bottleTrack.webServices.iamCommandService "Sends commands to"
         bottleTrack.webServices.iamController -> bottleTrack.webServices.iamQueryService "Sends queries to"
         bottleTrack.webServices.iamCommandService -> bottleTrack.webServices.iamDomain "Applies business rules of"
         bottleTrack.webServices.iamCommandService -> bottleTrack.webServices.iamRepositories "Persists aggregates through"
         bottleTrack.webServices.iamQueryService -> bottleTrack.webServices.iamRepositories "Reads through"
-        bottleTrack.webServices.iamCommandService -> bottleTrack.webServices.iamTokenService "Issues tokens with"
-        bottleTrack.webServices.iamCommandService -> bottleTrack.webServices.iamHashingService "Hashes and verifies passwords with"
+        bottleTrack.webServices.iamCommandService -> bottleTrack.webServices.iamHashingService "Hashes passwords with"
         bottleTrack.webServices.iamPersistence -> bottleTrack.webServices.iamRepositories "Implements"
         bottleTrack.webServices.iamPersistence -> bottleTrack.database "Reads from and writes to" "Entity Framework Core"
 
@@ -244,6 +242,10 @@ workspace "BottleTrack" "C4 model: context, containers and components of BottleT
             element "Component" {
                 background #ffedd5
                 color #303030
+            }
+            element "Planned" {
+                border dashed
+                opacity 70
             }
             element "Port" {
                 background #ffffff
