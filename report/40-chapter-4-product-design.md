@@ -716,7 +716,7 @@ El tablero se encuentra disponible en: https://miro.com/welcomeonboard/aEpQNnI1b
 
 El diagrama de contexto muestra a BottleTrack como una caja negra y su relación con las personas y los sistemas externos. Sus usuarios son el administrador de la distribuidora, el supervisor de flota y el responsable de la bodega. El conductor aparece como actor del dominio que reporta al supervisor, pero no usa la aplicación. Los sistemas externos son los dispositivos IoT instalados en los vehículos y el servicio de mapas y geolocalización, que constituye el servicio de terceros que consume la solución.
 
-Los diagramas C4 se elaboraron con Structurizr DSL; el código fuente de cada diagrama se encuentra junto a su imagen en la carpeta `img/DD-SoftwareArchitecture` del repositorio.
+Los diagramas C4 se elaboraron con Structurizr DSL; el código fuente de cada diagrama se encuentra junto a su imagen ...en la carpeta `report/assets/DD-SoftwareArchitecture` del repositorio.
 
 <img src="assets/DD-SoftwareArchitecture/contextDiagram.png" alt="Diagrama de contexto C4 de BottleTrack" width="800">
 
@@ -778,7 +778,7 @@ Se elaboró un diagrama de componentes por bounded context. Los componentes dibu
 
 Los diagramas de clases se presentan en dos versiones, una por producto, porque cada uno se programa en un lenguaje distinto y sigue sus propias convenciones de nomenclatura: la Frontend Web Application en JavaScript y el Backend en C#. Ambas se organizan por bounded context, con nombres en inglés tomados del Ubiquitous Language de la sección 2.5.
 
-Ambos diagramas se elaboraron como Diagram-as-Code con PlantUML, y sus fuentes son `img/Software-Object-Oriented-Design/frontend-class-diagrams.puml` y `img/Software-Object-Oriented-Design/backend-class-diagrams.puml`.
+Ambos diagramas se elaboraron como Diagram-as-Code con PlantUML, y sus fuentes son `report/assets/Software-Object-Oriented-Design/frontend-class-diagrams.puml` y `report/assets/Software-Object-Oriented-Design/backend-class-diagrams.puml`.
 
 **Cómo leer los diagramas**
 
@@ -874,7 +874,7 @@ El diagrama de base de datos corresponde al esquema relacional en MySQL. Las tab
 
 Las tablas `organizations`, `users`, `vehicles` y `drivers` reflejan la migración `InitialCreate` de los Web Services: los estados se guardan como texto (`VARCHAR`) y los correos, los RUC, las placas, los DNI y las licencias son únicos. Las demás tablas pertenecen a los bounded contexts que todavía no están implementados y son diseño.
 
-El diagrama se elaboró como Diagram-as-Code con PlantUML; su fuente es `img/Database-Design/database-diagram.puml`.
+El diagrama se elaboró como Diagram-as-Code con PlantUML; su fuente es `report/assets/Database-Design/database-diagram.puml`.
 
 <img src="assets/Database-Design/DatabaseDiagrams.png" alt="Diagrama de base de datos de BottleTrack" width="800">
 <hr>

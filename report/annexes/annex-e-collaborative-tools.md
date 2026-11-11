@@ -17,8 +17,8 @@ En esta sección se registran los espacios de trabajo compartidos que el equipo 
 | UXPressia | Impact Maps | https://uxpressia.com/w/v8FzI/i/ewgWb<br>https://uxpressia.com/w/v8FzI/i/kjQEJ<br>https://uxpressia.com/w/v8FzI/i/1v4vF |
 | Miro | Big Picture EventStorming y Design-Level EventStorming | https://miro.com/welcomeonboard/aEpQNnI1bURVdldqRzNDWk5aUnR6bStSQnhiSmpuYi9RM01sVkxtOWNsM3V5T1NkRW5pdHFuZ003VHcrV0hxR29tQ0xvRTJHV1VNTzNYUWV1VmwyWUZGRzlld2tuSnZKRTNrM3RnczNnc0NMQWt2WlB6WnEzRXBES1h0d2svaStnbHpza3F6REdEcmNpNEFOMmJXWXBBPT0hdjE=?share_link_id=491275847129 |
 | Figma | Wireframes, Mock-ups y Prototypes | https://www.figma.com/design/lBVdrnyGUWfjN6Mz4fhBpY/BOTTLETRACK?node-id=0-1 |
-| Structurizr DSL | Diagramas C4 de arquitectura de software | https://github.com/1ASI0730-2620-8084-CodeCrafters/Report/tree/main/img/DD-SoftwareArchitecture |
-| PlantUML | Diagramas de clases y de base de datos | https://github.com/1ASI0730-2620-8084-CodeCrafters/Report/tree/main/img/Software-Object-Oriented-Design |
+| Structurizr DSL | Diagramas C4 de arquitectura de software | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-report/tree/main/report/assets/DD-SoftwareArchitecture |
+| PlantUML | Diagramas de clases y de base de datos | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-report/tree/main/report/assets/Software-Object-Oriented-Design|
 
 <hr>
 
