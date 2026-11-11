@@ -1,0 +1,11 @@
+# Datos del documento y ajustes de LaTeX. Se inyectan como variables en la plantilla de Pandoc.
+# Nota: dentro de header-includes no pongas comentarios con "%" (Pandoc los interpreta como texto).
+lang: es
+title-meta: "BottleTrack - Informe del Trabajo Final"
+author-meta: "CodeCrafters"
+header-includes:
+  - |
+    \usepackage{xurl}
+    \setcounter{tocdepth}{3}
+    \addto\captionsspanish{\renewcommand{\contentsname}{Contenido}}
+    \setlength{\emergencystretch}{3em}

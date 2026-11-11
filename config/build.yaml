@@ -1,0 +1,47 @@
+# Configuracion de compilacion del informe de BottleTrack.
+#
+# Uso (desde la raiz del repositorio):
+#   pandoc --defaults=config/build.yaml
+# o, mas facil:  .\build.ps1   (Windows)   /   make pdf   (Linux, macOS)
+#
+# El orden de input-files es el orden del PDF. Si agregas un capitulo o un anexo,
+# agregalo aqui en su lugar.
+
+input-files:
+  - README.md                      # registro de versiones, insights de colaboracion, indice y Student Outcome
+  - report/10-chapter-1-introduction.md
+  - report/20-chapter-2-requirements-elicitation-and-analysis.md
+  - report/30-chapter-3-requirements-specification.md
+  - report/40-chapter-4-product-design.md
+  - report/50-chapter-5-product-implementation-validation-and-deployment.md
+  - report/90-conclusions.md
+  - report/99-bibliography.md
+  - report/annexes/annex-a-presentation-videos.md
+  - report/annexes/annex-b-interview-videos.md
+  - report/annexes/annex-c-product-links.md
+  - report/annexes/annex-d-products-deployment.md
+  - report/annexes/annex-e-collaborative-tools.md
+  - report/annexes/annex-f-diagrams-source-code.md
+
+output-file: build/informe-bottletrack.pdf
+
+metadata-file: config/metadata.yaml
+include-before-body: [config/cover.tex]      # caratula del curso
+filters: [config/filters/html-to-pdf.lua]    # adapta el HTML de los .md para el PDF
+
+from: markdown+autolink_bare_uris         # las URLs sueltas pasan a ser enlaces que se pueden cortar
+pdf-engine: xelatex
+file-scope: true                             # aisla cada archivo (notas al pie e identificadores)
+resource-path: ['.', 'report']               # las imagenes se escriben como assets/... dentro de report/
+top-level-division: chapter                  # cada "# Titulo" abre un capitulo en pagina nueva
+toc: false                                   # el indice se coloca donde estaba "Contenido" (ver el filtro)
+highlight-style: tango
+
+variables:
+  documentclass: report
+  papersize: a4
+  geometry: margin=2.5cm
+  fontsize: 11pt
+  colorlinks: true
+  linkcolor: black
+  urlcolor: blue

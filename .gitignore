@@ -1,0 +1,15 @@
+# Salida de la compilacion de Pandoc
+build/
+
+# IDE y sistema
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Auxiliares de LaTeX
+*.aux
+*.log
+*.toc
+*.out
