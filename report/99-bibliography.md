@@ -1,6 +1,7 @@
 [← Conclusiones](90-conclusions.md) · [Contenido](../README.md#contenido) · [Anexos →](annexes/annex-a-presentation-videos.md)
 
 <a id="bibliografia"></a>
+
 # Bibliografía
 
 Las siguientes referencias, presentadas en formato APA, constituyen la base conceptual y técnica sobre la que el equipo desarrolló el presente trabajo.

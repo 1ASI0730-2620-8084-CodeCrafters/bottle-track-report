@@ -1,14 +1,17 @@
 [← Capítulo IV](40-chapter-4-product-design.md) · [Contenido](../README.md#contenido) · [Conclusiones →](90-conclusions.md)
 
 <a id="capitulo-v-product-implementation-validation-deployment"></a>
+
 # Capítulo V: Product Implementation, Validation & Deployment
 
 <a id="51-software-configuration-management"></a>
+
 ## 5.1. Software Configuration Management.
 
 En esta sección el equipo establece las decisiones y convenciones que permiten mantener la consistencia del producto durante todo el ciclo de vida. Estas decisiones son de cumplimiento obligatorio para los cinco integrantes y se aplican de manera idéntica en los cuatro repositorios del proyecto.
 
 <a id="511-software-development-environment-configuration"></a>
+
 ### 5.1.1. Software Development Environment Configuration.
 
 A continuación se indican los productos de software que utiliza el equipo, el propósito de cada uno dentro del proyecto y la ruta de referencia o de descarga correspondiente.
@@ -64,6 +67,7 @@ A continuación se indican los productos de software que utiliza el equipo, el p
 | Swagger / OpenAPI | Documentación de los endpoints de los Web Services. | https://swagger.io |
 
 <a id="512-source-code-management"></a>
+
 ### 5.1.2. Source Code Management.
 
 El seguimiento de modificaciones se realiza con Git, gestionado desde GitHub. El equipo trabaja dentro de una organización pública, con un repositorio independiente por producto.
@@ -120,6 +124,7 @@ Ejemplos aplicados en el proyecto: `feat(design-system): add color, typography a
 Adicionalmente, el equipo acordó mantener commits de alcance acotado, de manera que cada uno concentre un cambio comprensible de forma aislada y el historial permita evidenciar con claridad el aporte individual de cada integrante.
 
 <a id="513-source-code-style-guide-and-conventions"></a>
+
 ### 5.1.3. Source Code Style Guide and Conventions.
 
 Toda la nomenclatura de elementos del código se escribe en inglés, sin excepción, en los cuatro repositorios. Las referencias adoptadas por lenguaje son las siguientes:
@@ -153,6 +158,7 @@ Toda la nomenclatura de elementos del código se escribe en inglés, sin excepci
 El código se escribe sin comentarios: la legibilidad se sostiene con nombres autoexplicativos y con funciones de responsabilidad única. La indentación es de cuatro espacios en HTML, CSS y JavaScript. Los valores visuales nunca se escriben de forma directa en las vistas, sino que se consumen desde los tokens del design system.
 
 <a id="514-software-deployment-configuration"></a>
+
 ### 5.1.4. Software Deployment Configuration.
 
 **Landing Page**
@@ -182,12 +188,15 @@ Los Web Services se publicarán en un proveedor de nube junto con la base de dat
 
 
 <a id="52-landing-page-services-applications-implementation"></a>
+
 ## 5.2. Landing Page, Services & Applications Implementation.
 
 <a id="52x-sprint-n"></a>
+
 ### 5.2.1. Sprint 1
 
 <a id="52x1-sprint-planning-n"></a>
+
 #### 5.2.1.1. Sprint Planning 1.
 
 | Sprint #  | Sprint 1 |
@@ -206,6 +215,7 @@ Los Web Services se publicarán en un proveedor de nube junto con la base de dat
 | Sum of Story Points | 27 |
 
 <a id="52x2-aspect-leader-and-colaborators"></a>
+
 #### 5.2.1.2. Aspect Leaders and Collaborators.
 
 Durante el Sprint 1 el equipo se organizó por aspectos, de modo que cada integrante condujo el área en la que tenía mayor conocimiento y colaboró en las demás. La matriz de Liderazgo y Colaboración (LACX) refleja la asignación acordada en el Sprint Planning y es coherente con las tareas del Sprint Backlog y con el historial de commits.
@@ -219,6 +229,7 @@ Durante el Sprint 1 el equipo se organizó por aspectos, de modo que cada integr
 | Huapaya Buitron, Ariana Alheli | — | — | — | — | — | — |
 
 <a id="52x3-sprint-backlog-n"></a>
+
 #### 5.2.1.3. Sprint Backlog 1.
 
 El Sprint 1 comprometió las User Stories del Landing Page y las de acceso e identidad de la Web Application, de acuerdo con el Sprint Goal. Cada User Story se descompuso en tareas de entre 4 y 8 horas. El tablero del Sprint se administró en Trello y se encuentra disponible en: https://trello.com/b/jGpO815B/bottletrack-product-backlog
@@ -246,6 +257,7 @@ El Sprint 1 comprometió las User Stories del Landing Page y las de acceso e ide
 | US09 | Gestionar información de empresa | T02 | Company settings implementation | Implementar el formulario y el servicio para actualizar los datos de la empresa. | 5 | Pezo Castilla, Maria Jose | To-do |
 
 <a id="52x4-development-evidence-for-sprint-review"></a>
+
 #### 5.2.1.4. Development Evidence for Sprint Review.
 
 En el Sprint 1 se implementó el Landing Page en el repositorio https://github.com/1ASI0730-2620-8084-CodeCrafters/Landing-Page siguiendo GitFlow: cada funcionalidad se desarrolló en una rama `feature/*` creada desde `develop`, se integró con merges `--no-ff` y se publicó desde la rama `release/0.1.0` con el tag `v0.1.0`. La siguiente tabla presenta los commits de la iteración.
@@ -271,6 +283,7 @@ En el Sprint 1 se implementó el Landing Page en el repositorio https://github.c
 | Landing-Page | feature/about-the-team-video | 7b3662f | docs: set github pages as the deployment target | — | 2026-09-03 |
 
 <a id="52x5-execution-evidence-for-sprint-review"></a>
+
 #### 5.2.1.5. Execution Evidence for Sprint Review.
 
 Al cierre del Sprint 1 el Landing Page se encuentra publicado en https://1asi0730-2620-8084-codecrafters.github.io/Landing-Page/. La versión implementa la sección hero con la propuesta de valor, la sección del problema, las capacidades del producto, el funcionamiento en tres pasos, los segmentos objetivo con su llamada a la acción, el video About the Team y el pie de página con los términos y condiciones. El contenido se presenta en inglés por defecto y en español latinoamericano mediante el selector de idioma, y la disposición se adapta a escritorio y a móvil.
@@ -306,11 +319,13 @@ Al cierre del Sprint 1 el Landing Page se encuentra publicado en https://1asi073
 <img src="assets/chapter5/landing-style-guide-2.png" alt="Vista de style guide del design system de BottleTrack, parte 2 de 2" width="800">
 
 <a id="52x6-services-documentation-evidence-for-sprint-review"></a>
+
 #### 5.2.1.6. Services Documentation Evidence for Sprint Review.
 
 El alcance del Sprint 1 corresponde al Landing Page, que es un sitio estático y no expone endpoints. La documentación de los servicios con OpenAPI se incorpora en el Sprint en el que se implementa la primera versión del Backend API, de acuerdo con la Technical Story TS13.
 
 <a id="52x7-software-deployment-evidence-for-sprint-review"></a>
+
 #### 5.2.1.7. Software Deployment Evidence for Sprint Review.
 
 El Landing Page se desplegó en GitHub Pages desde el repositorio de la organización. El proceso fue el siguiente:
@@ -338,6 +353,7 @@ El Landing Page se desplegó en GitHub Pages desde el repositorio de la organiza
 <img src="assets/chapter5/landing-tags.png" alt="Tag v0.1.0 del repositorio Landing-Page" width="800">
 
 <a id="52x8-team-colaboration-insights-during-sprint"></a>
+
 #### 5.2.1.8. Team Collaboration Insights during Sprint.
 
 Durante el Sprint 1 el trabajo se distribuyó entre dos repositorios. En el repositorio del informe participaron cuatro integrantes, cada uno a cargo de los capítulos de su aspecto: Leonardo Cumba en los capítulos I y III, Maria Jose Pezo en el Needfinding, el Impact Mapping y el EventStorming, Gerardo Palacin en el diseño de las interfaces y en los diagramas C4, y Angel Crispin en las Style Guidelines, la arquitectura de información y la configuración del software. El repositorio del Landing Page concentró sus commits en Angel Crispin, responsable de su implementación, mientras que el diseño de la interfaz del Landing Page lo elaboró Gerardo Palacin en Figma.
@@ -363,9 +379,11 @@ La siguiente tabla resume los commits de cada integrante en el Sprint 1, sin con
 Para el Sprint 2 el equipo acordó que todos los integrantes participen con commits en el Landing Page y en la Frontend Web Application, cada uno en la rama de su bounded context.
 
 <a id="522-sprint-2"></a>
+
 ### 5.2.2. Sprint 2
 
 <a id="5221-sprint-planning-2"></a>
+
 #### 5.2.2.1. Sprint Planning 2.
 
 | Sprint #  | Sprint 2 |
@@ -384,6 +402,7 @@ Para el Sprint 2 el equipo acordó que todos los integrantes participen con comm
 | Sum of Story Points | 143 |
 
 <a id="5222-aspect-leaders-and-collaborators"></a>
+
 #### 5.2.2.2. Aspect Leaders and Collaborators.
 
 En el Sprint 2 los aspectos corresponden a los bounded contexts de la Frontend Web Application, a la configuración base del proyecto y al Landing Page. Cada integrante lidera el bounded context que implementó en su rama de feature y colabora en los contextos con los que el suyo se integra. Angel Crispin colabora en todos los contextos porque revisó e integró cada rama en `develop` y mantuvo el Shared Kernel del que todos dependen.
@@ -397,6 +416,7 @@ En el Sprint 2 los aspectos corresponden a los bounded contexts de la Frontend W
 | Huapaya Buitron, Ariana Alheli | arianahuapayabui | C | C | L | C | C | C | C |
 
 <a id="5223-sprint-backlog-2"></a>
+
 #### 5.2.2.3. Sprint Backlog 2.
 
 El Sprint 2 comprometió las historias de acceso que quedaron pendientes en el Sprint 1, todas las User Stories de la Frontend Web Application que pueden resolverse con el fake API y las historias del Landing Page por segmento y de contacto. Las Technical Stories del RESTful API se planifican para el Sprint 3, junto con la primera versión de los Web Services. Las 51 tareas suman 216 horas y se gestionan en el tablero del proyecto: https://trello.com/b/jGpO815B/bottletrack-product-backlog
@@ -466,6 +486,7 @@ El Sprint 2 comprometió las historias de acceso que quedaron pendientes en el S
 | US35 | Consultar dashboard | T01 | Analytics dashboard | Implementar el dashboard con las operaciones del mes, las entregas completadas, las incidencias abiertas y la merma. | 6 | Pezo Castilla, Maria Jose | Done |
 
 <a id="5224-development-evidence-for-sprint-review"></a>
+
 #### 5.2.2.4. Development Evidence for Sprint Review.
 
 En el Sprint 2 se implementó la primera versión de la Frontend Web Application en el repositorio https://github.com/1ASI0730-2620-8084-CodeCrafters/Frontend-Web-Aplication, con Vue 3, PrimeVue, Pinia, Vue Router, vue-i18n y axios, en JavaScript. El código se organiza por bounded context, y cada uno se divide en las capas `domain`, `application`, `infrastructure` y `presentation`. Angel Crispin preparó la base del proyecto en `feature/project-setup`, y luego cada integrante desarrolló su bounded context en una rama de feature propia, integrada en `develop` mediante un merge `--no-ff`. La versión se publicó desde `release/0.1.0` con la etiqueta `v0.1.0`.
@@ -533,6 +554,7 @@ En el repositorio del Landing Page se aplicaron las correcciones de AV1 y se pub
 | Landing-Page | release/1.0.0 | 510c71d | docs(release): document version 1.0.0 | — | 2026-10-05 |
 
 <a id="5225-execution-evidence-for-sprint-review"></a>
+
 #### 5.2.2.5. Execution Evidence for Sprint Review.
 
 Al cierre del Sprint 2 la Frontend Web Application v1.0.0 se encuentra publicada en https://frontend-web-aplication.vercel.app. La aplicación ofrece una experiencia distinta para cada rol: el administrador gestiona los usuarios, la empresa, la flota y los dispositivos IoT; el supervisor de flota planifica y ejecuta las operaciones, monitorea la carga y registra las incidencias; y el responsable de la bodega sigue sus pedidos y reporta los problemas de recepción. Las vistas que siguen se capturaron con los datos del fake API y el idioma español; la aplicación cambia a inglés desde el selector de idioma.
@@ -628,6 +650,7 @@ El Landing Page incorpora las correcciones de AV1: el segmento de bodegas y mini
 </table>
 
 <a id="5226-services-documentation-evidence-for-sprint-review"></a>
+
 #### 5.2.2.6. Services Documentation Evidence for Sprint Review.
 
 El Sprint 2 no incluye los Web Services, que se implementan en el Sprint 3 con su documentación en OpenAPI. Mientras tanto, la Frontend Web Application consume un fake API construido con json-server a partir del archivo `server/db.json` del repositorio. Las rutas se publican bajo el prefijo `/api/v1` y cada una se configura en el archivo de entorno con una variable `VITE_<RECURSO>_ENDPOINT_PATH`, de modo que el cambio al RESTful API definitivo solo requiera actualizar la URL base.
@@ -650,6 +673,7 @@ En producción el fake API se publica en Beeceptor, en https://bottle-track.free
 | `/evidences` | Incident Management | GET, POST |
 
 <a id="5227-software-deployment-evidence-for-sprint-review"></a>
+
 #### 5.2.2.7. Software Deployment Evidence for Sprint Review.
 
 En el Sprint 2 se publicaron dos productos.
@@ -713,6 +737,7 @@ A partir del Sprint 2 el Landing Page se publica en Netlify, que reemplaza a Git
 <img src="assets/chapter5/sprint2/github-landing-tags.png" alt="Tags v0.1.0 y v0.2.0 del repositorio Landing-Page" width="800">
 
 <a id="5228-team-collaboration-insights-during-sprint"></a>
+
 #### 5.2.2.8. Team Collaboration Insights during Sprint.
 
 Durante el Sprint 2 los cinco integrantes participaron con commits en la Frontend Web Application, cada uno en la rama de su bounded context. Leonardo Cumba concentró el mayor volumen en Operations and Routes, el bounded context con más User Stories del Sprint; Angel Crispin aportó la base del proyecto, Identity and Access Management y la integración de las ramas; y Gerardo Palacin, Maria Jose Pezo y Ariana Huapaya implementaron IoT Monitoring, Incident Management y Fleet Management, respectivamente. En el Landing Page, Gerardo Palacin incorporó las capturas de la aplicación y Angel Crispin aplicó las correcciones de AV1 y publicó la versión v1.0.0. En el informe, Leonardo Cumba documentó los wireflows y User Flow Diagrams por objetivo de usuario y registró una nueva entrevista del segmento de bodegas y minimarkets; Gerardo Palacin registró otra entrevista de ese segmento; Maria Jose Pezo consolidó el Impact Map y actualizó las User Personas; Ariana Huapaya registró sus acciones en el Student Outcome; y Angel Crispin documentó el Sprint 2, aplicó las correcciones de AV1 y publicó los releases del informe.
@@ -743,9 +768,11 @@ La siguiente tabla resume los commits de cada integrante en el Sprint 2, sin con
 
 
 <a id="523-sprint-3"></a>
+
 ### 5.2.3. Sprint 3
 
 <a id="5231-sprint-planning-3"></a>
+
 #### 5.2.3.1. Sprint Planning 3.
 
 El Sprint 3 propone implementar la primera versión de los Web Services de BottleTrack e integrarlos con la Frontend Web Application desarrollada durante el Sprint 2. El incremento busca reemplazar el uso del fake API en los flujos principales por servicios RESTful con persistencia en MySQL, validaciones y reglas de negocio en el servidor.
@@ -773,6 +800,7 @@ Las lecturas IoT continuarán siendo simuladas, pero su registro, consulta y gen
 
 
 <a id="5232-aspect-leaders-and-collaborators"></a>
+
 #### 5.2.3.2. Aspect Leaders and Collaborators.
 
 Para el Sprint 3 se propone mantener la distribución por bounded context utilizada en el Sprint 2. Cada integrante liderará la implementación de los servicios relacionados con su contexto y colaborará en su integración con los demás componentes de BottleTrack.
@@ -797,6 +825,7 @@ Cada integrante será responsable de documentar y verificar los endpoints de su 
 
 
 <a id="5233-sprint-backlog-3"></a>
+
 #### 5.2.3.3. Sprint Backlog 3.
 
 El Sprint Backlog 3 propone implementar las Technical Stories del RESTful API previstas en el Product Backlog e integrar los servicios con las vistas existentes de la Frontend Web Application. También incluye tareas transversales de configuración, despliegue, validación y preparación de evidencias para AV2.
@@ -874,11 +903,13 @@ Las horas y asignaciones de la siguiente tabla son estimaciones propuestas. El e
 
 
 <a id="53-validation-interviews"></a>
+
 ## 5.3. Validation Interviews.
 
 Las entrevistas de validación se realizan cuando los segmentos objetivo pueden interactuar con el Landing Page y con la Web Application desplegados. En esta sección se presenta su diseño, que se aplicará sobre la primera versión de la Web Application.
 
 <a id="531-diseno-de-entrevistas"></a>
+
 ### 5.3.1. Diseño de Entrevistas.
 
 Se entrevistará a entre 3 y 5 representantes por segmento objetivo, preferentemente los mismos participantes de las entrevistas de Needfinding, para contrastar su situación actual con la experiencia que ofrece BottleTrack. Cada sesión se graba en video con la autorización del participante y comienza con la navegación libre del Landing Page, seguida de la ejecución de las tareas de su segmento en la Web Application.
@@ -900,16 +931,19 @@ Al finalizar las tareas se formulan las siguientes preguntas:
 | 5 | ¿Qué cambiaría para utilizarlo durante su jornada? |
 
 <a id="532-registro-de-entrevistas"></a>
+
 ### 5.3.2. Registro de Entrevistas.
 
 El registro sigue el mismo formato de la sección 2.2.2: nombres, edad, distrito, captura y enlace del video en Microsoft Stream con su inicio y duración, y un resumen por entrevista. Las entrevistas se registran en el Sprint en el que se publica la primera versión de la Web Application.
 
 <a id="533-evaluaciones-segun-heuristicas"></a>
+
 ### 5.3.3. Evaluaciones según heurísticas.
 
 La evaluación aplica las diez heurísticas de usabilidad de Nielsen sobre el Landing Page y la Web Application, con la escala de severidad del curso: 1, problema cosmético; 2, problema menor; 3, problema mayor; 4, problema muy grave. Cada problema se documenta con su descripción, la heurística que incumple, una captura y la recomendación de solución, y se resume en una tabla con las columnas #, Problema, Severidad y Heurística o principio violado.
 
 <a id="54-video-about-the-product"></a>
+
 ## 5.4. Video About-the-Product.
 
 El video About-the-Product presenta BottleTrack a los visitantes del Landing Page: el problema que resuelve, a quién está dirigido y sus funcionalidades principales. Tiene una duración de entre 1 y 3 minutos, se publica en Microsoft Stream y en YouTube y se incrusta en el Landing Page. Se produce cuando la Web Application cuenta con las vistas del flujo principal, para mostrarlas en funcionamiento.

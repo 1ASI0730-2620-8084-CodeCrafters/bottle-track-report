@@ -1,6 +1,7 @@
 [← Capítulo II](20-chapter-2-requirements-elicitation-and-analysis.md) · [Contenido](../README.md#contenido) · [Capítulo IV →](40-chapter-4-product-design.md)
 
 <a id="capitulo-iii-requirements-specification"></a>
+
 # Capítulo III: Requirements Specification
 
 En este capítulo se presenta la especificación preliminar de los requisitos de BottleTrack, tomando como base el dominio del problema, las assumptions definidas durante el proceso Lean UX y las necesidades inicialmente identificadas para los segmentos objetivo.
@@ -18,6 +19,7 @@ Los requisitos funcionales serán representados mediante Epics y User Stories. A
 
 
 <a id="31-user-stories"></a>
+
 ## 3.1. User Stories.
 
 ### Epics
@@ -117,6 +119,7 @@ Las Technical Stories representan los requisitos técnicos necesarios para imple
 
 
 <a id="32-impact-mapping"></a>
+
 ## 3.2. Impact Mapping.
 
 El Impact Map de BottleTrack consolida en un único artefacto los objetivos de negocio y la contribución de los tres segmentos objetivo identificados durante el proceso de Needfinding. A diferencia de los mapas desarrollados inicialmente de manera independiente, esta versión permite visualizar de forma integral cómo las necesidades y comportamientos de los diferentes usuarios contribuyen al logro de los objetivos del producto.
@@ -140,6 +143,7 @@ De esta manera, el Impact Map establece una relación directa entre valor de neg
 Ver en UXPressia: https://uxpressia.com/w/v8FzI/i/ewgWb?tagId=cK6vk
 
 <a id="33-product-backlog"></a>
+
 ## 3.3. Product Backlog
 
 El Product Backlog de BottleTrack contiene las 47 User Stories y las 15 Technical Stories del producto. Se administra en Trello y se encuentra disponible de forma pública en el siguiente enlace: https://trello.com/b/jGpO815B/bottletrack-product-backlog

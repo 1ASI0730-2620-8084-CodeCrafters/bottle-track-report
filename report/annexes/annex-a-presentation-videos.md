@@ -3,9 +3,11 @@
 <div style="page-break-before: always;"></div>
 
 <a id="anexos"></a>
+
 # Anexos
 
 <a id="anexo-a-videos-de-exposiciones"></a>
+
 ## Anexo A. Videos de Exposiciones
 
 En esta sección se registra de forma progresiva el video de exposición correspondiente a cada entrega del proyecto. Cada video se publica en Microsoft Stream con enlace privado y sigue la nomenclatura establecida en el enunciado del trabajo final: `upc-pre-202620-1asi0730-8084-codecrafters-expo-<entrega>`. El registro de los videos inicia con la entrega TB1.

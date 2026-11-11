@@ -3,6 +3,7 @@
 <div style="page-break-before: always;"></div>
 
 <a id="anexo-c-repositorios-del-proyecto"></a>
+
 ## Anexo C. Repositorios del Proyecto
 
 En esta sección se relacionan los repositorios de la organización pública de GitHub en los que el equipo desarrolla los productos de software y la documentación del proyecto.

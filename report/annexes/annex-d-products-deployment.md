@@ -3,6 +3,7 @@
 <div style="page-break-before: always;"></div>
 
 <a id="anexo-d-productos-desplegados"></a>
+
 ## Anexo D. Productos Desplegados
 
 En esta sección se registran las URL de los productos publicados. Cada producto se incorpora a la tabla en la entrega en que alcanza su primer despliegue.

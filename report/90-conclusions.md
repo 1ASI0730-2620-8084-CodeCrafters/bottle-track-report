@@ -1,9 +1,11 @@
 [← Capítulo V](50-chapter-5-product-implementation-validation-and-deployment.md) · [Contenido](../README.md#contenido) · [Bibliografía →](99-bibliography.md)
 
 <a id="conclusiones"></a>
+
 # Conclusiones
 
 <a id="conclusiones-y-recomendaciones"></a>
+
 ## Conclusiones y recomendaciones.
 
 ### Conclusiones
@@ -25,6 +27,7 @@
 3. Mantener la trazabilidad entre las secciones del informe cada vez que cambia una decisión. Tras la revisión de AV1, el equipo alineó los segmentos objetivo, los User Personas, las User Stories, el Landing Page y la arquitectura alrededor de las mismas tres decisiones: tres segmentos, el conductor como actor que no usa la aplicación y el monitoreo IoT dentro del alcance con lecturas simuladas.
 
 <a id="video-about-the-team"></a>
+
 ## Video About-the-Team.
 
 El video About-the-Team presenta a los integrantes de CodeCrafters, su motivación para construir BottleTrack y la forma en que el equipo trabajó en cada Sprint, incluyendo los testimonios que sustentan el Student Outcome. Tiene una duración aproximada de 5 minutos más 1 minuto por integrante, se publica en Microsoft Stream y en YouTube, y se incrusta en la sección *The team* del Landing Page.

@@ -3,6 +3,7 @@
 <div style="page-break-before: always;"></div>
 
 <a id="anexo-e-herramientas-colaborativas"></a>
+
 ## Anexo E. Herramientas Colaborativas
 
 En esta sección se registran los espacios de trabajo compartidos que el equipo utiliza para elaborar los artefactos del proyecto.

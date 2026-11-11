@@ -1,9 +1,11 @@
 [← Capítulo III](30-chapter-3-requirements-specification.md) · [Contenido](../README.md#contenido) · [Capítulo V →](50-chapter-5-product-implementation-validation-and-deployment.md)
 
 <a id="capitulo-iv-product-design"></a>
+
 # Capítulo IV: Product Design
 
 <a id="41-style-guidelines"></a>
+
 ## 4.1. Style Guidelines.
 
 En esta sección el equipo establece el repositorio central de decisiones visuales que comparten el Landing Page y la Frontend Web Application de BottleTrack. El objetivo es que ambos productos se perciban como una sola experiencia, tal como lo exige la consistencia entre el sitio web estático y la aplicación web.
@@ -11,6 +13,7 @@ En esta sección el equipo establece el repositorio central de decisiones visual
 Las decisiones se implementaron como variables CSS en el archivo `assets/css/tokens.css` del repositorio del Landing Page, y se documentan de forma viva en la vista `style-guide.html`, que funciona como referencia consultable para todo el equipo. Ningún valor visual se escribe directamente en las vistas: siempre se consume el token correspondiente, de modo que un cambio de marca se realiza en un solo lugar.
 
 <a id="411-general-style-guidelines"></a>
+
 ### 4.1.1. General Style Guidelines.
 
 **Branding**
@@ -112,6 +115,7 @@ El sistema de espaciado utiliza una base de cuatro píxeles expuesta como escala
 | <div style="width:96px;height:12px;border-radius:2px;background-color:#f97316;"></div> | `--space-24` | 96 px | Espacio superior del encabezado principal. |
 
 <a id="412-web-style-guidelines"></a>
+
 ### 4.1.2. Web Style Guidelines.
 
 **Superficies y elevación**
@@ -139,11 +143,13 @@ Las transiciones duran 160 milisegundos y se anulan cuando el sistema operativo 
 
 
 <a id="42-information-architecture"></a>
+
 ## 4.2. Information Architecture.
 
 En esta sección el equipo plantea las decisiones que dirigen la manera como se organiza el contenido en el Landing Page y en la Frontend Web Application de BottleTrack. El criterio que guía estas decisiones es que cada segmento objetivo encuentre lo que necesita sin recorrer contenido que no le corresponde, considerando que los segmentos operan en contextos muy distintos: el administrador y el supervisor consultan la plataforma desde una oficina, mientras que el responsable de la bodega lo hace desde un teléfono, con poco tiempo disponible y mientras atiende su negocio.
 
 <a id="421-organization-systems"></a>
+
 ### 4.2.1. Organization Systems.
 
 **Organización visual del contenido**
@@ -165,6 +171,7 @@ En esta sección el equipo plantea las decisiones que dirigen la manera como se 
 | Alfabético | Listados auxiliares de la Web Application, como el catálogo de vehículos y de puntos de entrega. |
 
 <a id="422-labeling-systems"></a>
+
 ### 4.2.2. Labeling Systems.
 
 Las etiquetas se redactan con el mínimo número de palabras y utilizan el vocabulario del Ubiquitous Language del dominio, de manera que el visitante y el usuario reconozcan de inmediato a qué conjunto de información se refieren. El idioma por defecto de la interfaz es el inglés, con la traducción al español latinoamericano disponible mediante el selector de idioma.
@@ -187,6 +194,7 @@ Las etiquetas se redactan con el mínimo número de palabras y utilizan el vocab
 Las etiquetas de estado se acompañan siempre de su color de rol, pero nunca dependen únicamente del color para comunicar el significado, de manera que la información siga siendo comprensible para personas con dificultades en la percepción del color.
 
 <a id="423-seo-tags-and-meta-tags"></a>
+
 ### 4.2.3. SEO Tags and Meta Tags.
 
 Los siguientes valores se encuentran implementados en las vistas del Landing Page.
@@ -223,6 +231,7 @@ Los siguientes valores se encuentran implementados en las vistas del Landing Pag
 | Delivery tracking | Track your order \| BottleTrack | Check the status of your beverage order and report shortages or damaged products on arrival. |
 
 <a id="424-searching-systems"></a>
+
 ### 4.2.4. Searching Systems.
 
 El Landing Page no incorpora un sistema de búsqueda, ya que su volumen de contenido es reducido y la navegación por secciones basta para recorrerlo por completo.
@@ -238,6 +247,7 @@ En la Frontend Web Application la búsqueda sí resulta necesaria, porque el vol
 Cuando una búsqueda no arroja resultados, la vista comunica de forma explícita que no se encontraron coincidencias e indica qué filtros se encuentran activos, para que el usuario pueda retirarlos sin abandonar la vista.
 
 <a id="425-navigation-systems"></a>
+
 ### 4.2.5. Navigation Systems.
 
 **Landing Page**
@@ -260,11 +270,13 @@ La aplicación utiliza una barra lateral persistente como sistema de navegación
 
 
 <a id="43-landing-page-ui-design"></a>
+
 ## 4.3. Landing Page UI Design.
 
 En esta sección se presenta la propuesta de interfaz del Landing Page, elaborada en Figma antes de su implementación. El archivo de diseño se encuentra disponible en https://www.figma.com/design/lBVdrnyGUWfjN6Mz4fhBpY/BOTTLETRACK?node-id=0-1. La propuesta aplica las decisiones de la sección 4.1 y la organización de contenido de la sección 4.2: una navegación fija con selector de idioma, una sección hero con la propuesta de valor y su llamado a la acción principal, y un recorrido que desciende desde el problema hasta los segmentos objetivo.
 
 <a id="431-landing-page-wireframe"></a>
+
 ### 4.3.1. Landing Page Wireframe.
 
 El wireframe define la estructura y la jerarquía de cada sección sin aplicar color ni contenido final. Se organiza en una retícula de dos columnas para la sección hero, que combina el mensaje principal con una vista previa del estado de una ruta, y en una retícula de tres columnas para las tarjetas de problemas, capacidades y segmentos. En pantallas angostas las columnas se apilan en una sola, conservando el orden de lectura.
@@ -276,6 +288,7 @@ El wireframe define la estructura y la jerarquía de cada sección sin aplicar c
 <img src="assets/landingPageUIDesign/landing3_wireframe.png" alt="Wireframe del Landing Page: segmentos objetivo, videos y pie de página" width="800">
 
 <a id="432-landing-page-mock-up"></a>
+
 ### 4.3.2. Landing Page Mock-up.
 
 El mock-up aplica el design system de BottleTrack sobre el wireframe: la rampa naranja para los llamados a la acción, la tipografía Manrope, las superficies alternadas para separar secciones y los colores de estado en la vista previa de la ruta, donde cada estado se acompaña de un texto y no depende solo del color. El mensaje principal, *Cada botella, rastreada desde la planta hasta el cliente*, resume la propuesta de valor, y la sección del problema traduce los tres puntos de dolor de las entrevistas: la falta de visibilidad, la falta de evidencia y la falta de datos.
@@ -287,11 +300,13 @@ El mock-up aplica el design system de BottleTrack sobre el wireframe: la rampa n
 <img src="assets/landingPageUIDesign/landing3_mockup.png" alt="Mock-up del Landing Page: segmentos objetivo y pie de página" width="800">
 
 <a id="44-web-applications-uxui-design"></a>
+
 ## 4.4. Web Applications UX/UI Design.
 
 En esta sección se presenta el diseño de la Frontend Web Application para sus dos roles principales: el administrador de la distribuidora y el supervisor de flota. Las vistas se diseñaron en Figma siguiendo el mismo design system del Landing Page, para que la experiencia sea consistente entre ambos productos. El archivo de diseño se encuentra disponible en: https://www.figma.com/design/lBVdrnyGUWfjN6Mz4fhBpY/BOTTLETRACK?node-id=0-1
 
 <a id="441-web-applications-wireframes"></a>
+
 ### 4.4.1. Web Applications Wireframes.
 
 Los wireframes comparten una estructura común: una barra lateral de navegación global a la izquierda y un área de contenido con el título de la vista, sus filtros y la información principal.
@@ -363,6 +378,7 @@ Los wireframes comparten una estructura común: una barra lateral de navegación
 <img src="assets/webApplicationUxDesign/wireframes/dashboard_supervisor_WA_wireframe.png" alt="Wireframe del dashboard del supervisor" width="800">
 
 <a id="442-web-applications-wireflow-diagrams"></a>
+
 ### 4.4.2. Web Applications Wireflow Diagrams.
 
 Los wireflows conectan los wireframes según las acciones del usuario. Cada flecha parte del elemento que el usuario selecciona y llega a la vista resultante.
@@ -470,6 +486,7 @@ Desde el Dashboard, el supervisor entra a Historial (US36). Filtra las operacion
 Desde el menú lateral, el supervisor selecciona «Perfil». Ve su nombre, sus apellidos, su correo, su teléfono, su rol (Supervisor de flota) y la empresa a la que pertenece, y puede editar sus datos con «Editar datos». Al presionar «Cerrar sesión» (US05) finaliza su sesión y vuelve a la pantalla de inicio de sesión.
 
 <a id="443-web-applications-mock-ups"></a>
+
 ### 4.4.3. Web Applications Mock-ups.
 
 Los mock-ups aplican el design system sobre los wireframes. La barra lateral usa el color `--chrome` para separar visualmente la navegación del contenido, los botones principales usan `--primary` y los estados de las operaciones y de las incidencias se muestran como etiquetas con color y texto.
@@ -495,6 +512,7 @@ Los mock-ups aplican el design system sobre los wireframes. La barra lateral usa
 <img src="assets/webApplicationUxDesign/mock-ups-wireframe/mockup_super4_WA_wireframe.png" alt="Mock-up de las incidencias" width="800">
 
 <a id="444-web-applications-user-flow-diagrams"></a>
+
 ### 4.4.4. Web Applications User Flow Diagrams.
 
 Los User Flow Diagrams describen, para cada User Goal, el recorrido que sigue el usuario en la Web Application. Cada goal se enuncia desde el rol que lo persigue, con la forma *Como [rol], quiero [acción] para [beneficio]*. Los diagramas combinan las pantallas de los mock-ups de la sección 4.4.3 con las acciones del usuario y las condiciones que deciden el camino: el **happy path**, en verde, lleva al usuario a cumplir su objetivo, y cada **unhappy path**, en rojo, muestra lo que ocurre cuando una condición no se cumple y cómo el usuario retoma el flujo.
@@ -658,6 +676,7 @@ Los User Flow Diagrams describen, para cada User Goal, el recorrido que sigue el
 - **Intento de volver con «Atrás»:** las rutas de la aplicación están protegidas, por lo que el navegador regresa al inicio de sesión.
 
 <a id="45-web-applications-prototyping"></a>
+
 ## 4.5. Web Applications Prototyping.
 
 El prototipo navegable se construyó en Figma conectando los mock-ups de la sección 4.4.3. Permite recorrer el inicio de sesión, el dashboard, la creación de una operación, el detalle de sus entregas y el registro de incidencias, y se utilizará en las entrevistas de validación de la sección 5.3.
@@ -665,6 +684,7 @@ El prototipo navegable se construyó en Figma conectando los mock-ups de la secc
 <img src="assets/webApplicationUxDesign/prototype_WA.png" alt="Prototipo navegable de la Web Application en Figma" width="800">
 
 <a id="46-domain-driven-software-architecture"></a>
+
 ## 4.6. Domain-Driven Software Architecture.
 
 La arquitectura de BottleTrack se diseñó con Domain-Driven Design. El dominio se divide en cinco bounded contexts, cada uno con su propio lenguaje, sus agregados y su conjunto de tablas: **Identity and Access Management**, **Fleet Management**, **Operations and Routes**, **IoT Monitoring** e **Incident Management**. Los cuatro primeros corresponden a las capacidades del producto; IoT Monitoring se separa de Operations and Routes porque maneja datos de alta frecuencia e inmutables, tiene un vocabulario propio (lectura, rango seguro, alerta) y cambia por razones distintas, como el proveedor de los dispositivos.
@@ -681,6 +701,7 @@ El Backend API se organiza como un **monolito modular**: un solo despliegue con 
 Los bounded contexts no acceden a las tablas de los demás. Se comunican a través de **facades** (por ejemplo, Operations and Routes reserva un vehículo mediante la facade de Fleet Management) o de **eventos de dominio** (IoT Monitoring publica `AlertRaised` e Incident Management abre una incidencia).
 
 <a id="461-design-level-event-storming"></a>
+
 ### 4.6.1. Design-level Event Storming.
 
 El Design-Level EventStorming parte de los eventos del Big Picture de la sección 2.4 y los agrupa por bounded context. Para cada contexto se identificaron los **agregados** (amarillo), los **comandos** que reciben (azul), los **eventos de dominio** que publican (naranja), las **políticas** que reaccionan a esos eventos (morado) y los **read models** que consultan los usuarios (verde). Las políticas definen las reglas que cruzan contextos, por ejemplo: *cuando se completa una operación, liberar el vehículo y el conductor*, o *cuando se levanta una alerta crítica, abrir una incidencia*.
@@ -690,6 +711,7 @@ El tablero se encuentra disponible en: https://miro.com/welcomeonboard/aEpQNnI1b
 <img src="assets/chapter4/design-level-eventstorming.jpeg" alt="Design-Level EventStorming con los cinco bounded contexts de BottleTrack">
 
 <a id="462-software-architecture-context-diagram"></a>
+
 ### 4.6.2. Software Architecture Context Diagram.
 
 El diagrama de contexto muestra a BottleTrack como una caja negra y su relación con las personas y los sistemas externos. Sus usuarios son el administrador de la distribuidora, el supervisor de flota y el responsable de la bodega. El conductor aparece como actor del dominio que reporta al supervisor, pero no usa la aplicación. Los sistemas externos son los dispositivos IoT instalados en los vehículos y el servicio de mapas y geolocalización, que constituye el servicio de terceros que consume la solución.
@@ -699,6 +721,7 @@ Los diagramas C4 se elaboraron con Structurizr DSL; el código fuente de cada di
 <img src="assets/DD-SoftwareArchitecture/contextDiagram.png" alt="Diagrama de contexto C4 de BottleTrack" width="800">
 
 <a id="463-software-architecture-container-diagrams"></a>
+
 ### 4.6.3. Software Architecture Container Diagrams.
 
 El diagrama de contenedores muestra las unidades desplegables de la solución:
@@ -720,6 +743,7 @@ La persona que visita el Website todavía no está autenticada, por lo que el di
 <img src="assets/DD-SoftwareArchitecture/containerDiagram.png" alt="Diagrama de contenedores C4 de BottleTrack" width="800">
 
 <a id="464-software-architecture-components-diagrams"></a>
+
 ### 4.6.4. Software Architecture Components Diagrams.
 
 Se elaboró un diagrama de componentes por bounded context. Los componentes dibujados con borde punteado y trazo tenue (*Planned*) todavía no existen en el código de los Web Services; el resto corresponde a lo que ya está implementado en el repositorio. Todos siguen la misma estructura hexagonal: un controller como adaptador de entrada, un command service y un query service en la capa de aplicación, el modelo de dominio con sus agregados, la interfaz del repositorio como puerto de salida (borde punteado) y el repositorio de Entity Framework Core como adaptador que lo implementa.
@@ -734,7 +758,7 @@ Se elaboró un diagrama de componentes por bounded context. Los componentes dibu
 
 **Operations and Routes.** Es el core del dominio. Gestiona el ciclo de vida de la operación de transporte, sus puntos de entrega y el resultado de cada entrega. Su capa anticorrupción traduce las llamadas a Fleet Management y al servicio de mapas.
 
-<img src="assets/DD-SoftwareArchitecture/componentO&R_D.png" alt="Diagrama de componentes de Operations and Routes" width="800">
+<img src="assets/DD-SoftwareArchitecture/componentOR_D.png" alt="Diagrama de componentes de Operations and Routes" width="800">
 
 **IoT Monitoring.** Recibe las lecturas de los dispositivos, las evalúa contra el rango seguro y levanta alertas. Publica el evento `AlertRaised` para que Incident Management actúe.
 
@@ -745,9 +769,11 @@ Se elaboró un diagrama de componentes por bounded context. Los componentes dibu
 <img src="assets/DD-SoftwareArchitecture/componentIM_D.png" alt="Diagrama de componentes de Incident Management" width="800">
 
 <a id="47-software-object-oriented-design"></a>
+
 ## 4.7. Software Object-Oriented Design.
 
 <a id="471-class-diagrams"></a>
+
 ### 4.7.1. Class Diagrams.
 
 Los diagramas de clases se presentan en dos versiones, una por producto, porque cada uno se programa en un lenguaje distinto y sigue sus propias convenciones de nomenclatura: la Frontend Web Application en JavaScript y el Backend en C#. Ambas se organizan por bounded context, con nombres en inglés tomados del Ubiquitous Language de la sección 2.5.
@@ -837,9 +863,11 @@ Registra y da seguimiento a las incidencias que afectan una operación o una ent
 Los diagramas del backend de Identity and Access Management y de Fleet Management, junto con el Shared Kernel, reflejan el código del repositorio de los Web Services. Los diagramas de Operations and Routes, IoT Monitoring e Incident Management son diseño: su paquete lleva la marca *planned* porque todavía no se implementan.
 
 <a id="48-database-design"></a>
+
 ## 4.8. Database Design.
 
 <a id="481-database-diagrams"></a>
+
 ### 4.8.1. Database Diagrams.
 
 El diagrama de base de datos corresponde al esquema relacional en MySQL. Las tablas siguen una convención única: nombres en inglés, en plural y en snake_case, y columnas en snake_case. Las claves primarias son identificadores `CHAR(36)` generados por la aplicación y las claves foráneas se nombran como `<entidad>_id`.

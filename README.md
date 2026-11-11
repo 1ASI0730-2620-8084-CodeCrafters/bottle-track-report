@@ -37,6 +37,7 @@
 <hr>
 
 <a id="registro-de-versiones-del-informe"></a>
+
 # **Registro de Versiones del Informe**
 
 | Versión | Fecha | Autor | Descripción de modificación |
@@ -80,6 +81,7 @@
 <hr>
 
 <a id="project-report-collaboration-insights"></a>
+
 # **Project Report Collaboration Insights**
 
 El informe se elabora de forma colaborativa en el repositorio https://github.com/1ASI0730-2620-8084-CodeCrafters/Report de la organización del equipo. Cada integrante redacta las secciones del aspecto que lidera en una rama `feature/*` creada desde `develop`, y los cambios se integran mediante pull requests o merges `--no-ff`. Los mensajes de commit siguen Conventional Commits, con el tipo `docs` y el capítulo como alcance, por ejemplo `docs(needfinding): ...`.
@@ -96,6 +98,7 @@ La siguiente captura muestra los analíticos de contribución del repositorio de
 <hr>
 
 <a id="contenido"></a>
+
 # **Contenido**
 
 - [Registro de Versiones del Informe](#registro-de-versiones-del-informe)
@@ -218,6 +221,7 @@ La siguiente captura muestra los analíticos de contribución del repositorio de
 
 
 <a id="student-outcome"></a>
+
 # **Student Outcome**
 
 El curso contribuye al cumplimiento del Student Outcome ABET:

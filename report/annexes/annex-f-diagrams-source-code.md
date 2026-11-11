@@ -3,6 +3,7 @@
 <div style="page-break-before: always;"></div>
 
 <a id="anexo-f-codigo-fuente-de-diagramas"></a>
+
 ## Anexo F. Código Fuente de los Diagramas
 
 Los diagramas de arquitectura, de clases y de base de datos se elaboraron como Diagram-as-Code, una de las alternativas que contempla el enunciado del trabajo final. El código fuente se conserva en el repositorio del informe como evidencia del proceso de elaboración y permite regenerar cada imagen ante cualquier cambio del modelo.

@@ -1,6 +1,7 @@
 [← Capítulo I](10-chapter-1-introduction.md) · [Contenido](../README.md#contenido) · [Capítulo III →](30-chapter-3-requirements-specification.md)
 
 <a id="capitulo-ii-requirements-elicitation-analysis"></a>
+
 # Capítulo II: Requirements Elicitation & Analysis
 
 En este capítulo se desarrolla el proceso de levantamiento y análisis de información necesario para comprender con mayor profundidad el dominio en el que se desarrolla BottleTrack.
@@ -12,6 +13,7 @@ La información obtenida permitirá validar o corregir las suposiciones plantead
 ---
 
 <a id="21-competidores"></a>
+
 ## 2.1. Competidores
 
 Con la finalidad de comprender el entorno competitivo en el cual se desarrollará BottleTrack, CodeCrafters identificó tres soluciones digitales que ofrecen funcionalidades relacionadas con planificación de rutas, seguimiento de entregas, gestión de transporte y monitoreo de operaciones logísticas.
@@ -59,6 +61,7 @@ DispatchTrack atiende diferentes industrias y cuenta con soluciones relacionadas
 ---
 
 <a id="211-analisis-competitivo"></a>
+
 ### 2.1.1. Análisis competitivo
 
 El análisis competitivo tiene como objetivo identificar las principales características, fortalezas y limitaciones de soluciones existentes relacionadas con la gestión de operaciones de transporte.
@@ -124,6 +127,7 @@ La pregunta que orienta este análisis es:
 ---
 
 <a id="212-estrategias-y-tacticas-frente-a-competidores"></a>
+
 ### 2.1.2. Estrategias y tácticas frente a competidores
 
 A partir del análisis competitivo, CodeCrafters plantea estrategias preliminares para posicionar BottleTrack frente a plataformas consolidadas como SimpliRoute, Drivin y DispatchTrack.
@@ -186,6 +190,7 @@ BottleTrack priorizará inicialmente las funcionalidades principales y dejará c
 ---
 
 <a id="22-entrevistas"></a>
+
 ## 2.2. Entrevistas
 
 El proceso de entrevistas permitirá a CodeCrafters obtener información directamente de representantes de los segmentos objetivo de BottleTrack.
@@ -203,6 +208,7 @@ Los segmentos considerados para las entrevistas son:
 La información recopilada servirá posteriormente para realizar el análisis de entrevistas y construir los User Personas correspondientes a cada segmento.
 
 <a id="221-diseno-de-entrevistas"></a>
+
 ### 2.2.1. Diseño de entrevistas
 
 Las entrevistas serán de tipo semiestructurado. Se contará con un conjunto de preguntas principales previamente definido y preguntas complementarias que podrán utilizarse para profundizar en las respuestas de cada participante.
@@ -359,6 +365,7 @@ Se evitarán preguntas que induzcan una respuesta determinada, tales como "¿Le 
 Las entrevistas deberán registrarse en video para conservar evidencia del proceso de investigación y permitir posteriormente el análisis de las respuestas obtenidas.
 
 <a id="222-registro-de-entrevistas"></a>
+
 ### 2.2.2. Registro de entrevistas.
 **Segmento Objetivo 1: Empresas distribuidoras de bebidas**
 
@@ -447,6 +454,7 @@ Se identificó que trabaja con varios proveedores y que sus principales problema
 La entrevistada considera importante conocer rápidamente el estado del pedido, las cantidades, disponibilidad y hora de llegada, ya que los problemas en las entregas pueden ocasionarle pérdida de ventas y tiempo de atención a sus clientes. Para ella, una entrega satisfactoria debe ser rápida, completa, puntual y con productos en buenas condiciones.
 
 <a id="223-analisis-de-entrevistas"></a>
+
 ### 2.2.3. Análisis de entrevistas.
 
 El análisis se realizó por segmento objetivo. Para cada uno, el equipo definió un conjunto de variables a partir de las preguntas de la guía de la sección 2.2.1 y contabilizó cuántos entrevistados manifestaron cada valor. Los porcentajes se calculan sobre el total de entrevistados del segmento. Estos resultados son la base de las características asignadas a cada User Persona en la sección 2.3.1.
@@ -533,6 +541,7 @@ Se entrevistó a 3 personas de 20, 23 y 36 años, residentes en Los Olivos, Pueb
 | Ningún entrevistado mencionó la optimización automática de rutas como su necesidad principal. | 1, 2 y 3 |
 
 <a id="23-needfinding"></a>
+
 ## 2.3. Needfinding.
 El proceso de Needfinding permite identificar y sintetizar las principales necesidades, objetivos, comportamientos, dificultades y motivaciones de los segmentos objetivo de BottleTrack. Para ello, se consideran los resultados obtenidos mediante las entrevistas realizadas a representantes de los segmentos y el análisis previo del dominio y de las soluciones existentes.
 
@@ -543,6 +552,7 @@ Los resultados del proceso se representan mediante tres User Personas, un User T
 Estos artefactos permiten consolidar los hallazgos de la investigación y establecer una comprensión común de los usuarios antes de definir los requisitos funcionales de BottleTrack. En particular, los User Journey Maps representan el proceso actual de cada segmento sin la existencia de la solución propuesta, permitiendo identificar los principales puntos de dolor y oportunidades de mejora.
 
 <a id="231-user-personas"></a>
+
 ### 2.3.1. User Personas.
 
 Cada User Persona representa a un segmento objetivo y se construyó con los valores más frecuentes de las variables analizadas en la sección 2.2.3. Los datos demográficos, los canales y las frustraciones provienen de lo que repitieron los entrevistados de cada segmento, y no de suposiciones del equipo.
@@ -572,6 +582,7 @@ María Fernández, de 39 años, es propietaria de un minimarket en Los Olivos y 
 Ver en UXPressia: https://uxpressia.com/w/v8FzI/p/p2gAf
 
 <a id="232-user-task-matrix"></a>
+
 ### 2.3.2. User Task Matrix.
 
 El User Task Matrix compara las tareas que realiza cada User Persona según su frecuencia y su importancia. Las tareas marcadas con guion no forman parte de la actividad de esa Persona.
@@ -599,6 +610,7 @@ La única tarea con frecuencia e importancia altas para las tres Personas es **c
 <img src="assets/chapter2/user-task-matrix.jpeg" alt="User Task Matrix de las tres User Personas">
 
 <a id="233-user-journey-mapping"></a>
+
 ### 2.3.3. User Journey Mapping.
 
 Los User Journey Maps representan el escenario As-Is de cada Persona, es decir, cómo realiza hoy su trabajo sin BottleTrack. Cada mapa recorre las etapas de la jornada e identifica en cada una las acciones, los canales, los pensamientos, las emociones, los puntos de dolor y las oportunidades.
@@ -628,6 +640,7 @@ El recorrido de la bodega atraviesa seis etapas: coordinar el pedido, esperar la
 Ver en UXPressia: https://uxpressia.com/w/v8FzI/m/XFb9u
 
 <a id="234-empathy-mapping"></a>
+
 ### 2.3.4. Empathy Mapping.
 
 Los Empathy Maps organizan lo que cada Persona dice, piensa, hace, ve, escucha y siente, junto con sus pains y gains. Permiten al equipo contrastar las tres perspectivas sobre un mismo proceso de distribución.
@@ -657,6 +670,7 @@ Su pain principal es la incertidumbre sobre la llegada del pedido y la falta de 
 Ver en UXPressia: https://uxpressia.com/w/v8FzI/p/97hC8
 
 <a id="24-big-picture-eventstorming"></a>
+
 ## 2.4. Big Picture EventStorming.
 
 En esta sección el equipo introduce y resume el proceso realizado durante la sesión de Big Picture EventStorming, cuyo propósito fue comprender el dominio del transporte de bebidas embotelladas en general, plasmando los eventos significativos del negocio y sus relaciones antes de considerar cualquier decisión de software.
@@ -704,6 +718,7 @@ Junto con los eventos, el equipo identificó los actores que participan en el pr
 Los eventos identificados en esta sesión constituyen la base sobre la que se profundiza en el Design-Level EventStorming de la sección 4.6.1, donde se incorporan los comandos, las políticas y los agregados que dan lugar a los bounded contexts.
 
 <a id="25-ubiquitous-language"></a>
+
 ## 2.5. Ubiquitous Language.
 
 El Ubiquitous Language es el glosario de términos y conceptos del dominio del negocio que todos los miembros del equipo y los interesados emplean sin ambigüedad. Los términos que se presentan a continuación corresponden al dominio de la distribución y el transporte de bebidas embotelladas, y no a conceptos técnicos de la ingeniería de software. Cada término se define en inglés, que es el idioma adoptado para la nomenclatura del código y para la interfaz por defecto de los productos, acompañado de su equivalente en español entre paréntesis.

@@ -1,12 +1,15 @@
 [← Student Outcome](../README.md#student-outcome) · [Contenido](../README.md#contenido) · [Capítulo II →](20-chapter-2-requirements-elicitation-and-analysis.md)
 
 <a id="capitulo-i-introduccion"></a>
+
 # Capítulo I: Introducción
 
 <a id="11-startup-profile"></a>
+
 ## 1.1. Startup Profile
 
 <a id="111-descripcion-de-la-startup"></a>
+
 ### 1.1.1. Descripción de la Startup
 
 **CodeCrafters** es una startup orientada al desarrollo de soluciones tecnológicas que buscan optimizar la gestión y supervisión de procesos relacionados con el transporte y distribución de productos.
@@ -53,6 +56,7 @@ De esta manera, CodeCrafters busca reducir la dependencia de procesos manuales y
 
 
 <a id="112-perfiles-de-integrantes-del-equipo"></a>
+
 ### 1.1.2. Perfiles de integrantes del equipo
 
 A continuación se presenta la ficha de cada integrante del equipo, indicando su código de estudiante, la carrera que cursa y un resumen de los principales conocimientos técnicos y habilidades que aporta al equipo.
@@ -102,6 +106,7 @@ A continuación se presenta la ficha de cada integrante del equipo, indicando su
 
 
 <a id="12-solution-profile"></a>
+
 ## 1.2. Solution Profile
 
 BottleTrack es una plataforma web desarrollada por CodeCrafters para apoyar la gestión y seguimiento de las operaciones de transporte de bebidas embotelladas.
@@ -111,6 +116,7 @@ La solución busca centralizar la información relacionada con vehículos, condu
 BottleTrack está orientado a tres segmentos: las empresas distribuidoras de bebidas, sus supervisores o encargados de flota y las bodegas y minimarkets que reciben los productos. Los conductores participan en el proceso de distribución, pero no son usuarios directos de la aplicación: el resultado de cada entrega lo registra el supervisor a partir de lo que el conductor le reporta.
 
 <a id="121-antecedentes-y-problematica"></a>
+
 ### 1.2.1. Antecedentes y problemática
 
 La distribución de bebidas embotelladas requiere la coordinación constante entre empresas distribuidoras, supervisores de flota, conductores, repartidores y establecimientos que reciben los productos.
@@ -176,6 +182,7 @@ Para mantener un alcance viable durante el desarrollo del proyecto, se considera
 ---
 
 <a id="122-lean-ux-process"></a>
+
 ### 1.2.2. Lean UX Process
 
 CodeCrafters aplicará el enfoque Lean UX para identificar y validar las principales suposiciones relacionadas con BottleTrack.
@@ -183,6 +190,7 @@ CodeCrafters aplicará el enfoque Lean UX para identificar y validar las princip
 Durante esta etapa se definirán las creencias iniciales del equipo sobre el negocio, los usuarios, los beneficios esperados y las funcionalidades propuestas. Estas suposiciones serán posteriormente contrastadas mediante entrevistas, prototipos, pruebas de usabilidad y el desarrollo progresivo de un Producto Mínimo Viable (MVP).
 
 <a id="1221-lean-ux-problem-statements"></a>
+
 #### 1.2.2.1. Lean UX Problem Statements
 
 BottleTrack corresponde a una nueva iniciativa, por lo que el equipo aplica la plantilla **Brand new initiative** de Lean UX y formula un único Problem Statement para todo el proyecto, considerando de forma conjunta los tres segmentos objetivo. El enunciado se construye a partir de los hallazgos del análisis 5W + 2H de la sección 1.2.1: el **Who** define los segmentos, el **What** y el **How** describen el flujo de trabajo actual y sus puntos de dolor, el **Where** y el **When** delimitan el momento en que ocurre el problema y el **How Much** se traduce en los indicadores con los que se medirá el éxito.
@@ -210,6 +218,7 @@ BottleTrack corresponde a una nueva iniciativa, por lo que el equipo aplica la p
 ---
 
 <a id="1222-lean-ux-assumptions"></a>
+
 #### 1.2.2.2. Lean UX Assumptions
 
 Las assumptions representan las creencias iniciales de CodeCrafters. Cada una se redacta de forma que pueda ser validada o refutada con un dato concreto, ya sea durante las entrevistas o durante el uso de la aplicación.
@@ -256,6 +265,7 @@ Las assumptions representan las creencias iniciales de CodeCrafters. Cada una se
 ---
 
 <a id="1223-lean-ux-hypothesis-statements"></a>
+
 #### 1.2.2.3. Lean UX Hypothesis Statements
 
 Se formula un Hypothesis Statement por cada Feature Assumption, siguiendo la plantilla *We believe we will achieve [business outcome] if [personas] attain [benefit] with [feature]*. Cada uno se vincula con el indicador de éxito del Problem Statement que permitirá validarlo.
@@ -273,6 +283,7 @@ Se formula un Hypothesis Statement por cada Feature Assumption, siguiendo la pla
 ---
 
 <a id="1224-lean-ux-canvas"></a>
+
 #### 1.2.2.4. Lean UX Canvas
 
 El Lean UX Canvas resume en un solo cuadro la propuesta del equipo. Cada casillero se alimenta de las secciones anteriores y de los hallazgos de las entrevistas registradas en el Capítulo II.
@@ -289,6 +300,7 @@ El Lean UX Canvas resume en un solo cuadro la propuesta del equipo. Cada casille
 | **8. What's the least amount of work we need to do to learn the next most important thing?** | Un prototipo navegable en Figma del flujo *crear operación → actualizar entrega → registrar incidencia*, validado con los supervisores entrevistados, seguido de una primera versión de la aplicación web conectada a un API simulado con json-server. |
 
 <a id="13-segmentos-objetivo"></a>
+
 ## 1.3. Segmentos objetivo
 
 Los segmentos objetivo de BottleTrack se encuentran relacionados con las diferentes actividades que forman parte del proceso de distribución de bebidas embotelladas.
