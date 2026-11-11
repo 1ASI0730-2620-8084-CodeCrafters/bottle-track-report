@@ -1,0 +1,5 @@
+# Git guarda los textos con LF y cada sistema usa su fin de linea al trabajar.
+* text=auto
+
+# El Makefile necesita LF aunque se edite en Windows.
+Makefile text eol=lf
