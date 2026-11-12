@@ -1,7 +1,6 @@
 @startuml
 ' BottleTrack - Backend (C# / ASP.NET Core) - Domain model per bounded context
-' Shared Kernel, Identity and Access Management and Fleet Management reflect the code of the Web Services repository.
-' The packages marked as planned are design only.
+' All packages reflect the code of the Web Services repository.
 ' Naming conventions applied (C#):
 '   - Classes, enumerations and enumeration members: PascalCase
 '   - Properties: public, PascalCase (shown with +)
@@ -70,6 +69,7 @@ package "Identity and Access Management" {
     + {static} Register(organizationId, firstName, lastName, email, passwordHash, role): User
     + AssignRole(role: UserRole): void
     + Deactivate(): void
+    + UpdateProfile(firstName, lastName, email): void
   }
   class EmailAddress <<Value Object>> {
     + Value: string
@@ -118,6 +118,7 @@ package "Fleet Management" {
     + Reserve(): void
     + Release(): void
     + SendToMaintenance(): void
+    + UpdateDetails(brand, model, capacityInBoxes): void
   }
   class Driver <<Aggregate Root>> {
     + Id: Guid
@@ -131,6 +132,7 @@ package "Fleet Management" {
     + {static} Register(organizationId, firstName, lastName, documentNumber, licenseNumber, phone): Driver
     + Reserve(): void
     + Release(): void
+    + UpdateDetails(firstName, lastName, phone): void
   }
   class PlateNumber <<Value Object>> {
     + Value: string
@@ -169,84 +171,72 @@ package "Fleet Management" {
   IDriverRepository "1" ..> "0..*" Driver : persists
 }
 
-package "Operations and Routes (planned, not implemented yet)" {
+package "Operations and Routes" {
   class TransportOperation <<Aggregate Root>> {
     + Id: Guid
-    + Code: string
     + OrganizationId: Guid
+    + Code: string
     + Description: string
     + ScheduledDate: DateOnly
-    + VehicleId: Guid
-    + DriverId: Guid
-    + Status: OperationStatus
-    + DispatchedAt: DateTime
-    + CompletedAt: DateTime
-    + CancellationReason: string
-    + Create(organizationId, description, scheduledDate): TransportOperation
-    + AssignResources(vehicleId, driverId): void
-    + AddDeliveryStop(deliveryPointId, plannedQuantity): void
-    + ReorderStops(stopIds: List<Guid>): void
-    + Dispatch(): void
-    + Start(): void
-    + RecordDelivery(stopId, deliveredQuantity, reason): void
+    + VehicleId: Guid?
+    + DriverId: Guid?
+    + Status: TransportOperationStatus
+    + DispatchedAt: DateTime?
+    + CompletedAt: DateTime?
+    + CancellationReason: string?
+    + Create(code, organizationId, description, scheduledDate): TransportOperation
+    + AddStop(deliveryPointId, sequenceNumber, plannedQuantity): void
+    + Dispatch(vehicleId, driverId): void
     + Complete(): void
     + Cancel(reason): void
-    + CalculateProgress(): decimal
   }
   class DeliveryStop <<Entity>> {
     + Id: Guid
+    + TransportOperationId: Guid
     + DeliveryPointId: Guid
     + SequenceNumber: int
-    + PlannedQuantity: Quantity
-    + DeliveredQuantity: Quantity
-    + Status: DeliveryStatus
-    + FailureReason: string
-    + ConfirmedAt: DateTime
-    + MarkAsDelivered(quantity): void
-    + MarkAsPartiallyDelivered(quantity, reason): void
-    + MarkAsNotDelivered(reason): void
-    + CalculateShortage(): int
+    + PlannedQuantity: int
+    + DeliveredQuantity: int?
+    + Status: DeliveryStopStatus
+    + FailureReason: string?
+    + ConfirmedAt: DateTime?
+    + Create(transportOperationId, deliveryPointId, sequenceNumber, plannedQuantity): DeliveryStop
   }
   class DeliveryPoint <<Aggregate Root>> {
     + Id: Guid
     + OrganizationId: Guid
-    + OwnerUserId: Guid
+    + OwnerUserId: Guid?
     + BusinessName: string
     + Address: string
     + District: string
-    + Latitude: decimal
-    + Longitude: decimal
-    + Register(organizationId, businessName, address): DeliveryPoint
-    + UpdateLocation(latitude, longitude): void
+    + Latitude: decimal?
+    + Longitude: decimal?
+    + Register(organizationId, ownerUserId, businessName, address, district, latitude, longitude): DeliveryPoint
   }
-  class Quantity <<Value Object>> {
-    + Boxes: int
-  }
-  enum OperationStatus {
+  enum TransportOperationStatus {
     Pending
     Dispatched
     InProgress
     Completed
     Cancelled
   }
-  enum DeliveryStatus {
+  enum DeliveryStopStatus {
     Pending
     Delivered
     PartiallyDelivered
     NotDelivered
   }
   interface ITransportOperationRepository {
+    + FindByIdWithStopsAsync(id: Guid): Task<TransportOperation>
     + ListByOrganizationAsync(organizationId: Guid): Task<IEnumerable<TransportOperation>>
-    + ListByStatusAsync(organizationId: Guid, status: OperationStatus): Task<IEnumerable<TransportOperation>>
+    + CountAsync(): Task<int>
   }
   interface IDeliveryPointRepository {
     + ListByOrganizationAsync(organizationId: Guid): Task<IEnumerable<DeliveryPoint>>
-    + ListByOwnerAsync(ownerUserId: Guid): Task<IEnumerable<DeliveryPoint>>
   }
-  TransportOperation "1" *-- "1..*" DeliveryStop : contains
-  TransportOperation "1" --> "1" OperationStatus : has status
-  DeliveryStop "1" --> "1" DeliveryStatus : has status
-  DeliveryStop "1" *-- "1..2" Quantity : plans and records
+  TransportOperation "1" *-- "0..*" DeliveryStop : contains
+  TransportOperation "1" --> "1" TransportOperationStatus : has status
+  DeliveryStop "1" --> "1" DeliveryStopStatus : has status
   DeliveryStop "0..*" --> "1" DeliveryPoint : is delivered at
   ITransportOperationRepository --|> IBaseRepository
   IDeliveryPointRepository --|> IBaseRepository
@@ -254,41 +244,40 @@ package "Operations and Routes (planned, not implemented yet)" {
   IDeliveryPointRepository "1" ..> "0..*" DeliveryPoint : persists
 }
 
-package "IoT Monitoring (planned, not implemented yet)" {
-  class IoTDevice <<Aggregate Root>> {
+package "IoT Monitoring" {
+  class IotDevice <<Aggregate Root>> {
     + Id: Guid
     + SerialNumber: string
-    + VehicleId: Guid
-    + SafeRange: SafeRange
+    + VehicleId: Guid?
+    + SafeTemperatureMin: decimal
+    + SafeTemperatureMax: decimal
     + ImpactThreshold: decimal
     + Status: DeviceStatus
-    + InstallOnVehicle(vehicleId): void
-    + ConfigureSafeRange(minimum, maximum): void
-    + Evaluate(reading: SensorReading): Alert
+    + Register(serialNumber, vehicleId, safeTemperatureMin, safeTemperatureMax, impactThreshold): IotDevice
+    + GoOffline(): void
+    + Retire(): void
   }
-  class SensorReading <<Entity>> {
+  class SensorReading <<Aggregate Root>> {
     + Id: Guid
-    + DeviceId: Guid
-    + TransportOperationId: Guid
+    + IotDeviceId: Guid
+    + TransportOperationId: Guid?
     + RecordedAt: DateTime
-    + Latitude: decimal
-    + Longitude: decimal
-    + TemperatureCelsius: decimal
-    + ImpactForce: decimal
+    + Latitude: decimal?
+    + Longitude: decimal?
+    + TemperatureCelsius: decimal?
+    + ImpactForce: decimal?
+    + Record(iotDeviceId, transportOperationId, recordedAt, latitude, longitude, temperatureCelsius, impactForce): SensorReading
   }
   class Alert <<Aggregate Root>> {
     + Id: Guid
-    + DeviceId: Guid
+    + IotDeviceId: Guid
     + TransportOperationId: Guid
     + Type: AlertType
     + RaisedAt: DateTime
-    + AcknowledgedAt: DateTime
+    + AcknowledgedBy: Guid?
+    + AcknowledgedAt: DateTime?
+    + Raise(iotDeviceId, transportOperationId, type): Alert
     + Acknowledge(userId): void
-  }
-  class SafeRange <<Value Object>> {
-    + MinimumCelsius: decimal
-    + MaximumCelsius: decimal
-    + Contains(value): bool
   }
   enum AlertType {
     TemperatureOutOfRange
@@ -300,49 +289,57 @@ package "IoT Monitoring (planned, not implemented yet)" {
     Offline
     Retired
   }
-  interface IIoTDeviceRepository {
-    + FindByVehicleIdAsync(vehicleId: Guid): Task<IoTDevice>
+  interface IIotDeviceRepository {
+    + FindBySerialNumberAsync(serialNumber: string): Task<IotDevice>
+  }
+  interface ISensorReadingRepository {
+    + ListByDeviceAsync(iotDeviceId: Guid): Task<IEnumerable<SensorReading>>
   }
   interface IAlertRepository {
-    + ListByOperationsAsync(transportOperationIds: List<Guid>): Task<IEnumerable<Alert>>
+    + ListByDeviceAsync(iotDeviceId: Guid): Task<IEnumerable<Alert>>
   }
-  IoTDevice "1" *-- "1" SafeRange : is configured with
-  IoTDevice "1" --> "0..*" SensorReading : records
-  IoTDevice "1" ..> "0..*" Alert : raises
+  IotDevice "1" --> "0..*" SensorReading : records
+  IotDevice "1" --> "0..*" Alert : raises
   Alert "1" --> "1" AlertType : is of type
-  IoTDevice "1" --> "1" DeviceStatus : has status
-  IIoTDeviceRepository --|> IBaseRepository
+  IotDevice "1" --> "1" DeviceStatus : has status
+  IIotDeviceRepository --|> IBaseRepository
+  ISensorReadingRepository --|> IBaseRepository
   IAlertRepository --|> IBaseRepository
-  IIoTDeviceRepository "1" ..> "0..*" IoTDevice : persists
+  IIotDeviceRepository "1" ..> "0..*" IotDevice : persists
+  ISensorReadingRepository "1" ..> "0..*" SensorReading : persists
   IAlertRepository "1" ..> "0..*" Alert : persists
 }
 
-package "Incident Management (planned, not implemented yet)" {
+package "Incident Management" {
   class Incident <<Aggregate Root>> {
     + Id: Guid
     + Code: string
     + TransportOperationId: Guid
-    + DeliveryStopId: Guid
+    + DeliveryStopId: Guid?
     + ReportedBy: Guid
     + Source: IncidentSource
     + Type: IncidentType
-    + Severity: Severity
+    + Severity: IncidentSeverity
     + Description: string
-    + AffectedQuantity: int
+    + AffectedQuantity: int?
     + Status: IncidentStatus
-    + Resolution: string
-    + Report(operationId, type, description, source): Incident
-    + AttachEvidence(fileUrl, fileType): void
-    + AssignSeverity(severity): void
-    + Review(): void
+    + Resolution: string?
+    + ReportedAt: DateTime
+    + ResolvedAt: DateTime?
+    + Report(code, transportOperationId, deliveryStopId, reportedBy, source, type, severity, description, affectedQuantity): Incident
+    + AddEvidence(fileUrl, fileType, uploadedBy): void
+    + StartReview(): void
     + Resolve(resolution): void
     + Close(): void
   }
   class Evidence <<Entity>> {
     + Id: Guid
+    + IncidentId: Guid
     + FileUrl: string
     + FileType: string
+    + UploadedBy: Guid
     + UploadedAt: DateTime
+    + Create(incidentId, fileUrl, fileType, uploadedBy): Evidence
   }
   enum IncidentType {
     BrokenBottles
@@ -350,7 +347,7 @@ package "Incident Management (planned, not implemented yet)" {
     Shortage
     Delay
   }
-  enum Severity {
+  enum IncidentSeverity {
     Low
     Medium
     High
@@ -365,15 +362,16 @@ package "Incident Management (planned, not implemented yet)" {
   enum IncidentSource {
     FleetSupervisor
     DeliveryPoint
-    IoTAlert
+    IotAlert
   }
   interface IIncidentRepository {
-    + ListByOperationsAsync(transportOperationIds: List<Guid>): Task<IEnumerable<Incident>>
-    + GetNextCodeAsync(): Task<string>
+    + FindByIdWithEvidencesAsync(id: Guid): Task<Incident>
+    + ListByTransportOperationAsync(transportOperationId: Guid): Task<IEnumerable<Incident>>
+    + CountAsync(): Task<int>
   }
   Incident "1" *-- "0..*" Evidence : is supported by
   Incident "1" --> "1" IncidentType : is classified as
-  Incident "1" --> "1" Severity : has severity
+  Incident "1" --> "1" IncidentSeverity : has severity
   Incident "1" --> "1" IncidentStatus : has status
   Incident "1" --> "1" IncidentSource : originates from
   IIncidentRepository --|> IBaseRepository
@@ -384,5 +382,5 @@ TransportOperation "0..*" ..> "0..1" Vehicle : uses (VehicleId)
 TransportOperation "0..*" ..> "0..1" Driver : uses (DriverId)
 Incident "0..*" ..> "1" TransportOperation : is reported on (TransportOperationId)
 Alert "0..*" ..> "1" TransportOperation : is raised on (TransportOperationId)
-IoTDevice "0..1" ..> "1" Vehicle : is installed on (VehicleId)
+IotDevice "0..1" ..> "1" Vehicle : is installed on (VehicleId)
 @enduml
