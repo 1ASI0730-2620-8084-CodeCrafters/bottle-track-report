@@ -1190,13 +1190,55 @@ Al finalizar las tareas se formulan las siguientes preguntas:
 
 ### 5.3.2. Registro de Entrevistas.
 
-El registro sigue el mismo formato de la sección 2.2.2: nombres, edad, distrito, captura y enlace del video en Microsoft Stream con su inicio y duración, y un resumen por entrevista. Las entrevistas se registran en el Sprint en el que se publica la primera versión de la Web Application.
+El registro sigue el mismo formato de la sección 2.2.2. Las entrevistas las realizó Leonardo Cumba el 2026-11-11, de forma virtual, con participantes de las entrevistas de Needfinding, para contrastar su situación actual con la experiencia que ofrece BottleTrack. En este Sprint se entrevistó a un representante del segmento de empresas distribuidoras de bebidas y a dos del segmento de bodegas y minimarkets; el segmento de supervisores o encargados de flota no fue entrevistado. Cada entrevista se grabó en un video independiente publicado en YouTube, por lo que todas inician en el minuto 00:00:00.
+
+**Segmento Objetivo 1: Empresas distribuidoras de bebidas**
+
+| # | Nombres y Apellidos | Edad | Distrito | Screenshot | URL del video | Inicio | Duración |
+| :- | :------------------ | :--- | :------- | :--------- | :------------ | :----- | :------- |
+| 1 | Luis Angel Tufiño Argüelles | 32 años | Pueblo Libre | <img src="assets/chapter5/validation/validation-luis-tufino.png" alt="Entrevista de validación con Luis Angel Tufiño Argüelles"> | [Ver video en YouTube](https://youtu.be/vnJYp37qBu0) | 00:00:00 | 13:32 |
+
+*Resumen de entrevista 1:*
+
+Luis Ángel Tufiño, supervisor de distribución con ocho años de experiencia, representa al segmento de empresas distribuidoras de bebidas. Hoy coordina pedidos, vehículos, conductores y rutas con Excel, Google Maps, WhatsApp y llamadas, lo que dificulta centralizar la información y supervisar varias entregas a la vez.
+
+Destaca la utilidad de BottleTrack para consultar el avance de las entregas, organizar los recursos y registrar incidencias como productos dañados o entregas parciales. Considera prioritario contar con estados actualizados, evidencias de los problemas y reportes por fecha y por ruta. Su disposición a adoptar la plataforma depende de la facilidad de uso, la confiabilidad de los datos, el costo y la capacitación necesaria, y propone realizar una prueba con una parte de la operación para evaluar sus beneficios.
+
+**Segmento Objetivo 3: Bodegas y minimarkets**
+
+| # | Nombres y Apellidos | Edad | Distrito | Screenshot | URL del video | Inicio | Duración |
+| :- | :------------------ | :--- | :------- | :--------- | :------------ | :----- | :------- |
+| 1 | Arturo Axel Saravia Huaricancha | 20 años | Los Olivos | <img src="assets/chapter5/validation/validation-arturo-saravia.png" alt="Entrevista de validación con Arturo Axel Saravia Huaricancha"> | [Ver video en YouTube](https://youtu.be/5J2oE865qiQ) | 00:00:00 | 07:59 |
+| 2 | Leo Giovany Yañez Santos | 23 años | Pueblo Libre | <img src="assets/chapter5/validation/validation-leo-yanez.png" alt="Entrevista de validación con Leo Giovany Yañez Santos"> | [Ver video en YouTube](https://youtu.be/8L-3LssywR0) | 00:00:00 | 07:48 |
+
+*Resumen de entrevista 1:*
+
+Arturo, responsable de bodega, coordina sus pedidos mediante WhatsApp y llamadas. Sus principales dificultades son la incertidumbre sobre el horario de llegada, los retrasos y la recepción de productos faltantes o dañados. Considera útil consultar el estado del pedido y las paradas pendientes para organizar el espacio y prepararse para recibir las bebidas. Usaría BottleTrack principalmente desde el celular y necesita información actualizada, avisos de retrasos y una opción para registrar reclamos con fotografías y consultar su atención.
+
+*Resumen de entrevista 2:*
+
+Leo participa en la revisión de existencias, la reposición de productos y la recepción de mercadería. Identifica como dificultades la llegada simultánea de proveedores y las diferencias entre las cantidades solicitadas y las recibidas. Valora consultar las entregas en un solo lugar para coordinar al personal sin descuidar la atención al público, y propone filtros por proveedor y fecha, avisos sobre cambios en las cantidades y claridad en las marcas, presentaciones y unidades de los productos. Su disposición a utilizar BottleTrack depende de su facilidad de uso desde el celular y de la confiabilidad de la información.
+
+**Conclusiones de las entrevistas de validación**
+
+Los participantes confirman la necesidad de mejorar la información disponible durante la entrega de bebidas. En el segmento de distribuidoras, BottleTrack centraliza el seguimiento de las entregas, los recursos y las incidencias que hoy se reparten entre Excel, Google Maps, WhatsApp y llamadas. En el segmento de bodegas, el seguimiento del pedido facilita organizar la recepción y reduce las llamadas a los proveedores.
+
+Las oportunidades de mejora que se desprenden de las entrevistas son:
+
+- Presentar con claridad los estados y las cantidades de cada entrega.
+- Comunicar oportunamente los retrasos y los cambios en las cantidades.
+- Permitir el registro de reclamos con fotografías y el seguimiento de su atención.
+- Ofrecer reportes por fecha y por ruta, y filtros por proveedor y fecha.
+
+La facilidad de uso desde el celular y la confiabilidad de los datos son los factores que más pesan en la adopción. Estos hallazgos coinciden con las funciones que pasan al siguiente Sprint, en particular el seguimiento de pedidos de la bodega con el reporte de problemas de recepción y el registro del resultado de cada entrega.
 
 <a id="533-evaluaciones-segun-heuristicas"></a>
 
 ### 5.3.3. Evaluaciones según heurísticas.
 
 La evaluación aplica las diez heurísticas de usabilidad de Nielsen sobre el Landing Page y la Web Application, con la escala de severidad del curso: 1, problema cosmético; 2, problema menor; 3, problema mayor; 4, problema muy grave. Cada problema se documenta con su descripción, la heurística que incumple, una captura y la recomendación de solución, y se resume en una tabla con las columnas #, Problema, Severidad y Heurística o principio violado.
+
+La evaluación según heurísticas pasa al Sprint 4 (tarea T42), para aplicarla sobre la versión publicada de la Web Application integrada con los Web Services.
 
 <a id="54-video-about-the-product"></a>
 
