@@ -748,7 +748,7 @@ La persona que visita el Website todavía no está autenticada, por lo que el di
 
 Se elaboró un diagrama de componentes por bounded context. Los componentes dibujados con borde punteado y trazo tenue (*Planned*) todavía no existen en el código de los Web Services; el resto corresponde a lo que ya está implementado en el repositorio. Todos siguen la misma estructura hexagonal: un controller como adaptador de entrada, un command service y un query service en la capa de aplicación, el modelo de dominio con sus agregados, la interfaz del repositorio como puerto de salida (borde punteado) y el repositorio de Entity Framework Core como adaptador que lo implementa.
 
-**Identity and Access Management.** Gestiona las organizaciones y los usuarios con sus roles. Implementado: registro y consulta de organizaciones y de usuarios, y un adaptador de salida que calcula el hash de las contraseñas con PBKDF2. La autenticación con tokens aún no está implementada.
+**Identity and Access Management.** Gestiona las organizaciones y los usuarios con sus roles. Implementado: registro, consulta y edición de organizaciones y de usuarios, asignación de rol, un adaptador de salida que calcula el hash de las contraseñas con PBKDF2 y el inicio de sesión, que valida las credenciales y emite un token JWT.
 
 <img src="assets/DD-SoftwareArchitecture/componentIAM_D.png" alt="Diagrama de componentes de Identity and Access Management" width="800">
 
@@ -808,7 +808,7 @@ Gestiona la organización de la empresa distribuidora y los usuarios que acceden
 
 <img src="assets/Software-Object-Oriented-Design/frontend-class-identity-access.png" alt="Diagrama de clases de Identity and Access Management en el frontend" width="800">
 
-*Backend.* `Organization` y `User` son agregados independientes. Muchos usuarios (`1..*`) pertenecen a una organización, y cada usuario tiene un rol (`UserRole`) y un estado (`UserStatus`). `EmailAddress` y `TaxId` son value objects dentro de sus agregados: el correo identifica al usuario y la organización se registra con su `TaxId`. Los métodos expresan las reglas, como `Register`, `AssignRole` y `Deactivate`. `IOrganizationRepository` e `IUserRepository` definen cómo se guardan y buscan los agregados, por ejemplo buscar un usuario por correo.
+*Backend.* `Organization` y `User` son agregados independientes. Muchos usuarios (`1..*`) pertenecen a una organización, y cada usuario tiene un rol (`UserRole`) y un estado (`UserStatus`). `EmailAddress` y `TaxId` son value objects dentro de sus agregados: el correo identifica al usuario y la organización se registra con su `TaxId`. Los métodos expresan las reglas, como `Register`, `UpdateProfile`, `AssignRole` y `Deactivate`. `IOrganizationRepository` e `IUserRepository` definen cómo se guardan y buscan los agregados, por ejemplo buscar un usuario por correo.
 
 <img src="assets/Software-Object-Oriented-Design/backend-class-identity-access.png" alt="Diagrama de clases de Identity and Access Management en el backend" width="800">
 

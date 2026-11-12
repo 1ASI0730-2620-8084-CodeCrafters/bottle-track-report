@@ -1,0 +1,133 @@
+@startuml
+' BottleTrack - Frontend Web Application - Identity and Access Management class diagram
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam class {
+  BackgroundColor #ffffff
+  BorderColor #b34900
+  ArrowColor #4f2000
+}
+skinparam package {
+  BackgroundColor #fff7ed
+  BorderColor #f97316
+}
+left to right direction
+
+package "Shared Infrastructure" {
+  class BaseApi <<Infrastructure>> {
+    - #http: AxiosInstance
+    + /http: AxiosInstance
+  }
+  class BaseEndpoint <<Infrastructure>> {
+    + http: AxiosInstance
+    + endpointPath: string
+    + getAll(params): Promise
+    + getById(id): Promise
+    + create(resource): Promise
+    + update(id, resource): Promise
+    + partialUpdate(id, resource): Promise
+    + delete(id): Promise
+  }
+  BaseApi "1" ..> "0..*" BaseEndpoint : provides http to
+}
+
+package "Identity and Access Management" {
+  class Organization <<Entity>> {
+    + id: string
+    + businessName: string
+    + taxId: string
+    + email: string
+    + phone: string
+    + address: string
+  }
+  class User <<Entity>> {
+    + id: string
+    + organizationId: string
+    + firstName: string
+    + lastName: string
+    + email: string
+    + role: string
+    + status: string
+    + /fullName: string
+    + /initials: string
+    + /isActive: boolean
+    + hasAnyRole(roles): boolean
+  }
+  class SignInCommand <<Command>> {
+    + email: string
+    + password: string
+  }
+  class RegisterUserCommand <<Command>> {
+    + organizationId: string
+    + firstName: string
+    + lastName: string
+    + email: string
+    + role: string
+    + password: string
+  }
+  class UpdateUserCommand <<Command>> {
+    + userId: string
+    + firstName: string
+    + lastName: string
+    + email: string
+  }
+  class AssignRoleCommand <<Command>> {
+    + userId: string
+    + role: string
+  }
+  class UpdateOrganizationCommand <<Command>> {
+    + organizationId: string
+    + businessName: string
+    + phone: string
+    + address: string
+  }
+  enum USER_ROLES <<enumeration>> {
+    ADMINISTRATOR = 'administrator'
+    FLEET_SUPERVISOR = 'fleet_supervisor'
+    DELIVERY_POINT_OWNER = 'delivery_point_owner'
+  }
+  class SignInResource <<Resource>> {
+    + user: Object
+    + token: string
+  }
+  class IamApi <<Infrastructure>> {
+    - #usersEndpoint: BaseEndpoint
+    - #organizationsEndpoint: BaseEndpoint
+    + signIn(signInCommand): Promise
+    + getUsersByOrganization(organizationId): Promise
+    + createUser(userResource): Promise
+    + updateUser(userId, userResource): Promise
+    + assignRole(userId, role): Promise
+    + getOrganizationById(organizationId): Promise
+    + updateOrganization(organizationId, organizationResource): Promise
+  }
+  class UserAssembler <<Assembler>> {
+    + {static} toEntityFromResource(resource): User
+    + {static} toResourceFromEntity(user): Object
+    + {static} toEntitiesFromResponse(response): User[]
+    + {static} toResourceFromRegisterCommand(command): Object
+    + {static} toResourceFromUpdateCommand(command): Object
+  }
+  class OrganizationAssembler <<Assembler>> {
+    + {static} toEntityFromResource(resource): Organization
+    + {static} toResourceFromUpdateCommand(command): Object
+  }
+  class SignInAssembler <<Assembler>> {
+    + {static} toResourceFromResponse(response): SignInResource
+  }
+  User "1" --> "1" USER_ROLES : has role
+  AssignRoleCommand "0..*" --> "1" User : assigns a role to
+  AssignRoleCommand "1" --> "1" USER_ROLES : carries the new role
+  UserAssembler "1" ..> "0..*" User : creates
+  UserAssembler "1" ..> "0..*" RegisterUserCommand : reads
+  UserAssembler "1" ..> "0..*" UpdateUserCommand : reads
+  OrganizationAssembler "1" ..> "0..*" Organization : creates
+  OrganizationAssembler "1" ..> "0..*" UpdateOrganizationCommand : reads
+  SignInAssembler "1" ..> "0..*" SignInResource : creates
+  IamApi "1" ..> "0..*" SignInCommand : receives
+  IamApi "1" *-- "2" BaseEndpoint : owns
+  IamApi --|> BaseApi
+}
+@enduml

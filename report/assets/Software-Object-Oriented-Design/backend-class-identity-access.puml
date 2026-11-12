@@ -1,0 +1,77 @@
+@startuml
+' BottleTrack - Backend - Identity and Access Management class diagram
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam class {
+  BackgroundColor #ffffff
+  BorderColor #b34900
+  ArrowColor #4f2000
+}
+skinparam package {
+  BackgroundColor #fff7ed
+  BorderColor #f97316
+}
+
+package "Identity and Access Management" {
+  class Organization <<Aggregate Root>> {
+    + Id: Guid
+    + BusinessName: string
+    + TaxId: TaxId
+    + Email: EmailAddress
+    + Phone: string
+    + Address: string
+    + {static} Register(businessName, taxId, email): Organization
+    + UpdateProfile(businessName, phone, address): void
+  }
+  class User <<Aggregate Root>> {
+    + Id: Guid
+    + OrganizationId: Guid
+    + FirstName: string
+    + LastName: string
+    + Email: EmailAddress
+    + PasswordHash: string
+    + Role: UserRole
+    + Status: UserStatus
+    + {static} Register(organizationId, firstName, lastName, email, passwordHash, role): User
+    + AssignRole(role: UserRole): void
+    + Deactivate(): void
+    + UpdateProfile(firstName, lastName, email): void
+  }
+  class EmailAddress <<Value Object>> {
+    + Value: string
+  }
+  class TaxId <<Value Object>> {
+    + Value: string
+  }
+  enum UserRole {
+    Administrator
+    FleetSupervisor
+    DeliveryPointOwner
+  }
+  enum UserStatus {
+    Active
+    Inactive
+  }
+  interface IOrganizationRepository {
+    + FindByTaxIdAsync(taxId: TaxId): Task<Organization?>
+  }
+  interface IUserRepository {
+    + FindByEmailAsync(email: EmailAddress): Task<User?>
+    + ListByOrganizationAsync(organizationId: Guid): Task<IEnumerable<User>>
+  }
+  class "IPasswordHasher" as IPasswordHasher <<Port>> {
+    + Hash(password: string): string
+    + Verify(password: string, passwordHash: string): bool
+  }
+  User "1..*" --> "1" Organization : belongs to (OrganizationId)
+  User "1" --> "1" UserRole : has role
+  User "1" --> "1" UserStatus : has status
+  User "1" *-- "1" EmailAddress : is identified by
+  Organization "1" *-- "1" EmailAddress : is contacted at
+  Organization "1" *-- "1" TaxId : is registered with
+  IOrganizationRepository "1" ..> "0..*" Organization : persists
+  IUserRepository "1" ..> "0..*" User : persists
+}
+@enduml
