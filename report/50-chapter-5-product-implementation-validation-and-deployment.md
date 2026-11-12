@@ -8,7 +8,7 @@
 
 ## 5.1. Software Configuration Management.
 
-En esta sección el equipo establece las decisiones y convenciones que permiten mantener la consistencia del producto durante todo el ciclo de vida. Estas decisiones son de cumplimiento obligatorio para los cinco integrantes y se aplican de manera idéntica en los cuatro repositorios del proyecto.
+En esta sección el equipo establece las decisiones y convenciones que permiten mantener la consistencia del producto durante todo el ciclo de vida. Estas decisiones son de cumplimiento obligatorio para todos los integrantes del equipo y se aplican de manera idéntica en los cuatro repositorios del proyecto.
 
 <a id="511-software-development-environment-configuration"></a>
 
@@ -21,7 +21,7 @@ A continuación se indican los productos de software que utiliza el equipo, el p
 | Producto | Propósito | Ruta de referencia |
 | :------- | :-------- | :----------------- |
 | Trello | Product Backlog y Sprint Backlog del equipo, con el tablero público de control de estado. | https://trello.com |
-| Microsoft Teams | Reuniones de Sprint Planning, Review y Retrospective del equipo. | https://www.microsoft.com/microsoft-teams |
+| Discord | Reuniones de Sprint Planning, Review y Retrospective del equipo. | https://discord.com |
 | Microsoft Stream | Publicación de los videos de entrevistas y de exposición con enlace privado. | https://www.microsoft.com/microsoft-stream |
 
 **Requirements Management**
@@ -36,10 +36,10 @@ A continuación se indican los productos de software que utiliza el equipo, el p
 | Producto | Propósito | Ruta de referencia |
 | :------- | :-------- | :----------------- |
 | Figma | Wireframes, Mock-ups y Prototypes del Landing Page y de la Web Application. | https://www.figma.com |
-| FigJam | Wireflow Diagrams y User Flow Diagrams. | https://www.figma.com/figjam |
-| Structurizr | Diagramas de arquitectura de software bajo el C4 Model. | https://structurizr.com |
-| LucidChart | Diagramas UML de clases. | https://www.lucidchart.com |
-| ERDPlus | Diagramas de base de datos. | https://erdplus.com |
+| FigJam | Wireflow Diagrams. | https://www.figma.com/figjam |
+| Graphviz | User Flow Diagrams elaborados como Diagram-as-Code en lenguaje DOT. | https://graphviz.org |
+| Structurizr DSL y Structurizr Playground | Diagramas de arquitectura de software bajo el C4 Model. | https://playground.structurizr.com |
+| PlantUML | Diagramas UML de clases y diagrama de base de datos, elaborados como Diagram-as-Code. | https://plantuml.com |
 
 **Software Development**
 
@@ -65,6 +65,7 @@ A continuación se indican los productos de software que utiliza el equipo, el p
 | :------- | :-------- | :----------------- |
 | GitHub | Alojamiento del informe en formato Markdown y de los repositorios de código. | https://github.com |
 | Swagger / OpenAPI | Documentación de los endpoints de los Web Services. | https://swagger.io |
+| Pandoc y XeLaTeX (MiKTeX) | Generación del informe en PDF a partir de los archivos Markdown. | https://pandoc.org |
 
 <a id="512-source-code-management"></a>
 
@@ -74,10 +75,12 @@ El seguimiento de modificaciones se realiza con Git, gestionado desde GitHub. El
 
 | Repositorio | Contenido | URL |
 | :---------- | :-------- | :-- |
-| Landing-Page | Sitio web estático en HTML5, CSS3 y JavaScript. | https://github.com/1ASI0730-2620-8084-CodeCrafters/Landing-Page |
+| bottle-track-website | Landing Page: sitio web estático en HTML5, CSS3 y JavaScript. | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-website |
 | Frontend-Web-Aplication | Aplicación web desarrollada con Vue Framework. | https://github.com/1ASI0730-2620-8084-CodeCrafters/Frontend-Web-Aplication |
-| Web-Services | RESTful API en ASP.NET Core, incluyendo las pruebas unitarias y de aceptación. | https://github.com/1ASI0730-2620-8084-CodeCrafters/Web-Services |
-| Report | Informe del proyecto en formato Markdown. | https://github.com/1ASI0730-2620-8084-CodeCrafters/Report |
+| bottle-track-web-services | RESTful API en ASP.NET Core, con sus pruebas unitarias y de integración. | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-web-services |
+| bottle-track-report | Informe del proyecto en formato Markdown, con su compilación a PDF. | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-report |
+
+Los repositorios del Landing Page, de los Web Services y del informe se renombraron en el Sprint 3 (antes `Landing-Page`, `Web-Services` y `Report`) para seguir una convención única en kebab-case. GitHub redirige los enlaces anteriores, por lo que las referencias históricas de los Sprints 1 y 2 conservan su validez.
 
 **GitFlow como Workflow de control de versiones**
 
@@ -90,12 +93,16 @@ El equipo aplica GitFlow según el modelo descrito por Vincent Driessen. La estr
 | `feature/<nombre>` | Una rama por cada feature. Concentra el trabajo de una funcionalidad hasta que queda terminada. | `develop` | `develop` |
 | `release/<versión>` | Preparación de una versión: correcciones finales y ajuste del número de versión. | `develop` | `main` y `develop` |
 | `hotfix/<nombre>` | Corrección urgente sobre una versión ya publicada. | `main` | `main` y `develop` |
+| `fix/<nombre>` | Corrección de un defecto detectado en `develop`, antes de un release. | `develop` | `develop` |
+| `chore/<nombre>` | Tareas de mantenimiento del repositorio, como sincronizar `main` con `develop`. | `develop` | `develop` |
 
 Las convenciones de nomenclatura de las ramas son las siguientes, empleando siempre kebab-case y el idioma inglés:
 
 | Tipo de rama | Convención | Ejemplo |
 | :----------- | :--------- | :------ |
 | Feature | `feature/<nombre-de-la-funcionalidad>` | `feature/design-system` |
+| Fix | `fix/<nombre-de-la-corrección>` | `fix/report-incident-diagrams` |
+| Chore | `chore/<nombre-de-la-tarea>` | `chore/sync-main-into-develop` |
 | Release | `release/<major>.<minor>.<patch>` | `release/1.0.0` |
 | Hotfix | `hotfix/<nombre-de-la-corrección>` | `hotfix/broken-segment-link` |
 
@@ -147,10 +154,11 @@ Toda la nomenclatura de elementos del código se escribe en inglés, sin excepci
 | Variables CSS | kebab-case con doble guion inicial | `--primary-dark` |
 | Variables y funciones de JavaScript | camelCase | `resolveInitialLanguage` |
 | Constantes de JavaScript | SCREAMING_SNAKE_CASE | `DEFAULT_LANGUAGE` |
-| Componentes de Vue | PascalCase | `RouteMonitorCard.vue` |
-| Clases, métodos y propiedades públicas de C# | PascalCase | `ShipmentTrackingService` |
-| Campos privados de C# | camelCase con guion bajo inicial | `_shipmentRepository` |
-| Endpoints de la API | kebab-case en plural | `/api/v1/shipments`, `/api/v1/incidents` |
+| Archivos de componentes de Vue | kebab-case | `vehicle-list.vue`, `driver-form-dialog.vue` |
+| Clases de JavaScript | PascalCase | `TransportOperationAssembler` |
+| Clases, métodos y propiedades públicas de C# | PascalCase | `TransportOperationCommandService`, `AddStop` |
+| Parámetros y variables locales de C# | camelCase | `transportOperationRepository` |
+| Endpoints de la API | kebab-case en plural | `/api/v1/transport-operations`, `/api/v1/incidents` |
 | Tablas y columnas de base de datos | snake_case | `delivery_stops`, `reported_at` |
 
 **Convenciones adicionales adoptadas por el equipo**
@@ -163,7 +171,7 @@ El código se escribe sin comentarios: la legibilidad se sostiene con nombres au
 
 **Landing Page**
 
-El Landing Page se publica en Netlify a partir de la rama `main` del repositorio `Landing-Page`, mediante la integración de Netlify con GitHub. Durante el Sprint 1 se publicó en GitHub Pages; desde el Sprint 2 se utiliza Netlify, que vuelve a publicar el sitio de forma automática ante cada integración en `main`. Al tratarse de un sitio web estático sin proceso de construcción, no requiere un comando de build. Los pasos son los siguientes:
+El Landing Page se publica en Netlify a partir de la rama `main` del repositorio `bottle-track-website`, mediante la integración de Netlify con GitHub. Durante el Sprint 1 se publicó en GitHub Pages; desde el Sprint 2 se utiliza Netlify, que vuelve a publicar el sitio de forma automática ante cada integración en `main`. Al tratarse de un sitio web estático sin proceso de construcción, no requiere un comando de build. Los pasos son los siguientes:
 
 1. Integrar en `develop` las ramas de feature terminadas mediante un merge sin avance rápido.
 2. Crear la rama `release/<versión>` a partir de `develop`.
@@ -177,14 +185,21 @@ La aplicación web se publica en Vercel a partir de la rama `main` del repositor
 
 1. Importar el repositorio desde el panel de Vercel.
 2. Configurar el comando de construcción y el directorio de salida que corresponden a un proyecto de Vue.
-3. Registrar en el archivo `.env.production` la URL base del API. Mientras no existan los Web Services, apunta al fake API publicado en Beeceptor.
+3. Registrar en el archivo `.env.production` la URL base del API. Mientras los Web Services no estén publicados, apunta al fake API publicado en Beeceptor. En el entorno de desarrollo (`.env.development`) la aplicación ya consume los Web Services locales en `http://localhost:5280/api/v1`.
 4. Confirmar la publicación automática que Vercel ejecuta ante cada integración en `main`.
 
 Una vez publicada la aplicación, la URL definitiva se registra en los llamados a la acción de cada segmento objetivo del Landing Page, de modo que ambos productos queden enlazados.
 
 **Web Services**
 
-Los Web Services se publicarán en un proveedor de nube junto con la base de datos MySQL. La configuración correspondiente se documentará en la entrega en la que se despliegue la primera versión de este producto.
+La primera versión de los Web Services se implementó en el Sprint 3 y se ejecuta en el entorno local junto con MySQL. Su publicación en un proveedor de nube está preparada, pero todavía no se ha realizado:
+
+1. El repositorio incluye un `Dockerfile` que compila la solución y expone el servicio en el puerto 8080.
+2. El archivo `appsettings.Production.json` toma la cadena de conexión de las variables de entorno `DATABASE_URL`, `DATABASE_USER`, `DATABASE_PASSWORD` y `DATABASE_SCHEMA`, de modo que ninguna credencial se guarda en el repositorio.
+3. La lista de orígenes permitidos por CORS debe registrar la URL de la Web Application publicada en Vercel.
+4. Las migraciones de Entity Framework Core crean las doce tablas al iniciar el servicio.
+
+El proveedor de nube y la instancia de MySQL se seleccionarán y documentarán en el Sprint en el que se realice la publicación.
 
 
 <a id="52-landing-page-services-applications-implementation"></a>
@@ -322,7 +337,7 @@ Al cierre del Sprint 1 el Landing Page se encuentra publicado en https://1asi073
 
 #### 5.2.1.6. Services Documentation Evidence for Sprint Review.
 
-El alcance del Sprint 1 corresponde al Landing Page, que es un sitio estático y no expone endpoints. La documentación de los servicios con OpenAPI se incorpora en el Sprint en el que se implementa la primera versión del Backend API, de acuerdo con la Technical Story TS13.
+El alcance del Sprint 1 corresponde al Landing Page, que es un sitio estático y no expone endpoints. La documentación de los servicios con OpenAPI se incorporó en el Sprint 3 (sección 5.2.3.6), en el que se implementa la primera versión del Backend API, de acuerdo con la Technical Story TS13.
 
 <a id="52x7-software-deployment-evidence-for-sprint-review"></a>
 
@@ -734,7 +749,7 @@ A partir del Sprint 2 el Landing Page se publica en Netlify, que reemplaza a Git
 
 <img src="assets/chapter5/sprint2/github-landing-branches.png" alt="Ramas del repositorio Landing-Page" width="800">
 
-<img src="assets/chapter5/sprint2/github-landing-tags.png" alt="Tags v0.1.0 y v0.2.0 del repositorio Landing-Page" width="800">
+<img src="assets/chapter5/sprint2/github-landing-tags.png" alt="Tags v0.1.0, v0.2.0, v0.2.1 y v1.0.0 del repositorio del Landing Page" width="800">
 
 <a id="5228-team-collaboration-insights-during-sprint"></a>
 
@@ -775,131 +790,190 @@ La siguiente tabla resume los commits de cada integrante en el Sprint 2, sin con
 
 #### 5.2.3.1. Sprint Planning 3.
 
-El Sprint 3 propone implementar la primera versión de los Web Services de BottleTrack e integrarlos con la Frontend Web Application desarrollada durante el Sprint 2. El incremento busca reemplazar el uso del fake API en los flujos principales por servicios RESTful con persistencia en MySQL, validaciones y reglas de negocio en el servidor.
+En el Sprint 3 se implementó la primera versión de los Web Services de BottleTrack y se integró con la Frontend Web Application desarrollada durante el Sprint 2. En el entorno local, el incremento reemplaza el fake API por servicios RESTful con persistencia en MySQL, validaciones y reglas de negocio en el servidor.
 
-La planificación considera las Technical Stories TS01 a TS15 del Product Backlog, cuya estimación total es de 96 Story Points. La distribución de tareas y sus estimaciones constituyen una propuesta que debe validarse con la disponibilidad del equipo.
+La planificación consideró las Technical Stories TS01 a TS15 del Product Backlog, con una estimación total de 96 Story Points.
 
 | Sprint # | Sprint 3 |
 | :------- | :------- |
 | **Sprint Planning Background** | |
-| Date | 2026/10/28 |
-| Time | 8:00 pm |
-| Location | Discord |
+| Date | 2026-10-28 |
+| Time | 8:00 PM |
+| Location | Reunión virtual por Discord |
 | Prepared By | Cumba Rengifo, Leonardo Raul |
 | Attendees (to planning meeting) | Crispin Valdivia, Angel Gabriel; Cumba Rengifo, Leonardo Raul; Palacin Lazo, Gerardo Valentin; Pezo Castilla, Maria Jose |
-| Sprint 2 Review Summary | Según las evidencias del Sprint 2, se publicó una nueva versión del Landing Page y la primera versión de la Frontend Web Application. Se implementaron las vistas de autenticación, usuarios, empresa, flota, operaciones, entregas, incidencias, monitoreo IoT y seguimiento de pedidos para bodegas, utilizando un fake API. También se incorporaron las correcciones de AV1 en el Landing Page. La implementación de los Web Services propios quedó prevista para el Sprint 3. |
-| Sprint 2 Retrospective Summary | El registro de colaboración del Sprint 2 evidencia la participación de los cinco integrantes en el frontend mediante la distribución por bounded context. Como propuesta de mejora para el Sprint 3, se plantea mantener esta distribución, acordar los contratos del API antes de integrar las vistas y distribuir las pruebas entre líderes y colaboradores. También se propone reservar tiempo para documentación, despliegue y validación con usuarios. Estas observaciones deben contrastarse en la reunión del equipo. |
+| Sprint 2 Review Summary | En el Sprint 2 se publicó una nueva versión del Landing Page y la primera versión de la Frontend Web Application. Se implementaron las vistas de autenticación, usuarios, empresa, flota, operaciones, entregas, incidencias, monitoreo IoT y seguimiento de pedidos para bodegas, sobre un fake API. También se incorporaron las correcciones de AV1 en el Landing Page. La implementación de los Web Services quedó para el Sprint 3. |
+| Sprint 2 Retrospective Summary | La distribución del frontend por bounded context permitió la participación de los cinco integrantes. Para el Sprint 3 el equipo acordó mantener esa distribución, definir los contratos del API antes de integrar las vistas, distribuir las pruebas entre líderes y colaboradores y reservar tiempo para la documentación, el despliegue y la validación con usuarios. |
 | **Sprint Goal & User Stories** | |
 | Sprint 3 Goal | *Nuestro enfoque está en* que el administrador de la distribuidora mantenga de forma permanente sus usuarios, vehículos y conductores; en que el supervisor de flota planifique, ejecute y dé seguimiento a sus operaciones de transporte, con sus entregas, incidencias y alertas de carga en riesgo; y en que el responsable de la bodega consulte el estado de su pedido y reporte los problemas de recepción.<br>*Creemos que esto entrega* control confiable de sus recursos al administrador de la empresa distribuidora, información actualizada y trazable de cada operación al supervisor de flota, y certeza sobre sus pedidos con un canal directo para reportar faltantes o productos dañados al responsable de la bodega o minimarket.<br>*Esto se confirmará cuando* el administrador registre un vehículo y un conductor que sigan disponibles al volver a ingresar; el supervisor complete una operación de principio a fin, desde su creación hasta el cierre de sus entregas, y convierta una alerta de carga en una incidencia; y la bodega consulte su pedido y reporte un problema de recepción que el supervisor pueda ver. Los tres flujos deben ejecutarse sin errores en la aplicación publicada (100 % de los casos de aceptación) y al menos tres representantes de cada segmento deben completar su flujo principal en las entrevistas de validación. |
-| Sprint 3 Velocity | 96 Story Points propuestos, sujetos a validación de capacidad del equipo. |
+| Sprint 3 Velocity | 96 Story Points |
 | Sum of Story Points | 96 |
 
-La comprobación del Sprint Goal se realizará sobre la integración de la Web Application con los Web Services. El funcionamiento de una vista con datos del fake API no constituye evidencia suficiente del cumplimiento de una historia técnica.
+La comprobación del Sprint Goal se realiza sobre la integración de la Web Application con los Web Services: el funcionamiento de una vista con datos del fake API no constituye evidencia del cumplimiento de una historia técnica. Las lecturas IoT continúan siendo simuladas: los Web Services ya permiten registrarlas y consultarlas, y su visualización en la Web Application pasa al siguiente Sprint. El conductor se mantiene como recurso de la operación y no como usuario de la plataforma.
 
-Las lecturas IoT continuarán siendo simuladas, pero su registro, consulta y generación de alertas deberán realizarse mediante el backend. El conductor se mantiene como recurso de la operación y no como usuario de la plataforma.
+**Resultado del Sprint.** Al cierre del Sprint 3 los Web Services implementan los cinco bounded contexts con 39 endpoints REST, doce tablas en MySQL creadas por cuatro migraciones de Entity Framework Core e inicio de sesión con tokens JWT. La Frontend Web Application consume estos servicios en sus flujos de autenticación, administración de usuarios y empresa, gestión de vehículos y conductores, creación de operaciones con sus paradas, consulta de dispositivos IoT y reporte, evidencia y resolución de incidencias.
 
+Las acciones que la Web Application todavía no integra con el API se muestran con el aviso **Próximamente** y pasan al siguiente Sprint: asignar recursos, iniciar, completar y cancelar operaciones, registrar el resultado y reordenar las paradas, revisar y cerrar incidencias, el monitoreo en vivo con sus alertas, la configuración del rango seguro de un dispositivo y el seguimiento de pedidos de la bodega. Por esa razón el Sprint Goal se cumple de forma parcial: el flujo del administrador está completo, mientras que los flujos del supervisor y de la bodega requieren las acciones mencionadas.
 
 <a id="5232-aspect-leaders-and-collaborators"></a>
 
 #### 5.2.3.2. Aspect Leaders and Collaborators.
 
-Para el Sprint 3 se propone mantener la distribución por bounded context utilizada en el Sprint 2. Cada integrante liderará la implementación de los servicios relacionados con su contexto y colaborará en su integración con los demás componentes de BottleTrack.
+En el Sprint 3 se mantuvo la distribución por bounded context utilizada en el Sprint 2. Cada integrante lideró los servicios de su contexto y colaboró en su integración con los demás componentes de BottleTrack.
 
-La matriz de Liderazgo y Colaboración (LACX) identifica al líder de cada aspecto con **L** y a sus colaboradores con **C**. Las asignaciones propuestas guardan relación con los responsables del Sprint Backlog y deben confirmarse durante el Sprint Planning.
+La matriz de Liderazgo y Colaboración (LACX) identifica al líder de cada aspecto con **L** y a sus colaboradores con **C**, en concordancia con los responsables del Sprint Backlog.
 
 | Team Member (Last Name, First Name) | GitHub Username | Backend Setup & Configuration Management | Identity and Access Management | Fleet Management | Operations and Routes | IoT Monitoring | Incident Management & Analytics | OpenAPI & Integration Verification | Landing Page |
 | :---------------------------------- | :-------------- | :-----: | :-----: | :-----: | :-----: | :-----: | :-----: | :-----: | :-----: |
-| Crispin Valdivia, Angel Gabriel | FaureGalliard | L | L | C | C | C | C | C | C |
+| Crispin Valdivia, Angel Gabriel | FaureGalliard | L | L | L | C | C | C | L | C |
 | Cumba Rengifo, Leonardo Raul | LeonardoC72 | C | C | C | L | C | C | C | C |
 | Palacin Lazo, Gerardo Valentin | GeraldP03 | C | C | C | C | L | C | C | L |
 | Pezo Castilla, Maria Jose | MariaJosePezo | C | C | C | C | C | L | C | C |
 
+Angel Crispin lideró la configuración del backend, los servicios de autenticación y administración, la gestión de vehículos y conductores y la verificación de OpenAPI y de la integración. Leonardo Cumba lideró las operaciones, sus paradas y los puntos de entrega. Gerardo Palacin lideró el monitoreo IoT y el Landing Page. Maria Jose Pezo lideró las incidencias, sus evidencias y los indicadores operacionales del dashboard.
 
-Angel Crispin coordinará la configuración del backend, los servicios de autenticación y administración y el despliegue del API. Leonardo Cumba liderará las operaciones, la asignación de recursos, las entregas, el historial y el seguimiento de pedidos de las bodegas.
-
-Gerardo Palacin liderará el monitoreo IoT y colaborará con Operations and Routes mediante la integración del servicio externo de mapas. Maria Jose Pezo liderará las incidencias, sus evidencias y los indicadores operacionales. Angel Crispin liderará la gestión de vehículos y conductores y coordinará la revisión de OpenAPI y las pruebas de integración.
-
-Cada integrante será responsable de documentar y verificar los endpoints de su contexto. La coordinación de la documentación y de las pruebas no reemplaza la responsabilidad individual de proporcionar evidencias de implementación.
-
-
-
+Cada integrante es responsable de documentar y verificar los endpoints de su contexto. La coordinación de la documentación y de las pruebas no reemplaza la responsabilidad individual de proporcionar evidencias de implementación.
 
 <a id="5233-sprint-backlog-3"></a>
 
 #### 5.2.3.3. Sprint Backlog 3.
 
-El Sprint Backlog 3 propone implementar las Technical Stories del RESTful API previstas en el Product Backlog e integrar los servicios con las vistas existentes de la Frontend Web Application. También incluye tareas transversales de configuración, despliegue, validación y preparación de evidencias para AV2.
+El Sprint Backlog 3 contiene las Technical Stories del RESTful API previstas en el Product Backlog y su integración con las vistas existentes de la Frontend Web Application. También incluye tareas transversales de configuración, despliegue, validación y preparación de evidencias para AV2.
 
-Las historias TS01 a TS15 suman 96 Story Points. Las User Stories implementadas con el fake API durante el Sprint 2 sirven como referencia de los flujos que deben integrarse; sus puntos no se vuelven a contabilizar en esta suma.
+Las historias TS01 a TS15 suman 96 Story Points. Las User Stories implementadas con el fake API durante el Sprint 2 sirven como referencia de los flujos que se integran; sus puntos no se vuelven a contabilizar en esta suma.
 
-El tablero del proyecto se encuentra disponible en: https://trello.com/b/jGpO815B/bottletrack-product-backlog
+**Tablero del Sprint 3** al cierre del Sprint, con sus 46 tareas distribuidas en las listas *To-do*, *In-Process* y *Done* según el estado registrado en la tabla siguiente. El tablero es público y se encuentra en https://trello.com/b/6ae377c3d33bbc1ab8709e54/sprint-3-bottletrack.
 
-**Tablero del Sprint 3**
+<img src="assets/chapter5/sprint3/trello-sprint-3.png" alt="Tablero de Trello del Sprint 3 al cierre del Sprint" width="800">
 
-La captura del tablero se incorporará después de registrar y confirmar las historias, tareas y responsables de esta planificación en Trello.
-
-
-<img width="1909" height="844" alt="sptrin3" src="https://github.com/user-attachments/assets/2f472062-0f03-49fe-8962-90f7c0e6283f" />
-
-https://trello.com/invite/b/6ae377c3d33bbc1ab8709e54/ATTI0bb3ef72715819f3690e40368d3a0a003ACCDB35/sprint-3-bottletrack
-
-Las horas y asignaciones de la siguiente tabla son estimaciones propuestas. El estado inicial es **To-do** y deberá actualizarse según el avance comprobado en el tablero. Las tareas identificadas con **—** corresponden a trabajo transversal que no depende de una sola historia.
+La siguiente tabla registra el estado de cada tarea al cierre del Sprint 3, el 2026-11-11. Las tareas identificadas con **—** corresponden a trabajo transversal que no depende de una sola historia.
 
 | Sprint # | Sprint 3 | | | | | | |
 | :------- | :------- | :- | :- | :- | :- | :- | :- |
 | **User Story / Technical Story** | | **Work-Item / Task** | | | | | |
 | **Id** | **Title** | **Id** | **Title** | **Description** | **Estimation (Hours)** | **Assigned To** | **Status (To-do / In-Process / To-Review / Done)** |
-| — | Backend configuration | T01 | Backend project setup | Configurar el proyecto ASP.NET Core, la organización por bounded contexts, la inyección de dependencias y el manejo de errores. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
-| — | Backend configuration | T02 | Database configuration | Configurar la conexión a MySQL y la estrategia de creación y actualización del esquema, coordinando las entidades de cada contexto. | 6 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS01 | Authentication REST API | T03 | Authentication and authorization | Implementar autenticación, emisión y validación de tokens y restricciones de acceso a recursos protegidos. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS01 | Authentication REST API | T04 | Authentication frontend integration | Conectar el inicio y cierre de sesión con el API y gestionar credenciales inválidas, sesiones vencidas y accesos no autorizados. | 6 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS02 | User and Company REST API | T05 | Users and company endpoints | Implementar registro, consulta y actualización de usuarios, roles y empresa, con validaciones y restricciones de acceso. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS02 | User and Company REST API | T06 | Administration frontend integration | Conectar las vistas de usuarios, perfil y empresa con los servicios y verificar la persistencia de los cambios. | 6 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS03 | Vehicle Management REST API | T07 | Vehicle management endpoints | Implementar persistencia, registro, actualización y consulta de vehículos disponibles, validando datos obligatorios y duplicados. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS03 | Vehicle Management REST API | T08 | Vehicle frontend integration | Conectar las vistas de vehículos con el API y verificar registro, actualización y disponibilidad. | 4 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS04 | Driver Management REST API | T09 | Driver management endpoints | Implementar registro, actualización y consulta de conductores disponibles, incluyendo las validaciones de sus datos. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS04 | Driver Management REST API | T10 | Driver frontend integration | Integrar las vistas de conductores con el API y comprobar la conservación de los cambios. | 4 |Crispin Valdivia, Angel Gabriel | To-do |
-| TS05 | Transport Operations REST API | T11 | Operation domain and persistence | Implementar el agregado de operación, sus estados, reglas de negocio y persistencia. | 8 | Cumba Rengifo, Leonardo Raul | To-do |
-| TS05 | Transport Operations REST API | T12 | Operation endpoints and integration | Implementar creación, consulta, inicio, cancelación y cierre de operaciones y conectar las acciones con el frontend. | 8 | Cumba Rengifo, Leonardo Raul | To-do |
+| — | Backend configuration | T01 | Backend project setup | Configurar el proyecto ASP.NET Core, la organización por bounded contexts, la inyección de dependencias y el manejo de errores. | 8 | Crispin Valdivia, Angel Gabriel | Done |
+| — | Backend configuration | T02 | Database configuration | Configurar la conexión a MySQL y la estrategia de creación y actualización del esquema, coordinando las entidades de cada contexto. | 6 | Crispin Valdivia, Angel Gabriel | Done |
+| TS01 | Authentication REST API | T03 | Authentication and authorization | Implementar autenticación, emisión y validación de tokens y restricciones de acceso a recursos protegidos. | 8 | Crispin Valdivia, Angel Gabriel | In-Process |
+| TS01 | Authentication REST API | T04 | Authentication frontend integration | Conectar el inicio y cierre de sesión con el API y gestionar credenciales inválidas, sesiones vencidas y accesos no autorizados. | 6 | Crispin Valdivia, Angel Gabriel | In-Process |
+| TS02 | User and Company REST API | T05 | Users and company endpoints | Implementar registro, consulta y actualización de usuarios, roles y empresa, con validaciones y restricciones de acceso. | 8 | Crispin Valdivia, Angel Gabriel | In-Process |
+| TS02 | User and Company REST API | T06 | Administration frontend integration | Conectar las vistas de usuarios, perfil y empresa con los servicios y verificar la persistencia de los cambios. | 6 | Crispin Valdivia, Angel Gabriel | Done |
+| TS03 | Vehicle Management REST API | T07 | Vehicle management endpoints | Implementar persistencia, registro, actualización y consulta de vehículos disponibles, validando datos obligatorios y duplicados. | 8 | Crispin Valdivia, Angel Gabriel | Done |
+| TS03 | Vehicle Management REST API | T08 | Vehicle frontend integration | Conectar las vistas de vehículos con el API y verificar registro, actualización y disponibilidad. | 4 | Crispin Valdivia, Angel Gabriel | Done |
+| TS04 | Driver Management REST API | T09 | Driver management endpoints | Implementar registro, actualización y consulta de conductores disponibles, incluyendo las validaciones de sus datos. | 8 | Crispin Valdivia, Angel Gabriel | Done |
+| TS04 | Driver Management REST API | T10 | Driver frontend integration | Integrar las vistas de conductores con el API y comprobar la conservación de los cambios. | 4 | Crispin Valdivia, Angel Gabriel | Done |
+| TS05 | Transport Operations REST API | T11 | Operation domain and persistence | Implementar el agregado de operación, sus estados, reglas de negocio y persistencia. | 8 | Cumba Rengifo, Leonardo Raul | Done |
+| TS05 | Transport Operations REST API | T12 | Operation endpoints and integration | Implementar creación, consulta, inicio, cancelación y cierre de operaciones y conectar las acciones con el frontend. | 8 | Cumba Rengifo, Leonardo Raul | In-Process |
 | TS06 | Resource Assignment Service | T13 | Resource assignment rules | Implementar asignación y liberación de vehículos y conductores, rechazando recursos no disponibles o asignaciones incompatibles. | 6 | Cumba Rengifo, Leonardo Raul | To-do |
-| TS06 | Resource Assignment Service | T14 | Resource assignment verification | Verificar junto con Operations and Routes la disponibilidad, la liberación de recursos y el rechazo de asignaciones incompatibles concurrentes. | 4 | Huapaya Buitron, Ariana Alheli | To-do |
-| TS07 | Delivery Management REST API | T15 | Delivery points and sequence | Implementar registro y consulta de puntos de entrega y actualización de su secuencia dentro de una operación. | 8 | Cumba Rengifo, Leonardo Raul | To-do |
+| TS06 | Resource Assignment Service | T14 | Resource assignment verification | Verificar junto con Operations and Routes la disponibilidad, la liberación de recursos y el rechazo de asignaciones incompatibles concurrentes. | 4 | Palacin Lazo, Gerardo Valentin | To-do |
+| TS07 | Delivery Management REST API | T15 | Delivery points and sequence | Implementar registro y consulta de puntos de entrega y actualización de su secuencia dentro de una operación. | 8 | Cumba Rengifo, Leonardo Raul | In-Process |
 | TS07 | Delivery Management REST API | T16 | Delivery results integration | Persistir resultados de entregas completas, parciales y no realizadas, validar cantidades y motivos e integrar las acciones con el frontend. | 8 | Cumba Rengifo, Leonardo Raul | To-do |
-| TS08 | Incident Management REST API | T17 | Incident lifecycle endpoints | Implementar registro, consulta y actualización de incidencias vinculadas con operaciones o entregas. | 8 | Pezo Castilla, Maria Jose | To-do |
-| TS08 | Incident Management REST API | T18 | Incident frontend integration | Conectar las vistas de incidencias con el API y verificar validaciones y cambios de estado. | 4 | Pezo Castilla, Maria Jose | To-do |
-| TS09 | Incident Evidence Service | T19 | Evidence storage service | Implementar almacenamiento y consulta de evidencias, validando formato, tamaño y asociación con una incidencia existente. | 8 | Pezo Castilla, Maria Jose | To-do |
-| TS09 | Incident Evidence Service | T20 | Evidence frontend integration | Conectar la carga y visualización de evidencias y gestionar las respuestas de rechazo del servicio. | 4 | Pezo Castilla, Maria Jose | To-do |
+| TS08 | Incident Management REST API | T17 | Incident lifecycle endpoints | Implementar registro, consulta y actualización de incidencias vinculadas con operaciones o entregas. | 8 | Pezo Castilla, Maria Jose | In-Process |
+| TS08 | Incident Management REST API | T18 | Incident frontend integration | Conectar las vistas de incidencias con el API y verificar validaciones y cambios de estado. | 4 | Pezo Castilla, Maria Jose | In-Process |
+| TS09 | Incident Evidence Service | T19 | Evidence storage service | Implementar almacenamiento y consulta de evidencias, validando formato, tamaño y asociación con una incidencia existente. | 8 | Pezo Castilla, Maria Jose | In-Process |
+| TS09 | Incident Evidence Service | T20 | Evidence frontend integration | Conectar la carga y visualización de evidencias y gestionar las respuestas de rechazo del servicio. | 4 | Pezo Castilla, Maria Jose | In-Process |
 | TS10 | Monitoring REST API | T21 | Operational indicators | Implementar el cálculo de indicadores y progreso con información persistida, incluyendo respuestas consistentes cuando no existan datos. | 8 | Pezo Castilla, Maria Jose | To-do |
 | TS10 | Monitoring REST API | T22 | Dashboard integration | Conectar el dashboard con el API y contrastar los indicadores con un conjunto conocido de operaciones, entregas e incidencias. | 4 | Pezo Castilla, Maria Jose | To-do |
 | TS11 | Operation History REST API | T23 | Operation history endpoints | Implementar consulta y detalle de operaciones finalizadas y canceladas, incluyendo recursos, entregas e incidencias relacionadas. | 6 | Cumba Rengifo, Leonardo Raul | To-do |
 | TS11 | Operation History REST API | T24 | History frontend integration | Conectar el historial y su detalle con el API y verificar el manejo de operaciones inexistentes. | 4 | Cumba Rengifo, Leonardo Raul | To-do |
 | TS12 | Maps Service Integration | T25 | External maps adapter | Implementar la integración con un servicio externo de mapas o geolocalización, gestionando ubicaciones no encontradas y fallos del proveedor. | 8 | Palacin Lazo, Gerardo Valentin | To-do |
 | TS12 | Maps Service Integration | T26 | Delivery location integration | Integrar la información geográfica con las vistas de entregas, coordinando el contrato con Operations and Routes. | 4 | Palacin Lazo, Gerardo Valentin | To-do |
-| TS13 | OpenAPI Documentation | T27 | OpenAPI configuration | Configurar Swagger/OpenAPI con autorización, esquemas y convenciones comunes para parámetros, requests, responses y códigos HTTP. | 4 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS13 | OpenAPI Documentation | T28 | Endpoint documentation verification | Revisar con cada líder la documentación de sus endpoints, ejecutar ejemplos y registrar capturas y enlaces para el informe. | 6 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS14 | IoT Telemetry REST API | T29 | Devices and sensor readings | Implementar persistencia de dispositivos, rangos seguros y lecturas simuladas, validando la existencia del dispositivo y los valores recibidos. | 8 | Palacin Lazo, Gerardo Valentin | To-do |
-| TS14 | IoT Telemetry REST API | T30 | Cargo risk alerts | Generar alertas relacionadas con una operación cuando se detecten temperaturas fuera de rango o golpes e integrar su atención con incidencias. | 8 | Palacin Lazo, Gerardo Valentin | To-do |
-| TS14 | IoT Telemetry REST API | T31 | IoT frontend integration | Conectar monitoreo, alertas y configuración de dispositivos con el API y verificar el manejo de operaciones sin lecturas recientes. | 6 | Palacin Lazo, Gerardo Valentin | To-do |
+| TS13 | OpenAPI Documentation | T27 | OpenAPI configuration | Configurar Swagger/OpenAPI con autorización, esquemas y convenciones comunes para parámetros, requests, responses y códigos HTTP. | 4 | Crispin Valdivia, Angel Gabriel | In-Process |
+| TS13 | OpenAPI Documentation | T28 | Endpoint documentation verification | Revisar con cada líder la documentación de sus endpoints, ejecutar ejemplos y registrar capturas y enlaces para el informe. | 6 | Crispin Valdivia, Angel Gabriel | Done |
+| TS14 | IoT Telemetry REST API | T29 | Devices and sensor readings | Implementar persistencia de dispositivos, rangos seguros y lecturas simuladas, validando la existencia del dispositivo y los valores recibidos. | 8 | Palacin Lazo, Gerardo Valentin | Done |
+| TS14 | IoT Telemetry REST API | T30 | Cargo risk alerts | Generar alertas relacionadas con una operación cuando se detecten temperaturas fuera de rango o golpes e integrar su atención con incidencias. | 8 | Palacin Lazo, Gerardo Valentin | In-Process |
+| TS14 | IoT Telemetry REST API | T31 | IoT frontend integration | Conectar monitoreo, alertas y configuración de dispositivos con el API y verificar el manejo de operaciones sin lecturas recientes. | 6 | Palacin Lazo, Gerardo Valentin | In-Process |
 | TS15 | Delivery Point Tracking REST API | T32 | Delivery point tracking endpoints | Implementar la consulta de entregas de la bodega autorizada y el registro de problemas de recepción vinculados con una entrega. | 8 | Cumba Rengifo, Leonardo Raul | To-do |
 | TS15 | Delivery Point Tracking REST API | T33 | Reception incident integration | Integrar los reportes de recepción con Incident Management y verificar su consulta desde los flujos de bodega y distribuidora. | 4 | Pezo Castilla, Maria Jose | To-do |
-| — | Software deployment | T34 | API deployment | Configurar el alojamiento del API y la base de datos, las variables de entorno, HTTPS y CORS y verificar el acceso a los servicios y OpenAPI. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
+| — | Software deployment | T34 | API deployment | Configurar el alojamiento del API y la base de datos, las variables de entorno, HTTPS y CORS y verificar el acceso a los servicios y OpenAPI. | 8 | Crispin Valdivia, Angel Gabriel | In-Process |
 | — | Software deployment | T35 | Frontend deployment verification | Publicar la nueva versión del frontend con la dirección del API y comprobar navegación por roles y persistencia después de recargar. | 6 | Crispin Valdivia, Angel Gabriel | To-do |
-| — | Landing Page update | T36 | Landing page release | Actualizar capturas, comprobar las llamadas a la acción e incorporar los videos cuando estén publicados; verificar idiomas y vista móvil. | 6 | Palacin Lazo, Gerardo Valentin | To-do |
-| — | Integration verification | T37 | End-to-end acceptance checks | Ejecutar los flujos de administrador, supervisor y bodega sobre los productos desplegados y registrar resultados y defectos. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
-| — | Validation interviews | T38 | Validation interview design | Definir tareas, preguntas y flujos de validación por segmento para el Landing Page y la Web Application. | 4 | Pezo Castilla, Maria Jose | To-do |
-| — | Validation interviews | T39 | Distributor validation interviews | Realizar y documentar entrevistas con entre tres y cinco representantes de empresas distribuidoras, conservando videos y datos de cada sesión. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
+| — | Landing Page update | T36 | Landing page release | Actualizar capturas, comprobar las llamadas a la acción e incorporar los videos cuando estén publicados; verificar idiomas y vista móvil. | 6 | Palacin Lazo, Gerardo Valentin | In-Process |
+| — | Integration verification | T37 | End-to-end acceptance checks | Ejecutar los flujos de administrador, supervisor y bodega sobre los productos desplegados y registrar resultados y defectos. | 8 | Crispin Valdivia, Angel Gabriel | In-Process |
+| — | Validation interviews | T38 | Validation interview design | Definir tareas, preguntas y flujos de validación por segmento para el Landing Page y la Web Application. | 4 | Pezo Castilla, Maria Jose | Done |
+| — | Validation interviews | T39 | Distributor validation interviews | Realizar y documentar entrevistas con entre tres y cinco representantes de empresas distribuidoras, conservando videos y datos de cada sesión. | 8 | Crispin Valdivia, Angel Gabriel | In-Process |
 | — | Validation interviews | T40 | Supervisor validation interviews | Realizar y documentar entrevistas con entre tres y cinco supervisores de flota sobre los flujos principales de la aplicación. | 8 | Cumba Rengifo, Leonardo Raul | To-do |
-| — | Validation interviews | T41 | Delivery point validation interviews | Realizar y documentar entrevistas con entre tres y cinco responsables de bodegas o minimarkets sobre seguimiento y recepción de pedidos. | 8 | Pezo Castilla, Maria Jose | To-do |
-| — | UX evaluation | T42 | Heuristic evaluation | Consolidar hallazgos de usabilidad, arquitectura de información y diseño inclusivo con el formato del Anexo D, incluyendo severidad, evidencia y recomendaciones. | 6 |  Cumba Rengifo, Leonardo Raul | To-do |
-| — | Product communication | T43 | About-the-Product video | Preparar y publicar un video de uno a tres minutos con escenas del producto y una opinión por segmento objetivo; registrar enlaces de Stream y YouTube. | 6 | Palacin Lazo, Gerardo Valentin | To-do |
-| — | Team communication | T44 | About-the-Team video | Coordinar los testimonios de los cinco integrantes y las escenas de trabajo, editar el video y registrar los enlaces de publicación. | 6 | Palacin Lazo, Gerardo Valentin | To-do |
-| — | Sprint documentation | T45 | Sprint report and evidence | Consolidar las evidencias del equipo y actualizar las secciones del Sprint, Student Outcome, registro de versiones y conclusiones. | 6 | Cumba Rengifo, Leonardo Raul | To-do |
-| — | Sprint management | T46 | Sprint board update | Registrar y confirmar historias, tareas, responsables y estimaciones en Trello e incorporar la captura del tablero del Sprint 3. | 4 | Cumba Rengifo, Leonardo Raul | To-do |
+| — | Validation interviews | T41 | Delivery point validation interviews | Realizar y documentar entrevistas con entre tres y cinco responsables de bodegas o minimarkets sobre seguimiento y recepción de pedidos. | 8 | Pezo Castilla, Maria Jose | In-Process |
+| — | UX evaluation | T42 | Heuristic evaluation | Consolidar hallazgos de usabilidad, arquitectura de información y diseño inclusivo con el formato del Anexo D, incluyendo severidad, evidencia y recomendaciones. | 6 | Cumba Rengifo, Leonardo Raul | To-do |
+| — | Product communication | T43 | About-the-Product video | Preparar y publicar un video de uno a tres minutos con escenas del producto y una opinión por segmento objetivo; registrar enlaces de Stream y YouTube. | 6 | Palacin Lazo, Gerardo Valentin | Done |
+| — | Team communication | T44 | About-the-Team video | Coordinar los testimonios de los cuatro integrantes y las escenas de trabajo, editar el video y registrar los enlaces de publicación. | 6 | Palacin Lazo, Gerardo Valentin | Done |
+| — | Sprint documentation | T45 | Sprint report and evidence | Consolidar las evidencias del equipo y actualizar las secciones del Sprint, Student Outcome, registro de versiones y conclusiones. | 6 | Cumba Rengifo, Leonardo Raul | In-Process |
+| — | Sprint management | T46 | Sprint board update | Registrar y confirmar historias, tareas, responsables y estimaciones en Trello e incorporar la captura del tablero del Sprint 3. | 4 | Cumba Rengifo, Leonardo Raul | Done |
 
+Al cierre del Sprint, 14 tareas están en **Done**, 18 en **In-Process** y 14 en **To-do**. Las tareas en **In-Process** tienen implementada su parte principal y les falta lo que se indica en la sección 5.2.3.1. Las tareas en **To-do** pasan al Sprint 4.
 
+<a id="5234-development-evidence-for-sprint-review"></a>
 
+#### 5.2.3.4. Development Evidence for Sprint Review.
 
+En el Sprint 3 se creó el repositorio de los Web Services y se trabajó en los repositorios del Landing Page y del informe. La siguiente tabla registra los commits integrados en `develop` desde el inicio del Sprint, el 2026-10-28, sin considerar los commits de integración de ramas. La columna *Branch* indica la rama de feature en la que se elaboró cada commit, y `develop` identifica los commits realizados directamente sobre esa rama.
 
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
+| :--------- | :----- | :-------- | :------------- | :------------------ | :------------------ |
+| bottle-track-web-services | feature/iam-and-backend-base | `3f49ef0` | `chore(persistence): add initial ef core migration for iam and fleet` | — | 2026-11-03 |
+| bottle-track-web-services | feature/iam-and-backend-base | `f63b3a6` | `feat(api): register iam and fleet services and snake_case enum serialization` | — | 2026-11-03 |
+| bottle-track-web-services | feature/iam-and-backend-base | `b163436` | `feat(shared): add localized error messages for iam and fleet` | — | 2026-11-03 |
+| bottle-track-web-services | feature/iam-and-backend-base | `ba46267` | `feat(fleet): add driver rest controller, resources and assembler` | — | 2026-11-01 |
+| bottle-track-web-services | feature/fleet-driver-management | `71b76d9` | `feat(fleet): add driver entity configuration and repository` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-driver-management | `600dabe` | `feat(fleet): add driver repository port and application services` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-vehicle-api | `a1a9380` | `feat(fleet): add vehicle rest controller, resources and assembler` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-vehicle-api | `cf72c16` | `feat(fleet): add vehicle entity configuration and repository` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-driver-management | `1c0eeff` | `feat(fleet): add driver register command and queries` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-vehicle-model | `664f806` | `feat(fleet): add vehicle repository port and application services` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-driver-management | `7459d9f` | `feat(fleet): add driver aggregate with license number and status value objects` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-vehicle-model | `e185a7c` | `feat(fleet): add vehicle register command and queries` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-vehicle-model | `c139727` | `feat(fleet): add vehicle aggregate with plate number and status value objects` | — | 2026-10-31 |
+| bottle-track-web-services | feature/iam-and-backend-base | `ce09a05` | `feat(iam): add user rest controller, resources and assembler` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `0fc7aba` | `feat(iam): add user entity configuration and repository` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `7312ecd` | `feat(iam): add user application services and pbkdf2 password hashing` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `edf61ae` | `feat(iam): add user register command and queries` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `f01ad25` | `feat(iam): add user aggregate with role, status and email value objects` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `a5283a8` | `feat(iam): add organization rest controller, resources and assembler` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `7313c54` | `feat(iam): add organization entity configuration and repository` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `e5a5d35` | `feat(iam): add organization repository port and application services` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `81b508c` | `feat(iam): add organization register command and queries` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `c01cf2c` | `feat(iam): add organization aggregate and tax id value object` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `7b45e1b` | `refactor(shared): simplify kebab-case route convention and string extensions` | — | 2026-10-29 |
+| bottle-track-web-services | feature/iam-and-backend-base | `13c7529` | `refactor(shared): replace target-typed new and primary constructor in persistence` | — | 2026-10-29 |
+| bottle-track-web-services | feature/iam-and-backend-base | `45cf4fe` | `refactor(shared): use explicit members in the result pattern` | — | 2026-10-29 |
+| bottle-track-web-services | develop | `884a08f` | `chore(shared): add backend base project` | — | 2026-10-29 |
+| bottle-track-website | feature/landing-subscription-and-team | `3e5c062` | `feat(landing): add team member profile photos` | — | 2026-11-11 |
+| bottle-track-website | feature/landing-subscription-and-team | `f36e9b8` | `refactor(landing): remove obsolete contact form behavior` | — | 2026-11-11 |
+| bottle-track-website | feature/landing-subscription-and-team | `a2b345e` | `feat(i18n): add bilingual subscription and team content` | — | 2026-11-11 |
+| bottle-track-website | feature/landing-subscription-and-team | `195313d` | `style(landing): improve subscription and team layouts` | — | 2026-11-11 |
+| bottle-track-website | feature/landing-subscription-and-team | `3372feb` | `feat(landing): add subscription plans and video placeholders` | — | 2026-11-11 |
+| bottle-track-website | feature/team-video-behavior | `697bdc5` | `style(landing): use a solid border for the video frame` | — | 2026-10-31 |
+| bottle-track-website | feature/team-video-behavior | `68a8e46` | `feat(landing): reveal the team video section when a source is set` | — | 2026-10-31 |
+| bottle-track-website | feature/landing-i18n | `9c1b1c6` | `feat(i18n): add strings for the team section, privacy policy and terms` | — | 2026-10-31 |
+| bottle-track-website | feature/team-video-section | `3c2fbcf` | `feat(landing): add about-the-team video section to the home page` | — | 2026-10-30 |
+| bottle-track-website | feature/legal-pages | `dcebd4f` | `feat(legal): link the privacy policy from the footer` | — | 2026-10-30 |
+| bottle-track-website | feature/legal-pages | `eceb6a8` | `feat(legal): rework the terms of service page content` | — | 2026-10-29 |
+| bottle-track-website | feature/legal-pages | `f72e983` | `feat(legal): add privacy policy page` | — | 2026-10-29 |
+| bottle-track-report | develop | `9c9ebee` | `docs(report): update repository links to new assets path` | — | 2026-11-11 |
+| bottle-track-report | feature/tb1-corrections | `c550dd4` | `docs(report): separate anchors from headings for Pandoc` | — | 2026-11-10 |
+| bottle-track-report | feature/tb1-corrections | `dd8d73c` | `build(pandoc): add PDF build with Pandoc and XeLaTeX` | — | 2026-11-10 |
+| bottle-track-report | feature/tb1-corrections | `541c837` | `docs(report): restructure report into chapters and fix links` | — | 2026-11-10 |
+| bottle-track-report | feature/report-backend-and-database | `ef21e43` | `docs(report): describe the implemented backend and update the diagram source index` | — | 2026-11-03 |
+| bottle-track-report | feature/report-backend-and-database | `a35b833` | `docs(database-design): add database design section aligned with the initial migration` | — | 2026-11-03 |
+| bottle-track-report | fix/report-incident-diagrams | `c4a2358` | `docs(class-diagram): mark incident management backend classes as planned` | — | 2026-11-03 |
+| bottle-track-report | fix/report-iot-and-fleet-diagrams | `af4df86` | `docs(class-diagram): mark iot monitoring backend classes as planned` | — | 2026-11-03 |
+| bottle-track-report | fix/report-operations-diagrams | `d828b76` | `docs(class-diagram): mark operations and routes backend classes as planned` | — | 2026-11-03 |
+| bottle-track-report | fix/report-incident-diagrams | `ab432ea` | `docs(component-diagram): mark incident management as planned` | — | 2026-11-03 |
+| bottle-track-report | feature/report-backend-and-database | `b8a36f2` | `docs(class-diagram): align backend class model and identity and access classes` | — | 2026-11-03 |
+| bottle-track-report | fix/report-iot-and-fleet-diagrams | `310b026` | `docs(component-diagram): mark iot monitoring as planned` | — | 2026-11-03 |
+| bottle-track-report | fix/report-operations-diagrams | `0b2e055` | `docs(class-diagram): align fleet management backend classes with the code` | — | 2026-11-02 |
+| bottle-track-report | fix/report-iot-and-fleet-diagrams | `49c9de2` | `docs(component-diagram): align fleet management with the code` | — | 2026-11-02 |
+| bottle-track-report | fix/report-operations-diagrams | `ffadcce` | `docs(component-diagram): mark operations and routes as planned` | — | 2026-11-02 |
+| bottle-track-report | feature/report-backend-and-database | `c065b8f` | `docs(component-diagram): align identity and access management with the code` | — | 2026-11-02 |
+| bottle-track-report | feature/report-backend-and-database | `ab31818` | `docs(container-diagram): split website, spa and web services into separate containers` | — | 2026-11-02 |
+| bottle-track-report | develop | `0a83ffd` | `docs(class-diagram): update comments from diagram classes for better understanding` | — | 2026-11-02 |
+| bottle-track-report | develop | `f133dfc` | `docs(class-diagram): apply corrections to naming conventions to classes from frontend and backend` | — | 2026-11-02 |
+| bottle-track-report | develop | `c0222bb` | `docs(sprint-goal-3): apply common conventions for the spring goal 3` | — | 2026-11-02 |
+| bottle-track-report | develop | `caddedd` | `docs(container-diagram): create new diagram according to c4 model library` | — | 2026-11-02 |
+| bottle-track-report | develop | `f655907` | `docs(user-flows): model user goals with happy and unhappy paths` | State each user goal from its role and draw its decisions, alternative paths and error states over the mock-up screens. | 2026-11-02 |
+| bottle-track-report | develop | `9a63766` | `Sprint Backlog 3` | — | 2026-10-29 |
+| bottle-track-report | develop | `b8d9086` | `docs(sprint-3): add backlog with tasks and estimates` | — | 2026-10-29 |
+| bottle-track-report | develop | `8d527f1` | `docs(sprint-3): add leadership and collaboration matrix` | — | 2026-10-29 |
+| bottle-track-report | develop | `46e7317` | `docs(sprint-3): add sprint planning and goal` | — | 2026-10-29 |
 
 <a id="5235-execution-evidence-for-sprint-review"></a>
 
