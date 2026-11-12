@@ -872,7 +872,7 @@ Los diagramas del backend de Identity and Access Management y de Fleet Managemen
 
 El diagrama de base de datos corresponde al esquema relacional en MySQL. Las tablas siguen una convención única: nombres en inglés, en plural y en snake_case, y columnas en snake_case. Las claves primarias son identificadores `CHAR(36)` generados por la aplicación y las claves foráneas se nombran como `<entidad>_id`.
 
-Las tablas `organizations`, `users`, `vehicles` y `drivers` reflejan la migración `InitialCreate` de los Web Services: los estados se guardan como texto (`VARCHAR`) y los correos, los RUC, las placas, los DNI y las licencias son únicos. Las demás tablas pertenecen a los bounded contexts que todavía no están implementados y son diseño.
+Las doce tablas reflejan las migraciones de Entity Framework Core de los Web Services: `InitialCreate` (`organizations`, `users`, `vehicles` y `drivers`), `AddIncidentManagement` (`incidents` y `evidences`), `AddOperationsAndRoutes` (`delivery_points`, `transport_operations` y `delivery_stops`) y `AddIotMonitoring` (`iot_devices`, `sensor_readings` y `alerts`). Los estados y los tipos se guardan como texto (`VARCHAR`), y los correos, los RUC, las placas, los DNI, las licencias, los códigos de operación y de incidencia y los números de serie de los dispositivos son únicos.
 
 El diagrama se elaboró como Diagram-as-Code con PlantUML; su fuente es `report/assets/Database-Design/database-diagram.puml`.
 
