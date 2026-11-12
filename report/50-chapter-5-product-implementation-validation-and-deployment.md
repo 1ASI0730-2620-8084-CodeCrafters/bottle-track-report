@@ -958,7 +958,23 @@ La evaluación aplica las diez heurísticas de usabilidad de Nielsen sobre el La
 
 ## 5.4. Video About-the-Product.
 
-El video About-the-Product presenta BottleTrack a los visitantes del Landing Page: el problema que resuelve, a quién está dirigido y sus funcionalidades principales. Tiene una duración de entre 1 y 3 minutos, se publica en Microsoft Stream y en YouTube y se incrusta en el Landing Page. Se produce cuando la Web Application cuenta con las vistas del flujo principal, para mostrarlas en funcionamiento.
+El video About-the-Product presenta BottleTrack a los visitantes del Landing Page: el problema que resuelve, a quién está dirigido y sus funcionalidades principales. Tiene una duración de entre 1 y 3 minutos, se publica en Microsoft Stream y en YouTube y se incrusta en el Landing Page. Se produjo en el Sprint 3 sobre la presentación del producto, con las vistas de la Web Application en funcionamiento.
+
+| Video | Nombre del archivo | Duración | URL |
+| :---- | :----------------- | :------- | :-- |
+| About-the-Product | upc-pre-202620-1asi0730-8084-codecrafters-about-the-product-sprint-3 | 03:53 | [Ver video en YouTube](https://youtu.be/o26x4zDOFbk) |
+
+<img src="assets/chapter5/videos/about-the-product-youtube.png" alt="Video About-the-Product publicado en YouTube" width="800">
+
+El video recorre la presentación del producto y cada integrante narra una sección:
+
+| Inicio | Fin | Sección | Presenta |
+| :----- | :-- | :------ | :------- |
+| 00:00 | 00:44 | Problema de las distribuidoras, solución en tres pasos y los tres roles de la plataforma | Crispin Valdivia, Angel Gabriel |
+| 00:44 | 01:37 | Recorrido por la aplicación: inicio de sesión, dashboard, vehículos y conductores | Cumba Rengifo, Leonardo Raul |
+| 01:37 | 03:01 | Dispositivos IoT, usuarios y roles, operaciones, detalle de la operación y monitoreo IoT | Palacin Lazo, Gerardo Valentin |
+| 03:01 | 03:53 | Incidencias, historial, seguimiento de pedidos de la bodega, uso desde el celular y cierre | Pezo Castilla, Maria Jose |
+
 
 
 ---
