@@ -8,7 +8,7 @@
 
 ## 5.1. Software Configuration Management.
 
-En esta sección el equipo establece las decisiones y convenciones que permiten mantener la consistencia del producto durante todo el ciclo de vida. Estas decisiones son de cumplimiento obligatorio para los cinco integrantes y se aplican de manera idéntica en los cuatro repositorios del proyecto.
+En esta sección el equipo establece las decisiones y convenciones que permiten mantener la consistencia del producto durante todo el ciclo de vida. Estas decisiones son de cumplimiento obligatorio para todos los integrantes del equipo y se aplican de manera idéntica en los cuatro repositorios del proyecto.
 
 <a id="511-software-development-environment-configuration"></a>
 
@@ -21,7 +21,7 @@ A continuación se indican los productos de software que utiliza el equipo, el p
 | Producto | Propósito | Ruta de referencia |
 | :------- | :-------- | :----------------- |
 | Trello | Product Backlog y Sprint Backlog del equipo, con el tablero público de control de estado. | https://trello.com |
-| Microsoft Teams | Reuniones de Sprint Planning, Review y Retrospective del equipo. | https://www.microsoft.com/microsoft-teams |
+| Discord | Reuniones de Sprint Planning, Review y Retrospective del equipo. | https://discord.com |
 | Microsoft Stream | Publicación de los videos de entrevistas y de exposición con enlace privado. | https://www.microsoft.com/microsoft-stream |
 
 **Requirements Management**
@@ -36,10 +36,10 @@ A continuación se indican los productos de software que utiliza el equipo, el p
 | Producto | Propósito | Ruta de referencia |
 | :------- | :-------- | :----------------- |
 | Figma | Wireframes, Mock-ups y Prototypes del Landing Page y de la Web Application. | https://www.figma.com |
-| FigJam | Wireflow Diagrams y User Flow Diagrams. | https://www.figma.com/figjam |
-| Structurizr | Diagramas de arquitectura de software bajo el C4 Model. | https://structurizr.com |
-| LucidChart | Diagramas UML de clases. | https://www.lucidchart.com |
-| ERDPlus | Diagramas de base de datos. | https://erdplus.com |
+| FigJam | Wireflow Diagrams. | https://www.figma.com/figjam |
+| Graphviz | User Flow Diagrams elaborados como Diagram-as-Code en lenguaje DOT. | https://graphviz.org |
+| Structurizr DSL y Structurizr Playground | Diagramas de arquitectura de software bajo el C4 Model. | https://playground.structurizr.com |
+| PlantUML | Diagramas UML de clases y diagrama de base de datos, elaborados como Diagram-as-Code. | https://plantuml.com |
 
 **Software Development**
 
@@ -65,6 +65,7 @@ A continuación se indican los productos de software que utiliza el equipo, el p
 | :------- | :-------- | :----------------- |
 | GitHub | Alojamiento del informe en formato Markdown y de los repositorios de código. | https://github.com |
 | Swagger / OpenAPI | Documentación de los endpoints de los Web Services. | https://swagger.io |
+| Pandoc y XeLaTeX (MiKTeX) | Generación del informe en PDF a partir de los archivos Markdown. | https://pandoc.org |
 
 <a id="512-source-code-management"></a>
 
@@ -74,10 +75,12 @@ El seguimiento de modificaciones se realiza con Git, gestionado desde GitHub. El
 
 | Repositorio | Contenido | URL |
 | :---------- | :-------- | :-- |
-| Landing-Page | Sitio web estático en HTML5, CSS3 y JavaScript. | https://github.com/1ASI0730-2620-8084-CodeCrafters/Landing-Page |
+| bottle-track-website | Landing Page: sitio web estático en HTML5, CSS3 y JavaScript. | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-website |
 | Frontend-Web-Aplication | Aplicación web desarrollada con Vue Framework. | https://github.com/1ASI0730-2620-8084-CodeCrafters/Frontend-Web-Aplication |
-| Web-Services | RESTful API en ASP.NET Core, incluyendo las pruebas unitarias y de aceptación. | https://github.com/1ASI0730-2620-8084-CodeCrafters/Web-Services |
-| Report | Informe del proyecto en formato Markdown. | https://github.com/1ASI0730-2620-8084-CodeCrafters/Report |
+| bottle-track-web-services | RESTful API en ASP.NET Core, con sus pruebas unitarias y de integración. | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-web-services |
+| bottle-track-report | Informe del proyecto en formato Markdown, con su compilación a PDF. | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-report |
+
+Los repositorios del Landing Page, de los Web Services y del informe se renombraron en el Sprint 3 (antes `Landing-Page`, `Web-Services` y `Report`) para seguir una convención única en kebab-case. GitHub redirige los enlaces anteriores, por lo que las referencias históricas de los Sprints 1 y 2 conservan su validez.
 
 **GitFlow como Workflow de control de versiones**
 
@@ -90,12 +93,16 @@ El equipo aplica GitFlow según el modelo descrito por Vincent Driessen. La estr
 | `feature/<nombre>` | Una rama por cada feature. Concentra el trabajo de una funcionalidad hasta que queda terminada. | `develop` | `develop` |
 | `release/<versión>` | Preparación de una versión: correcciones finales y ajuste del número de versión. | `develop` | `main` y `develop` |
 | `hotfix/<nombre>` | Corrección urgente sobre una versión ya publicada. | `main` | `main` y `develop` |
+| `fix/<nombre>` | Corrección de un defecto detectado en `develop`, antes de un release. | `develop` | `develop` |
+| `chore/<nombre>` | Tareas de mantenimiento del repositorio, como sincronizar `main` con `develop`. | `develop` | `develop` |
 
 Las convenciones de nomenclatura de las ramas son las siguientes, empleando siempre kebab-case y el idioma inglés:
 
 | Tipo de rama | Convención | Ejemplo |
 | :----------- | :--------- | :------ |
 | Feature | `feature/<nombre-de-la-funcionalidad>` | `feature/design-system` |
+| Fix | `fix/<nombre-de-la-corrección>` | `fix/report-incident-diagrams` |
+| Chore | `chore/<nombre-de-la-tarea>` | `chore/sync-main-into-develop` |
 | Release | `release/<major>.<minor>.<patch>` | `release/1.0.0` |
 | Hotfix | `hotfix/<nombre-de-la-corrección>` | `hotfix/broken-segment-link` |
 
@@ -147,10 +154,11 @@ Toda la nomenclatura de elementos del código se escribe en inglés, sin excepci
 | Variables CSS | kebab-case con doble guion inicial | `--primary-dark` |
 | Variables y funciones de JavaScript | camelCase | `resolveInitialLanguage` |
 | Constantes de JavaScript | SCREAMING_SNAKE_CASE | `DEFAULT_LANGUAGE` |
-| Componentes de Vue | PascalCase | `RouteMonitorCard.vue` |
-| Clases, métodos y propiedades públicas de C# | PascalCase | `ShipmentTrackingService` |
-| Campos privados de C# | camelCase con guion bajo inicial | `_shipmentRepository` |
-| Endpoints de la API | kebab-case en plural | `/api/v1/shipments`, `/api/v1/incidents` |
+| Archivos de componentes de Vue | kebab-case | `vehicle-list.vue`, `driver-form-dialog.vue` |
+| Clases de JavaScript | PascalCase | `TransportOperationAssembler` |
+| Clases, métodos y propiedades públicas de C# | PascalCase | `TransportOperationCommandService`, `AddStop` |
+| Parámetros y variables locales de C# | camelCase | `transportOperationRepository` |
+| Endpoints de la API | kebab-case en plural | `/api/v1/transport-operations`, `/api/v1/incidents` |
 | Tablas y columnas de base de datos | snake_case | `delivery_stops`, `reported_at` |
 
 **Convenciones adicionales adoptadas por el equipo**
@@ -163,7 +171,7 @@ El código se escribe sin comentarios: la legibilidad se sostiene con nombres au
 
 **Landing Page**
 
-El Landing Page se publica en Netlify a partir de la rama `main` del repositorio `Landing-Page`, mediante la integración de Netlify con GitHub. Durante el Sprint 1 se publicó en GitHub Pages; desde el Sprint 2 se utiliza Netlify, que vuelve a publicar el sitio de forma automática ante cada integración en `main`. Al tratarse de un sitio web estático sin proceso de construcción, no requiere un comando de build. Los pasos son los siguientes:
+El Landing Page se publica en Netlify a partir de la rama `main` del repositorio `bottle-track-website`, mediante la integración de Netlify con GitHub. Durante el Sprint 1 se publicó en GitHub Pages; desde el Sprint 2 se utiliza Netlify, que vuelve a publicar el sitio de forma automática ante cada integración en `main`. Al tratarse de un sitio web estático sin proceso de construcción, no requiere un comando de build. Los pasos son los siguientes:
 
 1. Integrar en `develop` las ramas de feature terminadas mediante un merge sin avance rápido.
 2. Crear la rama `release/<versión>` a partir de `develop`.
@@ -177,14 +185,21 @@ La aplicación web se publica en Vercel a partir de la rama `main` del repositor
 
 1. Importar el repositorio desde el panel de Vercel.
 2. Configurar el comando de construcción y el directorio de salida que corresponden a un proyecto de Vue.
-3. Registrar en el archivo `.env.production` la URL base del API. Mientras no existan los Web Services, apunta al fake API publicado en Beeceptor.
+3. Registrar en el archivo `.env.production` la URL base del API. Mientras los Web Services no estén publicados, apunta al fake API publicado en Beeceptor. En el entorno de desarrollo (`.env.development`) la aplicación ya consume los Web Services locales en `http://localhost:5280/api/v1`.
 4. Confirmar la publicación automática que Vercel ejecuta ante cada integración en `main`.
 
 Una vez publicada la aplicación, la URL definitiva se registra en los llamados a la acción de cada segmento objetivo del Landing Page, de modo que ambos productos queden enlazados.
 
 **Web Services**
 
-Los Web Services se publicarán en un proveedor de nube junto con la base de datos MySQL. La configuración correspondiente se documentará en la entrega en la que se despliegue la primera versión de este producto.
+La primera versión de los Web Services se implementó en el Sprint 3 y se ejecuta en el entorno local junto con MySQL. Su publicación en un proveedor de nube está preparada, pero todavía no se ha realizado:
+
+1. El repositorio incluye un `Dockerfile` que compila la solución y expone el servicio en el puerto 8080.
+2. El archivo `appsettings.Production.json` toma la cadena de conexión de las variables de entorno `DATABASE_URL`, `DATABASE_USER`, `DATABASE_PASSWORD` y `DATABASE_SCHEMA`, de modo que ninguna credencial se guarda en el repositorio.
+3. La lista de orígenes permitidos por CORS debe registrar la URL de la Web Application publicada en Vercel.
+4. Las migraciones de Entity Framework Core crean las doce tablas al iniciar el servicio.
+
+El proveedor de nube y la instancia de MySQL se seleccionarán y documentarán en el Sprint en el que se realice la publicación.
 
 
 <a id="52-landing-page-services-applications-implementation"></a>
@@ -322,7 +337,7 @@ Al cierre del Sprint 1 el Landing Page se encuentra publicado en https://1asi073
 
 #### 5.2.1.6. Services Documentation Evidence for Sprint Review.
 
-El alcance del Sprint 1 corresponde al Landing Page, que es un sitio estático y no expone endpoints. La documentación de los servicios con OpenAPI se incorpora en el Sprint en el que se implementa la primera versión del Backend API, de acuerdo con la Technical Story TS13.
+El alcance del Sprint 1 corresponde al Landing Page, que es un sitio estático y no expone endpoints. La documentación de los servicios con OpenAPI se incorporó en el Sprint 3 (sección 5.2.3.6), en el que se implementa la primera versión del Backend API, de acuerdo con la Technical Story TS13.
 
 <a id="52x7-software-deployment-evidence-for-sprint-review"></a>
 
@@ -734,7 +749,7 @@ A partir del Sprint 2 el Landing Page se publica en Netlify, que reemplaza a Git
 
 <img src="assets/chapter5/sprint2/github-landing-branches.png" alt="Ramas del repositorio Landing-Page" width="800">
 
-<img src="assets/chapter5/sprint2/github-landing-tags.png" alt="Tags v0.1.0 y v0.2.0 del repositorio Landing-Page" width="800">
+<img src="assets/chapter5/sprint2/github-landing-tags.png" alt="Tags v0.1.0, v0.2.0, v0.2.1 y v1.0.0 del repositorio del Landing Page" width="800">
 
 <a id="5228-team-collaboration-insights-during-sprint"></a>
 
