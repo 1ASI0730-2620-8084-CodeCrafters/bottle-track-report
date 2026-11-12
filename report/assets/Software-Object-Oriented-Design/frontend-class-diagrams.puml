@@ -103,9 +103,9 @@ package "Identity and Access Management" {
     - #organizationsEndpoint: BaseEndpoint
     + signIn(signInCommand): Promise
     + getUsersByOrganization(organizationId): Promise
-    + getUsersByEmail(email): Promise
     + createUser(userResource): Promise
     + updateUser(userId, userResource): Promise
+    + assignRole(userId, role): Promise
     + getOrganizationById(organizationId): Promise
     + updateOrganization(organizationId, organizationResource): Promise
   }
@@ -175,11 +175,9 @@ package "Fleet Management" {
     - #vehiclesEndpoint: BaseEndpoint
     - #driversEndpoint: BaseEndpoint
     + getVehicles(organizationId): Promise
-    + getVehiclesByPlateNumber(plateNumber): Promise
     + createVehicle(vehicleResource): Promise
     + updateVehicle(vehicleId, vehicleResource): Promise
     + getDrivers(organizationId): Promise
-    + getDriversByField(field, value): Promise
     + createDriver(driverResource): Promise
     + updateDriver(driverId, driverResource): Promise
   }
@@ -315,24 +313,16 @@ package "Operations and Routes" {
   }
   class TransportOperationsApi <<Infrastructure>> {
     - #operationsEndpoint: BaseEndpoint
-    - #stopsEndpoint: BaseEndpoint
     - #deliveryPointsEndpoint: BaseEndpoint
     - #vehiclesEndpoint: BaseEndpoint
     - #driversEndpoint: BaseEndpoint
     + getOperations(organizationId): Promise
     + getOperationById(operationId): Promise
     + createOperation(operationResource): Promise
-    + updateOperation(operationId, changes): Promise
-    + getStopsByOperations(operationIds): Promise
-    + createStop(stopResource): Promise
-    + updateStop(stopId, changes): Promise
+    + addStop(operationId, stopResource): Promise
     + getDeliveryPoints(organizationId): Promise
     + getVehicles(organizationId): Promise
-    + getVehicleById(vehicleId): Promise
-    + setVehicleStatus(vehicleId, status): Promise
     + getDrivers(organizationId): Promise
-    + getDriverById(driverId): Promise
-    + setDriverStatus(driverId, status): Promise
   }
   class OperationsApi <<Infrastructure>> {
     - #deliveryPointsEndpoint: BaseEndpoint
@@ -379,7 +369,7 @@ package "Operations and Routes" {
   TransportOperationAssembler "1" ..> "0..*" AddDeliveryStopCommand : reads
   DeliveryOrderAssembler "1" ..> "0..*" DeliveryOrder : creates
   OperationsIncidentAssembler "1" ..> "0..*" ReportReceptionProblemCommand : reads
-  TransportOperationsApi "1" *-- "5" BaseEndpoint : owns
+  TransportOperationsApi "1" *-- "4" BaseEndpoint : owns
   OperationsApi "1" *-- "4" BaseEndpoint : owns
   TransportOperationsApi --|> BaseApi
   OperationsApi --|> BaseApi
@@ -444,23 +434,10 @@ package "IoT Monitoring" {
     DEVICE_OFFLINE = 'device_offline'
   }
   class MonitoringApi <<Infrastructure>> {
-    - #operationsEndpoint: BaseEndpoint
     - #vehiclesEndpoint: BaseEndpoint
     - #devicesEndpoint: BaseEndpoint
-    - #readingsEndpoint: BaseEndpoint
-    - #alertsEndpoint: BaseEndpoint
-    - #incidentsEndpoint: BaseEndpoint
-    + getOperations(organizationId, status): Promise
     + getVehicles(organizationId): Promise
-    + getDevicesByVehicles(vehicleIds): Promise
-    + getLatestReading(transportOperationId): Promise
-    + updateDevice(deviceId, changes): Promise
-    + getLatestIncident(): Promise
-    + createIncident(incidentResource): Promise
-    + createReading(readingResource): Promise
-    + getAlertsByOperations(transportOperationIds): Promise
-    + createAlert(alertResource): Promise
-    + acknowledgeAlert(alertId, changes): Promise
+    + getAllDevices(): Promise
   }
   class MonitoringAssembler <<Assembler>> {
     + {static} toMonitoredOperation(operation, references): MonitoredOperation
@@ -480,7 +457,7 @@ package "IoT Monitoring" {
   MonitoringAssembler "1" ..> "0..*" IoTDevice : creates
   MonitoringAssembler "1" ..> "0..*" Alert : creates
   MonitoringAssembler "1" ..> "0..*" SensorReading : creates
-  MonitoringApi "1" *-- "6" BaseEndpoint : owns
+  MonitoringApi "1" *-- "2" BaseEndpoint : owns
   MonitoringApi --|> BaseApi
 }
 
@@ -555,15 +532,12 @@ package "Incident Management" {
   class IncidentsApi <<Infrastructure>> {
     - #incidentsEndpoint: BaseEndpoint
     - #operationsEndpoint: BaseEndpoint
-    - #stopsEndpoint: BaseEndpoint
-    - #evidencesEndpoint: BaseEndpoint
     + getOperations(organizationId): Promise
-    + getStopsByOperations(operationIds): Promise
-    + getIncidentsByOperations(operationIds): Promise
+    + getIncidentsByOperation(transportOperationId): Promise
+    + getIncidentById(incidentId): Promise
     + createIncident(incidentResource): Promise
-    + updateIncident(incidentId, changes): Promise
-    + getEvidencesByIncident(incidentId): Promise
-    + createEvidence(evidenceResource): Promise
+    + addEvidence(incidentId, evidenceResource): Promise
+    + resolveIncident(incidentId, resolution): Promise
   }
   class IncidentAssembler <<Assembler>> {
     + {static} toEntityFromResource(resource, operations): Incident
@@ -590,7 +564,7 @@ package "Incident Management" {
   IncidentAssembler "1" ..> "0..*" AdvanceIncidentCommand : reads
   EvidenceAssembler "1" ..> "0..*" Evidence : creates
   EvidenceAssembler "1" ..> "0..*" AttachEvidenceCommand : reads
-  IncidentsApi "1" *-- "4" BaseEndpoint : owns
+  IncidentsApi "1" *-- "2" BaseEndpoint : owns
   IncidentsApi --|> BaseApi
 }
 

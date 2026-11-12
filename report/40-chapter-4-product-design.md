@@ -303,7 +303,7 @@ El mock-up aplica el design system de BottleTrack sobre el wireframe: la rampa n
 
 ## 4.4. Web Applications UX/UI Design.
 
-En esta sección se presenta el diseño de la Frontend Web Application para sus dos roles principales: el administrador de la distribuidora y el supervisor de flota. Las vistas se diseñaron en Figma siguiendo el mismo design system del Landing Page, para que la experiencia sea consistente entre ambos productos. El archivo de diseño se encuentra disponible en: https://www.figma.com/design/lBVdrnyGUWfjN6Mz4fhBpY/BOTTLETRACK?node-id=0-1
+En esta sección se presenta el diseño de la Frontend Web Application para sus dos roles principales: el administrador de la distribuidora y el supervisor de flota. El tercer rol, el responsable de la bodega, utiliza una única vista de seguimiento de pedidos, que se presenta en las evidencias de ejecución del Capítulo V. Las vistas se diseñaron en Figma siguiendo el mismo design system del Landing Page, para que la experiencia sea consistente entre ambos productos. El archivo de diseño se encuentra disponible en: https://www.figma.com/design/lBVdrnyGUWfjN6Mz4fhBpY/BOTTLETRACK?node-id=0-1
 
 <a id="441-web-applications-wireframes"></a>
 
@@ -679,7 +679,7 @@ Los User Flow Diagrams describen, para cada User Goal, el recorrido que sigue el
 
 ## 4.5. Web Applications Prototyping.
 
-El prototipo navegable se construyó en Figma conectando los mock-ups de la sección 4.4.3. Permite recorrer el inicio de sesión, el dashboard, la creación de una operación, el detalle de sus entregas y el registro de incidencias, y se utilizará en las entrevistas de validación de la sección 5.3.
+El prototipo navegable se construyó en Figma conectando los mock-ups de la sección 4.4.3. Permite recorrer el inicio de sesión, el dashboard, la creación de una operación, el detalle de sus entregas y el registro de incidencias, y sirvió de base para la Web Application sobre la que se realizaron las entrevistas de validación de la sección 5.3.
 
 <img src="assets/webApplicationUxDesign/prototype_WA.png" alt="Prototipo navegable de la Web Application en Figma" width="800">
 
@@ -746,9 +746,9 @@ La persona que visita el Website todavía no está autenticada, por lo que el di
 
 ### 4.6.4. Software Architecture Components Diagrams.
 
-Se elaboró un diagrama de componentes por bounded context. Los componentes dibujados con borde punteado y trazo tenue (*Planned*) todavía no existen en el código de los Web Services; el resto corresponde a lo que ya está implementado en el repositorio. Todos siguen la misma estructura hexagonal: un controller como adaptador de entrada, un command service y un query service en la capa de aplicación, el modelo de dominio con sus agregados, la interfaz del repositorio como puerto de salida (borde punteado) y el repositorio de Entity Framework Core como adaptador que lo implementa.
+Se elaboró un diagrama de componentes por bounded context. Los cinco bounded contexts ya están implementados en los Web Services. Los componentes dibujados con borde punteado y trazo tenue (*Planned*) son los que conectan un contexto con otro (facades, capas anticorrupción y eventos de dominio) y los adaptadores hacia servicios externos, que todavía no existen en el código; el resto corresponde a lo que ya está implementado en el repositorio. Todos siguen la misma estructura hexagonal: un controller como adaptador de entrada, command services y query services en la capa de aplicación, el modelo de dominio con sus agregados, la interfaz del repositorio como puerto de salida (borde punteado) y el repositorio de Entity Framework Core como adaptador que lo implementa.
 
-**Identity and Access Management.** Gestiona las organizaciones y los usuarios con sus roles. Implementado: registro y consulta de organizaciones y de usuarios, y un adaptador de salida que calcula el hash de las contraseñas con PBKDF2. La autenticación con tokens aún no está implementada.
+**Identity and Access Management.** Gestiona las organizaciones y los usuarios con sus roles. Implementado: registro, consulta y edición de organizaciones y de usuarios, asignación de rol, un adaptador de salida que calcula el hash de las contraseñas con PBKDF2 y el inicio de sesión, que valida las credenciales y emite un token JWT.
 
 <img src="assets/DD-SoftwareArchitecture/componentIAM_D.png" alt="Diagrama de componentes de Identity and Access Management" width="800">
 
@@ -778,7 +778,7 @@ Se elaboró un diagrama de componentes por bounded context. Los componentes dibu
 
 Los diagramas de clases se presentan en dos versiones, una por producto, porque cada uno se programa en un lenguaje distinto y sigue sus propias convenciones de nomenclatura: la Frontend Web Application en JavaScript y el Backend en C#. Ambas se organizan por bounded context, con nombres en inglés tomados del Ubiquitous Language de la sección 2.5.
 
-Ambos diagramas se elaboraron como Diagram-as-Code con PlantUML, y sus fuentes son `report/assets/Software-Object-Oriented-Design/frontend-class-diagrams.puml` y `report/assets/Software-Object-Oriented-Design/backend-class-diagrams.puml`.
+Ambos diagramas se elaboraron como Diagram-as-Code con PlantUML, y sus fuentes son `report/assets/Software-Object-Oriented-Design/frontend-class-diagrams.puml` y `report/assets/Software-Object-Oriented-Design/backend-class-diagrams.puml`. Cada bounded context tiene además su propia fuente (`frontend-class-<bounded-context>.puml` y `backend-class-<bounded-context>.puml`) en la misma carpeta.
 
 **Cómo leer los diagramas**
 
@@ -796,7 +796,7 @@ El diagrama completo reúne los cinco bounded contexts y refleja las clases impl
 
 **Backend (C#)**
 
-El diagrama completo reúne el modelo de dominio propuesto para los Web Services de los cinco bounded contexts. Las relaciones entre contextos se representan con dependencias por identificador, ya que un agregado nunca contiene a otro de un contexto distinto.
+El diagrama completo reúne el modelo de dominio implementado en los Web Services para los cinco bounded contexts. Las relaciones entre contextos se representan con dependencias por identificador, ya que un agregado nunca contiene a otro de un contexto distinto.
 
 <img src="assets/Software-Object-Oriented-Design/backend-class-diagrams.png" alt="Diagrama de clases completo del Backend" width="800">
 
@@ -808,7 +808,7 @@ Gestiona la organización de la empresa distribuidora y los usuarios que acceden
 
 <img src="assets/Software-Object-Oriented-Design/frontend-class-identity-access.png" alt="Diagrama de clases de Identity and Access Management en el frontend" width="800">
 
-*Backend.* `Organization` y `User` son agregados independientes. Muchos usuarios (`1..*`) pertenecen a una organización, y cada usuario tiene un rol (`UserRole`) y un estado (`UserStatus`). `EmailAddress` y `TaxId` son value objects dentro de sus agregados: el correo identifica al usuario y la organización se registra con su `TaxId`. Los métodos expresan las reglas, como `Register`, `AssignRole` y `Deactivate`. `IOrganizationRepository` e `IUserRepository` definen cómo se guardan y buscan los agregados, por ejemplo buscar un usuario por correo.
+*Backend.* `Organization` y `User` son agregados independientes. Muchos usuarios (`1..*`) pertenecen a una organización, y cada usuario tiene un rol (`UserRole`) y un estado (`UserStatus`). `EmailAddress` y `TaxId` son value objects dentro de sus agregados: el correo identifica al usuario y la organización se registra con su `TaxId`. Los métodos expresan las reglas, como `Register`, `UpdateProfile`, `AssignRole` y `Deactivate`. `IOrganizationRepository` e `IUserRepository` definen cómo se guardan y buscan los agregados, por ejemplo buscar un usuario por correo.
 
 <img src="assets/Software-Object-Oriented-Design/backend-class-identity-access.png" alt="Diagrama de clases de Identity and Access Management en el backend" width="800">
 
@@ -860,7 +860,7 @@ Registra y da seguimiento a las incidencias que afectan una operación o una ent
 
 <img src="assets/Software-Object-Oriented-Design/backend-class-incident-management.png" alt="Diagrama de clases de Incident Management en el backend" width="800">
 
-Los diagramas del backend de Identity and Access Management y de Fleet Management, junto con el Shared Kernel, reflejan el código del repositorio de los Web Services. Los diagramas de Operations and Routes, IoT Monitoring e Incident Management son diseño: su paquete lleva la marca *planned* porque todavía no se implementan.
+Los diagramas del backend de los cinco bounded contexts, junto con el Shared Kernel, reflejan el código del repositorio de los Web Services.
 
 <a id="48-database-design"></a>
 
