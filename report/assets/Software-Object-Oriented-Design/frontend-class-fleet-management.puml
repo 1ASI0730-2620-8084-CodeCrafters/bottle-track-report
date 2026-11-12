@@ -1,0 +1,97 @@
+@startuml
+' BottleTrack - Frontend Web Application - Fleet Management class diagram
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam class {
+  BackgroundColor #ffffff
+  BorderColor #b34900
+  ArrowColor #4f2000
+}
+skinparam package {
+  BackgroundColor #fff7ed
+  BorderColor #f97316
+}
+left to right direction
+
+package "Shared Infrastructure" {
+  class BaseApi <<Infrastructure>> {
+    - #http: AxiosInstance
+    + /http: AxiosInstance
+  }
+  class BaseEndpoint <<Infrastructure>> {
+    + http: AxiosInstance
+    + endpointPath: string
+    + getAll(params): Promise
+    + getById(id): Promise
+    + create(resource): Promise
+    + update(id, resource): Promise
+    + partialUpdate(id, resource): Promise
+    + delete(id): Promise
+  }
+  BaseApi "1" ..> "0..*" BaseEndpoint : provides http to
+}
+
+package "Fleet Management" {
+  class Vehicle <<Entity>> {
+    + id: string
+    + organizationId: string
+    + plateNumber: string
+    + brand: string
+    + model: string
+    + capacityInBoxes: number
+    + status: string
+    + /description: string
+    + /isAvailable: boolean
+  }
+  class Driver <<Entity>> {
+    + id: string
+    + organizationId: string
+    + firstName: string
+    + lastName: string
+    + documentNumber: string
+    + licenseNumber: string
+    + phone: string
+    + status: string
+    + /fullName: string
+    + /isAvailable: boolean
+  }
+  enum VEHICLE_STATUSES <<enumeration>> {
+    AVAILABLE = 'available'
+    ASSIGNED = 'assigned'
+    IN_MAINTENANCE = 'in_maintenance'
+  }
+  enum DRIVER_STATUSES <<enumeration>> {
+    AVAILABLE = 'available'
+    ASSIGNED = 'assigned'
+    INACTIVE = 'inactive'
+  }
+  class FleetApi <<Infrastructure>> {
+    - #vehiclesEndpoint: BaseEndpoint
+    - #driversEndpoint: BaseEndpoint
+    + getVehicles(organizationId): Promise
+    + createVehicle(vehicleResource): Promise
+    + updateVehicle(vehicleId, vehicleResource): Promise
+    + getDrivers(organizationId): Promise
+    + createDriver(driverResource): Promise
+    + updateDriver(driverId, driverResource): Promise
+  }
+  class VehicleAssembler <<Assembler>> {
+    + {static} toEntityFromResource(resource): Vehicle
+    + {static} toEntitiesFromResponse(response): Vehicle[]
+    + {static} toResourceFromEntity(vehicle): Object
+  }
+  class DriverAssembler <<Assembler>> {
+    + {static} toEntityFromResource(resource): Driver
+    + {static} toEntitiesFromResponse(response): Driver[]
+    + {static} toResourceFromEntity(driver): Object
+  }
+  Vehicle "1" --> "1" VEHICLE_STATUSES : has status
+  Driver "1" --> "1" DRIVER_STATUSES : has status
+  VehicleAssembler "1" ..> "0..*" Vehicle : creates
+  DriverAssembler "1" ..> "0..*" Driver : creates
+  FleetApi "1" *-- "2" BaseEndpoint : owns
+  FleetApi --|> BaseApi
+}
+@enduml
