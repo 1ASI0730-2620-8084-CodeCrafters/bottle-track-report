@@ -752,7 +752,7 @@ Se elaboró un diagrama de componentes por bounded context. Los componentes dibu
 
 <img src="assets/DD-SoftwareArchitecture/componentIAM_D.png" alt="Diagrama de componentes de Identity and Access Management" width="800">
 
-**Fleet Management.** Gestiona los vehículos y los conductores y su disponibilidad. Implementado: registro y consulta de vehículos y de conductores, con filtro por disponibilidad. La facade con la que Operations and Routes reservará y liberará recursos está planificada.
+**Fleet Management.** Gestiona los vehículos y los conductores y su disponibilidad. Implementado: registro, consulta y edición de vehículos y de conductores, con filtro por disponibilidad. La facade con la que Operations and Routes reservará y liberará recursos está planificada.
 
 <img src="assets/DD-SoftwareArchitecture/componentFleetM_D.png" alt="Diagrama de componentes de Fleet Management" width="800">
 
@@ -820,7 +820,7 @@ Administra los vehículos y los conductores que se asignan a las operaciones de 
 
 <img src="assets/Software-Object-Oriented-Design/frontend-class-fleet-management.png" alt="Diagrama de clases de Fleet Management en el frontend" width="800">
 
-*Backend.* `Vehicle` y `Driver` son raíces de agregado que controlan su propia disponibilidad: `Reserve` los marca como asignados, `Release` los libera y, en el vehículo, `SendToMaintenance` lo retira de circulación. `PlateNumber` y `LicenseNumber` son value objects que los identifican, y cada uno tiene un estado (`VehicleStatus` o `DriverStatus`). `IVehicleRepository` e `IDriverRepository` permiten buscar por placa, documento o licencia, para evitar duplicados, y listar los recursos disponibles de una organización.
+*Backend.* `Vehicle` y `Driver` son raíces de agregado que controlan su propia disponibilidad: `Reserve` los marca como asignados, `Release` los libera y, en el vehículo, `SendToMaintenance` lo retira de circulación. `UpdateDetails` corrige sus datos editables sin tocar la placa, el documento ni la licencia. `PlateNumber` y `LicenseNumber` son value objects que los identifican, y cada uno tiene un estado (`VehicleStatus` o `DriverStatus`). `IVehicleRepository` e `IDriverRepository` permiten buscar por placa, documento o licencia, para evitar duplicados, y listar los recursos disponibles de una organización.
 
 <img src="assets/Software-Object-Oriented-Design/backend-class-fleet-management.png" alt="Diagrama de clases de Fleet Management en el backend" width="800">
 
