@@ -693,12 +693,12 @@ El Backend API se organiza como un **monolito modular**: un solo despliegue con 
 
 | Capa | Contenido | Rol en la arquitectura hexagonal |
 | :--- | :-------- | :------------------------------- |
-| Interfaces | Controllers REST y manejadores de eventos | Adaptadores de entrada |
+| Interfaces | Controllers REST; los manejadores de eventos están planificados | Adaptadores de entrada |
 | Application | Command Services y Query Services | Implementan los puertos de entrada y orquestan los casos de uso |
-| Domain | Agregados, entidades, value objects, eventos de dominio e interfaces de repositorio | Núcleo del negocio, sin dependencias de frameworks. Declara los puertos de salida |
-| Infrastructure | Repositorios con Entity Framework Core, cliente del servicio de mapas, emisión de tokens | Adaptadores de salida que implementan los puertos del dominio |
+| Domain | Agregados, entidades, value objects e interfaces de repositorio; los eventos de dominio están planificados | Núcleo del negocio, sin dependencias de frameworks. Declara los puertos de salida |
+| Infrastructure | Repositorios con Entity Framework Core, cálculo del hash de contraseñas y emisión de tokens JWT; el cliente del servicio de mapas está planificado | Adaptadores de salida que implementan los puertos del dominio |
 
-Los bounded contexts no acceden a las tablas de los demás. Se comunican a través de **facades** (por ejemplo, Operations and Routes reserva un vehículo mediante la facade de Fleet Management) o de **eventos de dominio** (IoT Monitoring publica `AlertRaised` e Incident Management abre una incidencia).
+Los bounded contexts no acceden a las tablas de los demás. Se comunican a través de **facades** (por ejemplo, Operations and Routes reserva un vehículo mediante la facade de Fleet Management) o de **eventos de dominio** (IoT Monitoring publica `AlertRaised` e Incident Management abre una incidencia). Estos mecanismos de comunicación están planificados: en la versión actual de los Web Services cada contexto referencia a los demás solo por su identificador, como `VehicleId` o `TransportOperationId`.
 
 <a id="461-design-level-event-storming"></a>
 
@@ -716,7 +716,7 @@ El tablero se encuentra disponible en: https://miro.com/welcomeonboard/aEpQNnI1b
 
 El diagrama de contexto muestra a BottleTrack como una caja negra y su relación con las personas y los sistemas externos. Sus usuarios son el administrador de la distribuidora, el supervisor de flota y el responsable de la bodega. El conductor aparece como actor del dominio que reporta al supervisor, pero no usa la aplicación. Los sistemas externos son los dispositivos IoT instalados en los vehículos y el servicio de mapas y geolocalización, que constituye el servicio de terceros que consume la solución.
 
-Los diagramas C4 se elaboraron con Structurizr DSL; el código fuente de cada diagrama se encuentra junto a su imagen ...en la carpeta `report/assets/DD-SoftwareArchitecture` del repositorio.
+Los diagramas C4 se elaboraron con Structurizr DSL y se renderizaron con Structurizr Playground (https://playground.structurizr.com). El código fuente de todos los diagramas (`containerDiagram.txt`) se encuentra junto a sus imágenes en la carpeta `report/assets/DD-SoftwareArchitecture` del repositorio.
 
 <img src="assets/DD-SoftwareArchitecture/contextDiagram.png" alt="Diagrama de contexto C4 de BottleTrack" width="800">
 
@@ -731,7 +731,7 @@ El diagrama de contenedores muestra las unidades desplegables de la solución:
 | Website | HTML5, CSS3, JavaScript | Netlify (contenido estático) |
 | Web Application Static Content | Archivos HTML, CSS y JavaScript generados por el build de Vue 3 | Vercel (contenido estático) |
 | Single-Page Application | Vue 3, PrimeVue, Pinia, Vue Router, vue-i18n, axios | Navegador del usuario |
-| Web Services | ASP.NET Core (.NET 10), C#, Entity Framework Core, documentado con OpenAPI y Scalar | Proveedor de nube (monolito) |
+| Web Services | ASP.NET Core (.NET 10), C#, Entity Framework Core, documentado con OpenAPI y Swagger UI | Proveedor de nube (monolito) |
 | Database | MySQL | Proveedor de nube |
 
 El Website y la Web Application son dos productos distintos y ambos se despliegan como contenido estático, es decir, como una copia de carpetas con archivos HTML, CSS y JavaScript hacia un hosting. Por eso el diagrama los representa con el contenedor de tipo carpeta.
@@ -756,7 +756,7 @@ Se elaboró un diagrama de componentes por bounded context. Los componentes dibu
 
 <img src="assets/DD-SoftwareArchitecture/componentFleetM_D.png" alt="Diagrama de componentes de Fleet Management" width="800">
 
-**Operations and Routes.** Es el core del dominio. Gestiona el ciclo de vida de la operación de transporte, sus puntos de entrega y el resultado de cada entrega. Su capa anticorrupción traduce las llamadas a Fleet Management y al servicio de mapas.
+**Operations and Routes.** Es el core del dominio. Gestiona el ciclo de vida de la operación de transporte, sus puntos de entrega y sus paradas. Implementado: registro y consulta de puntos de entrega, creación de operaciones con un código correlativo, agregado de paradas, despacho con un vehículo y un conductor, y consulta de las operaciones de una organización con sus paradas. La capa anticorrupción hacia Fleet Management y el adaptador de geocodificación hacia el servicio de mapas están planificados.
 
 <img src="assets/DD-SoftwareArchitecture/componentOR_D.png" alt="Diagrama de componentes de Operations and Routes" width="800">
 
@@ -828,11 +828,11 @@ Administra los vehículos y los conductores que se asignan a las operaciones de 
 
 Planifica y ejecuta las operaciones de transporte: sus recursos, su ruta de entregas y el resultado de cada entrega.
 
-*Frontend.* `TransportOperation` contiene (composición, `1` a `0..*`) a sus `DeliveryStop`, las paradas de entrega ordenadas por `sequenceNumber`. Sus getters indican qué puede hacerse en cada momento, como `canStart`, `canComplete` y `canCancel`, y calculan el avance (`progress`). `DeliveryOrder` es la vista de la bodega sobre una parada: muestra su estado de seguimiento y si ya se puede reportar un problema. Los estados salen de `OPERATION_STATUSES` y `DELIVERY_STATUSES`. Los comandos agregan una parada a una operación (`AddDeliveryStopCommand`), registran el resultado de una parada (`RecordDeliveryCommand`, que valida las cantidades y el motivo) y reportan un problema sobre un `DeliveryOrder` (`ReportReceptionProblemCommand`). Los assemblers leen esos comandos y crean las entidades. `TransportOperationsApi` y `OperationsApi` acceden al API con cinco y cuatro `BaseEndpoint`.
+*Frontend.* `TransportOperation` contiene (composición, `1` a `0..*`) a sus `DeliveryStop`, las paradas de entrega ordenadas por `sequenceNumber`. Sus getters indican qué puede hacerse en cada momento, como `canStart`, `canComplete` y `canCancel`, y calculan el avance (`progress`). `DeliveryOrder` es la vista de la bodega sobre una parada: muestra su estado de seguimiento y si ya se puede reportar un problema. Los estados salen de `OPERATION_STATUSES` y `DELIVERY_STATUSES`. Los comandos agregan una parada a una operación (`AddDeliveryStopCommand`), registran el resultado de una parada (`RecordDeliveryCommand`, que valida las cantidades y el motivo) y reportan un problema sobre un `DeliveryOrder` (`ReportReceptionProblemCommand`). Los assemblers leen esos comandos y crean las entidades. `TransportOperationsApi` y `OperationsApi` acceden al API con cuatro `BaseEndpoint` cada una.
 
 <img src="assets/Software-Object-Oriented-Design/frontend-class-operations-routes.png" alt="Diagrama de clases de Operations and Routes en el frontend" width="800">
 
-*Backend.* `TransportOperation` es la raíz del agregado y contiene entre una y muchas `DeliveryStop` (`1..*`). Toda modificación de una parada pasa por la operación, que valida las transiciones de estado con `Dispatch`, `Start`, `Complete` y `Cancel`, registra los resultados con `RecordDelivery` y calcula el avance con `CalculateProgress`. Cada parada se entrega en un `DeliveryPoint` y tiene una cantidad planificada y otra entregada, modeladas con el value object `Quantity`. Los estados están en `OperationStatus` y `DeliveryStatus`. `ITransportOperationRepository` e `IDeliveryPointRepository` definen las consultas por organización, por estado y por responsable de la bodega.
+*Backend.* `TransportOperation` es la raíz del agregado y contiene sus `DeliveryStop` (`0..*`). Toda parada se agrega a través de la operación con `AddStop`, y la operación valida sus transiciones de estado con `Dispatch` (que le asigna el vehículo y el conductor), `Complete` y `Cancel`. Cada parada se entrega en un `DeliveryPoint`, tiene un número de secuencia y guarda la cantidad planificada y la entregada en cajas. Los estados están en `TransportOperationStatus` y `DeliveryStopStatus`. `ITransportOperationRepository` obtiene una operación con sus paradas, lista las de una organización y cuenta las existentes para generar el código correlativo; `IDeliveryPointRepository` lista los puntos de entrega de una organización.
 
 <img src="assets/Software-Object-Oriented-Design/backend-class-operations-routes.png" alt="Diagrama de clases de Operations and Routes en el backend" width="800">
 

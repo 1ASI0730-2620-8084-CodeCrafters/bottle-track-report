@@ -1,0 +1,211 @@
+@startuml
+' BottleTrack - Frontend Web Application - Operations and Routes class diagram
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam class {
+  BackgroundColor #ffffff
+  BorderColor #b34900
+  ArrowColor #4f2000
+}
+skinparam package {
+  BackgroundColor #fff7ed
+  BorderColor #f97316
+}
+left to right direction
+
+package "Shared Infrastructure" {
+  class BaseApi <<Infrastructure>> {
+    - #http: AxiosInstance
+    + /http: AxiosInstance
+  }
+  class BaseEndpoint <<Infrastructure>> {
+    + http: AxiosInstance
+    + endpointPath: string
+    + getAll(params): Promise
+    + getById(id): Promise
+    + create(resource): Promise
+    + update(id, resource): Promise
+    + partialUpdate(id, resource): Promise
+    + delete(id): Promise
+  }
+  BaseApi "1" ..> "0..*" BaseEndpoint : provides http to
+}
+
+package "Operations and Routes" {
+  class TransportOperation <<Entity>> {
+    + id: string
+    + organizationId: string
+    + code: string
+    + description: string
+    + scheduledDate: string
+    + vehicleId: string
+    + driverId: string
+    + status: string
+    + dispatchedAt: string
+    + completedAt: string
+    + cancellationReason: string
+    + stops: DeliveryStop[]
+    + vehiclePlateNumber: string
+    + vehicleLabel: string
+    + driverName: string
+    + /isPending: boolean
+    + /isInProgress: boolean
+    + /hasResources: boolean
+    + /canCancel: boolean
+    + /isFinished: boolean
+    + /canStart: boolean
+    + /pendingStopsCount: number
+    + /canComplete: boolean
+    + /nextSequenceNumber: number
+    + /progress: Object
+    + /registeredStopsCount: number
+  }
+  class DeliveryStop <<Entity>> {
+    + id: string
+    + transportOperationId: string
+    + deliveryPointId: string
+    + deliveryPointName: string
+    + deliveryPointAddress: string
+    + deliveryPointDistrict: string
+    + latitude: number
+    + longitude: number
+    + sequenceNumber: number
+    + plannedQuantity: number
+    + deliveredQuantity: number
+    + status: string
+    + failureReason: string
+    + confirmedAt: string
+    + /isPending: boolean
+    + /hasLocation: boolean
+  }
+  class DeliveryOrder <<Entity>> {
+    + id: string
+    + transportOperationId: string
+    + operationCode: string
+    + operationStatus: string
+    + scheduledDate: string
+    + deliveryPointName: string
+    + sequenceNumber: number
+    + plannedQuantity: number
+    + deliveredQuantity: number
+    + status: string
+    + failureReason: string
+    + confirmedAt: string
+    + pendingStopsBefore: number
+    + hasReportedProblem: boolean
+    + /isRegistered: boolean
+    + /isOnRoute: boolean
+    + /trackingStatus: string
+    + /shortage: number
+    + /canReportProblem: boolean
+  }
+  class CreateOperationCommand <<Command>> {
+    + organizationId: string
+    + description: string
+    + scheduledDate: string
+  }
+  class AddDeliveryStopCommand <<Command>> {
+    + operation: TransportOperation
+    + deliveryPointId: string
+    + plannedQuantity: number
+  }
+  class RecordDeliveryCommand <<Command>> {
+    + stop: DeliveryStop
+    + status: string
+    + deliveredQuantity: number
+    + failureReason: string
+    + resolveDeliveredQuantity(status, deliveredQuantity, plannedQuantity): number
+    + /isValid: boolean
+  }
+  class ReportReceptionProblemCommand <<Command>> {
+    + deliveryOrder: DeliveryOrder
+    + reportedBy: string
+    + type: string
+    + affectedQuantity: number
+    + description: string
+    + /isValid: boolean
+  }
+  enum OPERATION_STATUSES <<enumeration>> {
+    PENDING = 'pending'
+    DISPATCHED = 'dispatched'
+    IN_PROGRESS = 'in_progress'
+    COMPLETED = 'completed'
+    CANCELLED = 'cancelled'
+  }
+  enum DELIVERY_STATUSES <<enumeration>> {
+    PENDING = 'pending'
+    DELIVERED = 'delivered'
+    PARTIALLY_DELIVERED = 'partially_delivered'
+    NOT_DELIVERED = 'not_delivered'
+  }
+  enum RECEPTION_PROBLEM_TYPES <<enumeration>> {
+    shortage
+    damaged_product
+    broken_bottles
+  }
+  class TransportOperationsApi <<Infrastructure>> {
+    - #operationsEndpoint: BaseEndpoint
+    - #deliveryPointsEndpoint: BaseEndpoint
+    - #vehiclesEndpoint: BaseEndpoint
+    - #driversEndpoint: BaseEndpoint
+    + getOperations(organizationId): Promise
+    + getOperationById(operationId): Promise
+    + createOperation(operationResource): Promise
+    + addStop(operationId, stopResource): Promise
+    + getDeliveryPoints(organizationId): Promise
+    + getVehicles(organizationId): Promise
+    + getDrivers(organizationId): Promise
+  }
+  class OperationsApi <<Infrastructure>> {
+    - #deliveryPointsEndpoint: BaseEndpoint
+    - #transportOperationsEndpoint: BaseEndpoint
+    - #deliveryStopsEndpoint: BaseEndpoint
+    - #incidentsEndpoint: BaseEndpoint
+    + getDeliveryPointsByOwner(ownerUserId): Promise
+    + getDeliveryStopsByDeliveryPoints(deliveryPointIds): Promise
+    + getDeliveryStopsByOperations(transportOperationIds): Promise
+    + getTransportOperationsByIds(transportOperationIds): Promise
+    + getIncidentsByDeliveryStops(deliveryStopIds): Promise
+    + getLatestIncident(): Promise
+    + createIncident(incidentResource): Promise
+  }
+  class TransportOperationAssembler <<Assembler>> {
+    + {static} toStopEntity(resource, deliveryPoints): DeliveryStop
+    + {static} toEntityFromResource(resource, references): TransportOperation
+    + {static} toEntitiesFromResources(resources, references): TransportOperation[]
+    + {static} toResourceFromCreateCommand(command, code): Object
+    + {static} toStopResourceFromCommand(command): Object
+    + {static} nextCode(operations): string
+  }
+  class DeliveryOrderAssembler <<Assembler>> {
+    + {static} toEntityFromResources(resources): DeliveryOrder
+    + {static} toEntitiesFromResources(resources): DeliveryOrder[]
+  }
+  class "IncidentAssembler" as OperationsIncidentAssembler <<Assembler>> {
+    + {static} nextCode(latestIncident): string
+    + {static} toResourceFromCommand(command, code): Object
+  }
+  TransportOperation "1" *-- "0..*" DeliveryStop : contains
+  TransportOperation "1" --> "1" OPERATION_STATUSES : has status
+  DeliveryStop "1" --> "1" DELIVERY_STATUSES : has status
+  DeliveryOrder "1" --> "1" DELIVERY_STATUSES : has status
+  DeliveryOrder "1" --> "1" OPERATION_STATUSES : has operation status
+  RecordDeliveryCommand "1" --> "1" DELIVERY_STATUSES : records status
+  ReportReceptionProblemCommand "1" --> "1" RECEPTION_PROBLEM_TYPES : has type
+  AddDeliveryStopCommand "0..*" --> "1" TransportOperation : adds a stop to
+  RecordDeliveryCommand "0..*" --> "1" DeliveryStop : records the result of
+  ReportReceptionProblemCommand "0..*" --> "1" DeliveryOrder : reports a problem on
+  TransportOperationAssembler "1" ..> "0..*" TransportOperation : creates
+  TransportOperationAssembler "1" ..> "0..*" DeliveryStop : creates
+  TransportOperationAssembler "1" ..> "0..*" CreateOperationCommand : reads
+  TransportOperationAssembler "1" ..> "0..*" AddDeliveryStopCommand : reads
+  DeliveryOrderAssembler "1" ..> "0..*" DeliveryOrder : creates
+  OperationsIncidentAssembler "1" ..> "0..*" ReportReceptionProblemCommand : reads
+  TransportOperationsApi "1" *-- "4" BaseEndpoint : owns
+  OperationsApi "1" *-- "4" BaseEndpoint : owns
+  TransportOperationsApi --|> BaseApi
+  OperationsApi --|> BaseApi
+}
+@enduml
