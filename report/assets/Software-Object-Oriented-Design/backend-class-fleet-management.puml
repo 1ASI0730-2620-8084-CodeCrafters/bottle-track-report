@@ -1,0 +1,80 @@
+@startuml
+' BottleTrack - Backend - Fleet Management class diagram
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam class {
+  BackgroundColor #ffffff
+  BorderColor #b34900
+  ArrowColor #4f2000
+}
+skinparam package {
+  BackgroundColor #fff7ed
+  BorderColor #f97316
+}
+
+package "Fleet Management" {
+  class Vehicle <<Aggregate Root>> {
+    + Id: Guid
+    + OrganizationId: Guid
+    + PlateNumber: PlateNumber
+    + Brand: string
+    + Model: string
+    + CapacityInBoxes: int
+    + Status: VehicleStatus
+    + {static} Register(organizationId, plateNumber, brand, model, capacityInBoxes): Vehicle
+    + Reserve(): void
+    + Release(): void
+    + SendToMaintenance(): void
+    + UpdateDetails(brand, model, capacityInBoxes): void
+  }
+  class Driver <<Aggregate Root>> {
+    + Id: Guid
+    + OrganizationId: Guid
+    + FirstName: string
+    + LastName: string
+    + DocumentNumber: string
+    + LicenseNumber: LicenseNumber
+    + Phone: string
+    + Status: DriverStatus
+    + {static} Register(organizationId, firstName, lastName, documentNumber, licenseNumber, phone): Driver
+    + Reserve(): void
+    + Release(): void
+    + UpdateDetails(firstName, lastName, phone): void
+  }
+  class PlateNumber <<Value Object>> {
+    + Value: string
+  }
+  class LicenseNumber <<Value Object>> {
+    + Value: string
+  }
+  enum VehicleStatus {
+    Available
+    Assigned
+    InMaintenance
+  }
+  enum DriverStatus {
+    Available
+    Assigned
+    Inactive
+  }
+  interface IVehicleRepository {
+    + FindByPlateNumberAsync(plateNumber: PlateNumber): Task<Vehicle?>
+    + ListByOrganizationAsync(organizationId: Guid): Task<IEnumerable<Vehicle>>
+    + ListAvailableAsync(organizationId: Guid): Task<IEnumerable<Vehicle>>
+  }
+  interface IDriverRepository {
+    + FindByDocumentNumberAsync(documentNumber: string): Task<Driver?>
+    + FindByLicenseNumberAsync(licenseNumber: LicenseNumber): Task<Driver?>
+    + ListByOrganizationAsync(organizationId: Guid): Task<IEnumerable<Driver>>
+    + ListAvailableAsync(organizationId: Guid): Task<IEnumerable<Driver>>
+  }
+  Vehicle "1" *-- "1" PlateNumber : is identified by
+  Vehicle "1" --> "1" VehicleStatus : has status
+  Driver "1" *-- "1" LicenseNumber : is licensed with
+  Driver "1" --> "1" DriverStatus : has status
+  IVehicleRepository "1" ..> "0..*" Vehicle : persists
+  IDriverRepository "1" ..> "0..*" Driver : persists
+}
+@enduml

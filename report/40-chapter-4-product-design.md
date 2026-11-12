@@ -752,7 +752,7 @@ Se elaboró un diagrama de componentes por bounded context. Los componentes dibu
 
 <img src="assets/DD-SoftwareArchitecture/componentIAM_D.png" alt="Diagrama de componentes de Identity and Access Management" width="800">
 
-**Fleet Management.** Gestiona los vehículos y los conductores y su disponibilidad. Implementado: registro y consulta de vehículos y de conductores, con filtro por disponibilidad. La facade con la que Operations and Routes reservará y liberará recursos está planificada.
+**Fleet Management.** Gestiona los vehículos y los conductores y su disponibilidad. Implementado: registro, consulta y edición de vehículos y de conductores, con filtro por disponibilidad. La facade con la que Operations and Routes reservará y liberará recursos está planificada.
 
 <img src="assets/DD-SoftwareArchitecture/componentFleetM_D.png" alt="Diagrama de componentes de Fleet Management" width="800">
 
@@ -764,7 +764,7 @@ Se elaboró un diagrama de componentes por bounded context. Los componentes dibu
 
 <img src="assets/DD-SoftwareArchitecture/componentIoTM_D.png" alt="Diagrama de componentes de IoT Monitoring" width="800">
 
-**Incident Management.** Gestiona las incidencias, su evidencia, su severidad y su resolución. Abre incidencias a partir de los reportes del supervisor, de la bodega o de las alertas de IoT Monitoring.
+**Incident Management.** Gestiona las incidencias, su evidencia, su severidad y su resolución, con origen en el supervisor, la bodega o una alerta IoT. Implementado: reporte de incidencias con un código correlativo, registro de evidencias como enlace al archivo, resolución y consulta de las incidencias de una operación. El manejador del evento `AlertRaised` y el servicio que almacena los archivos de evidencia están planificados.
 
 <img src="assets/DD-SoftwareArchitecture/componentIM_D.png" alt="Diagrama de componentes de Incident Management" width="800">
 
@@ -820,7 +820,7 @@ Administra los vehículos y los conductores que se asignan a las operaciones de 
 
 <img src="assets/Software-Object-Oriented-Design/frontend-class-fleet-management.png" alt="Diagrama de clases de Fleet Management en el frontend" width="800">
 
-*Backend.* `Vehicle` y `Driver` son raíces de agregado que controlan su propia disponibilidad: `Reserve` los marca como asignados, `Release` los libera y, en el vehículo, `SendToMaintenance` lo retira de circulación. `PlateNumber` y `LicenseNumber` son value objects que los identifican, y cada uno tiene un estado (`VehicleStatus` o `DriverStatus`). `IVehicleRepository` e `IDriverRepository` permiten buscar por placa, documento o licencia, para evitar duplicados, y listar los recursos disponibles de una organización.
+*Backend.* `Vehicle` y `Driver` son raíces de agregado que controlan su propia disponibilidad: `Reserve` los marca como asignados, `Release` los libera y, en el vehículo, `SendToMaintenance` lo retira de circulación. `UpdateDetails` corrige sus datos editables sin tocar la placa, el documento ni la licencia. `PlateNumber` y `LicenseNumber` son value objects que los identifican, y cada uno tiene un estado (`VehicleStatus` o `DriverStatus`). `IVehicleRepository` e `IDriverRepository` permiten buscar por placa, documento o licencia, para evitar duplicados, y listar los recursos disponibles de una organización.
 
 <img src="assets/Software-Object-Oriented-Design/backend-class-fleet-management.png" alt="Diagrama de clases de Fleet Management en el backend" width="800">
 
@@ -852,11 +852,11 @@ Vigila la carga durante la operación con las lecturas de temperatura y golpes d
 
 Registra y da seguimiento a las incidencias que afectan una operación o una entrega, con sus evidencias, hasta su cierre.
 
-*Frontend.* `Incident` guarda su código, su origen, su tipo, su severidad, la cantidad afectada y su estado. Avanza por `INCIDENT_STATUSES` (reportada, en revisión, resuelta y cerrada) y expone getters que guían la interfaz: `nextStatus`, `isOpen` y `requiresResolution`. Cada `Evidence` pertenece a una incidencia (`0..*` a `1`). Los comandos validan sus datos antes de enviarlos: `ReportIncidentCommand` para reportar, `AdvanceIncidentCommand` para pasar al siguiente estado y `AttachEvidenceCommand` para adjuntar una evidencia. `IncidentAssembler` y `EvidenceAssembler` leen esos comandos y crean las entidades, y `IncidentsApi` accede al API con cuatro `BaseEndpoint`.
+*Frontend.* `Incident` guarda su código, su origen, su tipo, su severidad, la cantidad afectada y su estado. Avanza por `INCIDENT_STATUSES` (reportada, en revisión, resuelta y cerrada) y expone getters que guían la interfaz: `nextStatus`, `isOpen` y `requiresResolution`. Cada `Evidence` pertenece a una incidencia (`0..*` a `1`). Los comandos validan sus datos antes de enviarlos: `ReportIncidentCommand` para reportar, `AdvanceIncidentCommand` para pasar al siguiente estado y `AttachEvidenceCommand` para adjuntar una evidencia. `IncidentAssembler` y `EvidenceAssembler` leen esos comandos y crean las entidades, y `IncidentsApi` accede al API con dos `BaseEndpoint`, uno para incidencias y otro para operaciones; las evidencias se agregan y la resolución se registra a través de la propia incidencia.
 
 <img src="assets/Software-Object-Oriented-Design/frontend-class-incident-management.png" alt="Diagrama de clases de Incident Management en el frontend" width="800">
 
-*Backend.* `Incident` es la raíz del agregado y contiene sus `Evidence` (`0..*`). Su ciclo de vida se expresa con los métodos `Report`, `AttachEvidence`, `AssignSeverity`, `Review`, `Resolve` y `Close`. Cada incidencia se clasifica por tipo (`IncidentType`), tiene una severidad (`Severity`), un estado (`IncidentStatus`) y un origen (`IncidentSource`): el supervisor, la bodega o una alerta IoT. `IIncidentRepository` lista las incidencias de las operaciones y obtiene el siguiente código correlativo.
+*Backend.* `Incident` es la raíz del agregado y contiene sus `Evidence` (`0..*`). Su ciclo de vida se expresa con los métodos `Report`, `AddEvidence`, `StartReview`, `Resolve` y `Close`. Cada incidencia se clasifica por tipo (`IncidentType`), tiene una severidad (`IncidentSeverity`), un estado (`IncidentStatus`) y un origen (`IncidentSource`): el supervisor, la bodega o una alerta IoT. `IIncidentRepository` obtiene una incidencia con sus evidencias, lista las incidencias de una operación y cuenta las existentes para generar el código correlativo.
 
 <img src="assets/Software-Object-Oriented-Design/backend-class-incident-management.png" alt="Diagrama de clases de Incident Management en el backend" width="800">
 
