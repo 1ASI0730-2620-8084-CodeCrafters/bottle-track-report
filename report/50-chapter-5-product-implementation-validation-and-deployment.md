@@ -943,6 +943,21 @@ Las capturas muestran la Frontend Web Application consumiendo los Web Services e
 
 <img src="assets/chapter5/sprint3/app-tracking.png" alt="Vista Mis pedidos de la bodega con el aviso Próximamente" width="800">
 
+<a id="5238-team-collaboration-insights-during-sprint"></a>
+
+#### 5.2.3.8. Team Collaboration Insights during Sprint.
+
+La siguiente tabla resume los commits de cada integrante en el Sprint 3, sin considerar los commits de integración de ramas:
+
+| Integrante | bottle-track-web-services | bottle-track-website | bottle-track-report |
+| :--------- | :-----------------------: | :------------------: | :-----------------: |
+| Crispin Valdivia, Angel Gabriel | 17 | 1 | 5 |
+| Cumba Rengifo, Leonardo Raul | 3 | 1 | 8 |
+| Palacin Lazo, Gerardo Valentin | 3 | 2 | 11 |
+| Pezo Castilla, Maria Jose | 4 | 8 | 2 |
+| Huapaya Buitron, Ariana Alheli | 0 | 0 | 0 |
+
+Los cuatro integrantes que participaron en el Sprint contribuyeron en los tres repositorios. En los Web Services, cada uno implementó una parte de Identity and Access Management o de Fleet Management, según la distribución por bounded context.
 
 <a id="53-validation-interviews"></a>
 
