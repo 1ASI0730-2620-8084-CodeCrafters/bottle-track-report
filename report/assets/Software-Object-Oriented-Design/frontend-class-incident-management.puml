@@ -1,0 +1,142 @@
+@startuml
+' BottleTrack - Frontend Web Application - Incident Management class diagram
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam class {
+  BackgroundColor #ffffff
+  BorderColor #b34900
+  ArrowColor #4f2000
+}
+skinparam package {
+  BackgroundColor #fff7ed
+  BorderColor #f97316
+}
+left to right direction
+
+package "Shared Infrastructure" {
+  class BaseApi <<Infrastructure>> {
+    - #http: AxiosInstance
+    + /http: AxiosInstance
+  }
+  class BaseEndpoint <<Infrastructure>> {
+    + http: AxiosInstance
+    + endpointPath: string
+    + getAll(params): Promise
+    + getById(id): Promise
+    + create(resource): Promise
+    + update(id, resource): Promise
+    + partialUpdate(id, resource): Promise
+    + delete(id): Promise
+  }
+  BaseApi "1" ..> "0..*" BaseEndpoint : provides http to
+}
+
+package "Incident Management" {
+  class Incident <<Entity>> {
+    + id: string
+    + code: string
+    + transportOperationId: string
+    + deliveryStopId: string
+    + reportedBy: string
+    + source: string
+    + type: string
+    + severity: string
+    + description: string
+    + affectedQuantity: number
+    + status: string
+    + resolution: string
+    + reportedAt: string
+    + resolvedAt: string
+    + operationCode: string
+    + /nextStatus: string
+    + /isOpen: boolean
+    + /requiresResolution: boolean
+  }
+  class Evidence <<Entity>> {
+    + id: string
+    + incidentId: string
+    + fileUrl: string
+    + fileType: string
+    + uploadedAt: string
+    + uploadedBy: string
+  }
+  class ReportIncidentCommand <<Command>> {
+    + transportOperationId: string
+    + reportedBy: string
+    + type: string
+    + severity: string
+    + description: string
+    + affectedQuantity: number
+    + /isValid: boolean
+  }
+  class AdvanceIncidentCommand <<Command>> {
+    + incident: Incident
+    + nextStatus: string
+    + resolution: string
+    + /isValid: boolean
+  }
+  class AttachEvidenceCommand <<Command>> {
+    + incidentId: string
+    + fileUrl: string
+    + uploadedBy: string
+    + /isValid: boolean
+  }
+  enum INCIDENT_STATUSES <<enumeration>> {
+    REPORTED = 'reported'
+    UNDER_REVIEW = 'under_review'
+    RESOLVED = 'resolved'
+    CLOSED = 'closed'
+  }
+  enum INCIDENT_TYPES <<enumeration>> {
+    broken_bottles
+    damaged_product
+    shortage
+    delay
+  }
+  enum INCIDENT_SEVERITIES <<enumeration>> {
+    low
+    medium
+    high
+    critical
+  }
+  class IncidentsApi <<Infrastructure>> {
+    - #incidentsEndpoint: BaseEndpoint
+    - #operationsEndpoint: BaseEndpoint
+    + getOperations(organizationId): Promise
+    + getIncidentsByOperation(transportOperationId): Promise
+    + getIncidentById(incidentId): Promise
+    + createIncident(incidentResource): Promise
+    + addEvidence(incidentId, evidenceResource): Promise
+    + resolveIncident(incidentId, resolution): Promise
+  }
+  class IncidentAssembler <<Assembler>> {
+    + {static} toEntityFromResource(resource, operations): Incident
+    + {static} toEntitiesFromResources(resources, operations): Incident[]
+    + {static} nextCode(incidents): string
+    + {static} toResourceFromReportCommand(command, code): Object
+    + {static} toChangesFromAdvanceCommand(command): Object
+  }
+  class EvidenceAssembler <<Assembler>> {
+    + {static} toEntityFromResource(resource): Evidence
+    + {static} toEntitiesFromResources(resources): Evidence[]
+    + {static} toResourceFromCommand(command): Object
+  }
+  Evidence "0..*" --> "1" Incident : belongs to
+  Incident "1" --> "1" INCIDENT_STATUSES : has status
+  Incident "1" --> "1" INCIDENT_TYPES : is classified as
+  Incident "1" --> "1" INCIDENT_SEVERITIES : has severity
+  ReportIncidentCommand "1" --> "1" INCIDENT_TYPES : has type
+  ReportIncidentCommand "1" --> "1" INCIDENT_SEVERITIES : has severity
+  AdvanceIncidentCommand "0..*" --> "1" Incident : advances
+  AttachEvidenceCommand "0..*" --> "1" Incident : attaches evidence to
+  IncidentAssembler "1" ..> "0..*" Incident : creates
+  IncidentAssembler "1" ..> "0..*" ReportIncidentCommand : reads
+  IncidentAssembler "1" ..> "0..*" AdvanceIncidentCommand : reads
+  EvidenceAssembler "1" ..> "0..*" Evidence : creates
+  EvidenceAssembler "1" ..> "0..*" AttachEvidenceCommand : reads
+  IncidentsApi "1" *-- "2" BaseEndpoint : owns
+  IncidentsApi --|> BaseApi
+}
+@enduml
