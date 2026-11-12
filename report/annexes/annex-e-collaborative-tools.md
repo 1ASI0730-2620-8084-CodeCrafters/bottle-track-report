@@ -11,6 +11,7 @@ En esta sección se registran los espacios de trabajo compartidos que el equipo 
 | Herramienta | Propósito | Enlace |
 | :---------- | :-------- | :----- |
 | Trello | Product Backlog y Sprint Backlog | https://trello.com/b/jGpO815B/bottletrack-product-backlog |
+| Trello | Sprint Backlog del Sprint 3 | https://trello.com/b/6ae377c3d33bbc1ab8709e54/sprint-3-bottletrack |
 | UXPressia | User Personas (Carlos Mendoza, Luis Torres, María Fernández) | https://uxpressia.com/w/v8FzI/p/GS0Vk<br>https://uxpressia.com/w/v8FzI/p/ZvlM6<br>https://uxpressia.com/w/v8FzI/p/p2gAf |
 | UXPressia | User Journey Maps | https://uxpressia.com/w/v8FzI/m/1XPXj<br>https://uxpressia.com/w/v8FzI/m/cnzpG<br>https://uxpressia.com/w/v8FzI/m/XFb9u |
 | UXPressia | Empathy Maps | https://uxpressia.com/w/v8FzI/p/ByEH9<br>https://uxpressia.com/w/v8FzI/p/kjfDJ<br>https://uxpressia.com/w/v8FzI/p/97hC8 |

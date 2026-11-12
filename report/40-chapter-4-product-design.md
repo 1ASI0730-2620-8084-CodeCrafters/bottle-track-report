@@ -181,9 +181,9 @@ Las etiquetas se redactan con el mínimo número de palabras y utilizan el vocab
 | Features | Funcionalidades | Capacidades del producto. |
 | How it works | Cómo funciona | Explicación del flujo de la operación. |
 | Who it is for | Para quién es | Segmentos objetivo y sus llamados a la acción. |
-| The product | El producto | Video About the Product. |
+| The product | El producto | Video About the Product y capturas de la aplicación. |
 | The team | El equipo | Video About the Team. |
-| Contact | Contacto | Correo, teléfono y redes sociales de CodeCrafters. |
+| Subscription | Suscripción | Planes de suscripción de BottleTrack y contacto con ventas. |
 | Route | Ruta | Recorrido asignado a un vehículo con sus puntos de entrega. |
 | Stop | Parada | Punto de entrega individual dentro de una ruta. |
 | Shipment | Envío | Carga de producto asociada a una ruta. |
@@ -260,7 +260,7 @@ El recorrido esperado del visitante desciende desde la propuesta de valor hasta 
 | :---------------- | :------------------ | :--------------- |
 | Supervisores o encargados de flota | Monitor your fleet | Monitoring |
 | Empresas distribuidoras de bebidas | See the indicators | Analytics |
-| Bodegas y minimarkets | Track your order | Delivery tracking |
+| Bodegas y minimarkets | Track your orders | Delivery tracking |
 
 En dispositivos con ancho menor a 48 rem la navegación se colapsa en un menú desplegable que expone su estado mediante el atributo `aria-expanded` y se cierra automáticamente al seleccionar un enlace. El pie de página repite los enlaces principales y añade el acceso a los términos y condiciones del servicio.
 

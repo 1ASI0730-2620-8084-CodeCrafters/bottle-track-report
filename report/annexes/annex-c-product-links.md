@@ -1,4 +1,4 @@
-[← Anexo B](annex-b-interview-videos.md) · [Contenido](../../README.md#contenido)
+[← Anexo B](annex-b-interview-videos.md) · [Contenido](../../README.md#contenido) · [Anexo D →](annex-d-products-deployment.md)
 
 <div style="page-break-before: always;"></div>
 
@@ -10,13 +10,13 @@ En esta sección se relacionan los repositorios de la organización pública de 
 
 | Producto | Repositorio |
 | :------- | :---------- |
-| Informe del proyecto | https://github.com/1ASI0730-2620-8084-CodeCrafters/Report |
-| Landing Page | https://github.com/1ASI0730-2620-8084-CodeCrafters/Landing-Page |
+| Informe del proyecto | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-report |
+| Landing Page | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-website |
 | Frontend Web Application | https://github.com/1ASI0730-2620-8084-CodeCrafters/Frontend-Web-Aplication |
-| Web Services | https://github.com/1ASI0730-2620-8084-CodeCrafters/Web-Services |
+| Web Services | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-web-services |
 
 <hr>
 
 ---
 
-[← Anexo B](annex-b-interview-videos.md) · [Contenido](../../README.md#contenido)
+[← Anexo B](annex-b-interview-videos.md) · [Contenido](../../README.md#contenido) · [Anexo D →](annex-d-products-deployment.md)

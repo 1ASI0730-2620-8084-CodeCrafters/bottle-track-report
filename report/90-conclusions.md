@@ -32,6 +32,26 @@
 
 El video About-the-Team presenta a los integrantes de CodeCrafters, su motivación para construir BottleTrack y la forma en que el equipo trabajó en cada Sprint, incluyendo los testimonios que sustentan el Student Outcome. Tiene una duración aproximada de 5 minutos más 1 minuto por integrante, se publica en Microsoft Stream y en YouTube, y se incrusta en la sección *The team* del Landing Page.
 
+| Video | Nombre del archivo | Duración | URL |
+| :---- | :----------------- | :------- | :-- |
+| About-the-Team | upc-pre-202620-1asi0730-8084-codecrafters-about-the-team-sprint-3 | 06:45 | [Ver video en YouTube](https://youtu.be/jtTP8YT2dOU) |
+
+<img src="assets/chapter5/videos/about-the-team-youtube.png" alt="Video About-the-Team publicado en YouTube" width="800">
+
+| Inicio | Fin | Sección | Presenta |
+| :----- | :-- | :------ | :------- |
+| 00:00 | 00:27 | Presentación del equipo y de los tres productos | Crispin Valdivia, Angel Gabriel |
+| 00:27 | 01:18 | Sprint 1: Landing Page | Palacin Lazo, Gerardo Valentin |
+| 01:18 | 01:53 | Sprint 2: Frontend Web Application | Cumba Rengifo, Leonardo Raul |
+| 01:53 | 02:24 | Sprint 3: Web Services | Crispin Valdivia, Angel Gabriel |
+| 02:24 | 03:08 | Obstáculos y cómo los resolvimos | Pezo Castilla, Maria Jose |
+| 03:08 | 03:48 | Comunicación y mejora continua | Palacin Lazo, Gerardo Valentin |
+| 03:48 | 04:22 | Testimonio | Crispin Valdivia, Angel Gabriel |
+| 04:22 | 05:23 | Testimonio | Cumba Rengifo, Leonardo Raul |
+| 05:23 | 06:17 | Testimonio | Palacin Lazo, Gerardo Valentin |
+| 06:17 | 06:45 | Testimonio | Pezo Castilla, Maria Jose |
+
+
 <hr>
 
 ---
