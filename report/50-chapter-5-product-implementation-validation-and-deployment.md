@@ -790,127 +790,116 @@ La siguiente tabla resume los commits de cada integrante en el Sprint 2, sin con
 
 #### 5.2.3.1. Sprint Planning 3.
 
-El Sprint 3 propone implementar la primera versión de los Web Services de BottleTrack e integrarlos con la Frontend Web Application desarrollada durante el Sprint 2. El incremento busca reemplazar el uso del fake API en los flujos principales por servicios RESTful con persistencia en MySQL, validaciones y reglas de negocio en el servidor.
+En el Sprint 3 se implementó la primera versión de los Web Services de BottleTrack y se integró con la Frontend Web Application desarrollada durante el Sprint 2. En el entorno local, el incremento reemplaza el fake API por servicios RESTful con persistencia en MySQL, validaciones y reglas de negocio en el servidor.
 
-La planificación considera las Technical Stories TS01 a TS15 del Product Backlog, cuya estimación total es de 96 Story Points. La distribución de tareas y sus estimaciones constituyen una propuesta que debe validarse con la disponibilidad del equipo.
+La planificación consideró las Technical Stories TS01 a TS15 del Product Backlog, con una estimación total de 96 Story Points.
 
 | Sprint # | Sprint 3 |
 | :------- | :------- |
 | **Sprint Planning Background** | |
-| Date | 2026/10/28 |
-| Time | 8:00 pm |
-| Location | Discord |
+| Date | 2026-10-28 |
+| Time | 8:00 PM |
+| Location | Reunión virtual por Discord |
 | Prepared By | Cumba Rengifo, Leonardo Raul |
 | Attendees (to planning meeting) | Crispin Valdivia, Angel Gabriel; Cumba Rengifo, Leonardo Raul; Palacin Lazo, Gerardo Valentin; Pezo Castilla, Maria Jose |
-| Sprint 2 Review Summary | Según las evidencias del Sprint 2, se publicó una nueva versión del Landing Page y la primera versión de la Frontend Web Application. Se implementaron las vistas de autenticación, usuarios, empresa, flota, operaciones, entregas, incidencias, monitoreo IoT y seguimiento de pedidos para bodegas, utilizando un fake API. También se incorporaron las correcciones de AV1 en el Landing Page. La implementación de los Web Services propios quedó prevista para el Sprint 3. |
-| Sprint 2 Retrospective Summary | El registro de colaboración del Sprint 2 evidencia la participación de los cinco integrantes en el frontend mediante la distribución por bounded context. Como propuesta de mejora para el Sprint 3, se plantea mantener esta distribución, acordar los contratos del API antes de integrar las vistas y distribuir las pruebas entre líderes y colaboradores. También se propone reservar tiempo para documentación, despliegue y validación con usuarios. Estas observaciones deben contrastarse en la reunión del equipo. |
+| Sprint 2 Review Summary | En el Sprint 2 se publicó una nueva versión del Landing Page y la primera versión de la Frontend Web Application. Se implementaron las vistas de autenticación, usuarios, empresa, flota, operaciones, entregas, incidencias, monitoreo IoT y seguimiento de pedidos para bodegas, sobre un fake API. También se incorporaron las correcciones de AV1 en el Landing Page. La implementación de los Web Services quedó para el Sprint 3. |
+| Sprint 2 Retrospective Summary | La distribución del frontend por bounded context permitió la participación de los cinco integrantes. Para el Sprint 3 el equipo acordó mantener esa distribución, definir los contratos del API antes de integrar las vistas, distribuir las pruebas entre líderes y colaboradores y reservar tiempo para la documentación, el despliegue y la validación con usuarios. |
 | **Sprint Goal & User Stories** | |
 | Sprint 3 Goal | *Nuestro enfoque está en* que el administrador de la distribuidora mantenga de forma permanente sus usuarios, vehículos y conductores; en que el supervisor de flota planifique, ejecute y dé seguimiento a sus operaciones de transporte, con sus entregas, incidencias y alertas de carga en riesgo; y en que el responsable de la bodega consulte el estado de su pedido y reporte los problemas de recepción.<br>*Creemos que esto entrega* control confiable de sus recursos al administrador de la empresa distribuidora, información actualizada y trazable de cada operación al supervisor de flota, y certeza sobre sus pedidos con un canal directo para reportar faltantes o productos dañados al responsable de la bodega o minimarket.<br>*Esto se confirmará cuando* el administrador registre un vehículo y un conductor que sigan disponibles al volver a ingresar; el supervisor complete una operación de principio a fin, desde su creación hasta el cierre de sus entregas, y convierta una alerta de carga en una incidencia; y la bodega consulte su pedido y reporte un problema de recepción que el supervisor pueda ver. Los tres flujos deben ejecutarse sin errores en la aplicación publicada (100 % de los casos de aceptación) y al menos tres representantes de cada segmento deben completar su flujo principal en las entrevistas de validación. |
-| Sprint 3 Velocity | 96 Story Points propuestos, sujetos a validación de capacidad del equipo. |
+| Sprint 3 Velocity | 96 Story Points |
 | Sum of Story Points | 96 |
 
-La comprobación del Sprint Goal se realizará sobre la integración de la Web Application con los Web Services. El funcionamiento de una vista con datos del fake API no constituye evidencia suficiente del cumplimiento de una historia técnica.
+La comprobación del Sprint Goal se realiza sobre la integración de la Web Application con los Web Services: el funcionamiento de una vista con datos del fake API no constituye evidencia del cumplimiento de una historia técnica. Las lecturas IoT continúan siendo simuladas: los Web Services ya permiten registrarlas y consultarlas, y su visualización en la Web Application pasa al siguiente Sprint. El conductor se mantiene como recurso de la operación y no como usuario de la plataforma.
 
-Las lecturas IoT continuarán siendo simuladas, pero su registro, consulta y generación de alertas deberán realizarse mediante el backend. El conductor se mantiene como recurso de la operación y no como usuario de la plataforma.
+**Resultado del Sprint.** Al cierre del Sprint 3 los Web Services implementan los cinco bounded contexts con 39 endpoints REST, doce tablas en MySQL creadas por cuatro migraciones de Entity Framework Core e inicio de sesión con tokens JWT. La Frontend Web Application consume estos servicios en sus flujos de autenticación, administración de usuarios y empresa, gestión de vehículos y conductores, creación de operaciones con sus paradas, consulta de dispositivos IoT y reporte, evidencia y resolución de incidencias.
 
+Las acciones que la Web Application todavía no integra con el API se muestran con el aviso **Próximamente** y pasan al siguiente Sprint: asignar recursos, iniciar, completar y cancelar operaciones, registrar el resultado y reordenar las paradas, revisar y cerrar incidencias, el monitoreo en vivo con sus alertas, la configuración del rango seguro de un dispositivo y el seguimiento de pedidos de la bodega. Por esa razón el Sprint Goal se cumple de forma parcial: el flujo del administrador está completo, mientras que los flujos del supervisor y de la bodega requieren las acciones mencionadas.
 
 <a id="5232-aspect-leaders-and-collaborators"></a>
 
 #### 5.2.3.2. Aspect Leaders and Collaborators.
 
-Para el Sprint 3 se propone mantener la distribución por bounded context utilizada en el Sprint 2. Cada integrante liderará la implementación de los servicios relacionados con su contexto y colaborará en su integración con los demás componentes de BottleTrack.
+En el Sprint 3 se mantuvo la distribución por bounded context utilizada en el Sprint 2. Cada integrante lideró los servicios de su contexto y colaboró en su integración con los demás componentes de BottleTrack.
 
-La matriz de Liderazgo y Colaboración (LACX) identifica al líder de cada aspecto con **L** y a sus colaboradores con **C**. Las asignaciones propuestas guardan relación con los responsables del Sprint Backlog y deben confirmarse durante el Sprint Planning.
+La matriz de Liderazgo y Colaboración (LACX) identifica al líder de cada aspecto con **L** y a sus colaboradores con **C**, en concordancia con los responsables del Sprint Backlog.
 
 | Team Member (Last Name, First Name) | GitHub Username | Backend Setup & Configuration Management | Identity and Access Management | Fleet Management | Operations and Routes | IoT Monitoring | Incident Management & Analytics | OpenAPI & Integration Verification | Landing Page |
 | :---------------------------------- | :-------------- | :-----: | :-----: | :-----: | :-----: | :-----: | :-----: | :-----: | :-----: |
-| Crispin Valdivia, Angel Gabriel | FaureGalliard | L | L | C | C | C | C | C | C |
+| Crispin Valdivia, Angel Gabriel | FaureGalliard | L | L | L | C | C | C | L | C |
 | Cumba Rengifo, Leonardo Raul | LeonardoC72 | C | C | C | L | C | C | C | C |
 | Palacin Lazo, Gerardo Valentin | GeraldP03 | C | C | C | C | L | C | C | L |
 | Pezo Castilla, Maria Jose | MariaJosePezo | C | C | C | C | C | L | C | C |
 
+Angel Crispin lideró la configuración del backend, los servicios de autenticación y administración, la gestión de vehículos y conductores y la verificación de OpenAPI y de la integración. Leonardo Cumba lideró las operaciones, sus paradas y los puntos de entrega. Gerardo Palacin lideró el monitoreo IoT y el Landing Page. Maria Jose Pezo lideró las incidencias, sus evidencias y los indicadores operacionales del dashboard.
 
-Angel Crispin coordinará la configuración del backend, los servicios de autenticación y administración y el despliegue del API. Leonardo Cumba liderará las operaciones, la asignación de recursos, las entregas, el historial y el seguimiento de pedidos de las bodegas.
-
-Gerardo Palacin liderará el monitoreo IoT y colaborará con Operations and Routes mediante la integración del servicio externo de mapas. Maria Jose Pezo liderará las incidencias, sus evidencias y los indicadores operacionales. Angel Crispin liderará la gestión de vehículos y conductores y coordinará la revisión de OpenAPI y las pruebas de integración.
-
-Cada integrante será responsable de documentar y verificar los endpoints de su contexto. La coordinación de la documentación y de las pruebas no reemplaza la responsabilidad individual de proporcionar evidencias de implementación.
-
-
-
+Cada integrante es responsable de documentar y verificar los endpoints de su contexto. La coordinación de la documentación y de las pruebas no reemplaza la responsabilidad individual de proporcionar evidencias de implementación.
 
 <a id="5233-sprint-backlog-3"></a>
 
 #### 5.2.3.3. Sprint Backlog 3.
 
-El Sprint Backlog 3 propone implementar las Technical Stories del RESTful API previstas en el Product Backlog e integrar los servicios con las vistas existentes de la Frontend Web Application. También incluye tareas transversales de configuración, despliegue, validación y preparación de evidencias para AV2.
+El Sprint Backlog 3 contiene las Technical Stories del RESTful API previstas en el Product Backlog y su integración con las vistas existentes de la Frontend Web Application. También incluye tareas transversales de configuración, despliegue, validación y preparación de evidencias para AV2.
 
-Las historias TS01 a TS15 suman 96 Story Points. Las User Stories implementadas con el fake API durante el Sprint 2 sirven como referencia de los flujos que deben integrarse; sus puntos no se vuelven a contabilizar en esta suma.
+Las historias TS01 a TS15 suman 96 Story Points. Las User Stories implementadas con el fake API durante el Sprint 2 sirven como referencia de los flujos que se integran; sus puntos no se vuelven a contabilizar en esta suma.
 
-El tablero del proyecto se encuentra disponible en: https://trello.com/b/jGpO815B/bottletrack-product-backlog
+**Tablero del Sprint 3** al cierre del Sprint, con sus 46 tareas distribuidas en las listas *To-do*, *In-Process* y *Done* según el estado registrado en la tabla siguiente. El tablero es público y se encuentra en https://trello.com/b/6ae377c3d33bbc1ab8709e54/sprint-3-bottletrack.
 
-**Tablero del Sprint 3**
+<img src="assets/chapter5/sprint3/trello-sprint-3.png" alt="Tablero de Trello del Sprint 3 al cierre del Sprint" width="800">
 
-La captura del tablero se incorporará después de registrar y confirmar las historias, tareas y responsables de esta planificación en Trello.
-
-
-<img width="1909" height="844" alt="sptrin3" src="https://github.com/user-attachments/assets/2f472062-0f03-49fe-8962-90f7c0e6283f" />
-
-https://trello.com/invite/b/6ae377c3d33bbc1ab8709e54/ATTI0bb3ef72715819f3690e40368d3a0a003ACCDB35/sprint-3-bottletrack
-
-Las horas y asignaciones de la siguiente tabla son estimaciones propuestas. El estado inicial es **To-do** y deberá actualizarse según el avance comprobado en el tablero. Las tareas identificadas con **—** corresponden a trabajo transversal que no depende de una sola historia.
+La siguiente tabla registra el estado de cada tarea al cierre del Sprint 3, el 2026-11-11. Las tareas identificadas con **—** corresponden a trabajo transversal que no depende de una sola historia.
 
 | Sprint # | Sprint 3 | | | | | | |
 | :------- | :------- | :- | :- | :- | :- | :- | :- |
 | **User Story / Technical Story** | | **Work-Item / Task** | | | | | |
 | **Id** | **Title** | **Id** | **Title** | **Description** | **Estimation (Hours)** | **Assigned To** | **Status (To-do / In-Process / To-Review / Done)** |
-| — | Backend configuration | T01 | Backend project setup | Configurar el proyecto ASP.NET Core, la organización por bounded contexts, la inyección de dependencias y el manejo de errores. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
-| — | Backend configuration | T02 | Database configuration | Configurar la conexión a MySQL y la estrategia de creación y actualización del esquema, coordinando las entidades de cada contexto. | 6 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS01 | Authentication REST API | T03 | Authentication and authorization | Implementar autenticación, emisión y validación de tokens y restricciones de acceso a recursos protegidos. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS01 | Authentication REST API | T04 | Authentication frontend integration | Conectar el inicio y cierre de sesión con el API y gestionar credenciales inválidas, sesiones vencidas y accesos no autorizados. | 6 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS02 | User and Company REST API | T05 | Users and company endpoints | Implementar registro, consulta y actualización de usuarios, roles y empresa, con validaciones y restricciones de acceso. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS02 | User and Company REST API | T06 | Administration frontend integration | Conectar las vistas de usuarios, perfil y empresa con los servicios y verificar la persistencia de los cambios. | 6 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS03 | Vehicle Management REST API | T07 | Vehicle management endpoints | Implementar persistencia, registro, actualización y consulta de vehículos disponibles, validando datos obligatorios y duplicados. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS03 | Vehicle Management REST API | T08 | Vehicle frontend integration | Conectar las vistas de vehículos con el API y verificar registro, actualización y disponibilidad. | 4 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS04 | Driver Management REST API | T09 | Driver management endpoints | Implementar registro, actualización y consulta de conductores disponibles, incluyendo las validaciones de sus datos. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS04 | Driver Management REST API | T10 | Driver frontend integration | Integrar las vistas de conductores con el API y comprobar la conservación de los cambios. | 4 |Crispin Valdivia, Angel Gabriel | To-do |
-| TS05 | Transport Operations REST API | T11 | Operation domain and persistence | Implementar el agregado de operación, sus estados, reglas de negocio y persistencia. | 8 | Cumba Rengifo, Leonardo Raul | To-do |
-| TS05 | Transport Operations REST API | T12 | Operation endpoints and integration | Implementar creación, consulta, inicio, cancelación y cierre de operaciones y conectar las acciones con el frontend. | 8 | Cumba Rengifo, Leonardo Raul | To-do |
+| — | Backend configuration | T01 | Backend project setup | Configurar el proyecto ASP.NET Core, la organización por bounded contexts, la inyección de dependencias y el manejo de errores. | 8 | Crispin Valdivia, Angel Gabriel | Done |
+| — | Backend configuration | T02 | Database configuration | Configurar la conexión a MySQL y la estrategia de creación y actualización del esquema, coordinando las entidades de cada contexto. | 6 | Crispin Valdivia, Angel Gabriel | Done |
+| TS01 | Authentication REST API | T03 | Authentication and authorization | Implementar autenticación, emisión y validación de tokens y restricciones de acceso a recursos protegidos. | 8 | Crispin Valdivia, Angel Gabriel | In-Process |
+| TS01 | Authentication REST API | T04 | Authentication frontend integration | Conectar el inicio y cierre de sesión con el API y gestionar credenciales inválidas, sesiones vencidas y accesos no autorizados. | 6 | Crispin Valdivia, Angel Gabriel | In-Process |
+| TS02 | User and Company REST API | T05 | Users and company endpoints | Implementar registro, consulta y actualización de usuarios, roles y empresa, con validaciones y restricciones de acceso. | 8 | Crispin Valdivia, Angel Gabriel | In-Process |
+| TS02 | User and Company REST API | T06 | Administration frontend integration | Conectar las vistas de usuarios, perfil y empresa con los servicios y verificar la persistencia de los cambios. | 6 | Crispin Valdivia, Angel Gabriel | Done |
+| TS03 | Vehicle Management REST API | T07 | Vehicle management endpoints | Implementar persistencia, registro, actualización y consulta de vehículos disponibles, validando datos obligatorios y duplicados. | 8 | Crispin Valdivia, Angel Gabriel | Done |
+| TS03 | Vehicle Management REST API | T08 | Vehicle frontend integration | Conectar las vistas de vehículos con el API y verificar registro, actualización y disponibilidad. | 4 | Crispin Valdivia, Angel Gabriel | Done |
+| TS04 | Driver Management REST API | T09 | Driver management endpoints | Implementar registro, actualización y consulta de conductores disponibles, incluyendo las validaciones de sus datos. | 8 | Crispin Valdivia, Angel Gabriel | Done |
+| TS04 | Driver Management REST API | T10 | Driver frontend integration | Integrar las vistas de conductores con el API y comprobar la conservación de los cambios. | 4 | Crispin Valdivia, Angel Gabriel | Done |
+| TS05 | Transport Operations REST API | T11 | Operation domain and persistence | Implementar el agregado de operación, sus estados, reglas de negocio y persistencia. | 8 | Cumba Rengifo, Leonardo Raul | Done |
+| TS05 | Transport Operations REST API | T12 | Operation endpoints and integration | Implementar creación, consulta, inicio, cancelación y cierre de operaciones y conectar las acciones con el frontend. | 8 | Cumba Rengifo, Leonardo Raul | In-Process |
 | TS06 | Resource Assignment Service | T13 | Resource assignment rules | Implementar asignación y liberación de vehículos y conductores, rechazando recursos no disponibles o asignaciones incompatibles. | 6 | Cumba Rengifo, Leonardo Raul | To-do |
-| TS06 | Resource Assignment Service | T14 | Resource assignment verification | Verificar junto con Operations and Routes la disponibilidad, la liberación de recursos y el rechazo de asignaciones incompatibles concurrentes. | 4 | Huapaya Buitron, Ariana Alheli | To-do |
-| TS07 | Delivery Management REST API | T15 | Delivery points and sequence | Implementar registro y consulta de puntos de entrega y actualización de su secuencia dentro de una operación. | 8 | Cumba Rengifo, Leonardo Raul | To-do |
+| TS06 | Resource Assignment Service | T14 | Resource assignment verification | Verificar junto con Operations and Routes la disponibilidad, la liberación de recursos y el rechazo de asignaciones incompatibles concurrentes. | 4 | Palacin Lazo, Gerardo Valentin | To-do |
+| TS07 | Delivery Management REST API | T15 | Delivery points and sequence | Implementar registro y consulta de puntos de entrega y actualización de su secuencia dentro de una operación. | 8 | Cumba Rengifo, Leonardo Raul | In-Process |
 | TS07 | Delivery Management REST API | T16 | Delivery results integration | Persistir resultados de entregas completas, parciales y no realizadas, validar cantidades y motivos e integrar las acciones con el frontend. | 8 | Cumba Rengifo, Leonardo Raul | To-do |
-| TS08 | Incident Management REST API | T17 | Incident lifecycle endpoints | Implementar registro, consulta y actualización de incidencias vinculadas con operaciones o entregas. | 8 | Pezo Castilla, Maria Jose | To-do |
-| TS08 | Incident Management REST API | T18 | Incident frontend integration | Conectar las vistas de incidencias con el API y verificar validaciones y cambios de estado. | 4 | Pezo Castilla, Maria Jose | To-do |
-| TS09 | Incident Evidence Service | T19 | Evidence storage service | Implementar almacenamiento y consulta de evidencias, validando formato, tamaño y asociación con una incidencia existente. | 8 | Pezo Castilla, Maria Jose | To-do |
-| TS09 | Incident Evidence Service | T20 | Evidence frontend integration | Conectar la carga y visualización de evidencias y gestionar las respuestas de rechazo del servicio. | 4 | Pezo Castilla, Maria Jose | To-do |
+| TS08 | Incident Management REST API | T17 | Incident lifecycle endpoints | Implementar registro, consulta y actualización de incidencias vinculadas con operaciones o entregas. | 8 | Pezo Castilla, Maria Jose | In-Process |
+| TS08 | Incident Management REST API | T18 | Incident frontend integration | Conectar las vistas de incidencias con el API y verificar validaciones y cambios de estado. | 4 | Pezo Castilla, Maria Jose | In-Process |
+| TS09 | Incident Evidence Service | T19 | Evidence storage service | Implementar almacenamiento y consulta de evidencias, validando formato, tamaño y asociación con una incidencia existente. | 8 | Pezo Castilla, Maria Jose | In-Process |
+| TS09 | Incident Evidence Service | T20 | Evidence frontend integration | Conectar la carga y visualización de evidencias y gestionar las respuestas de rechazo del servicio. | 4 | Pezo Castilla, Maria Jose | In-Process |
 | TS10 | Monitoring REST API | T21 | Operational indicators | Implementar el cálculo de indicadores y progreso con información persistida, incluyendo respuestas consistentes cuando no existan datos. | 8 | Pezo Castilla, Maria Jose | To-do |
 | TS10 | Monitoring REST API | T22 | Dashboard integration | Conectar el dashboard con el API y contrastar los indicadores con un conjunto conocido de operaciones, entregas e incidencias. | 4 | Pezo Castilla, Maria Jose | To-do |
 | TS11 | Operation History REST API | T23 | Operation history endpoints | Implementar consulta y detalle de operaciones finalizadas y canceladas, incluyendo recursos, entregas e incidencias relacionadas. | 6 | Cumba Rengifo, Leonardo Raul | To-do |
 | TS11 | Operation History REST API | T24 | History frontend integration | Conectar el historial y su detalle con el API y verificar el manejo de operaciones inexistentes. | 4 | Cumba Rengifo, Leonardo Raul | To-do |
 | TS12 | Maps Service Integration | T25 | External maps adapter | Implementar la integración con un servicio externo de mapas o geolocalización, gestionando ubicaciones no encontradas y fallos del proveedor. | 8 | Palacin Lazo, Gerardo Valentin | To-do |
 | TS12 | Maps Service Integration | T26 | Delivery location integration | Integrar la información geográfica con las vistas de entregas, coordinando el contrato con Operations and Routes. | 4 | Palacin Lazo, Gerardo Valentin | To-do |
-| TS13 | OpenAPI Documentation | T27 | OpenAPI configuration | Configurar Swagger/OpenAPI con autorización, esquemas y convenciones comunes para parámetros, requests, responses y códigos HTTP. | 4 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS13 | OpenAPI Documentation | T28 | Endpoint documentation verification | Revisar con cada líder la documentación de sus endpoints, ejecutar ejemplos y registrar capturas y enlaces para el informe. | 6 | Crispin Valdivia, Angel Gabriel | To-do |
-| TS14 | IoT Telemetry REST API | T29 | Devices and sensor readings | Implementar persistencia de dispositivos, rangos seguros y lecturas simuladas, validando la existencia del dispositivo y los valores recibidos. | 8 | Palacin Lazo, Gerardo Valentin | To-do |
-| TS14 | IoT Telemetry REST API | T30 | Cargo risk alerts | Generar alertas relacionadas con una operación cuando se detecten temperaturas fuera de rango o golpes e integrar su atención con incidencias. | 8 | Palacin Lazo, Gerardo Valentin | To-do |
-| TS14 | IoT Telemetry REST API | T31 | IoT frontend integration | Conectar monitoreo, alertas y configuración de dispositivos con el API y verificar el manejo de operaciones sin lecturas recientes. | 6 | Palacin Lazo, Gerardo Valentin | To-do |
+| TS13 | OpenAPI Documentation | T27 | OpenAPI configuration | Configurar Swagger/OpenAPI con autorización, esquemas y convenciones comunes para parámetros, requests, responses y códigos HTTP. | 4 | Crispin Valdivia, Angel Gabriel | In-Process |
+| TS13 | OpenAPI Documentation | T28 | Endpoint documentation verification | Revisar con cada líder la documentación de sus endpoints, ejecutar ejemplos y registrar capturas y enlaces para el informe. | 6 | Crispin Valdivia, Angel Gabriel | Done |
+| TS14 | IoT Telemetry REST API | T29 | Devices and sensor readings | Implementar persistencia de dispositivos, rangos seguros y lecturas simuladas, validando la existencia del dispositivo y los valores recibidos. | 8 | Palacin Lazo, Gerardo Valentin | Done |
+| TS14 | IoT Telemetry REST API | T30 | Cargo risk alerts | Generar alertas relacionadas con una operación cuando se detecten temperaturas fuera de rango o golpes e integrar su atención con incidencias. | 8 | Palacin Lazo, Gerardo Valentin | In-Process |
+| TS14 | IoT Telemetry REST API | T31 | IoT frontend integration | Conectar monitoreo, alertas y configuración de dispositivos con el API y verificar el manejo de operaciones sin lecturas recientes. | 6 | Palacin Lazo, Gerardo Valentin | In-Process |
 | TS15 | Delivery Point Tracking REST API | T32 | Delivery point tracking endpoints | Implementar la consulta de entregas de la bodega autorizada y el registro de problemas de recepción vinculados con una entrega. | 8 | Cumba Rengifo, Leonardo Raul | To-do |
 | TS15 | Delivery Point Tracking REST API | T33 | Reception incident integration | Integrar los reportes de recepción con Incident Management y verificar su consulta desde los flujos de bodega y distribuidora. | 4 | Pezo Castilla, Maria Jose | To-do |
-| — | Software deployment | T34 | API deployment | Configurar el alojamiento del API y la base de datos, las variables de entorno, HTTPS y CORS y verificar el acceso a los servicios y OpenAPI. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
+| — | Software deployment | T34 | API deployment | Configurar el alojamiento del API y la base de datos, las variables de entorno, HTTPS y CORS y verificar el acceso a los servicios y OpenAPI. | 8 | Crispin Valdivia, Angel Gabriel | In-Process |
 | — | Software deployment | T35 | Frontend deployment verification | Publicar la nueva versión del frontend con la dirección del API y comprobar navegación por roles y persistencia después de recargar. | 6 | Crispin Valdivia, Angel Gabriel | To-do |
-| — | Landing Page update | T36 | Landing page release | Actualizar capturas, comprobar las llamadas a la acción e incorporar los videos cuando estén publicados; verificar idiomas y vista móvil. | 6 | Palacin Lazo, Gerardo Valentin | To-do |
-| — | Integration verification | T37 | End-to-end acceptance checks | Ejecutar los flujos de administrador, supervisor y bodega sobre los productos desplegados y registrar resultados y defectos. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
-| — | Validation interviews | T38 | Validation interview design | Definir tareas, preguntas y flujos de validación por segmento para el Landing Page y la Web Application. | 4 | Pezo Castilla, Maria Jose | To-do |
-| — | Validation interviews | T39 | Distributor validation interviews | Realizar y documentar entrevistas con entre tres y cinco representantes de empresas distribuidoras, conservando videos y datos de cada sesión. | 8 | Crispin Valdivia, Angel Gabriel | To-do |
+| — | Landing Page update | T36 | Landing page release | Actualizar capturas, comprobar las llamadas a la acción e incorporar los videos cuando estén publicados; verificar idiomas y vista móvil. | 6 | Palacin Lazo, Gerardo Valentin | In-Process |
+| — | Integration verification | T37 | End-to-end acceptance checks | Ejecutar los flujos de administrador, supervisor y bodega sobre los productos desplegados y registrar resultados y defectos. | 8 | Crispin Valdivia, Angel Gabriel | In-Process |
+| — | Validation interviews | T38 | Validation interview design | Definir tareas, preguntas y flujos de validación por segmento para el Landing Page y la Web Application. | 4 | Pezo Castilla, Maria Jose | Done |
+| — | Validation interviews | T39 | Distributor validation interviews | Realizar y documentar entrevistas con entre tres y cinco representantes de empresas distribuidoras, conservando videos y datos de cada sesión. | 8 | Crispin Valdivia, Angel Gabriel | In-Process |
 | — | Validation interviews | T40 | Supervisor validation interviews | Realizar y documentar entrevistas con entre tres y cinco supervisores de flota sobre los flujos principales de la aplicación. | 8 | Cumba Rengifo, Leonardo Raul | To-do |
-| — | Validation interviews | T41 | Delivery point validation interviews | Realizar y documentar entrevistas con entre tres y cinco responsables de bodegas o minimarkets sobre seguimiento y recepción de pedidos. | 8 | Pezo Castilla, Maria Jose | To-do |
-| — | UX evaluation | T42 | Heuristic evaluation | Consolidar hallazgos de usabilidad, arquitectura de información y diseño inclusivo con el formato del Anexo D, incluyendo severidad, evidencia y recomendaciones. | 6 |  Cumba Rengifo, Leonardo Raul | To-do |
-| — | Product communication | T43 | About-the-Product video | Preparar y publicar un video de uno a tres minutos con escenas del producto y una opinión por segmento objetivo; registrar enlaces de Stream y YouTube. | 6 | Palacin Lazo, Gerardo Valentin | To-do |
-| — | Team communication | T44 | About-the-Team video | Coordinar los testimonios de los cinco integrantes y las escenas de trabajo, editar el video y registrar los enlaces de publicación. | 6 | Palacin Lazo, Gerardo Valentin | To-do |
-| — | Sprint documentation | T45 | Sprint report and evidence | Consolidar las evidencias del equipo y actualizar las secciones del Sprint, Student Outcome, registro de versiones y conclusiones. | 6 | Cumba Rengifo, Leonardo Raul | To-do |
-| — | Sprint management | T46 | Sprint board update | Registrar y confirmar historias, tareas, responsables y estimaciones en Trello e incorporar la captura del tablero del Sprint 3. | 4 | Cumba Rengifo, Leonardo Raul | To-do |
+| — | Validation interviews | T41 | Delivery point validation interviews | Realizar y documentar entrevistas con entre tres y cinco responsables de bodegas o minimarkets sobre seguimiento y recepción de pedidos. | 8 | Pezo Castilla, Maria Jose | In-Process |
+| — | UX evaluation | T42 | Heuristic evaluation | Consolidar hallazgos de usabilidad, arquitectura de información y diseño inclusivo con el formato del Anexo D, incluyendo severidad, evidencia y recomendaciones. | 6 | Cumba Rengifo, Leonardo Raul | To-do |
+| — | Product communication | T43 | About-the-Product video | Preparar y publicar un video de uno a tres minutos con escenas del producto y una opinión por segmento objetivo; registrar enlaces de Stream y YouTube. | 6 | Palacin Lazo, Gerardo Valentin | Done |
+| — | Team communication | T44 | About-the-Team video | Coordinar los testimonios de los cuatro integrantes y las escenas de trabajo, editar el video y registrar los enlaces de publicación. | 6 | Palacin Lazo, Gerardo Valentin | Done |
+| — | Sprint documentation | T45 | Sprint report and evidence | Consolidar las evidencias del equipo y actualizar las secciones del Sprint, Student Outcome, registro de versiones y conclusiones. | 6 | Cumba Rengifo, Leonardo Raul | In-Process |
+| — | Sprint management | T46 | Sprint board update | Registrar y confirmar historias, tareas, responsables y estimaciones en Trello e incorporar la captura del tablero del Sprint 3. | 4 | Cumba Rengifo, Leonardo Raul | Done |
 
+Al cierre del Sprint, 14 tareas están en **Done**, 18 en **In-Process** y 14 en **To-do**. Las tareas en **In-Process** tienen implementada su parte principal y les falta lo que se indica en la sección 5.2.3.1. Las tareas en **To-do** pasan al Sprint 4.
 
 
 
