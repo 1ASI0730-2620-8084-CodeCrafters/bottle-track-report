@@ -901,9 +901,79 @@ La siguiente tabla registra el estado de cada tarea al cierre del Sprint 3, el 2
 
 Al cierre del Sprint, 14 tareas están en **Done**, 18 en **In-Process** y 14 en **To-do**. Las tareas en **In-Process** tienen implementada su parte principal y les falta lo que se indica en la sección 5.2.3.1. Las tareas en **To-do** pasan al Sprint 4.
 
+<a id="5234-development-evidence-for-sprint-review"></a>
 
+#### 5.2.3.4. Development Evidence for Sprint Review.
 
+En el Sprint 3 se creó el repositorio de los Web Services y se trabajó en los repositorios del Landing Page y del informe. La siguiente tabla registra los commits integrados en `develop` desde el inicio del Sprint, el 2026-10-28, sin considerar los commits de integración de ramas. La columna *Branch* indica la rama de feature en la que se elaboró cada commit, y `develop` identifica los commits realizados directamente sobre esa rama.
 
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
+| :--------- | :----- | :-------- | :------------- | :------------------ | :------------------ |
+| bottle-track-web-services | feature/iam-and-backend-base | `3f49ef0` | `chore(persistence): add initial ef core migration for iam and fleet` | — | 2026-11-03 |
+| bottle-track-web-services | feature/iam-and-backend-base | `f63b3a6` | `feat(api): register iam and fleet services and snake_case enum serialization` | — | 2026-11-03 |
+| bottle-track-web-services | feature/iam-and-backend-base | `b163436` | `feat(shared): add localized error messages for iam and fleet` | — | 2026-11-03 |
+| bottle-track-web-services | feature/iam-and-backend-base | `ba46267` | `feat(fleet): add driver rest controller, resources and assembler` | — | 2026-11-01 |
+| bottle-track-web-services | feature/fleet-driver-management | `71b76d9` | `feat(fleet): add driver entity configuration and repository` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-driver-management | `600dabe` | `feat(fleet): add driver repository port and application services` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-vehicle-api | `a1a9380` | `feat(fleet): add vehicle rest controller, resources and assembler` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-vehicle-api | `cf72c16` | `feat(fleet): add vehicle entity configuration and repository` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-driver-management | `1c0eeff` | `feat(fleet): add driver register command and queries` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-vehicle-model | `664f806` | `feat(fleet): add vehicle repository port and application services` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-driver-management | `7459d9f` | `feat(fleet): add driver aggregate with license number and status value objects` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-vehicle-model | `e185a7c` | `feat(fleet): add vehicle register command and queries` | — | 2026-10-31 |
+| bottle-track-web-services | feature/fleet-vehicle-model | `c139727` | `feat(fleet): add vehicle aggregate with plate number and status value objects` | — | 2026-10-31 |
+| bottle-track-web-services | feature/iam-and-backend-base | `ce09a05` | `feat(iam): add user rest controller, resources and assembler` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `0fc7aba` | `feat(iam): add user entity configuration and repository` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `7312ecd` | `feat(iam): add user application services and pbkdf2 password hashing` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `edf61ae` | `feat(iam): add user register command and queries` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `f01ad25` | `feat(iam): add user aggregate with role, status and email value objects` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `a5283a8` | `feat(iam): add organization rest controller, resources and assembler` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `7313c54` | `feat(iam): add organization entity configuration and repository` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `e5a5d35` | `feat(iam): add organization repository port and application services` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `81b508c` | `feat(iam): add organization register command and queries` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `c01cf2c` | `feat(iam): add organization aggregate and tax id value object` | — | 2026-10-30 |
+| bottle-track-web-services | feature/iam-and-backend-base | `7b45e1b` | `refactor(shared): simplify kebab-case route convention and string extensions` | — | 2026-10-29 |
+| bottle-track-web-services | feature/iam-and-backend-base | `13c7529` | `refactor(shared): replace target-typed new and primary constructor in persistence` | — | 2026-10-29 |
+| bottle-track-web-services | feature/iam-and-backend-base | `45cf4fe` | `refactor(shared): use explicit members in the result pattern` | — | 2026-10-29 |
+| bottle-track-web-services | develop | `884a08f` | `chore(shared): add backend base project` | — | 2026-10-29 |
+| bottle-track-website | feature/landing-subscription-and-team | `3e5c062` | `feat(landing): add team member profile photos` | — | 2026-11-11 |
+| bottle-track-website | feature/landing-subscription-and-team | `f36e9b8` | `refactor(landing): remove obsolete contact form behavior` | — | 2026-11-11 |
+| bottle-track-website | feature/landing-subscription-and-team | `a2b345e` | `feat(i18n): add bilingual subscription and team content` | — | 2026-11-11 |
+| bottle-track-website | feature/landing-subscription-and-team | `195313d` | `style(landing): improve subscription and team layouts` | — | 2026-11-11 |
+| bottle-track-website | feature/landing-subscription-and-team | `3372feb` | `feat(landing): add subscription plans and video placeholders` | — | 2026-11-11 |
+| bottle-track-website | feature/team-video-behavior | `697bdc5` | `style(landing): use a solid border for the video frame` | — | 2026-10-31 |
+| bottle-track-website | feature/team-video-behavior | `68a8e46` | `feat(landing): reveal the team video section when a source is set` | — | 2026-10-31 |
+| bottle-track-website | feature/landing-i18n | `9c1b1c6` | `feat(i18n): add strings for the team section, privacy policy and terms` | — | 2026-10-31 |
+| bottle-track-website | feature/team-video-section | `3c2fbcf` | `feat(landing): add about-the-team video section to the home page` | — | 2026-10-30 |
+| bottle-track-website | feature/legal-pages | `dcebd4f` | `feat(legal): link the privacy policy from the footer` | — | 2026-10-30 |
+| bottle-track-website | feature/legal-pages | `eceb6a8` | `feat(legal): rework the terms of service page content` | — | 2026-10-29 |
+| bottle-track-website | feature/legal-pages | `f72e983` | `feat(legal): add privacy policy page` | — | 2026-10-29 |
+| bottle-track-report | develop | `9c9ebee` | `docs(report): update repository links to new assets path` | — | 2026-11-11 |
+| bottle-track-report | feature/tb1-corrections | `c550dd4` | `docs(report): separate anchors from headings for Pandoc` | — | 2026-11-10 |
+| bottle-track-report | feature/tb1-corrections | `dd8d73c` | `build(pandoc): add PDF build with Pandoc and XeLaTeX` | — | 2026-11-10 |
+| bottle-track-report | feature/tb1-corrections | `541c837` | `docs(report): restructure report into chapters and fix links` | — | 2026-11-10 |
+| bottle-track-report | feature/report-backend-and-database | `ef21e43` | `docs(report): describe the implemented backend and update the diagram source index` | — | 2026-11-03 |
+| bottle-track-report | feature/report-backend-and-database | `a35b833` | `docs(database-design): add database design section aligned with the initial migration` | — | 2026-11-03 |
+| bottle-track-report | fix/report-incident-diagrams | `c4a2358` | `docs(class-diagram): mark incident management backend classes as planned` | — | 2026-11-03 |
+| bottle-track-report | fix/report-iot-and-fleet-diagrams | `af4df86` | `docs(class-diagram): mark iot monitoring backend classes as planned` | — | 2026-11-03 |
+| bottle-track-report | fix/report-operations-diagrams | `d828b76` | `docs(class-diagram): mark operations and routes backend classes as planned` | — | 2026-11-03 |
+| bottle-track-report | fix/report-incident-diagrams | `ab432ea` | `docs(component-diagram): mark incident management as planned` | — | 2026-11-03 |
+| bottle-track-report | feature/report-backend-and-database | `b8a36f2` | `docs(class-diagram): align backend class model and identity and access classes` | — | 2026-11-03 |
+| bottle-track-report | fix/report-iot-and-fleet-diagrams | `310b026` | `docs(component-diagram): mark iot monitoring as planned` | — | 2026-11-03 |
+| bottle-track-report | fix/report-operations-diagrams | `0b2e055` | `docs(class-diagram): align fleet management backend classes with the code` | — | 2026-11-02 |
+| bottle-track-report | fix/report-iot-and-fleet-diagrams | `49c9de2` | `docs(component-diagram): align fleet management with the code` | — | 2026-11-02 |
+| bottle-track-report | fix/report-operations-diagrams | `ffadcce` | `docs(component-diagram): mark operations and routes as planned` | — | 2026-11-02 |
+| bottle-track-report | feature/report-backend-and-database | `c065b8f` | `docs(component-diagram): align identity and access management with the code` | — | 2026-11-02 |
+| bottle-track-report | feature/report-backend-and-database | `ab31818` | `docs(container-diagram): split website, spa and web services into separate containers` | — | 2026-11-02 |
+| bottle-track-report | develop | `0a83ffd` | `docs(class-diagram): update comments from diagram classes for better understanding` | — | 2026-11-02 |
+| bottle-track-report | develop | `f133dfc` | `docs(class-diagram): apply corrections to naming conventions to classes from frontend and backend` | — | 2026-11-02 |
+| bottle-track-report | develop | `c0222bb` | `docs(sprint-goal-3): apply common conventions for the spring goal 3` | — | 2026-11-02 |
+| bottle-track-report | develop | `caddedd` | `docs(container-diagram): create new diagram according to c4 model library` | — | 2026-11-02 |
+| bottle-track-report | develop | `f655907` | `docs(user-flows): model user goals with happy and unhappy paths` | State each user goal from its role and draw its decisions, alternative paths and error states over the mock-up screens. | 2026-11-02 |
+| bottle-track-report | develop | `9a63766` | `Sprint Backlog 3` | — | 2026-10-29 |
+| bottle-track-report | develop | `b8d9086` | `docs(sprint-3): add backlog with tasks and estimates` | — | 2026-10-29 |
+| bottle-track-report | develop | `8d527f1` | `docs(sprint-3): add leadership and collaboration matrix` | — | 2026-10-29 |
+| bottle-track-report | develop | `46e7317` | `docs(sprint-3): add sprint planning and goal` | — | 2026-10-29 |
 
 
 <a id="53-validation-interviews"></a>
