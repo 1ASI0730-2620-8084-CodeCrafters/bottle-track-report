@@ -901,6 +901,18 @@ Las horas y asignaciones de la siguiente tabla son estimaciones propuestas. El e
 
 
 
+<a id="5237-software-deployment-evidence-for-sprint-review"></a>
+
+#### 5.2.3.7. Software Deployment Evidence for Sprint Review.
+
+| Producto | Repositorio | Plataforma | Versión publicada | Estado al cierre del Sprint 3 |
+| :------- | :---------- | :--------- | :---------------- | :---------------------------- |
+| Landing Page | bottle-track-website | Netlify | v1.0.0 | La rama `develop` contiene los cambios del Sprint 3: planes de suscripción, sección del equipo con sus fotografías, política de privacidad y términos actualizados. Se publicarán con el siguiente release. |
+| Frontend Web Application | Frontend-Web-Aplication | Vercel | v1.0.0 | La versión publicada sigue consumiendo el fake API de Beeceptor. La versión integrada con los Web Services se ejecuta en el entorno local y se publicará cuando el API esté desplegado. |
+| Web Services | bottle-track-web-services | Por definir | — | Se ejecuta en el entorno local con MySQL. La publicación está preparada con el `Dockerfile` y la configuración por variables de entorno descritas en la sección 5.1.4. |
+
+El Landing Page publicado se mantiene en https://1asi0730-2620-8084-codecrafters.netlify.app/ y la Web Application en https://frontend-web-aplication.vercel.app. Ambas direcciones se verificaron al cierre del Sprint.
+
 
 <a id="53-validation-interviews"></a>
 
