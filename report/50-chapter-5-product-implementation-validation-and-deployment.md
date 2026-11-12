@@ -1162,13 +1162,13 @@ Los cuatro integrantes que participaron en el Sprint contribuyeron en los tres r
 
 ## 5.3. Validation Interviews.
 
-Las entrevistas de validación se realizan cuando los segmentos objetivo pueden interactuar con el Landing Page y con la Web Application desplegados. En esta sección se presenta su diseño, que se aplicará sobre la primera versión de la Web Application.
+Las entrevistas de validación se realizan cuando los segmentos objetivo pueden interactuar con el Landing Page y con la Web Application desplegados. En esta sección se presenta su diseño y el registro de las entrevistas realizadas sobre la primera versión de la Web Application.
 
 <a id="531-diseno-de-entrevistas"></a>
 
 ### 5.3.1. Diseño de Entrevistas.
 
-Se entrevistará a entre 3 y 5 representantes por segmento objetivo, preferentemente los mismos participantes de las entrevistas de Needfinding, para contrastar su situación actual con la experiencia que ofrece BottleTrack. Cada sesión se graba en video con la autorización del participante y comienza con la navegación libre del Landing Page, seguida de la ejecución de las tareas de su segmento en la Web Application.
+El diseño consideró entrevistar a entre 3 y 5 representantes por segmento objetivo, preferentemente los mismos participantes de las entrevistas de Needfinding, para contrastar su situación actual con la experiencia que ofrece BottleTrack. Cada sesión se graba en video con la autorización del participante y comienza con la navegación libre del Landing Page, seguida de la ejecución de las tareas de su segmento en la Web Application.
 
 | Segmento | Escenario | Tareas que realiza el participante |
 | :------- | :-------- | :--------------------------------- |
