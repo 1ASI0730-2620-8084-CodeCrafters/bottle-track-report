@@ -77,6 +77,7 @@
 | 2.12 | 2026-10-05 | Crispin Valdivia, Angel Gabriel | Actualización de los commits del informe por integrante en el Team Collaboration Insights del Sprint 2. |
 | 2.13 | 2026-10-05 | Crispin Valdivia, Angel Gabriel | Registro del video de exposición de TB1 en el Anexo A y en la Execution Evidence del Sprint 2. |
 | 2.14 | 2026-10-05 | Crispin Valdivia, Angel Gabriel | Registro de la versión v1.0.0 del Landing Page y de la Frontend Web Application en las evidencias de desarrollo, ejecución y despliegue del Sprint 2. |
+| 2.20 | 2026-11-12 | Cumba Rengifo, Leonardo Raul | Registro de las entrevistas de validación con distribuidoras y bodegas en la sección 5.3.2 y en el Anexo B. |
 
 <hr>
 
