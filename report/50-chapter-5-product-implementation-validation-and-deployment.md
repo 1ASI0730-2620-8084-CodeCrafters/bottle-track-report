@@ -901,6 +901,48 @@ Las horas y asignaciones de la siguiente tabla son estimaciones propuestas. El e
 
 
 
+<a id="5235-execution-evidence-for-sprint-review"></a>
+
+#### 5.2.3.5. Execution Evidence for Sprint Review.
+
+Las capturas muestran la Frontend Web Application consumiendo los Web Services en el entorno local, con datos persistidos en MySQL. Se utilizó una cuenta de cada rol de la misma empresa: administrador, supervisor de flota y responsable de bodega. En los tres roles la navegación por todas las vistas del menú se completó sin errores en la consola del navegador ni respuestas de error del API.
+
+**Inicio de sesión.** El inicio de sesión se valida contra el API, que devuelve el usuario autenticado y su token.
+
+<img src="assets/chapter5/sprint3/app-sign-in.png" alt="Vista de inicio de sesión de la Web Application" width="800">
+
+**Administrador: usuarios y empresa.** Los usuarios y los datos de la empresa se registran, consultan y editan en los Web Services.
+
+<img src="assets/chapter5/sprint3/app-users.png" alt="Gestión de usuarios con los tres roles" width="800">
+
+<img src="assets/chapter5/sprint3/app-company.png" alt="Datos de la empresa" width="800">
+
+**Administrador: vehículos, conductores y dispositivos IoT.** La placa, el DNI, la licencia y el número de serie duplicados son rechazados por el API.
+
+<img src="assets/chapter5/sprint3/app-vehicles.png" alt="Listado de vehículos" width="800">
+
+<img src="assets/chapter5/sprint3/app-drivers.png" alt="Listado de conductores" width="800">
+
+<img src="assets/chapter5/sprint3/app-devices.png" alt="Listado de dispositivos IoT con su rango seguro de temperatura y su umbral de golpes" width="800">
+
+**Supervisor de flota: operaciones.** El supervisor crea operaciones, agrega sus paradas y consulta su detalle. La operación `OP-00002` fue despachada con un vehículo y un conductor.
+
+<img src="assets/chapter5/sprint3/app-operations.png" alt="Listado de operaciones con su vehículo, conductor, avance y estado" width="800">
+
+<img src="assets/chapter5/sprint3/app-operation-detail.png" alt="Detalle de la operación OP-00002 con sus recursos y paradas" width="800">
+
+**Supervisor de flota: dashboard e incidencias.** El dashboard calcula sus indicadores con la información del API, y las incidencias se reportan, reciben evidencias y se resuelven en los Web Services.
+
+<img src="assets/chapter5/sprint3/app-analytics.png" alt="Dashboard con los indicadores del mes" width="800">
+
+<img src="assets/chapter5/sprint3/app-incidents.png" alt="Listado de incidencias con su severidad y estado" width="800">
+
+**Funciones del siguiente Sprint.** El monitoreo en vivo y el seguimiento de pedidos de la bodega muestran el aviso *Próximamente*, al igual que las acciones de las operaciones e incidencias que todavía no expone el API.
+
+<img src="assets/chapter5/sprint3/app-monitoring.png" alt="Vista de monitoreo con el aviso Próximamente" width="800">
+
+<img src="assets/chapter5/sprint3/app-tracking.png" alt="Vista Mis pedidos de la bodega con el aviso Próximamente" width="800">
+
 
 <a id="53-validation-interviews"></a>
 
