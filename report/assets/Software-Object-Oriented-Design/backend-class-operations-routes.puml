@@ -1,0 +1,87 @@
+@startuml
+' BottleTrack - Backend - Operations and Routes class diagram
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam class {
+  BackgroundColor #ffffff
+  BorderColor #b34900
+  ArrowColor #4f2000
+}
+skinparam package {
+  BackgroundColor #fff7ed
+  BorderColor #f97316
+}
+
+package "Operations and Routes" {
+  class TransportOperation <<Aggregate Root>> {
+    + Id: Guid
+    + OrganizationId: Guid
+    + Code: string
+    + Description: string
+    + ScheduledDate: DateOnly
+    + VehicleId: Guid?
+    + DriverId: Guid?
+    + Status: TransportOperationStatus
+    + DispatchedAt: DateTime?
+    + CompletedAt: DateTime?
+    + CancellationReason: string?
+    + {static} Create(code, organizationId, description, scheduledDate): TransportOperation
+    + AddStop(deliveryPointId, sequenceNumber, plannedQuantity): void
+    + Dispatch(vehicleId, driverId): void
+    + Complete(): void
+    + Cancel(reason): void
+  }
+  class DeliveryStop <<Entity>> {
+    + Id: Guid
+    + TransportOperationId: Guid
+    + DeliveryPointId: Guid
+    + SequenceNumber: int
+    + PlannedQuantity: int
+    + DeliveredQuantity: int?
+    + Status: DeliveryStopStatus
+    + FailureReason: string?
+    + ConfirmedAt: DateTime?
+    + {static} Create(transportOperationId, deliveryPointId, sequenceNumber, plannedQuantity): DeliveryStop
+  }
+  class DeliveryPoint <<Aggregate Root>> {
+    + Id: Guid
+    + OrganizationId: Guid
+    + OwnerUserId: Guid?
+    + BusinessName: string
+    + Address: string
+    + District: string
+    + Latitude: decimal?
+    + Longitude: decimal?
+    + {static} Register(organizationId, ownerUserId, businessName, address, district, latitude, longitude): DeliveryPoint
+  }
+  enum TransportOperationStatus {
+    Pending
+    Dispatched
+    InProgress
+    Completed
+    Cancelled
+  }
+  enum DeliveryStopStatus {
+    Pending
+    Delivered
+    PartiallyDelivered
+    NotDelivered
+  }
+  interface ITransportOperationRepository {
+    + FindByIdWithStopsAsync(id: Guid): Task<TransportOperation?>
+    + ListByOrganizationAsync(organizationId: Guid): Task<IEnumerable<TransportOperation>>
+    + CountAsync(): Task<int>
+  }
+  interface IDeliveryPointRepository {
+    + ListByOrganizationAsync(organizationId: Guid): Task<IEnumerable<DeliveryPoint>>
+  }
+  TransportOperation "1" *-- "0..*" DeliveryStop : contains
+  TransportOperation "1" --> "1" TransportOperationStatus : has status
+  DeliveryStop "1" --> "1" DeliveryStopStatus : has status
+  DeliveryStop "0..*" --> "1" DeliveryPoint : is delivered at
+  ITransportOperationRepository "1" ..> "0..*" TransportOperation : persists
+  IDeliveryPointRepository "1" ..> "0..*" DeliveryPoint : persists
+}
+@enduml
