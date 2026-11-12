@@ -760,7 +760,7 @@ Se elaboró un diagrama de componentes por bounded context. Los componentes dibu
 
 <img src="assets/DD-SoftwareArchitecture/componentOR_D.png" alt="Diagrama de componentes de Operations and Routes" width="800">
 
-**IoT Monitoring.** Recibe las lecturas de los dispositivos, las evalúa contra el rango seguro y levanta alertas. Publica el evento `AlertRaised` para que Incident Management actúe.
+**IoT Monitoring.** Registra los dispositivos con su rango seguro de temperatura y su umbral de impacto, recibe sus lecturas y gestiona las alertas. Implementado: registro y consulta de dispositivos, registro y consulta de lecturas por dispositivo, y registro, consulta y atención de alertas. La evaluación automática de cada lectura contra el rango seguro y la publicación del evento `AlertRaised` hacia Incident Management están planificadas.
 
 <img src="assets/DD-SoftwareArchitecture/componentIoTM_D.png" alt="Diagrama de componentes de IoT Monitoring" width="800">
 
@@ -840,11 +840,11 @@ Planifica y ejecuta las operaciones de transporte: sus recursos, su ruta de entr
 
 Vigila la carga durante la operación con las lecturas de temperatura y golpes de los dispositivos IoT, y genera alertas cuando se sale del rango seguro.
 
-*Frontend.* `IoTDevice` guarda su rango seguro de temperatura y su umbral de impacto, y con `isTemperatureSafe`, `isImpactSafe` y `evaluate` decide qué tipos de alerta de `ALERT_TYPES` corresponden a una `SensorReading` (como máximo dos, por eso la multiplicidad `0..2`). `Alert` registra la alerta y si ya fue atendida (`isAcknowledged`). `SafeRange` valida los límites que el usuario configura para un dispositivo. `MonitoredOperation` es una vista de lectura que agrupa una operación con su dispositivo (`0..1`) y su última lectura (`0..1`), e indica si la carga está segura o si el dispositivo está sin conexión. `MonitoringAssembler` crea estas clases y `MonitoringApi` accede al API con seis `BaseEndpoint`.
+*Frontend.* `IoTDevice` guarda su rango seguro de temperatura y su umbral de impacto, y con `isTemperatureSafe`, `isImpactSafe` y `evaluate` decide qué tipos de alerta de `ALERT_TYPES` corresponden a una `SensorReading` (como máximo dos, por eso la multiplicidad `0..2`). `Alert` registra la alerta y si ya fue atendida (`isAcknowledged`). `SafeRange` valida los límites que el usuario configura para un dispositivo. `MonitoredOperation` es una vista de lectura que agrupa una operación con su dispositivo (`0..1`) y su última lectura (`0..1`), e indica si la carga está segura o si el dispositivo está sin conexión. `MonitoringAssembler` crea estas clases y `MonitoringApi` accede al API con dos `BaseEndpoint`, uno para vehículos y otro para dispositivos.
 
 <img src="assets/Software-Object-Oriented-Design/frontend-class-iot-monitoring.png" alt="Diagrama de clases de IoT Monitoring en el frontend" width="800">
 
-*Backend.* `IoTDevice` es la raíz del agregado: se instala en un vehículo (`InstallOnVehicle`), se configura con un `SafeRange` (`ConfigureSafeRange`), registra muchas `SensorReading` y levanta muchas `Alert` cuando `Evaluate` detecta una lectura fuera de rango o un golpe fuerte. `Alert` es otra raíz de agregado, con tipo `AlertType` (temperatura fuera de rango, impacto detectado o dispositivo sin conexión), y se atiende con `Acknowledge`. `IIoTDeviceRepository` busca el dispositivo de un vehículo e `IAlertRepository` lista las alertas de las operaciones.
+*Backend.* El contexto tiene tres raíces de agregado, porque las lecturas y las alertas se registran con alta frecuencia y no deben bloquear al dispositivo. `IotDevice` se registra (`Register`) instalado en un vehículo, con su rango seguro de temperatura (`SafeTemperatureMin` y `SafeTemperatureMax`) y su umbral de impacto, y cambia de estado con `GoOffline` y `Retire`. `SensorReading` es inmutable: se crea con `Record` y guarda la ubicación, la temperatura y la fuerza de impacto de un momento del viaje. `Alert` se levanta con `Raise`, con un tipo de `AlertType` (temperatura fuera de rango, impacto detectado o dispositivo sin conexión), y se atiende con `Acknowledge`. `IIotDeviceRepository` busca un dispositivo por su número de serie, para evitar duplicados, e `ISensorReadingRepository` e `IAlertRepository` listan las lecturas y las alertas de un dispositivo.
 
 <img src="assets/Software-Object-Oriented-Design/backend-class-iot-monitoring.png" alt="Diagrama de clases de IoT Monitoring en el backend" width="800">
 
