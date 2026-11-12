@@ -693,12 +693,12 @@ El Backend API se organiza como un **monolito modular**: un solo despliegue con 
 
 | Capa | Contenido | Rol en la arquitectura hexagonal |
 | :--- | :-------- | :------------------------------- |
-| Interfaces | Controllers REST y manejadores de eventos | Adaptadores de entrada |
+| Interfaces | Controllers REST; los manejadores de eventos están planificados | Adaptadores de entrada |
 | Application | Command Services y Query Services | Implementan los puertos de entrada y orquestan los casos de uso |
-| Domain | Agregados, entidades, value objects, eventos de dominio e interfaces de repositorio | Núcleo del negocio, sin dependencias de frameworks. Declara los puertos de salida |
-| Infrastructure | Repositorios con Entity Framework Core, cliente del servicio de mapas, emisión de tokens | Adaptadores de salida que implementan los puertos del dominio |
+| Domain | Agregados, entidades, value objects e interfaces de repositorio; los eventos de dominio están planificados | Núcleo del negocio, sin dependencias de frameworks. Declara los puertos de salida |
+| Infrastructure | Repositorios con Entity Framework Core, cálculo del hash de contraseñas y emisión de tokens JWT; el cliente del servicio de mapas está planificado | Adaptadores de salida que implementan los puertos del dominio |
 
-Los bounded contexts no acceden a las tablas de los demás. Se comunican a través de **facades** (por ejemplo, Operations and Routes reserva un vehículo mediante la facade de Fleet Management) o de **eventos de dominio** (IoT Monitoring publica `AlertRaised` e Incident Management abre una incidencia).
+Los bounded contexts no acceden a las tablas de los demás. Se comunican a través de **facades** (por ejemplo, Operations and Routes reserva un vehículo mediante la facade de Fleet Management) o de **eventos de dominio** (IoT Monitoring publica `AlertRaised` e Incident Management abre una incidencia). Estos mecanismos de comunicación están planificados: en la versión actual de los Web Services cada contexto referencia a los demás solo por su identificador, como `VehicleId` o `TransportOperationId`.
 
 <a id="461-design-level-event-storming"></a>
 
@@ -716,7 +716,7 @@ El tablero se encuentra disponible en: https://miro.com/welcomeonboard/aEpQNnI1b
 
 El diagrama de contexto muestra a BottleTrack como una caja negra y su relación con las personas y los sistemas externos. Sus usuarios son el administrador de la distribuidora, el supervisor de flota y el responsable de la bodega. El conductor aparece como actor del dominio que reporta al supervisor, pero no usa la aplicación. Los sistemas externos son los dispositivos IoT instalados en los vehículos y el servicio de mapas y geolocalización, que constituye el servicio de terceros que consume la solución.
 
-Los diagramas C4 se elaboraron con Structurizr DSL; el código fuente de cada diagrama se encuentra junto a su imagen ...en la carpeta `report/assets/DD-SoftwareArchitecture` del repositorio.
+Los diagramas C4 se elaboraron con Structurizr DSL y se renderizaron con Structurizr Playground (https://playground.structurizr.com). El código fuente de todos los diagramas (`containerDiagram.txt`) se encuentra junto a sus imágenes en la carpeta `report/assets/DD-SoftwareArchitecture` del repositorio.
 
 <img src="assets/DD-SoftwareArchitecture/contextDiagram.png" alt="Diagrama de contexto C4 de BottleTrack" width="800">
 
@@ -731,7 +731,7 @@ El diagrama de contenedores muestra las unidades desplegables de la solución:
 | Website | HTML5, CSS3, JavaScript | Netlify (contenido estático) |
 | Web Application Static Content | Archivos HTML, CSS y JavaScript generados por el build de Vue 3 | Vercel (contenido estático) |
 | Single-Page Application | Vue 3, PrimeVue, Pinia, Vue Router, vue-i18n, axios | Navegador del usuario |
-| Web Services | ASP.NET Core (.NET 10), C#, Entity Framework Core, documentado con OpenAPI y Scalar | Proveedor de nube (monolito) |
+| Web Services | ASP.NET Core (.NET 10), C#, Entity Framework Core, documentado con OpenAPI y Swagger UI | Proveedor de nube (monolito) |
 | Database | MySQL | Proveedor de nube |
 
 El Website y la Web Application son dos productos distintos y ambos se despliegan como contenido estático, es decir, como una copia de carpetas con archivos HTML, CSS y JavaScript hacia un hosting. Por eso el diagrama los representa con el contenedor de tipo carpeta.
