@@ -901,6 +901,119 @@ Las horas y asignaciones de la siguiente tabla son estimaciones propuestas. El e
 
 
 
+<a id="5236-services-documentation-evidence-for-sprint-review"></a>
+
+#### 5.2.3.6. Services Documentation Evidence for Sprint Review.
+
+Los Web Services se documentan con OpenAPI. ASP.NET Core genera el documento en `/openapi/v1.json` y Swagger UI lo presenta en `/swagger`, donde cada endpoint se puede ejecutar con sus parámetros y ver su respuesta. El repositorio es https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-web-services y los commits de cada contexto se registran en la sección 5.2.3.4.
+
+Todos los endpoints siguen las mismas convenciones:
+
+- Las rutas se escriben en kebab-case y en plural bajo el prefijo `/api/v1`, por ejemplo `/api/v1/transport-operations`.
+- Los cuerpos de las solicitudes y de las respuestas usan JSON, con propiedades en camelCase y valores de enumeraciones en snake_case, por ejemplo `"fleet_supervisor"` o `"temperature_out_of_range"`.
+- Las respuestas de error usan el formato `ProblemDetails` (RFC 9110), con un mensaje traducido al idioma de la cabecera `Accept-Language` (inglés o español).
+- `201 Created` indica un registro nuevo e incluye su ubicación; `400` indica datos inválidos; `404`, un recurso inexistente; `409`, un dato único repetido; y `401`, credenciales incorrectas.
+
+<img src="assets/chapter5/sprint3/swagger-overview.png" alt="Swagger UI con los endpoints de los Web Services agrupados por recurso" width="800">
+
+La documentación cubre 39 endpoints, organizados por bounded context:
+
+Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta o de consulta y si la solicitud lleva un cuerpo JSON, y los códigos de respuesta posibles. El esquema de cada cuerpo y de cada respuesta se consulta en Swagger UI, y los ejemplos que siguen muestran dos respuestas completas.
+
+**Identity and Access Management** (9 endpoints)
+
+| Verbo | Endpoint | Descripción | Parámetros | Respuestas |
+| :----- | :---------------------------- | :--------------------------------- | :--------------- | :---------- |
+| POST | `/api/v1/authentication/sign-in` | Valida el correo y la contraseña y devuelve el usuario autenticado con su token JWT. | cuerpo JSON | 200, 401 |
+| POST | `/api/v1/organizations` | Registra una empresa distribuidora; el RUC no puede repetirse. | cuerpo JSON | 201, 400, 409 |
+| GET | `/api/v1/organizations/{id}` | Devuelve una empresa por su identificador. | `id` (ruta) | 200, 404 |
+| PUT | `/api/v1/organizations/{id}` | Actualiza la razón social, el teléfono y la dirección de la empresa. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
+| POST | `/api/v1/users` | Registra un usuario de la empresa con su rol; el correo no puede repetirse. | cuerpo JSON | 201, 400, 404, 409 |
+| GET | `/api/v1/users` | Lista los usuarios de una empresa. | `organizationId` (query) | 200 |
+| GET | `/api/v1/users/{id}` | Devuelve un usuario por su identificador. | `id` (ruta) | 200, 404 |
+| PUT | `/api/v1/users/{id}` | Actualiza el nombre, el apellido y el correo de un usuario. | `id` (ruta), cuerpo JSON | 200, 400, 404, 409 |
+| PUT | `/api/v1/users/{id}/role` | Asigna un nuevo rol a un usuario. | `id` (ruta), cuerpo JSON | 200, 404 |
+
+**Fleet Management** (8 endpoints)
+
+| Verbo | Endpoint | Descripción | Parámetros | Respuestas |
+| :----- | :---------------------------- | :--------------------------------- | :--------------- | :---------- |
+| POST | `/api/v1/vehicles` | Registra un vehículo; la placa no puede repetirse. | cuerpo JSON | 201, 400, 409 |
+| GET | `/api/v1/vehicles` | Lista los vehículos de una empresa; con `onlyAvailable=true`, solo los disponibles. | `organizationId` (query), `onlyAvailable` (query) | 200 |
+| GET | `/api/v1/vehicles/{id}` | Devuelve un vehículo por su identificador. | `id` (ruta) | 200, 404 |
+| PUT | `/api/v1/vehicles/{id}` | Actualiza la marca, el modelo y la capacidad en cajas de un vehículo. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
+| POST | `/api/v1/drivers` | Registra un conductor; el DNI y la licencia no pueden repetirse. | cuerpo JSON | 201, 400, 409 |
+| GET | `/api/v1/drivers` | Lista los conductores de una empresa; con `onlyAvailable=true`, solo los disponibles. | `organizationId` (query), `onlyAvailable` (query) | 200 |
+| GET | `/api/v1/drivers/{id}` | Devuelve un conductor por su identificador. | `id` (ruta) | 200, 404 |
+| PUT | `/api/v1/drivers/{id}` | Actualiza el nombre, el apellido y el teléfono de un conductor. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
+
+**Operations and Routes** (8 endpoints)
+
+| Verbo | Endpoint | Descripción | Parámetros | Respuestas |
+| :----- | :---------------------------- | :--------------------------------- | :--------------- | :---------- |
+| POST | `/api/v1/delivery-points` | Registra un punto de entrega (bodega o minimarket), opcionalmente con su responsable y su ubicación. | cuerpo JSON | 201, 400 |
+| GET | `/api/v1/delivery-points` | Lista los puntos de entrega de una empresa. | `organizationId` (query) | 200 |
+| GET | `/api/v1/delivery-points/{id}` | Devuelve un punto de entrega por su identificador. | `id` (ruta) | 200, 404 |
+| POST | `/api/v1/transport-operations` | Crea una operación de transporte en estado pendiente, con un código correlativo `OP-00000`. | cuerpo JSON | 201, 400 |
+| GET | `/api/v1/transport-operations` | Lista las operaciones de una empresa con sus paradas. | `organizationId` (query) | 200 |
+| POST | `/api/v1/transport-operations/{id}/delivery-stops` | Agrega una parada a una operación pendiente, con su número de secuencia y la cantidad planificada. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
+| PUT | `/api/v1/transport-operations/{id}/dispatch` | Despacha la operación con un vehículo y un conductor. | `id` (ruta), cuerpo JSON | 200, 404 |
+| GET | `/api/v1/transport-operations/{id}` | Devuelve una operación con sus paradas. | `id` (ruta) | 200, 404 |
+
+**IoT Monitoring** (9 endpoints)
+
+| Verbo | Endpoint | Descripción | Parámetros | Respuestas |
+| :----- | :---------------------------- | :--------------------------------- | :--------------- | :---------- |
+| POST | `/api/v1/iot-devices` | Registra un dispositivo IoT con su rango seguro de temperatura y su umbral de impacto; el número de serie no puede repetirse. | cuerpo JSON | 201, 400, 409 |
+| GET | `/api/v1/iot-devices` | Lista los dispositivos IoT. | — | 200 |
+| GET | `/api/v1/iot-devices/{id}` | Devuelve un dispositivo por su identificador. | `id` (ruta) | 200, 404 |
+| POST | `/api/v1/sensor-readings` | Registra una lectura simulada de ubicación, temperatura y fuerza de impacto. | cuerpo JSON | 201, 400 |
+| GET | `/api/v1/sensor-readings` | Lista las lecturas de un dispositivo. | `iotDeviceId` (query) | 200 |
+| POST | `/api/v1/alerts` | Levanta una alerta de un dispositivo sobre una operación. | cuerpo JSON | 201, 400 |
+| GET | `/api/v1/alerts` | Lista las alertas de un dispositivo. | `iotDeviceId` (query) | 200 |
+| PUT | `/api/v1/alerts/{id}/acknowledgement` | Registra la atención de una alerta por un usuario. | `id` (ruta), cuerpo JSON | 200, 404 |
+| GET | `/api/v1/alerts/{id}` | Devuelve una alerta por su identificador. | `id` (ruta) | 200, 404 |
+
+**Incident Management** (5 endpoints)
+
+| Verbo | Endpoint | Descripción | Parámetros | Respuestas |
+| :----- | :---------------------------- | :--------------------------------- | :--------------- | :---------- |
+| POST | `/api/v1/incidents` | Reporta una incidencia sobre una operación, con un código correlativo `INC-00000`. | cuerpo JSON | 201, 400 |
+| GET | `/api/v1/incidents` | Lista las incidencias de una operación. | `transportOperationId` (query) | 200 |
+| POST | `/api/v1/incidents/{id}/evidences` | Agrega una evidencia, como enlace al archivo, a una incidencia. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
+| PUT | `/api/v1/incidents/{id}/resolution` | Registra la resolución de una incidencia. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
+| GET | `/api/v1/incidents/{id}` | Devuelve una incidencia con sus evidencias. | `id` (ruta) | 200, 404 |
+
+**Ejemplo 1: inicio de sesión.** La solicitud envía el correo y la contraseña:
+
+```json
+POST /api/v1/authentication/sign-in
+{ "email": "supervisor@codecrafters.pe", "password": "********" }
+```
+
+La respuesta `200 OK` devuelve los datos del usuario autenticado, su empresa, su rol y el token JWT que la aplicación guarda para la sesión:
+
+```json
+{
+  "id": "175aa1e9-ef95-438e-b42e-9ad5ffae3525",
+  "organizationId": "1fc1634e-b939-468c-9aca-f8ff413f6ff2",
+  "email": "supervisor@codecrafters.pe",
+  "firstName": "Sofia",
+  "lastName": "Ramos",
+  "role": "fleet_supervisor",
+  "status": "active",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5..."
+}
+```
+
+Si la contraseña no es correcta, la respuesta es `401 Unauthorized` con el detalle "El correo o la contraseña no son correctos." cuando la cabecera `Accept-Language` es `es`.
+
+<img src="assets/chapter5/sprint3/swagger-sign-in.png" alt="Endpoint de inicio de sesión en Swagger UI" width="800">
+
+**Ejemplo 2: operaciones de una empresa.** `GET /api/v1/transport-operations?organizationId=…` devuelve `200 OK` con la lista de operaciones. Cada una incluye su código correlativo, la fecha programada, el vehículo y el conductor asignados, su estado y sus paradas (`deliveryStops`) con el número de secuencia, la cantidad planificada y la entregada y el estado de cada entrega. La captura muestra la ejecución del endpoint desde Swagger UI.
+
+<img src="assets/chapter5/sprint3/swagger-transport-operations.png" alt="Ejecución del endpoint GET transport-operations en Swagger UI con su respuesta" width="800">
+
 
 <a id="53-validation-interviews"></a>
 
