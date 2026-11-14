@@ -76,7 +76,7 @@ El seguimiento de modificaciones se realiza con Git, gestionado desde GitHub. El
 | Repositorio | Contenido | URL |
 | :---------- | :-------- | :-- |
 | bottle-track-website | Landing Page: sitio web estático en HTML5, CSS3 y JavaScript. | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-website |
-| Frontend-Web-Aplication | Aplicación web desarrollada con Vue Framework. | https://github.com/1ASI0730-2620-8084-CodeCrafters/Frontend-Web-Aplication |
+| bottle-track-web-application | Aplicación web desarrollada con Vue Framework. | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-web-application |
 | bottle-track-web-services | RESTful API en ASP.NET Core, con sus pruebas unitarias y de integración. | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-web-services |
 | bottle-track-report | Informe del proyecto en formato Markdown, con su compilación a PDF. | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-report |
 
@@ -181,7 +181,7 @@ El Landing Page se publica en Netlify a partir de la rama `main` del repositorio
 
 **Frontend Web Application**
 
-La aplicación web se publica en Vercel a partir de la rama `main` del repositorio `Frontend-Web-Aplication`, mediante la integración de Vercel con GitHub. Los pasos son los siguientes:
+La aplicación web se publica en Vercel a partir de la rama `main` del repositorio `bottle-track-web-application`, mediante la integración de Vercel con GitHub. Los pasos son los siguientes:
 
 1. Importar el repositorio desde el panel de Vercel.
 2. Configurar el comando de construcción y el directorio de salida que corresponden a un proyecto de Vue.

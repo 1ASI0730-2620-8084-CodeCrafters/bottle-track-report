@@ -12,7 +12,7 @@ En esta sección se relacionan los repositorios de la organización pública de 
 | :------- | :---------- |
 | Informe del proyecto | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-report |
 | Landing Page | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-website |
-| Frontend Web Application | https://github.com/1ASI0730-2620-8084-CodeCrafters/Frontend-Web-Aplication |
+| Frontend Web Application | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-web-application |
 | Web Services | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-web-services |
 
 <hr>
