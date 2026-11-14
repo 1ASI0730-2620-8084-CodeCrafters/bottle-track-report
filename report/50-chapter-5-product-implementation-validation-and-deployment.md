@@ -1009,6 +1009,31 @@ En el Sprint 3 se creó el repositorio de los Web Services y se trabajó en los 
 | bottle-track-website | feature/legal-pages | `dcebd4f` | `feat(legal): link the privacy policy from the footer` | — | 2026-10-30 |
 | bottle-track-website | feature/legal-pages | `eceb6a8` | `feat(legal): rework the terms of service page content` | — | 2026-10-29 |
 | bottle-track-website | feature/legal-pages | `f72e983` | `feat(legal): add privacy policy page` | — | 2026-10-29 |
+| bottle-track-report | chore/report-version-log | `7680394` | `docs(report): update cover date, version log and table of contents` | — | 2026-11-12 |
+| bottle-track-report | feature/report-validation-interviews | `aa685a9` | `docs(report): register the validation interviews` | — | 2026-11-12 |
+| bottle-track-report | fix/report-terms-and-conclusions | `15e6ef2` | `docs(report): add sprint 3 conclusions and recommendations` | — | 2026-11-12 |
+| bottle-track-report | feature/report-validation-interviews | `37a798d` | `docs(report): update the validation interview design` | — | 2026-11-12 |
+| bottle-track-report | fix/report-terms-and-conclusions | `1771f29` | `fix(report): align the terms with fleet supervisor and minimarket roles` | — | 2026-11-12 |
+| bottle-track-report | feature/report-videos-and-links | `ebd608c` | `docs(report): update landing page labels for the subscription section` | — | 2026-11-11 |
+| bottle-track-report | feature/report-videos-and-links | `538c325` | `docs(report): update repository and trello links in the annexes` | — | 2026-11-11 |
+| bottle-track-report | feature/report-sprint-3-planning | `4268daa` | `docs(report): add the development evidence of sprint 3` | — | 2026-11-11 |
+| bottle-track-report | feature/report-videos-and-links | `1d6d361` | `docs(report): add the about the team video` | — | 2026-11-11 |
+| bottle-track-report | feature/report-sprint-3-evidence | `ce59c41` | `docs(report): add the team collaboration insights of sprint 3` | — | 2026-11-11 |
+| bottle-track-report | feature/report-services-documentation | `f1a5b23` | `docs(report): add the services documentation evidence of sprint 3` | — | 2026-11-11 |
+| bottle-track-report | feature/report-sprint-3-planning | `51b9014` | `docs(report): close the sprint 3 planning and backlog` | — | 2026-11-11 |
+| bottle-track-report | feature/report-videos-and-links | `3af12b2` | `docs(report): add the about the product video` | — | 2026-11-11 |
+| bottle-track-report | feature/report-sprint-3-planning | `fe465f0` | `docs(report): update tools, conventions and deployment configuration` | — | 2026-11-11 |
+| bottle-track-report | feature/report-sprint-3-evidence | `3c528e2` | `docs(report): add the execution evidence of sprint 3` | — | 2026-11-11 |
+| bottle-track-report | feature/report-videos-and-links | `863481e` | `docs(report): add the software deployment evidence of sprint 3` | — | 2026-11-11 |
+| bottle-track-report | fix/report-iam-diagrams-sprint-3 | `1ecac33` | `fix(report): regenerate the complete class diagrams and their sources` | — | 2026-11-11 |
+| bottle-track-report | fix/report-iot-diagrams-sprint-3 | `2d2d8e8` | `fix(report): update the database diagram with the twelve tables` | — | 2026-11-11 |
+| bottle-track-report | fix/report-operations-diagrams-sprint-3 | `e1af59f` | `fix(report): update context and container diagrams with the five contexts` | — | 2026-11-11 |
+| bottle-track-report | fix/report-incident-and-fleet-diagrams-sprint-3 | `5f11b0b` | `fix(report): align fleet management backend and component diagrams` | — | 2026-11-11 |
+| bottle-track-report | fix/report-iam-diagrams-sprint-3 | `93cc875` | `fix(report): update the fleet management frontend class diagram` | — | 2026-11-11 |
+| bottle-track-report | fix/report-incident-and-fleet-diagrams-sprint-3 | `0466bce` | `fix(report): align incident management diagrams with the web services` | — | 2026-11-11 |
+| bottle-track-report | fix/report-iot-diagrams-sprint-3 | `f33dcf5` | `fix(report): align iot monitoring diagrams with the web services` | — | 2026-11-11 |
+| bottle-track-report | fix/report-operations-diagrams-sprint-3 | `809e8d4` | `fix(report): align operations and routes diagrams with the web services` | — | 2026-11-11 |
+| bottle-track-report | fix/report-iam-diagrams-sprint-3 | `bbb18ff` | `fix(report): align identity and access diagrams with the web services` | — | 2026-11-11 |
 | bottle-track-report | develop | `9c9ebee` | `docs(report): update repository links to new assets path` | — | 2026-11-11 |
 | bottle-track-report | feature/tb1-corrections | `c550dd4` | `docs(report): separate anchors from headings for Pandoc` | — | 2026-11-10 |
 | bottle-track-report | feature/tb1-corrections | `dd8d73c` | `build(pandoc): add PDF build with Pandoc and XeLaTeX` | — | 2026-11-10 |
