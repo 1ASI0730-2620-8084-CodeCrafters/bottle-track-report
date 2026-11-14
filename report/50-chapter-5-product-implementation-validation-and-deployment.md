@@ -905,10 +905,68 @@ Al cierre del Sprint, 14 tareas están en **Done**, 18 en **In-Process** y 14 en
 
 #### 5.2.3.4. Development Evidence for Sprint Review.
 
-En el Sprint 3 se creó el repositorio de los Web Services y se trabajó en los repositorios del Landing Page y del informe. La siguiente tabla registra los commits integrados en `develop` desde el inicio del Sprint, el 2026-10-28, sin considerar los commits de integración de ramas. La columna *Branch* indica la rama de feature en la que se elaboró cada commit, y `develop` identifica los commits realizados directamente sobre esa rama.
+En el Sprint 3 se creó el repositorio de los Web Services, se integró con ellos la Web Application y se trabajó en los repositorios del Landing Page y del informe. La siguiente tabla registra los commits integrados en `develop` desde el inicio del Sprint, el 2026-10-28, hasta la entrega de AV2, el 2026-11-13, sin considerar los commits de integración de ramas. La columna *Branch* indica la rama de feature en la que se elaboró cada commit, y `develop` identifica los commits realizados directamente sobre esa rama.
 
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
 | :--------- | :----- | :-------- | :------------- | :------------------ | :------------------ |
+| bottle-track-web-services | release/2.0.0 | `b5a1b39` | `docs(release): document version 2.0.0` | — | 2026-11-13 |
+| bottle-track-web-services | feature/fleet-status-changes | `3a14329` | `test(fleet): cover driver status changes` | — | 2026-11-13 |
+| bottle-track-web-services | feature/fleet-status-changes | `94ec3a2` | `test(fleet): cover vehicle status changes` | — | 2026-11-13 |
+| bottle-track-web-services | feature/fleet-status-changes | `073e351` | `feat(fleet): accept a status change when updating drivers` | — | 2026-11-13 |
+| bottle-track-web-services | feature/fleet-status-changes | `770f357` | `feat(fleet): accept a status change when updating vehicles` | — | 2026-11-13 |
+| bottle-track-web-services | feature/iam-tokens-and-roles | `c6bb01f` | `feat(iam): add the roles controller with the users of each role` | — | 2026-11-13 |
+| bottle-track-web-services | feature/fleet-status-changes | `c1e3e37` | `feat(fleet): let drivers be deactivated and activated` | — | 2026-11-13 |
+| bottle-track-web-services | feature/iam-tokens-and-roles | `3edcba4` | `feat(iam): add the query to list users by role` | — | 2026-11-13 |
+| bottle-track-web-services | fix/alert-acknowledgments-endpoint | `b63d801` | `fix(monitoring): acknowledge alerts with a post to acknowledgments` | — | 2026-11-12 |
+| bottle-track-web-services | fix/incident-resolutions-endpoint | `69482b0` | `fix(incidents): resolve incidents with a post to resolutions` | — | 2026-11-12 |
+| bottle-track-web-services | feature/fleet-status-changes | `aca89ed` | `feat(fleet): let vehicles return to service from maintenance` | — | 2026-11-12 |
+| bottle-track-web-services | feature/iam-tokens-and-roles | `dc9904a` | `refactor(iam): assign user roles with a post to roles` | — | 2026-11-12 |
+| bottle-track-web-services | feature/scalar-api-reference | `9797e76` | `docs(readme): point to the scalar api reference` | — | 2026-11-12 |
+| bottle-track-web-services | feature/fleet-status-changes | `6693156` | `feat(fleet): add the invalid status change error and its messages` | — | 2026-11-12 |
+| bottle-track-web-services | fix/transport-operation-dispatches-endpoint | `c105949` | `fix(operations): dispatch transport operations with a post to dispatches` | — | 2026-11-12 |
+| bottle-track-web-services | feature/iam-tokens-and-roles | `bfd6913` | `test(iam): sign in through the tokens endpoint` | — | 2026-11-12 |
+| bottle-track-web-services | feature/scalar-api-reference | `5c84891` | `feat(api): replace swagger ui with the scalar api reference` | — | 2026-11-12 |
+| bottle-track-web-services | feature/iam-tokens-and-roles | `98ec681` | `refactor(iam): expose sign in as the tokens resource` | — | 2026-11-12 |
+| bottle-track-web-services | feature/scalar-api-reference | `67573a7` | `build(api): add the scalar api reference package` | — | 2026-11-12 |
+| bottle-track-web-services | release/1.0.1 | `b27480f` | `docs(release): document version 1.0.1` | — | 2026-11-12 |
+| bottle-track-web-services | fix/transport-operation-scheduled-date | `e22f500` | `chore(persistence): update the model snapshot for the scheduled date migration` | — | 2026-11-12 |
+| bottle-track-web-services | fix/transport-operation-scheduled-date | `2743cc1` | `fix(operations): add migration to store the scheduled date as datetime` | — | 2026-11-12 |
+| bottle-track-web-services | release/1.0.0 | `a3284cb` | `docs(release): document version 1.0.0` | — | 2026-11-12 |
+| bottle-track-web-services | feature/api-tests | `41003d8` | `test(iam): add authentication integration tests` | — | 2026-11-11 |
+| bottle-track-web-services | feature/fleet-vehicle-update | `139f303` | `feat(fleet): expose vehicle update endpoint` | — | 2026-11-11 |
+| bottle-track-web-services | feature/api-tests | `a8381cd` | `test(api): add unit tests for value objects and the user aggregate` | — | 2026-11-11 |
+| bottle-track-web-services | feature/fleet-vehicle-update | `5649d02` | `feat(fleet): add vehicle details update to the aggregate` | — | 2026-11-11 |
+| bottle-track-web-services | feature/api-tests | `3a8c705` | `fix(api): use es-419 as the supported spanish culture` | — | 2026-11-11 |
+| bottle-track-web-services | chore/ef-core-migrations | `82ec010` | `chore(persistence): add migration for iot monitoring` | — | 2026-11-10 |
+| bottle-track-web-services | chore/ef-core-migrations | `aff2bcc` | `chore(persistence): add migration for operations and routes` | — | 2026-11-10 |
+| bottle-track-web-services | chore/ef-core-migrations | `7a06623` | `chore(persistence): add migration for incident management` | — | 2026-11-10 |
+| bottle-track-web-services | feature/fleet-driver-update | `6acbe10` | `feat(fleet): expose driver update endpoint` | — | 2026-11-10 |
+| bottle-track-web-services | feature/operations-and-routes | `f1cc24a` | `feat(operations): add transport operations controller` | — | 2026-11-10 |
+| bottle-track-web-services | feature/fleet-driver-update | `7ec33f9` | `feat(fleet): add driver profile update to the aggregate` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iam-authentication | `7d1c992` | `feat(iam): add organization update` | — | 2026-11-10 |
+| bottle-track-web-services | feature/operations-and-routes | `1584724` | `feat(operations): add delivery points controller` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iam-authentication | `5fa8dd0` | `feat(iam): add user profile update and role assignment` | — | 2026-11-10 |
+| bottle-track-web-services | feature/incident-management | `22c8678` | `feat(incidents): add incidents rest controller and resources` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `160b84e` | `feat(monitoring): add alerts endpoint` | — | 2026-11-10 |
+| bottle-track-web-services | feature/operations-and-routes | `cd41f73` | `feat(operations): add operations persistence with ef core` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `0860228` | `feat(monitoring): add sensor readings endpoint` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `d5bd3dc` | `feat(monitoring): add iot devices endpoint` | — | 2026-11-10 |
+| bottle-track-web-services | feature/incident-management | `8173a7f` | `feat(incidents): add incident persistence with ef core` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iam-authentication | `64653e8` | `feat(iam): add authentication endpoint with jwt bearer` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `72ca709` | `feat(monitoring): add monitoring persistence with ef core` | — | 2026-11-10 |
+| bottle-track-web-services | feature/operations-and-routes | `73153cb` | `feat(operations): add delivery point and transport operation services` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `3d83c1f` | `feat(monitoring): add sensor reading and alert services` | — | 2026-11-10 |
+| bottle-track-web-services | feature/incident-management | `d968ae5` | `feat(incidents): add incident command and query services` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iam-authentication | `40babf1` | `feat(iam): add sign-in command service` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `2dfea58` | `feat(monitoring): add iot device command and query services` | — | 2026-11-10 |
+| bottle-track-web-services | feature/operations-and-routes | `d730907` | `feat(operations): add transport operation aggregate with delivery stops` | — | 2026-11-10 |
+| bottle-track-web-services | feature/incident-management | `e3d8774` | `feat(incidents): add incident commands, queries and repository port` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `cc4e4eb` | `feat(monitoring): add sensor reading and alert aggregates` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iam-authentication | `4c5cab9` | `feat(iam): add jwt settings and token service` | — | 2026-11-10 |
+| bottle-track-web-services | feature/incident-management | `c64c03c` | `feat(incidents): add incident aggregate, evidence and value objects` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `bae97f8` | `feat(monitoring): add iot device aggregate and repository port` | — | 2026-11-10 |
+| bottle-track-web-services | feature/operations-and-routes | `1c88202` | `feat(operations): add delivery point aggregate and repository port` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iam-authentication | `6b3e2c2` | `chore(api): replace scalar with swagger ui and use port 5280` | — | 2026-11-10 |
 | bottle-track-web-services | feature/iam-and-backend-base | `3f49ef0` | `chore(persistence): add initial ef core migration for iam and fleet` | — | 2026-11-03 |
 | bottle-track-web-services | feature/iam-and-backend-base | `f63b3a6` | `feat(api): register iam and fleet services and snake_case enum serialization` | — | 2026-11-03 |
 | bottle-track-web-services | feature/iam-and-backend-base | `b163436` | `feat(shared): add localized error messages for iam and fleet` | — | 2026-11-03 |
