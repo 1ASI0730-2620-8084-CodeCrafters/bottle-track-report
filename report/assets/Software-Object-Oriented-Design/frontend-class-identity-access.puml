@@ -59,6 +59,22 @@ package "Identity and Access Management" {
     + email: string
     + password: string
   }
+  class SignUpCommand <<Command>> {
+    + plan: string
+    + businessName: string
+    + taxId: string
+    + companyEmail: string
+    + phone: string
+    + address: string
+    + firstName: string
+    + lastName: string
+    + email: string
+    + password: string
+  }
+  enum SUBSCRIPTION_PLANS <<enumeration>> {
+    FREE = 'free'
+    PREMIUM = 'premium'
+  }
   class RegisterUserCommand <<Command>> {
     + organizationId: string
     + firstName: string
@@ -100,6 +116,7 @@ package "Identity and Access Management" {
     + createUser(userResource): Promise
     + updateUser(userId, userResource): Promise
     + assignRole(userId, role): Promise
+    + createOrganization(organizationResource): Promise
     + getOrganizationById(organizationId): Promise
     + updateOrganization(organizationId, organizationResource): Promise
   }
@@ -112,6 +129,7 @@ package "Identity and Access Management" {
   }
   class OrganizationAssembler <<Assembler>> {
     + {static} toEntityFromResource(resource): Organization
+    + {static} toResourceFromSignUpCommand(command): Object
     + {static} toResourceFromUpdateCommand(command): Object
   }
   class SignInAssembler <<Assembler>> {
@@ -125,6 +143,8 @@ package "Identity and Access Management" {
   UserAssembler "1" ..> "0..*" UpdateUserCommand : reads
   OrganizationAssembler "1" ..> "0..*" Organization : creates
   OrganizationAssembler "1" ..> "0..*" UpdateOrganizationCommand : reads
+  OrganizationAssembler "1" ..> "0..*" SignUpCommand : reads
+  SignUpCommand "1" --> "1" SUBSCRIPTION_PLANS : selects plan
   SignInAssembler "1" ..> "0..*" SignInResource : creates
   IamApi "1" ..> "0..*" SignInCommand : receives
   IamApi "1" *-- "2" BaseEndpoint : owns
