@@ -1097,7 +1097,7 @@ Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta
 | POST | `/api/v1/incidents` | Reporta una incidencia sobre una operación, con un código correlativo `INC-00000`. | cuerpo JSON | 201, 400 |
 | GET | `/api/v1/incidents` | Lista las incidencias de una operación. | `transportOperationId` (query) | 200 |
 | POST | `/api/v1/incidents/{id}/evidences` | Agrega una evidencia, como enlace al archivo, a una incidencia. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
-| PUT | `/api/v1/incidents/{id}/resolution` | Registra la resolución de una incidencia. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
+| POST | `/api/v1/incidents/{id}/resolutions` | Registra la resolución de una incidencia. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
 | GET | `/api/v1/incidents/{id}` | Devuelve una incidencia con sus evidencias. | `id` (ruta) | 200, 404 |
 
 **Ejemplo 1: inicio de sesión.** La solicitud envía el correo y la contraseña:
