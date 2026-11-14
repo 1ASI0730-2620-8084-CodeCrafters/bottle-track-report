@@ -64,7 +64,7 @@ A continuación se indican los productos de software que utiliza el equipo, el p
 | Producto | Propósito | Ruta de referencia |
 | :------- | :-------- | :----------------- |
 | GitHub | Alojamiento del informe en formato Markdown y de los repositorios de código. | https://github.com |
-| Swagger / OpenAPI | Documentación de los endpoints de los Web Services. | https://swagger.io |
+| Scalar / OpenAPI | Documentación interactiva de los endpoints de los Web Services. | https://scalar.com |
 | Pandoc y XeLaTeX (MiKTeX) | Generación del informe en PDF a partir de los archivos Markdown. | https://pandoc.org |
 
 <a id="512-source-code-management"></a>
@@ -878,7 +878,7 @@ La siguiente tabla registra el estado de cada tarea al cierre del Sprint 3, el 2
 | TS11 | Operation History REST API | T24 | History frontend integration | Conectar el historial y su detalle con el API y verificar el manejo de operaciones inexistentes. | 4 | Cumba Rengifo, Leonardo Raul | To-do |
 | TS12 | Maps Service Integration | T25 | External maps adapter | Implementar la integración con un servicio externo de mapas o geolocalización, gestionando ubicaciones no encontradas y fallos del proveedor. | 8 | Palacin Lazo, Gerardo Valentin | To-do |
 | TS12 | Maps Service Integration | T26 | Delivery location integration | Integrar la información geográfica con las vistas de entregas, coordinando el contrato con Operations and Routes. | 4 | Palacin Lazo, Gerardo Valentin | To-do |
-| TS13 | OpenAPI Documentation | T27 | OpenAPI configuration | Configurar Swagger/OpenAPI con autorización, esquemas y convenciones comunes para parámetros, requests, responses y códigos HTTP. | 4 | Crispin Valdivia, Angel Gabriel | In-Process |
+| TS13 | OpenAPI Documentation | T27 | OpenAPI configuration | Configurar OpenAPI y Scalar con autorización, esquemas y convenciones comunes para parámetros, requests, responses y códigos HTTP. | 4 | Crispin Valdivia, Angel Gabriel | In-Process |
 | TS13 | OpenAPI Documentation | T28 | Endpoint documentation verification | Revisar con cada líder la documentación de sus endpoints, ejecutar ejemplos y registrar capturas y enlaces para el informe. | 6 | Crispin Valdivia, Angel Gabriel | Done |
 | TS14 | IoT Telemetry REST API | T29 | Devices and sensor readings | Implementar persistencia de dispositivos, rangos seguros y lecturas simuladas, validando la existencia del dispositivo y los valores recibidos. | 8 | Palacin Lazo, Gerardo Valentin | Done |
 | TS14 | IoT Telemetry REST API | T30 | Cargo risk alerts | Generar alertas relacionadas con una operación cuando se detecten temperaturas fuera de rango o golpes e integrar su atención con incidencias. | 8 | Palacin Lazo, Gerardo Valentin | In-Process |
@@ -1021,7 +1021,7 @@ Las capturas muestran la Frontend Web Application consumiendo los Web Services e
 
 #### 5.2.3.6. Services Documentation Evidence for Sprint Review.
 
-Los Web Services se documentan con OpenAPI. ASP.NET Core genera el documento en `/openapi/v1.json` y Swagger UI lo presenta en `/swagger`, donde cada endpoint se puede ejecutar con sus parámetros y ver su respuesta. El repositorio es https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-web-services y los commits de cada contexto se registran en la sección 5.2.3.4.
+Los Web Services se documentan con OpenAPI. ASP.NET Core genera el documento en `/openapi/v1.json` y Scalar lo presenta en `/scalar`, donde cada endpoint se puede ejecutar con sus parámetros y ver su respuesta. La documentación publicada se encuentra en https://bottle-track-web-services-production.up.railway.app/scalar. El repositorio es https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-web-services y los commits de cada contexto se registran en la sección 5.2.3.4.
 
 Todos los endpoints siguen las mismas convenciones:
 
@@ -1030,11 +1030,11 @@ Todos los endpoints siguen las mismas convenciones:
 - Las respuestas de error usan el formato `ProblemDetails` (RFC 9110), con un mensaje traducido al idioma de la cabecera `Accept-Language` (inglés o español).
 - `201 Created` indica un registro nuevo e incluye su ubicación; `400` indica datos inválidos; `404`, un recurso inexistente; `409`, un dato único repetido; y `401`, credenciales incorrectas.
 
-<img src="assets/chapter5/sprint3/swagger-overview.png" alt="Swagger UI con los endpoints de los Web Services agrupados por recurso" width="800">
+<img src="assets/chapter5/sprint3/scalar-overview.png" alt="Scalar con los endpoints de los Web Services agrupados por recurso" width="800">
 
 La documentación cubre 39 endpoints, organizados por bounded context:
 
-Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta o de consulta y si la solicitud lleva un cuerpo JSON, y los códigos de respuesta posibles. El esquema de cada cuerpo y de cada respuesta se consulta en Swagger UI, y los ejemplos que siguen muestran dos respuestas completas.
+Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta o de consulta y si la solicitud lleva un cuerpo JSON, y los códigos de respuesta posibles. El esquema de cada cuerpo y de cada respuesta se consulta en Scalar, y los ejemplos que siguen muestran dos respuestas completas.
 
 **Identity and Access Management** (9 endpoints)
 

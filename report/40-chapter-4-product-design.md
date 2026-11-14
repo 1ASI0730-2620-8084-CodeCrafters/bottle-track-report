@@ -731,7 +731,7 @@ El diagrama de contenedores muestra las unidades desplegables de la solución:
 | Website | HTML5, CSS3, JavaScript | Netlify (contenido estático) |
 | Web Application Static Content | Archivos HTML, CSS y JavaScript generados por el build de Vue 3 | Vercel (contenido estático) |
 | Single-Page Application | Vue 3, PrimeVue, Pinia, Vue Router, vue-i18n, axios | Navegador del usuario |
-| Web Services | ASP.NET Core (.NET 10), C#, Entity Framework Core, documentado con OpenAPI y Swagger UI | Proveedor de nube (monolito) |
+| Web Services | ASP.NET Core (.NET 10), C#, Entity Framework Core, documentado con OpenAPI y Scalar | Proveedor de nube (monolito) |
 | Database | MySQL | Proveedor de nube |
 
 El Website y la Web Application son dos productos distintos y ambos se despliegan como contenido estático, es decir, como una copia de carpetas con archivos HTML, CSS y JavaScript hacia un hosting. Por eso el diagrama los representa con el contenedor de tipo carpeta.
