@@ -76,7 +76,7 @@ El seguimiento de modificaciones se realiza con Git, gestionado desde GitHub. El
 | Repositorio | Contenido | URL |
 | :---------- | :-------- | :-- |
 | bottle-track-website | Landing Page: sitio web estático en HTML5, CSS3 y JavaScript. | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-website |
-| Frontend-Web-Aplication | Aplicación web desarrollada con Vue Framework. | https://github.com/1ASI0730-2620-8084-CodeCrafters/Frontend-Web-Aplication |
+| bottle-track-web-application | Aplicación web desarrollada con Vue Framework. | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-web-application |
 | bottle-track-web-services | RESTful API en ASP.NET Core, con sus pruebas unitarias y de integración. | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-web-services |
 | bottle-track-report | Informe del proyecto en formato Markdown, con su compilación a PDF. | https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-report |
 
@@ -181,7 +181,7 @@ El Landing Page se publica en Netlify a partir de la rama `main` del repositorio
 
 **Frontend Web Application**
 
-La aplicación web se publica en Vercel a partir de la rama `main` del repositorio `Frontend-Web-Aplication`, mediante la integración de Vercel con GitHub. Los pasos son los siguientes:
+La aplicación web se publica en Vercel a partir de la rama `main` del repositorio `bottle-track-web-application`, mediante la integración de Vercel con GitHub. Los pasos son los siguientes:
 
 1. Importar el repositorio desde el panel de Vercel.
 2. Configurar el comando de construcción y el directorio de salida que corresponden a un proyecto de Vue.
@@ -994,6 +994,67 @@ En el Sprint 3 se creó el repositorio de los Web Services, se integró con ello
 | bottle-track-web-services | feature/iam-and-backend-base | `13c7529` | `refactor(shared): replace target-typed new and primary constructor in persistence` | — | 2026-10-29 |
 | bottle-track-web-services | feature/iam-and-backend-base | `45cf4fe` | `refactor(shared): use explicit members in the result pattern` | — | 2026-10-29 |
 | bottle-track-web-services | develop | `884a08f` | `chore(shared): add backend base project` | — | 2026-10-29 |
+| bottle-track-web-application | release/1.2.0 | `524e2d2` | `chore(release): bump version to 1.2.0` | — | 2026-11-13 |
+| bottle-track-web-application | feature/iam-sign-up | `10e4fcf` | `feat(iam): route the sign up view and link it from sign in` | — | 2026-11-13 |
+| bottle-track-web-application | feature/iam-sign-up | `bb16382` | `feat(iam): add the sign up form with plan selection` | — | 2026-11-13 |
+| bottle-track-web-application | feature/app-footer-website-link | `d74afc5` | `feat(shared): add a footer that links to the website` | — | 2026-11-13 |
+| bottle-track-web-application | feature/iam-sign-up | `6259507` | `feat(i18n): add the sign up texts in english and spanish` | — | 2026-11-13 |
+| bottle-track-web-application | fix/fleet-store-filters | `2c316ee` | `refactor(fleet): read the driver filters from the fleet store` | — | 2026-11-13 |
+| bottle-track-web-application | feature/iam-sign-up | `d837dcd` | `feat(iam): register the company and its administrator from the store` | — | 2026-11-13 |
+| bottle-track-web-application | fix/fleet-store-filters | `ed60d89` | `refactor(fleet): read the vehicle filters from the fleet store` | — | 2026-11-13 |
+| bottle-track-web-application | feature/iam-sign-up | `ccad2e6` | `feat(iam): create the organization from the sign up data` | — | 2026-11-13 |
+| bottle-track-web-application | fix/fleet-store-filters | `e66b0a4` | `refactor(fleet): move the availability filters and organization into the store` | — | 2026-11-13 |
+| bottle-track-web-application | fix/incidents-store-user | `f984ac4` | `fix(incidents): resolve incidents with a post to resolutions` | — | 2026-11-13 |
+| bottle-track-web-application | fix/monitoring-store-user | `3a633df` | `refactor(monitoring): read the organization from the store in monitoring views` | — | 2026-11-13 |
+| bottle-track-web-application | feature/iam-sign-up | `6e31c3a` | `feat(iam): add the sign up command with subscription plans` | — | 2026-11-13 |
+| bottle-track-web-application | fix/operations-store-user | `1fcb5ed` | `refactor(operations): read the organization from the store in operation views` | — | 2026-11-13 |
+| bottle-track-web-application | fix/incidents-store-user | `c5cbb4f` | `refactor(incidents): read the organization and user from the store in incident views` | — | 2026-11-13 |
+| bottle-track-web-application | fix/monitoring-store-user | `0115543` | `refactor(monitoring): expose the organization and user in the monitoring store` | — | 2026-11-13 |
+| bottle-track-web-application | fix/operations-store-user | `e4ac3b0` | `refactor(operations): expose the organization and user in the operations stores` | — | 2026-11-13 |
+| bottle-track-web-application | fix/iam-rest-endpoints | `49442f3` | `fix(iam): sign in with tokens and assign roles with a post` | — | 2026-11-13 |
+| bottle-track-web-application | fix/incidents-store-user | `7c95572` | `refactor(incidents): expose the organization and user in the incidents store` | — | 2026-11-13 |
+| bottle-track-web-application | feature/iam-facade | `5aa4fac` | `feat(iam): add a facade to read the signed in user` | — | 2026-11-13 |
+| bottle-track-web-application | release/1.1.0 | `b2477c2` | `chore(release): bump version to 1.1.0` | — | 2026-11-12 |
+| bottle-track-web-application | fix/production-api-url | `5114256` | `fix(shared): stop reading the beeceptor snapshot in production` | — | 2026-11-12 |
+| bottle-track-web-application | fix/production-api-url | `74ede9b` | `fix(shared): point the production api to the web services on railway` | — | 2026-11-12 |
+| bottle-track-web-application | feature/operations-backend-integration | `e51cdff` | `feat(operations): show coming soon notices on route and tracking views` | — | 2026-11-11 |
+| bottle-track-web-application | feature/incidents-backend-integration | `5643647` | `feat(incidents): show the coming soon notice for reception reports` | — | 2026-11-11 |
+| bottle-track-web-application | feature/operations-backend-integration | `722054b` | `refactor(operations): load delivery points from the web services` | — | 2026-11-11 |
+| bottle-track-web-application | feature/incidents-backend-integration | `1a9f613` | `feat(incidents): adapt the incidents store to the web services` | — | 2026-11-11 |
+| bottle-track-web-application | feature/incidents-backend-integration | `c31734d` | `feat(incidents): use the web services incidents endpoints` | — | 2026-11-11 |
+| bottle-track-web-application | feature/fleet-backend-integration | `9afb090` | `feat(fleet): adapt the fleet store to the web services responses` | — | 2026-11-11 |
+| bottle-track-web-application | feature/monitoring-backend-integration | `6b159c4` | `feat(monitoring): show the coming soon notice for live monitoring` | — | 2026-11-11 |
+| bottle-track-web-application | feature/fleet-backend-integration | `4b10fbe` | `feat(fleet): use the web services fleet endpoints` | — | 2026-11-11 |
+| bottle-track-web-application | feature/monitoring-backend-integration | `f5c8b24` | `feat(monitoring): adapt the monitoring store to devices, readings and alerts` | — | 2026-11-11 |
+| bottle-track-web-application | feature/operations-backend-integration | `abd5336` | `feat(operations): adapt the transport operations store to the web services` | — | 2026-11-11 |
+| bottle-track-web-application | feature/iam-backend-integration | `8cafe3b` | `fix(iam): map the user fields returned by the web services` | — | 2026-11-11 |
+| bottle-track-web-application | feature/iam-backend-integration | `255f761` | `feat(iam): sign in against the authentication endpoint` | — | 2026-11-11 |
+| bottle-track-web-application | feature/monitoring-backend-integration | `0a2c592` | `feat(monitoring): use the web services monitoring endpoints` | — | 2026-11-11 |
+| bottle-track-web-application | feature/operations-backend-integration | `cc75540` | `feat(operations): use the web services transport operations endpoints` | — | 2026-11-11 |
+| bottle-track-web-application | feature/iam-backend-integration | `f0e7a0c` | `chore(iam): point the development api to the web services` | — | 2026-11-11 |
+| bottle-track-web-application | feature/coming-soon-notice | `093b5da` | `feat(i18n): add coming soon notice texts` | — | 2026-11-11 |
+| bottle-track-web-application | feature/coming-soon-notice | `f039b2d` | `feat(shared): add coming soon notice helper` | — | 2026-11-11 |
+| bottle-track-website | release/1.2.1 | `f270e5f` | `docs(release): document version 1.2.1` | — | 2026-11-13 |
+| bottle-track-website | fix/pricing-sign-up-links | `00af2b1` | `fix(pricing): link the plan buttons to the web app sign up` | — | 2026-11-13 |
+| bottle-track-website | release/1.2.0 | `6968971` | `docs(release): document version 1.2.0` | — | 2026-11-12 |
+| bottle-track-website | feature/legal-contact-links | `f111854` | `feat(legal): link the contact page from the legal pages` | — | 2026-11-12 |
+| bottle-track-website | feature/legal-contact-links | `82f0d86` | `feat(i18n): point legal contact copy to the contact page` | — | 2026-11-12 |
+| bottle-track-website | feature/fit-primary-navigation | `fadc62f` | `fix(layout): keep the primary navigation on one line on desktop` | — | 2026-11-12 |
+| bottle-track-website | feature/landing-section-order | `b401a71` | `refactor(layout): follow the new section order in the primary navigation` | — | 2026-11-12 |
+| bottle-track-website | feature/landing-section-order | `12b698e` | `style(landing): style the closing section with design tokens` | — | 2026-11-12 |
+| bottle-track-website | feature/landing-section-order | `0fb9359` | `feat(i18n): add bilingual closing section copy` | — | 2026-11-12 |
+| bottle-track-website | feature/landing-section-order | `8613d8a` | `feat(landing): reorder sections and add a closing call to action` | — | 2026-11-12 |
+| bottle-track-website | feature/contact-page | `cbbe204` | `docs: add the contact page to the project structure` | — | 2026-11-12 |
+| bottle-track-website | feature/contact-page | `73e9c54` | `feat(layout): link the contact page from the header and footer` | — | 2026-11-12 |
+| bottle-track-website | feature/contact-page | `ab26035` | `feat(contact): add contact page with the contact form` | — | 2026-11-12 |
+| bottle-track-website | feature/shared-partials | `51e130f` | `docs: describe the shared partials and the local server requirement` | — | 2026-11-12 |
+| bottle-track-website | feature/shared-partials | `77b33a7` | `refactor(pages): load the shared header and footer partials` | — | 2026-11-12 |
+| bottle-track-website | feature/shared-partials | `eab0b4a` | `refactor(i18n): initialize language switch and navigation after partials load` | — | 2026-11-12 |
+| bottle-track-website | feature/shared-partials | `9028d2b` | `feat(layout): add shared header and footer partials with a fetch loader` | — | 2026-11-12 |
+| bottle-track-website | feature/rename-asset-folders | `cb71070` | `refactor(assets): rename asset folders to styles, images and scripts` | — | 2026-11-12 |
+| bottle-track-website | release/1.1.0 | `5e2ed07` | `docs(release): document version 1.1.0` | — | 2026-11-12 |
+| bottle-track-website | feature/embed-landing-videos | `126cf08` | `feat(landing): embed the about the team video` | — | 2026-11-11 |
+| bottle-track-website | feature/embed-landing-videos | `6289fc9` | `feat(landing): embed the about the product video` | — | 2026-11-11 |
 | bottle-track-website | feature/landing-subscription-and-team | `3e5c062` | `feat(landing): add team member profile photos` | — | 2026-11-11 |
 | bottle-track-website | feature/landing-subscription-and-team | `f36e9b8` | `refactor(landing): remove obsolete contact form behavior` | — | 2026-11-11 |
 | bottle-track-website | feature/landing-subscription-and-team | `a2b345e` | `feat(i18n): add bilingual subscription and team content` | — | 2026-11-11 |
@@ -1006,6 +1067,31 @@ En el Sprint 3 se creó el repositorio de los Web Services, se integró con ello
 | bottle-track-website | feature/legal-pages | `dcebd4f` | `feat(legal): link the privacy policy from the footer` | — | 2026-10-30 |
 | bottle-track-website | feature/legal-pages | `eceb6a8` | `feat(legal): rework the terms of service page content` | — | 2026-10-29 |
 | bottle-track-website | feature/legal-pages | `f72e983` | `feat(legal): add privacy policy page` | — | 2026-10-29 |
+| bottle-track-report | chore/report-version-log | `7680394` | `docs(report): update cover date, version log and table of contents` | — | 2026-11-12 |
+| bottle-track-report | feature/report-validation-interviews | `aa685a9` | `docs(report): register the validation interviews` | — | 2026-11-12 |
+| bottle-track-report | fix/report-terms-and-conclusions | `15e6ef2` | `docs(report): add sprint 3 conclusions and recommendations` | — | 2026-11-12 |
+| bottle-track-report | feature/report-validation-interviews | `37a798d` | `docs(report): update the validation interview design` | — | 2026-11-12 |
+| bottle-track-report | fix/report-terms-and-conclusions | `1771f29` | `fix(report): align the terms with fleet supervisor and minimarket roles` | — | 2026-11-12 |
+| bottle-track-report | feature/report-videos-and-links | `ebd608c` | `docs(report): update landing page labels for the subscription section` | — | 2026-11-11 |
+| bottle-track-report | feature/report-videos-and-links | `538c325` | `docs(report): update repository and trello links in the annexes` | — | 2026-11-11 |
+| bottle-track-report | feature/report-sprint-3-planning | `4268daa` | `docs(report): add the development evidence of sprint 3` | — | 2026-11-11 |
+| bottle-track-report | feature/report-videos-and-links | `1d6d361` | `docs(report): add the about the team video` | — | 2026-11-11 |
+| bottle-track-report | feature/report-sprint-3-evidence | `ce59c41` | `docs(report): add the team collaboration insights of sprint 3` | — | 2026-11-11 |
+| bottle-track-report | feature/report-services-documentation | `f1a5b23` | `docs(report): add the services documentation evidence of sprint 3` | — | 2026-11-11 |
+| bottle-track-report | feature/report-sprint-3-planning | `51b9014` | `docs(report): close the sprint 3 planning and backlog` | — | 2026-11-11 |
+| bottle-track-report | feature/report-videos-and-links | `3af12b2` | `docs(report): add the about the product video` | — | 2026-11-11 |
+| bottle-track-report | feature/report-sprint-3-planning | `fe465f0` | `docs(report): update tools, conventions and deployment configuration` | — | 2026-11-11 |
+| bottle-track-report | feature/report-sprint-3-evidence | `3c528e2` | `docs(report): add the execution evidence of sprint 3` | — | 2026-11-11 |
+| bottle-track-report | feature/report-videos-and-links | `863481e` | `docs(report): add the software deployment evidence of sprint 3` | — | 2026-11-11 |
+| bottle-track-report | fix/report-iam-diagrams-sprint-3 | `1ecac33` | `fix(report): regenerate the complete class diagrams and their sources` | — | 2026-11-11 |
+| bottle-track-report | fix/report-iot-diagrams-sprint-3 | `2d2d8e8` | `fix(report): update the database diagram with the twelve tables` | — | 2026-11-11 |
+| bottle-track-report | fix/report-operations-diagrams-sprint-3 | `e1af59f` | `fix(report): update context and container diagrams with the five contexts` | — | 2026-11-11 |
+| bottle-track-report | fix/report-incident-and-fleet-diagrams-sprint-3 | `5f11b0b` | `fix(report): align fleet management backend and component diagrams` | — | 2026-11-11 |
+| bottle-track-report | fix/report-iam-diagrams-sprint-3 | `93cc875` | `fix(report): update the fleet management frontend class diagram` | — | 2026-11-11 |
+| bottle-track-report | fix/report-incident-and-fleet-diagrams-sprint-3 | `0466bce` | `fix(report): align incident management diagrams with the web services` | — | 2026-11-11 |
+| bottle-track-report | fix/report-iot-diagrams-sprint-3 | `f33dcf5` | `fix(report): align iot monitoring diagrams with the web services` | — | 2026-11-11 |
+| bottle-track-report | fix/report-operations-diagrams-sprint-3 | `809e8d4` | `fix(report): align operations and routes diagrams with the web services` | — | 2026-11-11 |
+| bottle-track-report | fix/report-iam-diagrams-sprint-3 | `bbb18ff` | `fix(report): align identity and access diagrams with the web services` | — | 2026-11-11 |
 | bottle-track-report | develop | `9c9ebee` | `docs(report): update repository links to new assets path` | — | 2026-11-11 |
 | bottle-track-report | feature/tb1-corrections | `c550dd4` | `docs(report): separate anchors from headings for Pandoc` | — | 2026-11-10 |
 | bottle-track-report | feature/tb1-corrections | `dd8d73c` | `build(pandoc): add PDF build with Pandoc and XeLaTeX` | — | 2026-11-10 |
@@ -1162,7 +1248,7 @@ Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta
 | POST | `/api/v1/incidents` | Reporta una incidencia sobre una operación, con un código correlativo `INC-00000`. | cuerpo JSON | 201, 400 |
 | GET | `/api/v1/incidents` | Lista las incidencias de una operación. | `transportOperationId` (query) | 200 |
 | POST | `/api/v1/incidents/{id}/evidences` | Agrega una evidencia, como enlace al archivo, a una incidencia. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
-| PUT | `/api/v1/incidents/{id}/resolution` | Registra la resolución de una incidencia. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
+| POST | `/api/v1/incidents/{id}/resolutions` | Registra la resolución de una incidencia. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
 | GET | `/api/v1/incidents/{id}` | Devuelve una incidencia con sus evidencias. | `id` (ruta) | 200, 404 |
 
 **Ejemplo 1: inicio de sesión.** La solicitud envía el correo y la contraseña:
