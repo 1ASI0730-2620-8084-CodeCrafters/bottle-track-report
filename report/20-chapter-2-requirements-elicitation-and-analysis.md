@@ -528,7 +528,7 @@ Se entrevistó a 3 personas de 20, 23 y 36 años, residentes en Los Olivos, Pueb
 | | Reportar incidencias con fotos como evidencia | 2 de 3 | 67 % |
 | | Recibir avisos sobre sus pedidos | 1 de 3 | 33 % |
 
-**Conclusión del segmento.** El 100 % de los entrevistados señala como problemas principales no conocer la hora de llegada del pedido y recibir productos faltantes o dañados, y el 100 % coordina sus pedidos por WhatsApp, complementado con llamadas o con un vendedor. La necesidad que comparten es consultar el estado del pedido; además, dos de cada tres usan fotografías como evidencia para reclamar y prefieren una herramienta desde el celular, por lo que la vista para la bodega debe ser simple, adaptada al móvil y permitir reportar problemas de recepción con evidencia. Estos hallazgos dan origen al User Persona María Fernández y a la vista de seguimiento para la bodega planteada en la hipótesis H7. Con dos entrevistas, este segmento sigue teniendo la menor muestra del estudio, por lo que el equipo continúa ampliando su registro para confirmar estos porcentajes.
+**Conclusión del segmento.** El 100 % de los entrevistados señala como problemas principales no conocer la hora de llegada del pedido y recibir productos faltantes o dañados, y el 100 % coordina sus pedidos por WhatsApp, complementado con llamadas o con un vendedor. La necesidad que comparten es consultar el estado del pedido; además, dos de cada tres usan fotografías como evidencia para reclamar y prefieren una herramienta desde el celular, por lo que la vista para la bodega debe ser simple, adaptada al móvil y permitir reportar problemas de recepción con evidencia. Estos hallazgos dan origen al User Persona María Fernández y a la vista de seguimiento para la bodega planteada en la hipótesis H7. Con tres entrevistas, este segmento cumple el mínimo establecido por segmento; el equipo continúa ampliando su registro para confirmar estos porcentajes.
 
 #### Hallazgos transversales
 
@@ -545,7 +545,7 @@ Se entrevistó a 3 personas de 20, 23 y 36 años, residentes en Los Olivos, Pueb
 ## 2.3. Needfinding.
 El proceso de Needfinding permite identificar y sintetizar las principales necesidades, objetivos, comportamientos, dificultades y motivaciones de los segmentos objetivo de BottleTrack. Para ello, se consideran los resultados obtenidos mediante las entrevistas realizadas a representantes de los segmentos y el análisis previo del dominio y de las soluciones existentes.
 
-A partir de la información recolectada se identificaron tres segmentos objetivo: empresas distribuidoras de bebidas, supervisores o encargados de flota, y bodegas y minimercados. Cada segmento presenta una participación diferente dentro del proceso de distribución de bebidas, por lo que sus necesidades y actividades se analizan de manera diferenciada.
+A partir de la información recolectada se identificaron tres segmentos objetivo: empresas distribuidoras de bebidas, supervisores o encargados de flota, y bodegas y minimarkets. Cada segmento presenta una participación diferente dentro del proceso de distribución de bebidas, por lo que sus necesidades y actividades se analizan de manera diferenciada.
 
 Los resultados del proceso se representan mediante tres User Personas, un User Task Matrix, tres User Journey Maps en su escenario As-Is y tres Empathy Maps. Los User Personas, User Journey Maps y Empathy Maps fueron elaborados en UXPressia, mientras que el User Task Matrix fue elaborado en Canva.
 
@@ -687,7 +687,7 @@ La sesión se organizó recorriendo la línea temporal del negocio de izquierda 
 | 2. Despacho de la operación | Creación de la operación de transporte, asignación de vehículo y conductor, y autorización de salida. |
 | 3. Tránsito y monitoreo IoT | Inicio del recorrido y recepción de las lecturas de ubicación, temperatura e impactos enviadas por los dispositivos. |
 | 4. Ejecución de la entrega | Llegada a cada punto de entrega y registro de su resultado, incluyendo entregas parciales, no realizadas y faltantes. |
-| 5. Reporte de incidencias | Registro del problema por parte del conductor, adjunto de evidencia, revisión y resolución por parte del supervisor. |
+| 5. Reporte de incidencias | Registro del problema por parte del supervisor de flota o de la bodega, adjunto de evidencia, revisión y resolución por parte del supervisor. |
 | 6. Cierre y análisis | Finalización de la operación, cálculo de la merma y actualización de los indicadores de la distribuidora. |
 
 **Pivotal events.** El equipo identificó tres eventos pivote, es decir, aquellos que marcan un cambio de responsabilidad en el proceso y separan una fase de la siguiente. En el tablero se representan como bandas verticales que atraviesan la línea temporal.
@@ -745,6 +745,10 @@ Este glosario es la fuente de la que se derivan los nombres de las entidades del
 | **Route** (Ruta) | Recorrido planificado que un vehículo debe cubrir para completar un envío, conformado por una secuencia ordenada de paradas. |
 | **Stop** (Parada) | Cada punto de entrega individual dentro de una ruta, con su estado propio de cumplimiento. |
 | **Dispatch** (Despacho) | Acto de registrar un envío, asignarle un vehículo y un conductor, y autorizar su salida de la planta. |
+| **Transport Operation** (Operación de transporte) | Nombre que recibe el envío en la Web Application y en los Web Services: agrupa el vehículo, el conductor, la fecha programada y las paradas de una jornada de reparto, y se identifica con un código correlativo como `OP-00001`. |
+| **Delivery Stop** (Parada de entrega) | Nombre que recibe la parada en la Web Application y en los Web Services: cada entrega de una operación en un punto de entrega, con su número de secuencia y sus cantidades planificada y entregada. |
+| **Delivery Point** (Punto de entrega) | Bodega o minimarket registrado por la distribuidora, con su dirección y ubicación, al que llegan las paradas de las operaciones. |
+| **Delivery Order** (Pedido) | Vista que tiene el responsable de la bodega sobre una parada que le corresponde, es decir, el pedido que espera recibir. |
 | **Route Progress** (Avance de la ruta) | Proporción de paradas completadas respecto del total de paradas planificadas para una ruta. |
 | **Proof of Delivery** (Constancia de entrega) | Registro que confirma que el producto fue recibido en una parada, incluyendo la cantidad efectivamente entregada. |
 | **Shortage** (Faltante) | Diferencia negativa entre la cantidad de producto despachada y la cantidad recibida en el punto de entrega. |
@@ -767,12 +771,12 @@ Este glosario es la fuente de la que se derivan los nombres de las entidades del
 
 | Término | Definición |
 | :------ | :--------- |
-| **Incident** (Incidencia) | Problema ocurrido durante el transporte que afecta la entrega, reportado por el conductor o generado a partir de una alerta. |
+| **Incident** (Incidencia) | Problema ocurrido durante el transporte que afecta la entrega, reportado por el supervisor de flota o por la bodega, o generado a partir de una alerta IoT. |
 | **Incident Type** (Tipo de incidencia) | Clasificación de la incidencia según su naturaleza: producto dañado, botellas rotas, unidades faltantes o retraso. |
 | **Broken Bottle** (Botella rota) | Unidad de producto que llega quebrada y no puede ser entregada al punto de venta. |
 | **Damaged Product** (Producto dañado) | Unidad que, sin estar rota, presenta un deterioro que impide su comercialización. |
 | **Delay** (Retraso) | Diferencia entre el momento planificado y el momento real de llegada a una parada. |
-| **Evidence** (Evidencia) | Registro fotográfico y descriptivo que el conductor adjunta a una incidencia para sustentar lo ocurrido. |
+| **Evidence** (Evidencia) | Registro fotográfico y descriptivo que el supervisor de flota o la bodega adjunta a una incidencia para sustentar lo ocurrido. |
 | **Severity** (Severidad) | Grado de afectación de una incidencia sobre la operación, empleado por el supervisor para priorizar su atención. |
 | **Incident Follow-up** (Seguimiento de incidencia) | Proceso mediante el cual el supervisor revisa una incidencia reportada, registra las acciones tomadas y determina su cierre. |
 | **Resolution** (Resolución) | Cierre de una incidencia por parte del supervisor, con la conclusión de lo ocurrido y la acción adoptada. |

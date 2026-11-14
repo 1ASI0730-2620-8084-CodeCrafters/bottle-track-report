@@ -65,7 +65,7 @@ A continuación se presenta la ficha de cada integrante del equipo, indicando su
 | :------------------------ |:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Código del Estudiante** | U20211C201                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Carrera**               | Ingeniería de Software                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| **Descripción**           | Me sorprenden las soluciones tecnológicas creadas a traves del trabajo en equipo. Los productos de software resuelven el problema de las tareas monotonas maximizando eficiencia. Por eso sigo aprendiendo y mejorando mis habilidades de programación y tecnologías digitales. Me considero una personada curiosa y de confianza para realizar trabajos multidiciplinarios y continuo repasando conocimientos previos para no olvidarme de las buenas practicas. |
+| **Descripción**           | Me sorprenden las soluciones tecnológicas creadas a través del trabajo en equipo. Los productos de software resuelven el problema de las tareas monótonas maximizando eficiencia. Por eso sigo aprendiendo y mejorando mis habilidades de programación y tecnologías digitales. Me considero una persona curiosa y de confianza para realizar trabajos multidisciplinarios y continuo repasando conocimientos previos para no olvidarme de las buenas practicas. |
 | **Foto**                  | <img src="assets/team-members/gerardo-palacin.jpeg" alt="Fotografía de Gerardo Valentin Palacin Lazo" width="140">                                                                                                                                                                                                                                                                                                                                                   |
 
 ---
@@ -156,13 +156,13 @@ BottleTrack buscará abordar principalmente los siguientes puntos:
 - Facilitar el seguimiento del estado de las entregas.
 - Permitir el registro de incidencias ocurridas durante una operación.
 - Facilitar la consulta del historial de operaciones realizadas.
-- Mejorar la disponibilidad de información para los supervisores y conductores.
+- Mejorar la disponibilidad de información para los supervisores de flota y los responsables de las bodegas.
 
 #### Objetivos de la solución
 
 - Facilitar la gestión de vehículos y conductores utilizados en las operaciones de distribución.
 - Permitir que los supervisores conozcan el estado de las rutas y entregas.
-- Facilitar a los conductores el registro del resultado de las entregas asignadas.
+- Facilitar a los supervisores de flota el registro del resultado de cada entrega.
 - Mantener un registro organizado de las incidencias ocurridas durante el transporte.
 - Centralizar la información relevante de las operaciones en una plataforma web.
 - Proporcionar información que pueda ser utilizada posteriormente para analizar el desempeño de las operaciones.

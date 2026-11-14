@@ -31,6 +31,16 @@ El video de Needfinding del Sprint 1 reúne las seis primeras entrevistas regist
 | 7 | Leo Giovany Yañez Santos | Bodegas y minimarkets | Needfinding Sprint 2 | 00:00:00 | 03:00 |
 | 8 | Alma Rosa Rodríguez Chota | Bodegas y minimarkets | [Ver video en Microsoft Stream](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20211c201_upc_edu_pe/IQB1G5FzKF5WTI8rIznLyzZXARsgezdS_X1Mothtyj9vjKo?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=fUwC72) | 00:03:00 | 11:32 |
 
+**Entrevistas de validación del Sprint 3**
+
+Las entrevistas de validación registradas en la sección 5.3.2 se publicaron en YouTube, un video por entrevista.
+
+| # | Entrevistado | Segmento objetivo | Video | Inicio | Duración |
+| :- | :----------- | :---------------- | :---- | :----- | :------- |
+| 1 | Luis Angel Tufiño Argüelles | Empresas distribuidoras de bebidas | [Ver video en YouTube](https://youtu.be/vnJYp37qBu0) | 00:00:00 | 13:32 |
+| 2 | Arturo Axel Saravia Huaricancha | Bodegas y minimarkets | [Ver video en YouTube](https://youtu.be/5J2oE865qiQ) | 00:00:00 | 07:59 |
+| 3 | Leo Giovany Yañez Santos | Bodegas y minimarkets | [Ver video en YouTube](https://youtu.be/8L-3LssywR0) | 00:00:00 | 07:48 |
+
 <hr>
 
 ---

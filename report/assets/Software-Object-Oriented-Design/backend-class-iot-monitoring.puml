@@ -1,0 +1,79 @@
+@startuml
+' BottleTrack - Backend - IoT Monitoring class diagram
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam class {
+  BackgroundColor #ffffff
+  BorderColor #b34900
+  ArrowColor #4f2000
+}
+skinparam package {
+  BackgroundColor #fff7ed
+  BorderColor #f97316
+}
+
+package "IoT Monitoring" {
+  class IotDevice <<Aggregate Root>> {
+    + Id: Guid
+    + SerialNumber: string
+    + VehicleId: Guid?
+    + SafeTemperatureMin: decimal
+    + SafeTemperatureMax: decimal
+    + ImpactThreshold: decimal
+    + Status: DeviceStatus
+    + {static} Register(serialNumber, vehicleId, safeTemperatureMin, safeTemperatureMax, impactThreshold): IotDevice
+    + GoOffline(): void
+    + Retire(): void
+  }
+  class SensorReading <<Aggregate Root>> {
+    + Id: Guid
+    + IotDeviceId: Guid
+    + TransportOperationId: Guid?
+    + RecordedAt: DateTime
+    + Latitude: decimal?
+    + Longitude: decimal?
+    + TemperatureCelsius: decimal?
+    + ImpactForce: decimal?
+    + {static} Record(iotDeviceId, transportOperationId, recordedAt, latitude, longitude, temperatureCelsius, impactForce): SensorReading
+  }
+  class Alert <<Aggregate Root>> {
+    + Id: Guid
+    + IotDeviceId: Guid
+    + TransportOperationId: Guid
+    + Type: AlertType
+    + RaisedAt: DateTime
+    + AcknowledgedBy: Guid?
+    + AcknowledgedAt: DateTime?
+    + {static} Raise(iotDeviceId, transportOperationId, type): Alert
+    + Acknowledge(userId): void
+  }
+  enum AlertType {
+    TemperatureOutOfRange
+    ImpactDetected
+    DeviceOffline
+  }
+  enum DeviceStatus {
+    Active
+    Offline
+    Retired
+  }
+  interface IIotDeviceRepository {
+    + FindBySerialNumberAsync(serialNumber: string): Task<IotDevice?>
+  }
+  interface ISensorReadingRepository {
+    + ListByDeviceAsync(iotDeviceId: Guid): Task<IEnumerable<SensorReading>>
+  }
+  interface IAlertRepository {
+    + ListByDeviceAsync(iotDeviceId: Guid): Task<IEnumerable<Alert>>
+  }
+  IotDevice "1" --> "0..*" SensorReading : records
+  IotDevice "1" --> "0..*" Alert : raises
+  Alert "1" --> "1" AlertType : is of type
+  IotDevice "1" --> "1" DeviceStatus : has status
+  IIotDeviceRepository "1" ..> "0..*" IotDevice : persists
+  ISensorReadingRepository "1" ..> "0..*" SensorReading : persists
+  IAlertRepository "1" ..> "0..*" Alert : persists
+}
+@enduml

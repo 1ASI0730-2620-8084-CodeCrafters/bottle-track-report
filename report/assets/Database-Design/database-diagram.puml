@@ -1,6 +1,7 @@
 @startuml
-' Tables organizations, users, vehicles and drivers reflect the migration of the Web Services repository.
-' The remaining tables are design only and belong to bounded contexts that are not implemented yet.
+' All tables reflect the Entity Framework Core migrations of the Web Services repository:
+' InitialCreate (Identity and Access Management, Fleet Management), AddIncidentManagement,
+' AddOperationsAndRoutes and AddIotMonitoring.
 hide circle
 skinparam linetype ortho
 skinparam shadowing false

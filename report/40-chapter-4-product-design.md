@@ -181,9 +181,9 @@ Las etiquetas se redactan con el mínimo número de palabras y utilizan el vocab
 | Features | Funcionalidades | Capacidades del producto. |
 | How it works | Cómo funciona | Explicación del flujo de la operación. |
 | Who it is for | Para quién es | Segmentos objetivo y sus llamados a la acción. |
-| The product | El producto | Video About the Product. |
+| The product | El producto | Video About the Product y capturas de la aplicación. |
 | The team | El equipo | Video About the Team. |
-| Contact | Contacto | Correo, teléfono y redes sociales de CodeCrafters. |
+| Subscription | Suscripción | Planes de suscripción de BottleTrack y contacto con ventas. |
 | Route | Ruta | Recorrido asignado a un vehículo con sus puntos de entrega. |
 | Stop | Parada | Punto de entrega individual dentro de una ruta. |
 | Shipment | Envío | Carga de producto asociada a una ruta. |
@@ -260,7 +260,7 @@ El recorrido esperado del visitante desciende desde la propuesta de valor hasta 
 | :---------------- | :------------------ | :--------------- |
 | Supervisores o encargados de flota | Monitor your fleet | Monitoring |
 | Empresas distribuidoras de bebidas | See the indicators | Analytics |
-| Bodegas y minimarkets | Track your order | Delivery tracking |
+| Bodegas y minimarkets | Track your orders | Delivery tracking |
 
 En dispositivos con ancho menor a 48 rem la navegación se colapsa en un menú desplegable que expone su estado mediante el atributo `aria-expanded` y se cierra automáticamente al seleccionar un enlace. El pie de página repite los enlaces principales y añade el acceso a los términos y condiciones del servicio.
 
@@ -303,7 +303,7 @@ El mock-up aplica el design system de BottleTrack sobre el wireframe: la rampa n
 
 ## 4.4. Web Applications UX/UI Design.
 
-En esta sección se presenta el diseño de la Frontend Web Application para sus dos roles principales: el administrador de la distribuidora y el supervisor de flota. Las vistas se diseñaron en Figma siguiendo el mismo design system del Landing Page, para que la experiencia sea consistente entre ambos productos. El archivo de diseño se encuentra disponible en: https://www.figma.com/design/lBVdrnyGUWfjN6Mz4fhBpY/BOTTLETRACK?node-id=0-1
+En esta sección se presenta el diseño de la Frontend Web Application para sus dos roles principales: el administrador de la distribuidora y el supervisor de flota. El tercer rol, el responsable de la bodega, utiliza una única vista de seguimiento de pedidos, que se presenta en las evidencias de ejecución del Capítulo V. Las vistas se diseñaron en Figma siguiendo el mismo design system del Landing Page, para que la experiencia sea consistente entre ambos productos. El archivo de diseño se encuentra disponible en: https://www.figma.com/design/lBVdrnyGUWfjN6Mz4fhBpY/BOTTLETRACK?node-id=0-1
 
 <a id="441-web-applications-wireframes"></a>
 
@@ -679,7 +679,7 @@ Los User Flow Diagrams describen, para cada User Goal, el recorrido que sigue el
 
 ## 4.5. Web Applications Prototyping.
 
-El prototipo navegable se construyó en Figma conectando los mock-ups de la sección 4.4.3. Permite recorrer el inicio de sesión, el dashboard, la creación de una operación, el detalle de sus entregas y el registro de incidencias, y se utilizará en las entrevistas de validación de la sección 5.3.
+El prototipo navegable se construyó en Figma conectando los mock-ups de la sección 4.4.3. Permite recorrer el inicio de sesión, el dashboard, la creación de una operación, el detalle de sus entregas y el registro de incidencias, y sirvió de base para la Web Application sobre la que se realizaron las entrevistas de validación de la sección 5.3.
 
 <img src="assets/webApplicationUxDesign/prototype_WA.png" alt="Prototipo navegable de la Web Application en Figma" width="800">
 
@@ -693,12 +693,12 @@ El Backend API se organiza como un **monolito modular**: un solo despliegue con 
 
 | Capa | Contenido | Rol en la arquitectura hexagonal |
 | :--- | :-------- | :------------------------------- |
-| Interfaces | Controllers REST y manejadores de eventos | Adaptadores de entrada |
+| Interfaces | Controllers REST; los manejadores de eventos están planificados | Adaptadores de entrada |
 | Application | Command Services y Query Services | Implementan los puertos de entrada y orquestan los casos de uso |
-| Domain | Agregados, entidades, value objects, eventos de dominio e interfaces de repositorio | Núcleo del negocio, sin dependencias de frameworks. Declara los puertos de salida |
-| Infrastructure | Repositorios con Entity Framework Core, cliente del servicio de mapas, emisión de tokens | Adaptadores de salida que implementan los puertos del dominio |
+| Domain | Agregados, entidades, value objects e interfaces de repositorio; los eventos de dominio están planificados | Núcleo del negocio, sin dependencias de frameworks. Declara los puertos de salida |
+| Infrastructure | Repositorios con Entity Framework Core, cálculo del hash de contraseñas y emisión de tokens JWT; el cliente del servicio de mapas está planificado | Adaptadores de salida que implementan los puertos del dominio |
 
-Los bounded contexts no acceden a las tablas de los demás. Se comunican a través de **facades** (por ejemplo, Operations and Routes reserva un vehículo mediante la facade de Fleet Management) o de **eventos de dominio** (IoT Monitoring publica `AlertRaised` e Incident Management abre una incidencia).
+Los bounded contexts no acceden a las tablas de los demás. Se comunican a través de **facades** (por ejemplo, Operations and Routes reserva un vehículo mediante la facade de Fleet Management) o de **eventos de dominio** (IoT Monitoring publica `AlertRaised` e Incident Management abre una incidencia). Estos mecanismos de comunicación están planificados: en la versión actual de los Web Services cada contexto referencia a los demás solo por su identificador, como `VehicleId` o `TransportOperationId`.
 
 <a id="461-design-level-event-storming"></a>
 
@@ -716,7 +716,7 @@ El tablero se encuentra disponible en: https://miro.com/welcomeonboard/aEpQNnI1b
 
 El diagrama de contexto muestra a BottleTrack como una caja negra y su relación con las personas y los sistemas externos. Sus usuarios son el administrador de la distribuidora, el supervisor de flota y el responsable de la bodega. El conductor aparece como actor del dominio que reporta al supervisor, pero no usa la aplicación. Los sistemas externos son los dispositivos IoT instalados en los vehículos y el servicio de mapas y geolocalización, que constituye el servicio de terceros que consume la solución.
 
-Los diagramas C4 se elaboraron con Structurizr DSL; el código fuente de cada diagrama se encuentra junto a su imagen ...en la carpeta `report/assets/DD-SoftwareArchitecture` del repositorio.
+Los diagramas C4 se elaboraron con Structurizr DSL y se renderizaron con Structurizr Playground (https://playground.structurizr.com). El código fuente de todos los diagramas (`containerDiagram.txt`) se encuentra junto a sus imágenes en la carpeta `report/assets/DD-SoftwareArchitecture` del repositorio.
 
 <img src="assets/DD-SoftwareArchitecture/contextDiagram.png" alt="Diagrama de contexto C4 de BottleTrack" width="800">
 
@@ -746,25 +746,25 @@ La persona que visita el Website todavía no está autenticada, por lo que el di
 
 ### 4.6.4. Software Architecture Components Diagrams.
 
-Se elaboró un diagrama de componentes por bounded context. Los componentes dibujados con borde punteado y trazo tenue (*Planned*) todavía no existen en el código de los Web Services; el resto corresponde a lo que ya está implementado en el repositorio. Todos siguen la misma estructura hexagonal: un controller como adaptador de entrada, un command service y un query service en la capa de aplicación, el modelo de dominio con sus agregados, la interfaz del repositorio como puerto de salida (borde punteado) y el repositorio de Entity Framework Core como adaptador que lo implementa.
+Se elaboró un diagrama de componentes por bounded context. Los cinco bounded contexts ya están implementados en los Web Services. Los componentes dibujados con borde punteado y trazo tenue (*Planned*) son los que conectan un contexto con otro (facades, capas anticorrupción y eventos de dominio) y los adaptadores hacia servicios externos, que todavía no existen en el código; el resto corresponde a lo que ya está implementado en el repositorio. Todos siguen la misma estructura hexagonal: un controller como adaptador de entrada, command services y query services en la capa de aplicación, el modelo de dominio con sus agregados, la interfaz del repositorio como puerto de salida (borde punteado) y el repositorio de Entity Framework Core como adaptador que lo implementa.
 
-**Identity and Access Management.** Gestiona las organizaciones y los usuarios con sus roles. Implementado: registro y consulta de organizaciones y de usuarios, y un adaptador de salida que calcula el hash de las contraseñas con PBKDF2. La autenticación con tokens aún no está implementada.
+**Identity and Access Management.** Gestiona las organizaciones y los usuarios con sus roles. Implementado: registro, consulta y edición de organizaciones y de usuarios, asignación de rol, un adaptador de salida que calcula el hash de las contraseñas con PBKDF2 y el inicio de sesión, que valida las credenciales y emite un token JWT.
 
 <img src="assets/DD-SoftwareArchitecture/componentIAM_D.png" alt="Diagrama de componentes de Identity and Access Management" width="800">
 
-**Fleet Management.** Gestiona los vehículos y los conductores y su disponibilidad. Implementado: registro y consulta de vehículos y de conductores, con filtro por disponibilidad. La facade con la que Operations and Routes reservará y liberará recursos está planificada.
+**Fleet Management.** Gestiona los vehículos y los conductores y su disponibilidad. Implementado: registro, consulta y edición de vehículos y de conductores, con filtro por disponibilidad. La facade con la que Operations and Routes reservará y liberará recursos está planificada.
 
 <img src="assets/DD-SoftwareArchitecture/componentFleetM_D.png" alt="Diagrama de componentes de Fleet Management" width="800">
 
-**Operations and Routes.** Es el core del dominio. Gestiona el ciclo de vida de la operación de transporte, sus puntos de entrega y el resultado de cada entrega. Su capa anticorrupción traduce las llamadas a Fleet Management y al servicio de mapas.
+**Operations and Routes.** Es el core del dominio. Gestiona el ciclo de vida de la operación de transporte, sus puntos de entrega y sus paradas. Implementado: registro y consulta de puntos de entrega, creación de operaciones con un código correlativo, agregado de paradas, despacho con un vehículo y un conductor, y consulta de las operaciones de una organización con sus paradas. La capa anticorrupción hacia Fleet Management y el adaptador de geocodificación hacia el servicio de mapas están planificados.
 
 <img src="assets/DD-SoftwareArchitecture/componentOR_D.png" alt="Diagrama de componentes de Operations and Routes" width="800">
 
-**IoT Monitoring.** Recibe las lecturas de los dispositivos, las evalúa contra el rango seguro y levanta alertas. Publica el evento `AlertRaised` para que Incident Management actúe.
+**IoT Monitoring.** Registra los dispositivos con su rango seguro de temperatura y su umbral de impacto, recibe sus lecturas y gestiona las alertas. Implementado: registro y consulta de dispositivos, registro y consulta de lecturas por dispositivo, y registro, consulta y atención de alertas. La evaluación automática de cada lectura contra el rango seguro y la publicación del evento `AlertRaised` hacia Incident Management están planificadas.
 
 <img src="assets/DD-SoftwareArchitecture/componentIoTM_D.png" alt="Diagrama de componentes de IoT Monitoring" width="800">
 
-**Incident Management.** Gestiona las incidencias, su evidencia, su severidad y su resolución. Abre incidencias a partir de los reportes del supervisor, de la bodega o de las alertas de IoT Monitoring.
+**Incident Management.** Gestiona las incidencias, su evidencia, su severidad y su resolución, con origen en el supervisor, la bodega o una alerta IoT. Implementado: reporte de incidencias con un código correlativo, registro de evidencias como enlace al archivo, resolución y consulta de las incidencias de una operación. El manejador del evento `AlertRaised` y el servicio que almacena los archivos de evidencia están planificados.
 
 <img src="assets/DD-SoftwareArchitecture/componentIM_D.png" alt="Diagrama de componentes de Incident Management" width="800">
 
@@ -778,7 +778,7 @@ Se elaboró un diagrama de componentes por bounded context. Los componentes dibu
 
 Los diagramas de clases se presentan en dos versiones, una por producto, porque cada uno se programa en un lenguaje distinto y sigue sus propias convenciones de nomenclatura: la Frontend Web Application en JavaScript y el Backend en C#. Ambas se organizan por bounded context, con nombres en inglés tomados del Ubiquitous Language de la sección 2.5.
 
-Ambos diagramas se elaboraron como Diagram-as-Code con PlantUML, y sus fuentes son `report/assets/Software-Object-Oriented-Design/frontend-class-diagrams.puml` y `report/assets/Software-Object-Oriented-Design/backend-class-diagrams.puml`.
+Ambos diagramas se elaboraron como Diagram-as-Code con PlantUML, y sus fuentes son `report/assets/Software-Object-Oriented-Design/frontend-class-diagrams.puml` y `report/assets/Software-Object-Oriented-Design/backend-class-diagrams.puml`. Cada bounded context tiene además su propia fuente (`frontend-class-<bounded-context>.puml` y `backend-class-<bounded-context>.puml`) en la misma carpeta.
 
 **Cómo leer los diagramas**
 
@@ -796,7 +796,7 @@ El diagrama completo reúne los cinco bounded contexts y refleja las clases impl
 
 **Backend (C#)**
 
-El diagrama completo reúne el modelo de dominio propuesto para los Web Services de los cinco bounded contexts. Las relaciones entre contextos se representan con dependencias por identificador, ya que un agregado nunca contiene a otro de un contexto distinto.
+El diagrama completo reúne el modelo de dominio implementado en los Web Services para los cinco bounded contexts. Las relaciones entre contextos se representan con dependencias por identificador, ya que un agregado nunca contiene a otro de un contexto distinto.
 
 <img src="assets/Software-Object-Oriented-Design/backend-class-diagrams.png" alt="Diagrama de clases completo del Backend" width="800">
 
@@ -808,7 +808,7 @@ Gestiona la organización de la empresa distribuidora y los usuarios que acceden
 
 <img src="assets/Software-Object-Oriented-Design/frontend-class-identity-access.png" alt="Diagrama de clases de Identity and Access Management en el frontend" width="800">
 
-*Backend.* `Organization` y `User` son agregados independientes. Muchos usuarios (`1..*`) pertenecen a una organización, y cada usuario tiene un rol (`UserRole`) y un estado (`UserStatus`). `EmailAddress` y `TaxId` son value objects dentro de sus agregados: el correo identifica al usuario y la organización se registra con su `TaxId`. Los métodos expresan las reglas, como `Register`, `AssignRole` y `Deactivate`. `IOrganizationRepository` e `IUserRepository` definen cómo se guardan y buscan los agregados, por ejemplo buscar un usuario por correo.
+*Backend.* `Organization` y `User` son agregados independientes. Muchos usuarios (`1..*`) pertenecen a una organización, y cada usuario tiene un rol (`UserRole`) y un estado (`UserStatus`). `EmailAddress` y `TaxId` son value objects dentro de sus agregados: el correo identifica al usuario y la organización se registra con su `TaxId`. Los métodos expresan las reglas, como `Register`, `UpdateProfile`, `AssignRole` y `Deactivate`. `IOrganizationRepository` e `IUserRepository` definen cómo se guardan y buscan los agregados, por ejemplo buscar un usuario por correo.
 
 <img src="assets/Software-Object-Oriented-Design/backend-class-identity-access.png" alt="Diagrama de clases de Identity and Access Management en el backend" width="800">
 
@@ -820,7 +820,7 @@ Administra los vehículos y los conductores que se asignan a las operaciones de 
 
 <img src="assets/Software-Object-Oriented-Design/frontend-class-fleet-management.png" alt="Diagrama de clases de Fleet Management en el frontend" width="800">
 
-*Backend.* `Vehicle` y `Driver` son raíces de agregado que controlan su propia disponibilidad: `Reserve` los marca como asignados, `Release` los libera y, en el vehículo, `SendToMaintenance` lo retira de circulación. `PlateNumber` y `LicenseNumber` son value objects que los identifican, y cada uno tiene un estado (`VehicleStatus` o `DriverStatus`). `IVehicleRepository` e `IDriverRepository` permiten buscar por placa, documento o licencia, para evitar duplicados, y listar los recursos disponibles de una organización.
+*Backend.* `Vehicle` y `Driver` son raíces de agregado que controlan su propia disponibilidad: `Reserve` los marca como asignados, `Release` los libera y, en el vehículo, `SendToMaintenance` lo retira de circulación. `UpdateDetails` corrige sus datos editables sin tocar la placa, el documento ni la licencia. `PlateNumber` y `LicenseNumber` son value objects que los identifican, y cada uno tiene un estado (`VehicleStatus` o `DriverStatus`). `IVehicleRepository` e `IDriverRepository` permiten buscar por placa, documento o licencia, para evitar duplicados, y listar los recursos disponibles de una organización.
 
 <img src="assets/Software-Object-Oriented-Design/backend-class-fleet-management.png" alt="Diagrama de clases de Fleet Management en el backend" width="800">
 
@@ -828,11 +828,11 @@ Administra los vehículos y los conductores que se asignan a las operaciones de 
 
 Planifica y ejecuta las operaciones de transporte: sus recursos, su ruta de entregas y el resultado de cada entrega.
 
-*Frontend.* `TransportOperation` contiene (composición, `1` a `0..*`) a sus `DeliveryStop`, las paradas de entrega ordenadas por `sequenceNumber`. Sus getters indican qué puede hacerse en cada momento, como `canStart`, `canComplete` y `canCancel`, y calculan el avance (`progress`). `DeliveryOrder` es la vista de la bodega sobre una parada: muestra su estado de seguimiento y si ya se puede reportar un problema. Los estados salen de `OPERATION_STATUSES` y `DELIVERY_STATUSES`. Los comandos agregan una parada a una operación (`AddDeliveryStopCommand`), registran el resultado de una parada (`RecordDeliveryCommand`, que valida las cantidades y el motivo) y reportan un problema sobre un `DeliveryOrder` (`ReportReceptionProblemCommand`). Los assemblers leen esos comandos y crean las entidades. `TransportOperationsApi` y `OperationsApi` acceden al API con cinco y cuatro `BaseEndpoint`.
+*Frontend.* `TransportOperation` contiene (composición, `1` a `0..*`) a sus `DeliveryStop`, las paradas de entrega ordenadas por `sequenceNumber`. Sus getters indican qué puede hacerse en cada momento, como `canStart`, `canComplete` y `canCancel`, y calculan el avance (`progress`). `DeliveryOrder` es la vista de la bodega sobre una parada: muestra su estado de seguimiento y si ya se puede reportar un problema. Los estados salen de `OPERATION_STATUSES` y `DELIVERY_STATUSES`. Los comandos agregan una parada a una operación (`AddDeliveryStopCommand`), registran el resultado de una parada (`RecordDeliveryCommand`, que valida las cantidades y el motivo) y reportan un problema sobre un `DeliveryOrder` (`ReportReceptionProblemCommand`). Los assemblers leen esos comandos y crean las entidades. `TransportOperationsApi` y `OperationsApi` acceden al API con cuatro `BaseEndpoint` cada una.
 
 <img src="assets/Software-Object-Oriented-Design/frontend-class-operations-routes.png" alt="Diagrama de clases de Operations and Routes en el frontend" width="800">
 
-*Backend.* `TransportOperation` es la raíz del agregado y contiene entre una y muchas `DeliveryStop` (`1..*`). Toda modificación de una parada pasa por la operación, que valida las transiciones de estado con `Dispatch`, `Start`, `Complete` y `Cancel`, registra los resultados con `RecordDelivery` y calcula el avance con `CalculateProgress`. Cada parada se entrega en un `DeliveryPoint` y tiene una cantidad planificada y otra entregada, modeladas con el value object `Quantity`. Los estados están en `OperationStatus` y `DeliveryStatus`. `ITransportOperationRepository` e `IDeliveryPointRepository` definen las consultas por organización, por estado y por responsable de la bodega.
+*Backend.* `TransportOperation` es la raíz del agregado y contiene sus `DeliveryStop` (`0..*`). Toda parada se agrega a través de la operación con `AddStop`, y la operación valida sus transiciones de estado con `Dispatch` (que le asigna el vehículo y el conductor), `Complete` y `Cancel`. Cada parada se entrega en un `DeliveryPoint`, tiene un número de secuencia y guarda la cantidad planificada y la entregada en cajas. Los estados están en `TransportOperationStatus` y `DeliveryStopStatus`. `ITransportOperationRepository` obtiene una operación con sus paradas, lista las de una organización y cuenta las existentes para generar el código correlativo; `IDeliveryPointRepository` lista los puntos de entrega de una organización.
 
 <img src="assets/Software-Object-Oriented-Design/backend-class-operations-routes.png" alt="Diagrama de clases de Operations and Routes en el backend" width="800">
 
@@ -840,11 +840,11 @@ Planifica y ejecuta las operaciones de transporte: sus recursos, su ruta de entr
 
 Vigila la carga durante la operación con las lecturas de temperatura y golpes de los dispositivos IoT, y genera alertas cuando se sale del rango seguro.
 
-*Frontend.* `IoTDevice` guarda su rango seguro de temperatura y su umbral de impacto, y con `isTemperatureSafe`, `isImpactSafe` y `evaluate` decide qué tipos de alerta de `ALERT_TYPES` corresponden a una `SensorReading` (como máximo dos, por eso la multiplicidad `0..2`). `Alert` registra la alerta y si ya fue atendida (`isAcknowledged`). `SafeRange` valida los límites que el usuario configura para un dispositivo. `MonitoredOperation` es una vista de lectura que agrupa una operación con su dispositivo (`0..1`) y su última lectura (`0..1`), e indica si la carga está segura o si el dispositivo está sin conexión. `MonitoringAssembler` crea estas clases y `MonitoringApi` accede al API con seis `BaseEndpoint`.
+*Frontend.* `IoTDevice` guarda su rango seguro de temperatura y su umbral de impacto, y con `isTemperatureSafe`, `isImpactSafe` y `evaluate` decide qué tipos de alerta de `ALERT_TYPES` corresponden a una `SensorReading` (como máximo dos, por eso la multiplicidad `0..2`). `Alert` registra la alerta y si ya fue atendida (`isAcknowledged`). `SafeRange` valida los límites que el usuario configura para un dispositivo. `MonitoredOperation` es una vista de lectura que agrupa una operación con su dispositivo (`0..1`) y su última lectura (`0..1`), e indica si la carga está segura o si el dispositivo está sin conexión. `MonitoringAssembler` crea estas clases y `MonitoringApi` accede al API con dos `BaseEndpoint`, uno para vehículos y otro para dispositivos.
 
 <img src="assets/Software-Object-Oriented-Design/frontend-class-iot-monitoring.png" alt="Diagrama de clases de IoT Monitoring en el frontend" width="800">
 
-*Backend.* `IoTDevice` es la raíz del agregado: se instala en un vehículo (`InstallOnVehicle`), se configura con un `SafeRange` (`ConfigureSafeRange`), registra muchas `SensorReading` y levanta muchas `Alert` cuando `Evaluate` detecta una lectura fuera de rango o un golpe fuerte. `Alert` es otra raíz de agregado, con tipo `AlertType` (temperatura fuera de rango, impacto detectado o dispositivo sin conexión), y se atiende con `Acknowledge`. `IIoTDeviceRepository` busca el dispositivo de un vehículo e `IAlertRepository` lista las alertas de las operaciones.
+*Backend.* El contexto tiene tres raíces de agregado, porque las lecturas y las alertas se registran con alta frecuencia y no deben bloquear al dispositivo. `IotDevice` se registra (`Register`) instalado en un vehículo, con su rango seguro de temperatura (`SafeTemperatureMin` y `SafeTemperatureMax`) y su umbral de impacto, y cambia de estado con `GoOffline` y `Retire`. `SensorReading` es inmutable: se crea con `Record` y guarda la ubicación, la temperatura y la fuerza de impacto de un momento del viaje. `Alert` se levanta con `Raise`, con un tipo de `AlertType` (temperatura fuera de rango, impacto detectado o dispositivo sin conexión), y se atiende con `Acknowledge`. `IIotDeviceRepository` busca un dispositivo por su número de serie, para evitar duplicados, e `ISensorReadingRepository` e `IAlertRepository` listan las lecturas y las alertas de un dispositivo.
 
 <img src="assets/Software-Object-Oriented-Design/backend-class-iot-monitoring.png" alt="Diagrama de clases de IoT Monitoring en el backend" width="800">
 
@@ -852,15 +852,15 @@ Vigila la carga durante la operación con las lecturas de temperatura y golpes d
 
 Registra y da seguimiento a las incidencias que afectan una operación o una entrega, con sus evidencias, hasta su cierre.
 
-*Frontend.* `Incident` guarda su código, su origen, su tipo, su severidad, la cantidad afectada y su estado. Avanza por `INCIDENT_STATUSES` (reportada, en revisión, resuelta y cerrada) y expone getters que guían la interfaz: `nextStatus`, `isOpen` y `requiresResolution`. Cada `Evidence` pertenece a una incidencia (`0..*` a `1`). Los comandos validan sus datos antes de enviarlos: `ReportIncidentCommand` para reportar, `AdvanceIncidentCommand` para pasar al siguiente estado y `AttachEvidenceCommand` para adjuntar una evidencia. `IncidentAssembler` y `EvidenceAssembler` leen esos comandos y crean las entidades, y `IncidentsApi` accede al API con cuatro `BaseEndpoint`.
+*Frontend.* `Incident` guarda su código, su origen, su tipo, su severidad, la cantidad afectada y su estado. Avanza por `INCIDENT_STATUSES` (reportada, en revisión, resuelta y cerrada) y expone getters que guían la interfaz: `nextStatus`, `isOpen` y `requiresResolution`. Cada `Evidence` pertenece a una incidencia (`0..*` a `1`). Los comandos validan sus datos antes de enviarlos: `ReportIncidentCommand` para reportar, `AdvanceIncidentCommand` para pasar al siguiente estado y `AttachEvidenceCommand` para adjuntar una evidencia. `IncidentAssembler` y `EvidenceAssembler` leen esos comandos y crean las entidades, y `IncidentsApi` accede al API con dos `BaseEndpoint`, uno para incidencias y otro para operaciones; las evidencias se agregan y la resolución se registra a través de la propia incidencia.
 
 <img src="assets/Software-Object-Oriented-Design/frontend-class-incident-management.png" alt="Diagrama de clases de Incident Management en el frontend" width="800">
 
-*Backend.* `Incident` es la raíz del agregado y contiene sus `Evidence` (`0..*`). Su ciclo de vida se expresa con los métodos `Report`, `AttachEvidence`, `AssignSeverity`, `Review`, `Resolve` y `Close`. Cada incidencia se clasifica por tipo (`IncidentType`), tiene una severidad (`Severity`), un estado (`IncidentStatus`) y un origen (`IncidentSource`): el supervisor, la bodega o una alerta IoT. `IIncidentRepository` lista las incidencias de las operaciones y obtiene el siguiente código correlativo.
+*Backend.* `Incident` es la raíz del agregado y contiene sus `Evidence` (`0..*`). Su ciclo de vida se expresa con los métodos `Report`, `AddEvidence`, `StartReview`, `Resolve` y `Close`. Cada incidencia se clasifica por tipo (`IncidentType`), tiene una severidad (`IncidentSeverity`), un estado (`IncidentStatus`) y un origen (`IncidentSource`): el supervisor, la bodega o una alerta IoT. `IIncidentRepository` obtiene una incidencia con sus evidencias, lista las incidencias de una operación y cuenta las existentes para generar el código correlativo.
 
 <img src="assets/Software-Object-Oriented-Design/backend-class-incident-management.png" alt="Diagrama de clases de Incident Management en el backend" width="800">
 
-Los diagramas del backend de Identity and Access Management y de Fleet Management, junto con el Shared Kernel, reflejan el código del repositorio de los Web Services. Los diagramas de Operations and Routes, IoT Monitoring e Incident Management son diseño: su paquete lleva la marca *planned* porque todavía no se implementan.
+Los diagramas del backend de los cinco bounded contexts, junto con el Shared Kernel, reflejan el código del repositorio de los Web Services.
 
 <a id="48-database-design"></a>
 
@@ -872,7 +872,7 @@ Los diagramas del backend de Identity and Access Management y de Fleet Managemen
 
 El diagrama de base de datos corresponde al esquema relacional en MySQL. Las tablas siguen una convención única: nombres en inglés, en plural y en snake_case, y columnas en snake_case. Las claves primarias son identificadores `CHAR(36)` generados por la aplicación y las claves foráneas se nombran como `<entidad>_id`.
 
-Las tablas `organizations`, `users`, `vehicles` y `drivers` reflejan la migración `InitialCreate` de los Web Services: los estados se guardan como texto (`VARCHAR`) y los correos, los RUC, las placas, los DNI y las licencias son únicos. Las demás tablas pertenecen a los bounded contexts que todavía no están implementados y son diseño.
+Las doce tablas reflejan las migraciones de Entity Framework Core de los Web Services: `InitialCreate` (`organizations`, `users`, `vehicles` y `drivers`), `AddIncidentManagement` (`incidents` y `evidences`), `AddOperationsAndRoutes` (`delivery_points`, `transport_operations` y `delivery_stops`) y `AddIotMonitoring` (`iot_devices`, `sensor_readings` y `alerts`). Los estados y los tipos se guardan como texto (`VARCHAR`), y los correos, los RUC, las placas, los DNI, las licencias, los códigos de operación y de incidencia y los números de serie de los dispositivos son únicos.
 
 El diagrama se elaboró como Diagram-as-Code con PlantUML; su fuente es `report/assets/Database-Design/database-diagram.puml`.
 

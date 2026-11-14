@@ -1,0 +1,121 @@
+@startuml
+' BottleTrack - Frontend Web Application - IoT Monitoring class diagram
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam class {
+  BackgroundColor #ffffff
+  BorderColor #b34900
+  ArrowColor #4f2000
+}
+skinparam package {
+  BackgroundColor #fff7ed
+  BorderColor #f97316
+}
+left to right direction
+
+package "Shared Infrastructure" {
+  class BaseApi <<Infrastructure>> {
+    - #http: AxiosInstance
+    + /http: AxiosInstance
+  }
+  class BaseEndpoint <<Infrastructure>> {
+    + http: AxiosInstance
+    + endpointPath: string
+    + getAll(params): Promise
+    + getById(id): Promise
+    + create(resource): Promise
+    + update(id, resource): Promise
+    + partialUpdate(id, resource): Promise
+    + delete(id): Promise
+  }
+  BaseApi "1" ..> "0..*" BaseEndpoint : provides http to
+}
+
+package "IoT Monitoring" {
+  class IoTDevice <<Entity>> {
+    + id: string
+    + serialNumber: string
+    + vehicleId: string
+    + vehiclePlateNumber: string
+    + safeTemperatureMin: number
+    + safeTemperatureMax: number
+    + impactThreshold: number
+    + status: string
+    + isTemperatureSafe(temperatureCelsius): boolean
+    + isImpactSafe(impactForce): boolean
+    + evaluate(reading): string[]
+  }
+  class SensorReading <<Entity>> {
+    + id: string
+    + iotDeviceId: string
+    + transportOperationId: string
+    + recordedAt: string
+    + latitude: number
+    + longitude: number
+    + temperatureCelsius: number
+    + impactForce: number
+  }
+  class Alert <<Entity>> {
+    + id: string
+    + iotDeviceId: string
+    + transportOperationId: string
+    + type: string
+    + raisedAt: string
+    + acknowledgedBy: string
+    + acknowledgedAt: string
+    + operationCode: string
+    + /isAcknowledged: boolean
+    + /incidentType: string
+  }
+  class SafeRange <<Value Object>> {
+    + safeTemperatureMin: number
+    + safeTemperatureMax: number
+    + impactThreshold: number
+    + /validationError: string
+  }
+  class MonitoredOperation <<Read Model>> {
+    + operationId: string
+    + operationCode: string
+    + description: string
+    + vehiclePlateNumber: string
+    + device: IoTDevice
+    + latestReading: SensorReading
+    + /hasDevice: boolean
+    + /isCargoSafe: boolean
+    + isOffline(now): boolean
+  }
+  enum ALERT_TYPES <<enumeration>> {
+    TEMPERATURE_OUT_OF_RANGE = 'temperature_out_of_range'
+    IMPACT_DETECTED = 'impact_detected'
+    DEVICE_OFFLINE = 'device_offline'
+  }
+  class MonitoringApi <<Infrastructure>> {
+    - #vehiclesEndpoint: BaseEndpoint
+    - #devicesEndpoint: BaseEndpoint
+    + getVehicles(organizationId): Promise
+    + getAllDevices(): Promise
+  }
+  class MonitoringAssembler <<Assembler>> {
+    + {static} toMonitoredOperation(operation, references): MonitoredOperation
+    + {static} toDevice(resource, vehicles): IoTDevice
+    + {static} toAlert(resource, operations): Alert
+    + {static} toIncidentResourceFromAlert(alert, context): Object
+    + {static} toSimulatedReadingResource(monitoredOperation): Object
+    + {static} toAlertResource(reading, type): Object
+  }
+  MonitoredOperation "1" --> "0..1" IoTDevice : is monitored by
+  MonitoredOperation "1" --> "0..1" SensorReading : has latest reading
+  IoTDevice "1" ..> "0..*" SensorReading : evaluates
+  IoTDevice "1" ..> "0..2" ALERT_TYPES : returns
+  Alert "1" --> "1" ALERT_TYPES : is of type
+  SafeRange "0..*" ..> "1" IoTDevice : sets the limits of
+  MonitoringAssembler "1" ..> "0..*" MonitoredOperation : creates
+  MonitoringAssembler "1" ..> "0..*" IoTDevice : creates
+  MonitoringAssembler "1" ..> "0..*" Alert : creates
+  MonitoringAssembler "1" ..> "0..*" SensorReading : creates
+  MonitoringApi "1" *-- "2" BaseEndpoint : owns
+  MonitoringApi --|> BaseApi
+}
+@enduml

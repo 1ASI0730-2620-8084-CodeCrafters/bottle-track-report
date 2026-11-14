@@ -1,0 +1,83 @@
+@startuml
+' BottleTrack - Backend - Incident Management class diagram
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam class {
+  BackgroundColor #ffffff
+  BorderColor #b34900
+  ArrowColor #4f2000
+}
+skinparam package {
+  BackgroundColor #fff7ed
+  BorderColor #f97316
+}
+
+package "Incident Management" {
+  class Incident <<Aggregate Root>> {
+    + Id: Guid
+    + Code: string
+    + TransportOperationId: Guid
+    + DeliveryStopId: Guid?
+    + ReportedBy: Guid
+    + Source: IncidentSource
+    + Type: IncidentType
+    + Severity: IncidentSeverity
+    + Description: string
+    + AffectedQuantity: int?
+    + Status: IncidentStatus
+    + Resolution: string?
+    + ReportedAt: DateTime
+    + ResolvedAt: DateTime?
+    + {static} Report(code, transportOperationId, deliveryStopId, reportedBy, source, type, severity, description, affectedQuantity): Incident
+    + AddEvidence(fileUrl, fileType, uploadedBy): void
+    + StartReview(): void
+    + Resolve(resolution): void
+    + Close(): void
+  }
+  class Evidence <<Entity>> {
+    + Id: Guid
+    + IncidentId: Guid
+    + FileUrl: string
+    + FileType: string
+    + UploadedBy: Guid
+    + UploadedAt: DateTime
+    + {static} Create(incidentId, fileUrl, fileType, uploadedBy): Evidence
+  }
+  enum IncidentType {
+    BrokenBottles
+    DamagedProduct
+    Shortage
+    Delay
+  }
+  enum IncidentSeverity {
+    Low
+    Medium
+    High
+    Critical
+  }
+  enum IncidentStatus {
+    Reported
+    UnderReview
+    Resolved
+    Closed
+  }
+  enum IncidentSource {
+    FleetSupervisor
+    DeliveryPoint
+    IotAlert
+  }
+  interface IIncidentRepository {
+    + FindByIdWithEvidencesAsync(id: Guid): Task<Incident?>
+    + ListByTransportOperationAsync(transportOperationId: Guid): Task<IEnumerable<Incident>>
+    + CountAsync(): Task<int>
+  }
+  Incident "1" *-- "0..*" Evidence : is supported by
+  Incident "1" --> "1" IncidentType : is classified as
+  Incident "1" --> "1" IncidentSeverity : has severity
+  Incident "1" --> "1" IncidentStatus : has status
+  Incident "1" --> "1" IncidentSource : originates from
+  IIncidentRepository "1" ..> "0..*" Incident : persists
+}
+@enduml
