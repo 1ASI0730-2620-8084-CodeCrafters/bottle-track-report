@@ -64,7 +64,7 @@ A continuación se indican los productos de software que utiliza el equipo, el p
 | Producto | Propósito | Ruta de referencia |
 | :------- | :-------- | :----------------- |
 | GitHub | Alojamiento del informe en formato Markdown y de los repositorios de código. | https://github.com |
-| Swagger / OpenAPI | Documentación de los endpoints de los Web Services. | https://swagger.io |
+| Scalar / OpenAPI | Documentación interactiva de los endpoints de los Web Services. | https://scalar.com |
 | Pandoc y XeLaTeX (MiKTeX) | Generación del informe en PDF a partir de los archivos Markdown. | https://pandoc.org |
 
 <a id="512-source-code-management"></a>
@@ -878,7 +878,7 @@ La siguiente tabla registra el estado de cada tarea al cierre del Sprint 3, el 2
 | TS11 | Operation History REST API | T24 | History frontend integration | Conectar el historial y su detalle con el API y verificar el manejo de operaciones inexistentes. | 4 | Cumba Rengifo, Leonardo Raul | To-do |
 | TS12 | Maps Service Integration | T25 | External maps adapter | Implementar la integración con un servicio externo de mapas o geolocalización, gestionando ubicaciones no encontradas y fallos del proveedor. | 8 | Palacin Lazo, Gerardo Valentin | To-do |
 | TS12 | Maps Service Integration | T26 | Delivery location integration | Integrar la información geográfica con las vistas de entregas, coordinando el contrato con Operations and Routes. | 4 | Palacin Lazo, Gerardo Valentin | To-do |
-| TS13 | OpenAPI Documentation | T27 | OpenAPI configuration | Configurar Swagger/OpenAPI con autorización, esquemas y convenciones comunes para parámetros, requests, responses y códigos HTTP. | 4 | Crispin Valdivia, Angel Gabriel | In-Process |
+| TS13 | OpenAPI Documentation | T27 | OpenAPI configuration | Configurar OpenAPI y Scalar con autorización, esquemas y convenciones comunes para parámetros, requests, responses y códigos HTTP. | 4 | Crispin Valdivia, Angel Gabriel | In-Process |
 | TS13 | OpenAPI Documentation | T28 | Endpoint documentation verification | Revisar con cada líder la documentación de sus endpoints, ejecutar ejemplos y registrar capturas y enlaces para el informe. | 6 | Crispin Valdivia, Angel Gabriel | Done |
 | TS14 | IoT Telemetry REST API | T29 | Devices and sensor readings | Implementar persistencia de dispositivos, rangos seguros y lecturas simuladas, validando la existencia del dispositivo y los valores recibidos. | 8 | Palacin Lazo, Gerardo Valentin | Done |
 | TS14 | IoT Telemetry REST API | T30 | Cargo risk alerts | Generar alertas relacionadas con una operación cuando se detecten temperaturas fuera de rango o golpes e integrar su atención con incidencias. | 8 | Palacin Lazo, Gerardo Valentin | In-Process |
@@ -1021,26 +1021,27 @@ Las capturas muestran la Frontend Web Application consumiendo los Web Services e
 
 #### 5.2.3.6. Services Documentation Evidence for Sprint Review.
 
-Los Web Services se documentan con OpenAPI. ASP.NET Core genera el documento en `/openapi/v1.json` y Swagger UI lo presenta en `/swagger`, donde cada endpoint se puede ejecutar con sus parámetros y ver su respuesta. El repositorio es https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-web-services y los commits de cada contexto se registran en la sección 5.2.3.4.
+Los Web Services se documentan con OpenAPI. ASP.NET Core genera el documento en `/openapi/v1.json` y Scalar lo presenta en `/scalar`, donde cada endpoint se puede ejecutar con sus parámetros y ver su respuesta. La documentación publicada se encuentra en https://bottle-track-web-services-production.up.railway.app/scalar. El repositorio es https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-web-services y los commits de cada contexto se registran en la sección 5.2.3.4.
 
 Todos los endpoints siguen las mismas convenciones:
 
 - Las rutas se escriben en kebab-case y en plural bajo el prefijo `/api/v1`, por ejemplo `/api/v1/transport-operations`.
+- Los cambios de estado se modelan como la creación de un recurso con un sustantivo en plural, mediante `POST`: el inicio de sesión crea un token en `/api/v1/tokens`, y el despacho de una operación, la atención de una alerta, la resolución de una incidencia y la asignación de un rol se registran en `/dispatches`, `/acknowledgments`, `/resolutions` y `/roles`.
 - Los cuerpos de las solicitudes y de las respuestas usan JSON, con propiedades en camelCase y valores de enumeraciones en snake_case, por ejemplo `"fleet_supervisor"` o `"temperature_out_of_range"`.
 - Las respuestas de error usan el formato `ProblemDetails` (RFC 9110), con un mensaje traducido al idioma de la cabecera `Accept-Language` (inglés o español).
-- `201 Created` indica un registro nuevo e incluye su ubicación; `400` indica datos inválidos; `404`, un recurso inexistente; `409`, un dato único repetido; y `401`, credenciales incorrectas.
+- `201 Created` indica un registro nuevo e incluye su ubicación; `400` indica datos inválidos; `404`, un recurso inexistente; `409`, un dato único repetido o un cambio de estado no permitido; y `401`, credenciales incorrectas.
 
-<img src="assets/chapter5/sprint3/swagger-overview.png" alt="Swagger UI con los endpoints de los Web Services agrupados por recurso" width="800">
+<img src="assets/chapter5/sprint3/scalar-overview.png" alt="Scalar con los endpoints de los Web Services agrupados por recurso" width="800">
 
 La documentación cubre 39 endpoints, organizados por bounded context:
 
-Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta o de consulta y si la solicitud lleva un cuerpo JSON, y los códigos de respuesta posibles. El esquema de cada cuerpo y de cada respuesta se consulta en Swagger UI, y los ejemplos que siguen muestran dos respuestas completas.
+Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta o de consulta y si la solicitud lleva un cuerpo JSON, y los códigos de respuesta posibles. El esquema de cada cuerpo y de cada respuesta se consulta en Scalar, y los ejemplos que siguen muestran dos respuestas completas.
 
-**Identity and Access Management** (9 endpoints)
+**Identity and Access Management** (11 endpoints)
 
 | Verbo | Endpoint | Descripción | Parámetros | Respuestas |
 | :----- | :---------------------------- | :--------------------------------- | :--------------- | :---------- |
-| POST | `/api/v1/authentication/sign-in` | Valida el correo y la contraseña y devuelve el usuario autenticado con su token JWT. | cuerpo JSON | 200, 401 |
+| POST | `/api/v1/tokens` | Valida el correo y la contraseña y devuelve el usuario autenticado con su token JWT. | cuerpo JSON | 200, 401 |
 | POST | `/api/v1/organizations` | Registra una empresa distribuidora; el RUC no puede repetirse. | cuerpo JSON | 201, 400, 409 |
 | GET | `/api/v1/organizations/{id}` | Devuelve una empresa por su identificador. | `id` (ruta) | 200, 404 |
 | PUT | `/api/v1/organizations/{id}` | Actualiza la razón social, el teléfono y la dirección de la empresa. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
@@ -1048,7 +1049,9 @@ Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta
 | GET | `/api/v1/users` | Lista los usuarios de una empresa. | `organizationId` (query) | 200 |
 | GET | `/api/v1/users/{id}` | Devuelve un usuario por su identificador. | `id` (ruta) | 200, 404 |
 | PUT | `/api/v1/users/{id}` | Actualiza el nombre, el apellido y el correo de un usuario. | `id` (ruta), cuerpo JSON | 200, 400, 404, 409 |
-| PUT | `/api/v1/users/{id}/role` | Asigna un nuevo rol a un usuario. | `id` (ruta), cuerpo JSON | 200, 404 |
+| POST | `/api/v1/users/{id}/roles` | Asigna un nuevo rol a un usuario. | `id` (ruta), cuerpo JSON | 200, 404 |
+| GET | `/api/v1/roles` | Lista los roles disponibles en la plataforma. | — | 200 |
+| GET | `/api/v1/roles/{role}/users` | Lista los usuarios de una empresa que tienen el rol indicado. | `role` (ruta), `organizationId` (query) | 200, 404 |
 
 **Fleet Management** (8 endpoints)
 
@@ -1103,7 +1106,7 @@ Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta
 **Ejemplo 1: inicio de sesión.** La solicitud envía el correo y la contraseña:
 
 ```json
-POST /api/v1/authentication/sign-in
+POST /api/v1/tokens
 { "email": "supervisor@codecrafters.pe", "password": "********" }
 ```
 
@@ -1124,7 +1127,7 @@ La respuesta `200 OK` devuelve los datos del usuario autenticado, su empresa, su
 
 Si la contraseña no es correcta, la respuesta es `401 Unauthorized` con el detalle "El correo o la contraseña no son correctos." cuando la cabecera `Accept-Language` es `es`.
 
-<img src="assets/chapter5/sprint3/swagger-sign-in.png" alt="Endpoint de inicio de sesión en Swagger UI" width="800">
+<img src="assets/chapter5/sprint3/scalar-tokens.png" alt="Endpoint de inicio de sesión en Scalar" width="800">
 
 **Ejemplo 2: operaciones de una empresa.** `GET /api/v1/transport-operations?organizationId=…` devuelve `200 OK` con la lista de operaciones. Cada una incluye su código correlativo, la fecha programada, el vehículo y el conductor asignados, su estado y sus paradas (`deliveryStops`) con el número de secuencia, la cantidad planificada y la entregada y el estado de cada entrega. La captura muestra la ejecución del endpoint desde Swagger UI.
 
