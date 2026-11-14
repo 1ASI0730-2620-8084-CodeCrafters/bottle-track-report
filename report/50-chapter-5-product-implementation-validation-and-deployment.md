@@ -1069,6 +1069,10 @@ Las capturas muestran la Frontend Web Application consumiendo los Web Services e
 
 <img src="assets/chapter5/sprint3/app-incidents.png" alt="Listado de incidencias con su severidad y estado" width="800">
 
+**Registro de una empresa.** Desde el inicio de sesión o desde los planes de suscripción del Landing Page, una distribuidora nueva registra su empresa, su administrador y el plan elegido; al terminar, la aplicación inicia sesión con la cuenta creada.
+
+<img src="assets/chapter5/sprint3/app-sign-up.png" alt="Vista de registro de una empresa con su plan de suscripción" width="800">
+
 **Funciones del siguiente Sprint.** El monitoreo en vivo y el seguimiento de pedidos de la bodega muestran el aviso *Próximamente*, al igual que las acciones de las operaciones e incidencias que todavía no expone el API.
 
 <img src="assets/chapter5/sprint3/app-monitoring.png" alt="Vista de monitoreo con el aviso Próximamente" width="800">
