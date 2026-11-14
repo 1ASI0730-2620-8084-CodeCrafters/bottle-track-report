@@ -185,14 +185,14 @@ La aplicación web se publica en Vercel a partir de la rama `main` del repositor
 
 1. Importar el repositorio desde el panel de Vercel.
 2. Configurar el comando de construcción y el directorio de salida que corresponden a un proyecto de Vue.
-3. Registrar en el archivo `.env.production` la URL base del API. Mientras los Web Services no estén publicados, apunta al fake API publicado en Beeceptor. En el entorno de desarrollo (`.env.development`) la aplicación ya consume los Web Services locales en `http://localhost:5280/api/v1`.
+3. Registrar en el archivo `.env.production` la URL base del API, que apunta a los Web Services publicados en Railway (`https://bottle-track-web-services-production.up.railway.app/api/v1`). En el entorno de desarrollo (`.env.development`) la aplicación consume los Web Services locales en `http://localhost:5280/api/v1`.
 4. Confirmar la publicación automática que Vercel ejecuta ante cada integración en `main`.
 
 Una vez publicada la aplicación, la URL definitiva se registra en los llamados a la acción de cada segmento objetivo del Landing Page, de modo que ambos productos queden enlazados.
 
 **Web Services**
 
-La primera versión de los Web Services se implementó en el Sprint 3 y se ejecuta en el entorno local junto con MySQL. Su publicación en un proveedor de nube está preparada, pero todavía no se ha realizado:
+La primera versión de los Web Services se implementó en el Sprint 3 y se publica en Railway junto con una base de datos MySQL, a partir de la rama `main` del repositorio `bottle-track-web-services`:
 
 1. El repositorio incluye un `Dockerfile` que compila la solución y expone el servicio en el puerto 8080.
 2. El archivo `appsettings.Production.json` toma la cadena de conexión de las variables de entorno `DATABASE_URL`, `DATABASE_USER`, `DATABASE_PASSWORD` y `DATABASE_SCHEMA`, de modo que ninguna credencial se guarda en el repositorio.
