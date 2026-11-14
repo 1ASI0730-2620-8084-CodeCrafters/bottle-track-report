@@ -1087,7 +1087,7 @@ Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta
 | GET | `/api/v1/sensor-readings` | Lista las lecturas de un dispositivo. | `iotDeviceId` (query) | 200 |
 | POST | `/api/v1/alerts` | Levanta una alerta de un dispositivo sobre una operación. | cuerpo JSON | 201, 400 |
 | GET | `/api/v1/alerts` | Lista las alertas de un dispositivo. | `iotDeviceId` (query) | 200 |
-| PUT | `/api/v1/alerts/{id}/acknowledgement` | Registra la atención de una alerta por un usuario. | `id` (ruta), cuerpo JSON | 200, 404 |
+| POST | `/api/v1/alerts/{id}/acknowledgments` | Registra la atención de una alerta por un usuario. | `id` (ruta), cuerpo JSON | 200, 404 |
 | GET | `/api/v1/alerts/{id}` | Devuelve una alerta por su identificador. | `id` (ruta) | 200, 404 |
 
 **Incident Management** (5 endpoints)
