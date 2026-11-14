@@ -12,6 +12,8 @@ En esta sección se registran las URL de los productos publicados. Cada producto
 | :------- | :----------------------- | :-- |
 | Landing Page | Netlify | https://1asi0730-2620-8084-codecrafters.netlify.app/ |
 | Frontend Web Application | Vercel | https://frontend-web-aplication.vercel.app |
+| Web Services | Railway | https://bottle-track-web-services-production.up.railway.app |
+| Documentación de los Web Services (Scalar) | Railway | https://bottle-track-web-services-production.up.railway.app/scalar |
 
 <hr>
 

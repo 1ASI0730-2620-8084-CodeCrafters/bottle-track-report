@@ -185,14 +185,14 @@ La aplicación web se publica en Vercel a partir de la rama `main` del repositor
 
 1. Importar el repositorio desde el panel de Vercel.
 2. Configurar el comando de construcción y el directorio de salida que corresponden a un proyecto de Vue.
-3. Registrar en el archivo `.env.production` la URL base del API. Mientras los Web Services no estén publicados, apunta al fake API publicado en Beeceptor. En el entorno de desarrollo (`.env.development`) la aplicación ya consume los Web Services locales en `http://localhost:5280/api/v1`.
+3. Registrar en el archivo `.env.production` la URL base del API, que apunta a los Web Services publicados en Railway (`https://bottle-track-web-services-production.up.railway.app/api/v1`). En el entorno de desarrollo (`.env.development`) la aplicación consume los Web Services locales en `http://localhost:5280/api/v1`.
 4. Confirmar la publicación automática que Vercel ejecuta ante cada integración en `main`.
 
 Una vez publicada la aplicación, la URL definitiva se registra en los llamados a la acción de cada segmento objetivo del Landing Page, de modo que ambos productos queden enlazados.
 
 **Web Services**
 
-La primera versión de los Web Services se implementó en el Sprint 3 y se ejecuta en el entorno local junto con MySQL. Su publicación en un proveedor de nube está preparada, pero todavía no se ha realizado:
+La primera versión de los Web Services se implementó en el Sprint 3 y se publica en Railway junto con una base de datos MySQL, a partir de la rama `main` del repositorio `bottle-track-web-services`:
 
 1. El repositorio incluye un `Dockerfile` que compila la solución y expone el servicio en el puerto 8080.
 2. El archivo `appsettings.Production.json` toma la cadena de conexión de las variables de entorno `DATABASE_URL`, `DATABASE_USER`, `DATABASE_PASSWORD` y `DATABASE_SCHEMA`, de modo que ninguna credencial se guarda en el repositorio.
@@ -905,10 +905,68 @@ Al cierre del Sprint, 14 tareas están en **Done**, 18 en **In-Process** y 14 en
 
 #### 5.2.3.4. Development Evidence for Sprint Review.
 
-En el Sprint 3 se creó el repositorio de los Web Services y se trabajó en los repositorios del Landing Page y del informe. La siguiente tabla registra los commits integrados en `develop` desde el inicio del Sprint, el 2026-10-28, sin considerar los commits de integración de ramas. La columna *Branch* indica la rama de feature en la que se elaboró cada commit, y `develop` identifica los commits realizados directamente sobre esa rama.
+En el Sprint 3 se creó el repositorio de los Web Services, se integró con ellos la Web Application y se trabajó en los repositorios del Landing Page y del informe. La siguiente tabla registra los commits integrados en `develop` desde el inicio del Sprint, el 2026-10-28, hasta la entrega de AV2, el 2026-11-13, sin considerar los commits de integración de ramas. La columna *Branch* indica la rama de feature en la que se elaboró cada commit, y `develop` identifica los commits realizados directamente sobre esa rama.
 
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
 | :--------- | :----- | :-------- | :------------- | :------------------ | :------------------ |
+| bottle-track-web-services | release/2.0.0 | `b5a1b39` | `docs(release): document version 2.0.0` | — | 2026-11-13 |
+| bottle-track-web-services | feature/fleet-status-changes | `3a14329` | `test(fleet): cover driver status changes` | — | 2026-11-13 |
+| bottle-track-web-services | feature/fleet-status-changes | `94ec3a2` | `test(fleet): cover vehicle status changes` | — | 2026-11-13 |
+| bottle-track-web-services | feature/fleet-status-changes | `073e351` | `feat(fleet): accept a status change when updating drivers` | — | 2026-11-13 |
+| bottle-track-web-services | feature/fleet-status-changes | `770f357` | `feat(fleet): accept a status change when updating vehicles` | — | 2026-11-13 |
+| bottle-track-web-services | feature/iam-tokens-and-roles | `c6bb01f` | `feat(iam): add the roles controller with the users of each role` | — | 2026-11-13 |
+| bottle-track-web-services | feature/fleet-status-changes | `c1e3e37` | `feat(fleet): let drivers be deactivated and activated` | — | 2026-11-13 |
+| bottle-track-web-services | feature/iam-tokens-and-roles | `3edcba4` | `feat(iam): add the query to list users by role` | — | 2026-11-13 |
+| bottle-track-web-services | fix/alert-acknowledgments-endpoint | `b63d801` | `fix(monitoring): acknowledge alerts with a post to acknowledgments` | — | 2026-11-12 |
+| bottle-track-web-services | fix/incident-resolutions-endpoint | `69482b0` | `fix(incidents): resolve incidents with a post to resolutions` | — | 2026-11-12 |
+| bottle-track-web-services | feature/fleet-status-changes | `aca89ed` | `feat(fleet): let vehicles return to service from maintenance` | — | 2026-11-12 |
+| bottle-track-web-services | feature/iam-tokens-and-roles | `dc9904a` | `refactor(iam): assign user roles with a post to roles` | — | 2026-11-12 |
+| bottle-track-web-services | feature/scalar-api-reference | `9797e76` | `docs(readme): point to the scalar api reference` | — | 2026-11-12 |
+| bottle-track-web-services | feature/fleet-status-changes | `6693156` | `feat(fleet): add the invalid status change error and its messages` | — | 2026-11-12 |
+| bottle-track-web-services | fix/transport-operation-dispatches-endpoint | `c105949` | `fix(operations): dispatch transport operations with a post to dispatches` | — | 2026-11-12 |
+| bottle-track-web-services | feature/iam-tokens-and-roles | `bfd6913` | `test(iam): sign in through the tokens endpoint` | — | 2026-11-12 |
+| bottle-track-web-services | feature/scalar-api-reference | `5c84891` | `feat(api): replace swagger ui with the scalar api reference` | — | 2026-11-12 |
+| bottle-track-web-services | feature/iam-tokens-and-roles | `98ec681` | `refactor(iam): expose sign in as the tokens resource` | — | 2026-11-12 |
+| bottle-track-web-services | feature/scalar-api-reference | `67573a7` | `build(api): add the scalar api reference package` | — | 2026-11-12 |
+| bottle-track-web-services | release/1.0.1 | `b27480f` | `docs(release): document version 1.0.1` | — | 2026-11-12 |
+| bottle-track-web-services | fix/transport-operation-scheduled-date | `e22f500` | `chore(persistence): update the model snapshot for the scheduled date migration` | — | 2026-11-12 |
+| bottle-track-web-services | fix/transport-operation-scheduled-date | `2743cc1` | `fix(operations): add migration to store the scheduled date as datetime` | — | 2026-11-12 |
+| bottle-track-web-services | release/1.0.0 | `a3284cb` | `docs(release): document version 1.0.0` | — | 2026-11-12 |
+| bottle-track-web-services | feature/api-tests | `41003d8` | `test(iam): add authentication integration tests` | — | 2026-11-11 |
+| bottle-track-web-services | feature/fleet-vehicle-update | `139f303` | `feat(fleet): expose vehicle update endpoint` | — | 2026-11-11 |
+| bottle-track-web-services | feature/api-tests | `a8381cd` | `test(api): add unit tests for value objects and the user aggregate` | — | 2026-11-11 |
+| bottle-track-web-services | feature/fleet-vehicle-update | `5649d02` | `feat(fleet): add vehicle details update to the aggregate` | — | 2026-11-11 |
+| bottle-track-web-services | feature/api-tests | `3a8c705` | `fix(api): use es-419 as the supported spanish culture` | — | 2026-11-11 |
+| bottle-track-web-services | chore/ef-core-migrations | `82ec010` | `chore(persistence): add migration for iot monitoring` | — | 2026-11-10 |
+| bottle-track-web-services | chore/ef-core-migrations | `aff2bcc` | `chore(persistence): add migration for operations and routes` | — | 2026-11-10 |
+| bottle-track-web-services | chore/ef-core-migrations | `7a06623` | `chore(persistence): add migration for incident management` | — | 2026-11-10 |
+| bottle-track-web-services | feature/fleet-driver-update | `6acbe10` | `feat(fleet): expose driver update endpoint` | — | 2026-11-10 |
+| bottle-track-web-services | feature/operations-and-routes | `f1cc24a` | `feat(operations): add transport operations controller` | — | 2026-11-10 |
+| bottle-track-web-services | feature/fleet-driver-update | `7ec33f9` | `feat(fleet): add driver profile update to the aggregate` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iam-authentication | `7d1c992` | `feat(iam): add organization update` | — | 2026-11-10 |
+| bottle-track-web-services | feature/operations-and-routes | `1584724` | `feat(operations): add delivery points controller` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iam-authentication | `5fa8dd0` | `feat(iam): add user profile update and role assignment` | — | 2026-11-10 |
+| bottle-track-web-services | feature/incident-management | `22c8678` | `feat(incidents): add incidents rest controller and resources` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `160b84e` | `feat(monitoring): add alerts endpoint` | — | 2026-11-10 |
+| bottle-track-web-services | feature/operations-and-routes | `cd41f73` | `feat(operations): add operations persistence with ef core` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `0860228` | `feat(monitoring): add sensor readings endpoint` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `d5bd3dc` | `feat(monitoring): add iot devices endpoint` | — | 2026-11-10 |
+| bottle-track-web-services | feature/incident-management | `8173a7f` | `feat(incidents): add incident persistence with ef core` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iam-authentication | `64653e8` | `feat(iam): add authentication endpoint with jwt bearer` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `72ca709` | `feat(monitoring): add monitoring persistence with ef core` | — | 2026-11-10 |
+| bottle-track-web-services | feature/operations-and-routes | `73153cb` | `feat(operations): add delivery point and transport operation services` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `3d83c1f` | `feat(monitoring): add sensor reading and alert services` | — | 2026-11-10 |
+| bottle-track-web-services | feature/incident-management | `d968ae5` | `feat(incidents): add incident command and query services` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iam-authentication | `40babf1` | `feat(iam): add sign-in command service` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `2dfea58` | `feat(monitoring): add iot device command and query services` | — | 2026-11-10 |
+| bottle-track-web-services | feature/operations-and-routes | `d730907` | `feat(operations): add transport operation aggregate with delivery stops` | — | 2026-11-10 |
+| bottle-track-web-services | feature/incident-management | `e3d8774` | `feat(incidents): add incident commands, queries and repository port` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `cc4e4eb` | `feat(monitoring): add sensor reading and alert aggregates` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iam-authentication | `4c5cab9` | `feat(iam): add jwt settings and token service` | — | 2026-11-10 |
+| bottle-track-web-services | feature/incident-management | `c64c03c` | `feat(incidents): add incident aggregate, evidence and value objects` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iot-monitoring | `bae97f8` | `feat(monitoring): add iot device aggregate and repository port` | — | 2026-11-10 |
+| bottle-track-web-services | feature/operations-and-routes | `1c88202` | `feat(operations): add delivery point aggregate and repository port` | — | 2026-11-10 |
+| bottle-track-web-services | feature/iam-authentication | `6b3e2c2` | `chore(api): replace scalar with swagger ui and use port 5280` | — | 2026-11-10 |
 | bottle-track-web-services | feature/iam-and-backend-base | `3f49ef0` | `chore(persistence): add initial ef core migration for iam and fleet` | — | 2026-11-03 |
 | bottle-track-web-services | feature/iam-and-backend-base | `f63b3a6` | `feat(api): register iam and fleet services and snake_case enum serialization` | — | 2026-11-03 |
 | bottle-track-web-services | feature/iam-and-backend-base | `b163436` | `feat(shared): add localized error messages for iam and fleet` | — | 2026-11-03 |
@@ -1076,7 +1134,7 @@ Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta
 | POST | `/api/v1/transport-operations` | Crea una operación de transporte en estado pendiente, con un código correlativo `OP-00000`. | cuerpo JSON | 201, 400 |
 | GET | `/api/v1/transport-operations` | Lista las operaciones de una empresa con sus paradas. | `organizationId` (query) | 200 |
 | POST | `/api/v1/transport-operations/{id}/delivery-stops` | Agrega una parada a una operación pendiente, con su número de secuencia y la cantidad planificada. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
-| PUT | `/api/v1/transport-operations/{id}/dispatch` | Despacha la operación con un vehículo y un conductor. | `id` (ruta), cuerpo JSON | 200, 404 |
+| POST | `/api/v1/transport-operations/{id}/dispatches` | Despacha la operación con un vehículo y un conductor. | `id` (ruta), cuerpo JSON | 200, 404 |
 | GET | `/api/v1/transport-operations/{id}` | Devuelve una operación con sus paradas. | `id` (ruta) | 200, 404 |
 
 **IoT Monitoring** (9 endpoints)
@@ -1129,21 +1187,21 @@ Si la contraseña no es correcta, la respuesta es `401 Unauthorized` con el deta
 
 <img src="assets/chapter5/sprint3/scalar-tokens.png" alt="Endpoint de inicio de sesión en Scalar" width="800">
 
-**Ejemplo 2: operaciones de una empresa.** `GET /api/v1/transport-operations?organizationId=…` devuelve `200 OK` con la lista de operaciones. Cada una incluye su código correlativo, la fecha programada, el vehículo y el conductor asignados, su estado y sus paradas (`deliveryStops`) con el número de secuencia, la cantidad planificada y la entregada y el estado de cada entrega. La captura muestra la ejecución del endpoint desde Swagger UI.
+**Ejemplo 2: operaciones de una empresa.** `GET /api/v1/transport-operations?organizationId=…` devuelve `200 OK` con la lista de operaciones. Cada una incluye su código correlativo, la fecha programada, el vehículo y el conductor asignados, su estado y sus paradas (`deliveryStops`) con el número de secuencia, la cantidad planificada y la entregada y el estado de cada entrega. La captura muestra la ejecución del endpoint desde Scalar.
 
-<img src="assets/chapter5/sprint3/swagger-transport-operations.png" alt="Ejecución del endpoint GET transport-operations en Swagger UI con su respuesta" width="800">
+<img src="assets/chapter5/sprint3/scalar-transport-operations.png" alt="Ejecución del endpoint GET transport-operations en Scalar con su respuesta" width="800">
 
 <a id="5237-software-deployment-evidence-for-sprint-review"></a>
 
 #### 5.2.3.7. Software Deployment Evidence for Sprint Review.
 
-| Producto | Repositorio | Plataforma | Versión publicada | Estado al cierre del Sprint 3 |
-| :------- | :---------- | :--------- | :---------------- | :---------------------------- |
-| Landing Page | bottle-track-website | Netlify | v1.0.0 | La rama `develop` contiene los cambios del Sprint 3: planes de suscripción, sección del equipo con sus fotografías, política de privacidad y términos actualizados. Se publicarán con el siguiente release. |
-| Frontend Web Application | Frontend-Web-Aplication | Vercel | v1.0.0 | La versión publicada sigue consumiendo el fake API de Beeceptor. La versión integrada con los Web Services se ejecuta en el entorno local y se publicará cuando el API esté desplegado. |
-| Web Services | bottle-track-web-services | Por definir | — | Se ejecuta en el entorno local con MySQL. La publicación está preparada con el `Dockerfile` y la configuración por variables de entorno descritas en la sección 5.1.4. |
+| Producto | Repositorio | Plataforma | Versión publicada | Estado en la entrega de AV2 |
+| :------- | :---------- | :--------- | :---------------- | :-------------------------- |
+| Landing Page | bottle-track-website | Netlify | v1.2.1 | Publica los planes de suscripción, cuyos botones llevan al registro de la Web Application con el plan elegido, la sección del equipo con sus fotografías, los videos About-the-Product y About-the-Team, la página de contacto y la política de privacidad y los términos actualizados. |
+| Frontend Web Application | bottle-track-web-application | Vercel | v1.2.0 | Consume los Web Services publicados en Railway. Incorpora el registro de una nueva empresa con su administrador y su plan de suscripción, y un pie de página con el enlace al Landing Page. |
+| Web Services | bottle-track-web-services | Railway | v2.0.0 | Publicado junto con su base de datos MySQL en Railway, con la configuración por variables de entorno descrita en la sección 5.1.4. La documentación se consulta con Scalar. |
 
-El Landing Page publicado se mantiene en https://1asi0730-2620-8084-codecrafters.netlify.app/ y la Web Application en https://frontend-web-aplication.vercel.app. Ambas direcciones se verificaron al cierre del Sprint.
+El Landing Page se encuentra en https://1asi0730-2620-8084-codecrafters.netlify.app/, la Web Application en https://frontend-web-aplication.vercel.app y los Web Services en https://bottle-track-web-services-production.up.railway.app, con su documentación en https://bottle-track-web-services-production.up.railway.app/scalar. Las tres direcciones se verificaron en la entrega de AV2.
 
 <a id="5238-team-collaboration-insights-during-sprint"></a>
 
