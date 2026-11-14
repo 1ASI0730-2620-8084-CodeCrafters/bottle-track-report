@@ -1198,7 +1198,7 @@ Si la contraseña no es correcta, la respuesta es `401 Unauthorized` con el deta
 | Frontend Web Application | bottle-track-web-application | Vercel | v1.2.0 | Consume los Web Services publicados en Railway. Incorpora el registro de una nueva empresa con su administrador y su plan de suscripción, y un pie de página con el enlace al Landing Page. |
 | Web Services | bottle-track-web-services | Railway | v2.0.0 | Publicado junto con su base de datos MySQL en Railway, con la configuración por variables de entorno descrita en la sección 5.1.4. La documentación se consulta con Scalar. |
 
-El Landing Page publicado se mantiene en https://1asi0730-2620-8084-codecrafters.netlify.app/ y la Web Application en https://frontend-web-aplication.vercel.app. Ambas direcciones se verificaron al cierre del Sprint.
+El Landing Page se encuentra en https://1asi0730-2620-8084-codecrafters.netlify.app/, la Web Application en https://frontend-web-aplication.vercel.app y los Web Services en https://bottle-track-web-services-production.up.railway.app, con su documentación en https://bottle-track-web-services-production.up.railway.app/scalar. Las tres direcciones se verificaron en la entrega de AV2.
 
 <a id="5238-team-collaboration-insights-during-sprint"></a>
 
