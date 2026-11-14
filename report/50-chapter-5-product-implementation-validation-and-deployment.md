@@ -1073,7 +1073,7 @@ Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta
 | POST | `/api/v1/transport-operations` | Crea una operación de transporte en estado pendiente, con un código correlativo `OP-00000`. | cuerpo JSON | 201, 400 |
 | GET | `/api/v1/transport-operations` | Lista las operaciones de una empresa con sus paradas. | `organizationId` (query) | 200 |
 | POST | `/api/v1/transport-operations/{id}/delivery-stops` | Agrega una parada a una operación pendiente, con su número de secuencia y la cantidad planificada. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
-| PUT | `/api/v1/transport-operations/{id}/dispatch` | Despacha la operación con un vehículo y un conductor. | `id` (ruta), cuerpo JSON | 200, 404 |
+| POST | `/api/v1/transport-operations/{id}/dispatches` | Despacha la operación con un vehículo y un conductor. | `id` (ruta), cuerpo JSON | 200, 404 |
 | GET | `/api/v1/transport-operations/{id}` | Devuelve una operación con sus paradas. | `id` (ruta) | 200, 404 |
 
 **IoT Monitoring** (9 endpoints)
@@ -1126,9 +1126,9 @@ Si la contraseña no es correcta, la respuesta es `401 Unauthorized` con el deta
 
 <img src="assets/chapter5/sprint3/swagger-sign-in.png" alt="Endpoint de inicio de sesión en Swagger UI" width="800">
 
-**Ejemplo 2: operaciones de una empresa.** `GET /api/v1/transport-operations?organizationId=…` devuelve `200 OK` con la lista de operaciones. Cada una incluye su código correlativo, la fecha programada, el vehículo y el conductor asignados, su estado y sus paradas (`deliveryStops`) con el número de secuencia, la cantidad planificada y la entregada y el estado de cada entrega. La captura muestra la ejecución del endpoint desde Swagger UI.
+**Ejemplo 2: operaciones de una empresa.** `GET /api/v1/transport-operations?organizationId=…` devuelve `200 OK` con la lista de operaciones. Cada una incluye su código correlativo, la fecha programada, el vehículo y el conductor asignados, su estado y sus paradas (`deliveryStops`) con el número de secuencia, la cantidad planificada y la entregada y el estado de cada entrega. La captura muestra la ejecución del endpoint desde Scalar.
 
-<img src="assets/chapter5/sprint3/swagger-transport-operations.png" alt="Ejecución del endpoint GET transport-operations en Swagger UI con su respuesta" width="800">
+<img src="assets/chapter5/sprint3/scalar-transport-operations.png" alt="Ejecución del endpoint GET transport-operations en Scalar con su respuesta" width="800">
 
 <a id="5237-software-deployment-evidence-for-sprint-review"></a>
 
