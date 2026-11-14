@@ -1297,17 +1297,17 @@ El Landing Page se encuentra en https://1asi0730-2620-8084-codecrafters.netlify.
 
 #### 5.2.3.8. Team Collaboration Insights during Sprint.
 
-La siguiente tabla resume los commits de cada integrante en el Sprint 3, sin considerar los commits de integración de ramas:
+La siguiente tabla resume los commits de cada integrante en el Sprint 3, hasta la entrega de AV2, sin considerar los commits de integración de ramas:
 
-| Integrante | bottle-track-web-services | bottle-track-website | bottle-track-report |
-| :--------- | :-----------------------: | :------------------: | :-----------------: |
-| Crispin Valdivia, Angel Gabriel | 17 | 1 | 5 |
-| Cumba Rengifo, Leonardo Raul | 3 | 1 | 8 |
-| Palacin Lazo, Gerardo Valentin | 3 | 2 | 11 |
-| Pezo Castilla, Maria Jose | 4 | 8 | 2 |
-| Huapaya Buitron, Ariana Alheli | 0 | 0 | 0 |
+| Integrante | bottle-track-web-services | bottle-track-web-application | bottle-track-website | bottle-track-report | Total |
+| :--------- | :---: | :---: | :---: | :---: | :---: |
+| Crispin Valdivia, Angel Gabriel | 36 | 15 | 2 | 17 | 70 |
+| Cumba Rengifo, Leonardo Raul | 15 | 10 | 18 | 18 | 61 |
+| Palacin Lazo, Gerardo Valentin | 18 | 7 | 2 | 22 | 49 |
+| Pezo Castilla, Maria Jose | 16 | 8 | 11 | 14 | 49 |
+| Huapaya Buitron, Ariana Alheli | 0 | 0 | 0 | 0 | 0 |
 
-Los cuatro integrantes que participaron en el Sprint contribuyeron en los tres repositorios. En los Web Services, cada uno implementó una parte de Identity and Access Management o de Fleet Management, según la distribución por bounded context.
+Los cuatro integrantes que participaron en el Sprint contribuyeron en los cuatro repositorios. En los Web Services y en la Web Application, cada uno implementó los servicios y la integración de su bounded context y colaboró en Fleet Management, que el equipo comparte.
 
 <a id="53-validation-interviews"></a>
 
