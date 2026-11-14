@@ -83,6 +83,7 @@
 | 2.18 | 2026-11-10 | Palacin Lazo, Gerardo Valentin | Reestructuración del informe en capítulos según la guía Docs as Code y compilación del PDF con Pandoc y XeLaTeX. |
 | 2.19 | 2026-11-11 | Crispin Valdivia, Angel Gabriel | Actualización de los diagramas de clases, de base de datos y C4 con los cinco bounded contexts implementados, documentación de las evidencias del Sprint 3, registro del Student Outcome de AV2 y corrección de las inconsistencias detectadas en la revisión del informe. |
 | 2.20 | 2026-11-12 | Cumba Rengifo, Leonardo Raul | Registro de las entrevistas de validación con distribuidoras y bodegas en la sección 5.3.2 y en el Anexo B. |
+| 2.21 | 2026-11-13 | Crispin Valdivia, Angel Gabriel | Actualización de la documentación de los Web Services a Scalar y a los endpoints de cambio de estado con POST, registro del despliegue en Railway, Vercel y Netlify, de la vista de registro de empresas, de los commits del Sprint 3 hasta AV2, de los diagramas de clases de Fleet Management e Identity and Access Management y del video de exposición de AV2 en el Anexo A. |
 
 <hr>
 
