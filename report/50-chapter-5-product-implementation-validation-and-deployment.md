@@ -811,7 +811,7 @@ La planificación consideró las Technical Stories TS01 a TS15 del Product Backl
 
 La comprobación del Sprint Goal se realiza sobre la integración de la Web Application con los Web Services: el funcionamiento de una vista con datos del fake API no constituye evidencia del cumplimiento de una historia técnica. Las lecturas IoT continúan siendo simuladas: los Web Services ya permiten registrarlas y consultarlas, y su visualización en la Web Application pasa al siguiente Sprint. El conductor se mantiene como recurso de la operación y no como usuario de la plataforma.
 
-**Resultado del Sprint.** Al cierre del Sprint 3 los Web Services implementan los cinco bounded contexts con 39 endpoints REST, doce tablas en MySQL creadas por cuatro migraciones de Entity Framework Core e inicio de sesión con tokens JWT. La Frontend Web Application consume estos servicios en sus flujos de autenticación, administración de usuarios y empresa, gestión de vehículos y conductores, creación de operaciones con sus paradas, consulta de dispositivos IoT y reporte, evidencia y resolución de incidencias.
+**Resultado del Sprint.** Al cierre del Sprint 3 los Web Services implementan los cinco bounded contexts con 41 endpoints REST, doce tablas en MySQL creadas por cuatro migraciones de Entity Framework Core e inicio de sesión con tokens JWT. La Frontend Web Application consume estos servicios en sus flujos de autenticación, administración de usuarios y empresa, gestión de vehículos y conductores, creación de operaciones con sus paradas, consulta de dispositivos IoT y reporte, evidencia y resolución de incidencias.
 
 Las acciones que la Web Application todavía no integra con el API se muestran con el aviso **Próximamente** y pasan al siguiente Sprint: asignar recursos, iniciar, completar y cancelar operaciones, registrar el resultado y reordenar las paradas, revisar y cerrar incidencias, el monitoreo en vivo con sus alertas, la configuración del rango seguro de un dispositivo y el seguimiento de pedidos de la bodega. Por esa razón el Sprint Goal se cumple de forma parcial: el flujo del administrador está completo, mientras que los flujos del supervisor y de la bodega requieren las acciones mencionadas.
 
@@ -1091,7 +1091,7 @@ Todos los endpoints siguen las mismas convenciones:
 
 <img src="assets/chapter5/sprint3/scalar-overview.png" alt="Scalar con los endpoints de los Web Services agrupados por recurso" width="800">
 
-La documentación cubre 39 endpoints, organizados por bounded context:
+La documentación cubre 41 endpoints, organizados por bounded context:
 
 Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta o de consulta y si la solicitud lleva un cuerpo JSON, y los códigos de respuesta posibles. El esquema de cada cuerpo y de cada respuesta se consulta en Scalar, y los ejemplos que siguen muestran dos respuestas completas.
 
