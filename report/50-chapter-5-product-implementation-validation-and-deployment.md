@@ -1134,11 +1134,11 @@ Si la contraseña no es correcta, la respuesta es `401 Unauthorized` con el deta
 
 #### 5.2.3.7. Software Deployment Evidence for Sprint Review.
 
-| Producto | Repositorio | Plataforma | Versión publicada | Estado al cierre del Sprint 3 |
-| :------- | :---------- | :--------- | :---------------- | :---------------------------- |
-| Landing Page | bottle-track-website | Netlify | v1.0.0 | La rama `develop` contiene los cambios del Sprint 3: planes de suscripción, sección del equipo con sus fotografías, política de privacidad y términos actualizados. Se publicarán con el siguiente release. |
-| Frontend Web Application | Frontend-Web-Aplication | Vercel | v1.0.0 | La versión publicada sigue consumiendo el fake API de Beeceptor. La versión integrada con los Web Services se ejecuta en el entorno local y se publicará cuando el API esté desplegado. |
-| Web Services | bottle-track-web-services | Por definir | — | Se ejecuta en el entorno local con MySQL. La publicación está preparada con el `Dockerfile` y la configuración por variables de entorno descritas en la sección 5.1.4. |
+| Producto | Repositorio | Plataforma | Versión publicada | Estado en la entrega de AV2 |
+| :------- | :---------- | :--------- | :---------------- | :-------------------------- |
+| Landing Page | bottle-track-website | Netlify | v1.2.1 | Publica los planes de suscripción, cuyos botones llevan al registro de la Web Application con el plan elegido, la sección del equipo con sus fotografías, los videos About-the-Product y About-the-Team, la página de contacto y la política de privacidad y los términos actualizados. |
+| Frontend Web Application | bottle-track-web-application | Vercel | v1.2.0 | Consume los Web Services publicados en Railway. Incorpora el registro de una nueva empresa con su administrador y su plan de suscripción, y un pie de página con el enlace al Landing Page. |
+| Web Services | bottle-track-web-services | Railway | v2.0.0 | Publicado junto con su base de datos MySQL en Railway, con la configuración por variables de entorno descrita en la sección 5.1.4. La documentación se consulta con Scalar. |
 
 El Landing Page publicado se mantiene en https://1asi0730-2620-8084-codecrafters.netlify.app/ y la Web Application en https://frontend-web-aplication.vercel.app. Ambas direcciones se verificaron al cierre del Sprint.
 
