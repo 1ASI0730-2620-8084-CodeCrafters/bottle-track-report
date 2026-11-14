@@ -27,6 +27,7 @@ package "Fleet Management" {
     + Reserve(): void
     + Release(): void
     + SendToMaintenance(): void
+    + ReturnToService(): void
     + UpdateDetails(brand, model, capacityInBoxes): void
   }
   class Driver <<Aggregate Root>> {
@@ -41,6 +42,8 @@ package "Fleet Management" {
     + {static} Register(organizationId, firstName, lastName, documentNumber, licenseNumber, phone): Driver
     + Reserve(): void
     + Release(): void
+    + Deactivate(): void
+    + Activate(): void
     + UpdateDetails(firstName, lastName, phone): void
   }
   class PlateNumber <<Value Object>> {

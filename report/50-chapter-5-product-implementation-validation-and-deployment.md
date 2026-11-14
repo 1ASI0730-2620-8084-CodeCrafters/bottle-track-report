@@ -1060,11 +1060,11 @@ Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta
 | POST | `/api/v1/vehicles` | Registra un vehículo; la placa no puede repetirse. | cuerpo JSON | 201, 400, 409 |
 | GET | `/api/v1/vehicles` | Lista los vehículos de una empresa; con `onlyAvailable=true`, solo los disponibles. | `organizationId` (query), `onlyAvailable` (query) | 200 |
 | GET | `/api/v1/vehicles/{id}` | Devuelve un vehículo por su identificador. | `id` (ruta) | 200, 404 |
-| PUT | `/api/v1/vehicles/{id}` | Actualiza la marca, el modelo y la capacidad en cajas de un vehículo. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
+| PUT | `/api/v1/vehicles/{id}` | Actualiza la marca, el modelo y la capacidad en cajas de un vehículo y, de forma opcional, lo envía a mantenimiento o lo devuelve al servicio. | `id` (ruta), cuerpo JSON | 200, 400, 404, 409 |
 | POST | `/api/v1/drivers` | Registra un conductor; el DNI y la licencia no pueden repetirse. | cuerpo JSON | 201, 400, 409 |
 | GET | `/api/v1/drivers` | Lista los conductores de una empresa; con `onlyAvailable=true`, solo los disponibles. | `organizationId` (query), `onlyAvailable` (query) | 200 |
 | GET | `/api/v1/drivers/{id}` | Devuelve un conductor por su identificador. | `id` (ruta) | 200, 404 |
-| PUT | `/api/v1/drivers/{id}` | Actualiza el nombre, el apellido y el teléfono de un conductor. | `id` (ruta), cuerpo JSON | 200, 400, 404 |
+| PUT | `/api/v1/drivers/{id}` | Actualiza el nombre, el apellido y el teléfono de un conductor y, de forma opcional, lo desactiva o lo vuelve a activar. | `id` (ruta), cuerpo JSON | 200, 400, 404, 409 |
 
 **Operations and Routes** (8 endpoints)
 
@@ -1090,7 +1090,7 @@ Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta
 | GET | `/api/v1/sensor-readings` | Lista las lecturas de un dispositivo. | `iotDeviceId` (query) | 200 |
 | POST | `/api/v1/alerts` | Levanta una alerta de un dispositivo sobre una operación. | cuerpo JSON | 201, 400 |
 | GET | `/api/v1/alerts` | Lista las alertas de un dispositivo. | `iotDeviceId` (query) | 200 |
-| PUT | `/api/v1/alerts/{id}/acknowledgement` | Registra la atención de una alerta por un usuario. | `id` (ruta), cuerpo JSON | 200, 404 |
+| POST | `/api/v1/alerts/{id}/acknowledgments` | Registra la atención de una alerta por un usuario. | `id` (ruta), cuerpo JSON | 200, 404 |
 | GET | `/api/v1/alerts/{id}` | Devuelve una alerta por su identificador. | `id` (ruta) | 200, 404 |
 
 **Incident Management** (5 endpoints)
