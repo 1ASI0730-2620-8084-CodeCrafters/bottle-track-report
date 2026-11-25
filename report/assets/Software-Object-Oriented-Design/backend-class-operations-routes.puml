@@ -27,9 +27,22 @@ package "Operations and Routes" {
     + DispatchedAt: DateTime?
     + CompletedAt: DateTime?
     + CancellationReason: string?
+    + DeliveryStops: List<DeliveryStop>
+    + /CanChangeResources: bool
+    + /CanStart: bool
+    + /CanRecordDeliveries: bool
+    + /CanComplete: bool
+    + /CanCancel: bool
     + {static} Create(code, organizationId, description, scheduledDate): TransportOperation
     + AddStop(deliveryPointId, sequenceNumber, plannedQuantity): void
+    + CanMoveStop(deliveryStopId, offset): bool
+    + MoveStop(deliveryStopId, offset): void
+    + AssignVehicle(vehicleId): void
+    + AssignDriver(driverId): void
     + Dispatch(vehicleId, driverId): void
+    + Start(): void
+    + FindStop(deliveryStopId): DeliveryStop?
+    + RecordDelivery(deliveryStopId, status, deliveredQuantity, failureReason): void
     + Complete(): void
     + Cancel(reason): void
   }
@@ -44,6 +57,9 @@ package "Operations and Routes" {
     + FailureReason: string?
     + ConfirmedAt: DateTime?
     + {static} Create(transportOperationId, deliveryPointId, sequenceNumber, plannedQuantity): DeliveryStop
+    + ChangeSequence(sequenceNumber): void
+    + IsValidResult(status, deliveredQuantity, failureReason): bool
+    + Record(status, deliveredQuantity, failureReason): void
   }
   class DeliveryPoint <<Aggregate Root>> {
     + Id: Guid
@@ -83,5 +99,21 @@ package "Operations and Routes" {
   DeliveryStop "0..*" --> "1" DeliveryPoint : is delivered at
   ITransportOperationRepository "1" ..> "0..*" TransportOperation : persists
   IDeliveryPointRepository "1" ..> "0..*" DeliveryPoint : persists
+  class ExternalFleetService <<Outbound Service>> {
+    - fleetContextFacade: IFleetContextFacade
+    + SwapVehicleAsync(currentVehicleId: Guid?, newVehicleId: Guid): Task<bool>
+    + SwapDriverAsync(currentDriverId: Guid?, newDriverId: Guid): Task<bool>
+    + ReleaseResourcesAsync(vehicleId: Guid?, driverId: Guid?): Task
+  }
+  ExternalFleetService "1" ..> "0..*" TransportOperation : reserves and releases the resources of
 }
+package "Fleet Management" {
+  interface IFleetContextFacade <<Facade>> {
+    + ReserveVehicleAsync(vehicleId: Guid): Task<bool>
+    + ReleaseVehicleAsync(vehicleId: Guid): Task
+    + ReserveDriverAsync(driverId: Guid): Task<bool>
+    + ReleaseDriverAsync(driverId: Guid): Task
+  }
+}
+ExternalFleetService "1" --> "1" IFleetContextFacade : reserves and releases vehicles and drivers through
 @enduml
