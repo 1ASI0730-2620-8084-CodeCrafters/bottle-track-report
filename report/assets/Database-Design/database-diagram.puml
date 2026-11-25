@@ -1,7 +1,12 @@
 @startuml
-' All tables reflect the Entity Framework Core migrations of the Web Services repository:
+' BottleTrack - Database diagram (MySQL)
+' Reflects AppDbContextModelSnapshot.cs of the Web Services repository (branch develop):
 ' InitialCreate (Identity and Access Management, Fleet Management), AddIncidentManagement,
 ' AddOperationsAndRoutes and AddIotMonitoring.
+' <<FK>>  foreign key constraint created by the migrations (solid line).
+' <<REF>> identifier of another aggregate or bounded context, without a constraint (dashed line).
+' Enumerations are stored as VARCHAR with snake_case values.
+skinparam dpi 200
 hide circle
 skinparam linetype ortho
 skinparam shadowing false
@@ -68,7 +73,7 @@ package "Operations and Routes" {
     * id : CHAR(36) <<PK>>
     --
     * organization_id : CHAR(36) <<FK>>
-    owner_user_id : CHAR(36) <<FK>>
+    owner_user_id : CHAR(36) <<REF>>
     * business_name : VARCHAR(255)
     * address : VARCHAR(255)
     * district : VARCHAR(100)
@@ -81,12 +86,12 @@ package "Operations and Routes" {
     * organization_id : CHAR(36) <<FK>>
     * code : VARCHAR(10) <<UQ>>
     * description : VARCHAR(255)
-    * scheduled_date : DATE
-    vehicle_id : CHAR(36) <<FK>>
-    driver_id : CHAR(36) <<FK>>
-    * status : ENUM('pending','dispatched','in_progress','completed','cancelled')
-    dispatched_at : DATETIME
-    completed_at : DATETIME
+    * scheduled_date : DATETIME(6)
+    vehicle_id : CHAR(36) <<REF>>
+    driver_id : CHAR(36) <<REF>>
+    * status : VARCHAR(20)
+    dispatched_at : DATETIME(6)
+    completed_at : DATETIME(6)
     cancellation_reason : VARCHAR(255)
   }
   entity delivery_stops {
@@ -97,9 +102,9 @@ package "Operations and Routes" {
     * sequence_number : INT
     * planned_quantity : INT
     delivered_quantity : INT
-    * status : ENUM('pending','delivered','partially_delivered','not_delivered')
+    * status : VARCHAR(20)
     failure_reason : VARCHAR(255)
-    confirmed_at : DATETIME
+    confirmed_at : DATETIME(6)
   }
 }
 
@@ -108,18 +113,18 @@ package "IoT Monitoring" {
     * id : CHAR(36) <<PK>>
     --
     * serial_number : VARCHAR(60) <<UQ>>
-    vehicle_id : CHAR(36) <<FK>>
+    vehicle_id : CHAR(36) <<REF>>
     * safe_temperature_min : DECIMAL(5,2)
     * safe_temperature_max : DECIMAL(5,2)
     * impact_threshold : DECIMAL(5,2)
-    * status : ENUM('active','offline','retired')
+    * status : VARCHAR(20)
   }
   entity sensor_readings {
     * id : CHAR(36) <<PK>>
     --
     * iot_device_id : CHAR(36) <<FK>>
-    transport_operation_id : CHAR(36) <<FK>>
-    * recorded_at : DATETIME
+    transport_operation_id : CHAR(36) <<REF>>
+    * recorded_at : DATETIME(6)
     latitude : DECIMAL(9,6)
     longitude : DECIMAL(9,6)
     temperature_celsius : DECIMAL(5,2)
@@ -129,11 +134,11 @@ package "IoT Monitoring" {
     * id : CHAR(36) <<PK>>
     --
     * iot_device_id : CHAR(36) <<FK>>
-    * transport_operation_id : CHAR(36) <<FK>>
-    * type : ENUM('temperature_out_of_range','impact_detected','device_offline')
-    * raised_at : DATETIME
-    acknowledged_by : CHAR(36) <<FK>>
-    acknowledged_at : DATETIME
+    * transport_operation_id : CHAR(36) <<REF>>
+    * type : VARCHAR(30)
+    * raised_at : DATETIME(6)
+    acknowledged_by : CHAR(36) <<REF>>
+    acknowledged_at : DATETIME(6)
   }
 }
 
@@ -142,18 +147,18 @@ package "Incident Management" {
     * id : CHAR(36) <<PK>>
     --
     * code : VARCHAR(10) <<UQ>>
-    * transport_operation_id : CHAR(36) <<FK>>
-    delivery_stop_id : CHAR(36) <<FK>>
-    * reported_by : CHAR(36) <<FK>>
-    * source : ENUM('fleet_supervisor','delivery_point','iot_alert')
-    * type : ENUM('broken_bottles','damaged_product','shortage','delay')
-    * severity : ENUM('low','medium','high','critical')
+    * transport_operation_id : CHAR(36) <<REF>>
+    delivery_stop_id : CHAR(36) <<REF>>
+    * reported_by : CHAR(36) <<REF>>
+    * source : VARCHAR(30)
+    * type : VARCHAR(30)
+    * severity : VARCHAR(20)
     * description : VARCHAR(500)
     affected_quantity : INT
-    * status : ENUM('reported','under_review','resolved','closed')
+    * status : VARCHAR(20)
     resolution : VARCHAR(500)
-    * reported_at : DATETIME
-    resolved_at : DATETIME
+    * reported_at : DATETIME(6)
+    resolved_at : DATETIME(6)
   }
   entity evidences {
     * id : CHAR(36) <<PK>>
@@ -161,30 +166,51 @@ package "Incident Management" {
     * incident_id : CHAR(36) <<FK>>
     * file_url : VARCHAR(500)
     * file_type : VARCHAR(30)
-    * uploaded_by : CHAR(36) <<FK>>
-    * uploaded_at : DATETIME
+    * uploaded_by : CHAR(36) <<REF>>
+    * uploaded_at : DATETIME(6)
   }
 }
 
+' Foreign key constraints (10)
 organizations ||--|{ users
 organizations ||--o{ vehicles
 organizations ||--o{ drivers
 organizations ||--o{ delivery_points
 organizations ||--o{ transport_operations
-users |o--o{ delivery_points
-vehicles |o--o{ transport_operations
-drivers |o--o{ transport_operations
 transport_operations ||--|{ delivery_stops
 delivery_points ||--o{ delivery_stops
-vehicles |o--o| iot_devices
 iot_devices ||--o{ sensor_readings
-transport_operations |o--o{ sensor_readings
 iot_devices ||--o{ alerts
-transport_operations ||--o{ alerts
-users |o--o{ alerts
-transport_operations ||--o{ incidents
-delivery_stops |o--o{ incidents
-users ||--o{ incidents
 incidents ||--o{ evidences
-users ||--o{ evidences
+
+' Logical references without a constraint
+users |o..o{ delivery_points
+vehicles |o..o{ transport_operations
+drivers |o..o{ transport_operations
+vehicles |o..o| iot_devices
+transport_operations |o..o{ sensor_readings
+transport_operations ||..o{ alerts
+users |o..o{ alerts
+transport_operations ||..o{ incidents
+delivery_stops |o..o{ incidents
+users ||..o{ incidents
+users ||..o{ evidences
+
+legend right
+  <b>Values of the enumerated columns</b>
+  users.role: administrator, fleet_supervisor, delivery_point_owner
+  users.status: active, inactive
+  vehicles.status: available, assigned, in_maintenance
+  drivers.status: available, assigned, inactive
+  transport_operations.status: pending, dispatched, in_progress, completed, cancelled
+  delivery_stops.status: pending, delivered, partially_delivered, not_delivered
+  iot_devices.status: active, offline, retired
+  alerts.type: temperature_out_of_range, impact_detected, device_offline
+  incidents.source: fleet_supervisor, delivery_point, iot_alert
+  incidents.type: broken_bottles, damaged_product, shortage, delay
+  incidents.severity: low, medium, high, critical
+  incidents.status: reported, under_review, resolved, closed
+  ---
+  Solid line: foreign key constraint. Dashed line: reference without a constraint.
+endlegend
 @enduml

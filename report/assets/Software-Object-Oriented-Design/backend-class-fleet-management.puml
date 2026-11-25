@@ -79,5 +79,24 @@ package "Fleet Management" {
   Driver "1" --> "1" DriverStatus : has status
   IVehicleRepository "1" ..> "0..*" Vehicle : persists
   IDriverRepository "1" ..> "0..*" Driver : persists
+  interface IFleetContextFacade <<Facade>> {
+    + ReserveVehicleAsync(vehicleId: Guid): Task<bool>
+    + ReleaseVehicleAsync(vehicleId: Guid): Task
+    + ReserveDriverAsync(driverId: Guid): Task<bool>
+    + ReleaseDriverAsync(driverId: Guid): Task
+  }
+  class FleetContextFacade <<Application Service>> {
+    - vehicleRepository: IVehicleRepository
+    - driverRepository: IDriverRepository
+    + ReserveVehicleAsync(vehicleId: Guid): Task<bool>
+    + ReleaseVehicleAsync(vehicleId: Guid): Task
+    + ReserveDriverAsync(driverId: Guid): Task<bool>
+    + ReleaseDriverAsync(driverId: Guid): Task
+  }
+  FleetContextFacade ..|> IFleetContextFacade
+  FleetContextFacade "1" ..> "1" IVehicleRepository : reads and updates through
+  FleetContextFacade "1" ..> "1" IDriverRepository : reads and updates through
+  FleetContextFacade "1" ..> "0..*" Vehicle : reserves and releases
+  FleetContextFacade "1" ..> "0..*" Driver : reserves and releases
 }
 @enduml

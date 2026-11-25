@@ -154,6 +154,13 @@ package "Operations and Routes" {
     + getOperationById(operationId): Promise
     + createOperation(operationResource): Promise
     + addStop(operationId, stopResource): Promise
+    + moveStop(operationId, stopId, offset): Promise
+    + assignVehicle(operationId, vehicleId): Promise
+    + assignDriver(operationId, driverId): Promise
+    + startOperation(operationId): Promise
+    + recordDelivery(operationId, stopId, deliveryResource): Promise
+    + completeOperation(operationId): Promise
+    + cancelOperation(operationId, reason): Promise
     + getDeliveryPoints(organizationId): Promise
     + getVehicles(organizationId): Promise
     + getDrivers(organizationId): Promise
