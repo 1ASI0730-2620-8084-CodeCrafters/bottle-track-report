@@ -1165,6 +1165,34 @@ Las capturas muestran la Frontend Web Application consumiendo los Web Services e
 
 <img src="assets/chapter5/sprint3/app-tracking.png" alt="Vista Mis pedidos de la bodega con el aviso Próximamente" width="800">
 
+**Web Services en ejecución.** Las peticiones siguientes se ejecutaron desde Scalar contra los Web Services publicados en Railway, con las cuentas de prueba del equipo y los datos persistidos en MySQL. Hay una petición por bounded context; en cada una se ven el código de respuesta y el cuerpo JSON que devuelve el servicio. Las capturas se conservan en `assets/chapter5/sprint3/web-services-evidence/`.
+
+**Identity and Access Management.** `POST /api/v1/tokens` valida las credenciales del supervisor de flota y responde `200 OK` con los datos del usuario, su empresa, su rol y el token JWT, que aparece truncado.
+
+<img src="assets/chapter5/sprint3/web-services-evidence/scalar-request-iam.png" alt="Respuesta 200 OK de POST /api/v1/tokens con el usuario autenticado y su token" width="800">
+
+**Fleet Management.** `GET /api/v1/vehicles?organizationId=…` responde `200 OK` con los vehículos de la empresa, cada uno con su placa, marca, modelo, capacidad en cajas y estado.
+
+<img src="assets/chapter5/sprint3/web-services-evidence/scalar-request-fleet.png" alt="Respuesta 200 OK de GET /api/v1/vehicles con la lista de vehículos de la empresa" width="800">
+
+**Operations and Routes.** `GET /api/v1/transport-operations?organizationId=…` responde `200 OK` con las operaciones de la empresa. La operación `OP-00001`, "Reparto sur de Lima", está en estado `pending` y todavía sin vehículo ni conductor, y se devuelve con sus paradas.
+
+<img src="assets/chapter5/sprint3/web-services-evidence/scalar-request-operations.png" alt="Respuesta 200 OK de GET /api/v1/transport-operations con la operación OP-00001 y sus paradas" width="800">
+
+**IoT Monitoring.** `GET /api/v1/iot-devices` responde `200 OK` con los dispositivos `BT-IOT-0001` y `BT-IOT-0002`, cada uno con su rango seguro de temperatura, de 2.00 a 8.00, y su umbral de impacto de 3.50.
+
+<img src="assets/chapter5/sprint3/web-services-evidence/scalar-request-iot.png" alt="Respuesta 200 OK de GET /api/v1/iot-devices con los dispositivos y sus rangos seguros" width="800">
+
+**Incident Management.** `GET /api/v1/incidents?transportOperationId=…` responde `200 OK` con la incidencia `INC-00001`, "Tres botellas rotas durante la descarga", de severidad alta y ya resuelta, con su resolución y sus evidencias.
+
+<img src="assets/chapter5/sprint3/web-services-evidence/scalar-request-incidents.png" alt="Respuesta 200 OK de GET /api/v1/incidents con la incidencia INC-00001, su resolución y sus evidencias" width="800">
+
+**Casos de error.** Las validaciones del servicio se comprueban con dos solicitudes que deben ser rechazadas. En la primera, `POST /api/v1/tokens` con una contraseña incorrecta responde `401 Unauthorized` en formato `ProblemDetails`, con el mensaje "El correo o la contraseña no son correctos.". En la segunda, `POST /api/v1/vehicles` con una placa que ya existe, `BCD-456`, responde `409 Conflict` con el detalle "Ya existe un vehículo registrado con esta placa.".
+
+<img src="assets/chapter5/sprint3/web-services-evidence/scalar-error-401.png" alt="Respuesta 401 Unauthorized de POST /api/v1/tokens con credenciales incorrectas" width="800">
+
+<img src="assets/chapter5/sprint3/web-services-evidence/scalar-error-409.png" alt="Respuesta 409 Conflict de POST /api/v1/vehicles con una placa repetida" width="800">
+
 <a id="5236-services-documentation-evidence-for-sprint-review"></a>
 
 #### 5.2.3.6. Services Documentation Evidence for Sprint Review.
@@ -1187,6 +1215,10 @@ Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta
 
 **Identity and Access Management** (11 endpoints)
 
+Documentación publicada: [Tokens](https://bottle-track-web-services-production.up.railway.app/scalar/#tag/tokens), [Organizations](https://bottle-track-web-services-production.up.railway.app/scalar/#tag/organizations), [Users](https://bottle-track-web-services-production.up.railway.app/scalar/#tag/users) y [Roles](https://bottle-track-web-services-production.up.railway.app/scalar/#tag/roles).
+
+<img src="assets/chapter5/sprint3/web-services-evidence/scalar-iam.png" alt="Scalar con los endpoints de Organizations, Roles, Tokens y Users expandidos" width="800">
+
 | Verbo | Endpoint | Descripción | Parámetros | Respuestas |
 | :----- | :---------------------------- | :--------------------------------- | :--------------- | :---------- |
 | POST | `/api/v1/tokens` | Valida el correo y la contraseña y devuelve el usuario autenticado con su token JWT. | cuerpo JSON | 200, 401 |
@@ -1203,6 +1235,10 @@ Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta
 
 **Fleet Management** (8 endpoints)
 
+Documentación publicada: [Vehicles](https://bottle-track-web-services-production.up.railway.app/scalar/#tag/vehicles) y [Drivers](https://bottle-track-web-services-production.up.railway.app/scalar/#tag/drivers).
+
+<img src="assets/chapter5/sprint3/web-services-evidence/scalar-fleet.png" alt="Scalar con los endpoints de Drivers y Vehicles expandidos" width="800">
+
 | Verbo | Endpoint | Descripción | Parámetros | Respuestas |
 | :----- | :---------------------------- | :--------------------------------- | :--------------- | :---------- |
 | POST | `/api/v1/vehicles` | Registra un vehículo; la placa no puede repetirse. | cuerpo JSON | 201, 400, 409 |
@@ -1215,6 +1251,10 @@ Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta
 | PUT | `/api/v1/drivers/{id}` | Actualiza el nombre, el apellido y el teléfono de un conductor y, de forma opcional, lo desactiva o lo vuelve a activar. | `id` (ruta), cuerpo JSON | 200, 400, 404, 409 |
 
 **Operations and Routes** (8 endpoints)
+
+Documentación publicada: [TransportOperations](https://bottle-track-web-services-production.up.railway.app/scalar/#tag/transportoperations) y [DeliveryPoints](https://bottle-track-web-services-production.up.railway.app/scalar/#tag/deliverypoints).
+
+<img src="assets/chapter5/sprint3/web-services-evidence/scalar-operations.png" alt="Scalar con los endpoints de TransportOperations y DeliveryPoints expandidos" width="800">
 
 | Verbo | Endpoint | Descripción | Parámetros | Respuestas |
 | :----- | :---------------------------- | :--------------------------------- | :--------------- | :---------- |
@@ -1229,6 +1269,10 @@ Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta
 
 **IoT Monitoring** (9 endpoints)
 
+Documentación publicada: [IotDevices](https://bottle-track-web-services-production.up.railway.app/scalar/#tag/iotdevices), [SensorReadings](https://bottle-track-web-services-production.up.railway.app/scalar/#tag/sensorreadings) y [Alerts](https://bottle-track-web-services-production.up.railway.app/scalar/#tag/alerts).
+
+<img src="assets/chapter5/sprint3/web-services-evidence/scalar-iot.png" alt="Scalar con los endpoints de Alerts, IotDevices y SensorReadings expandidos" width="800">
+
 | Verbo | Endpoint | Descripción | Parámetros | Respuestas |
 | :----- | :---------------------------- | :--------------------------------- | :--------------- | :---------- |
 | POST | `/api/v1/iot-devices` | Registra un dispositivo IoT con su rango seguro de temperatura y su umbral de impacto; el número de serie no puede repetirse. | cuerpo JSON | 201, 400, 409 |
@@ -1242,6 +1286,10 @@ Cada tabla indica el verbo HTTP, la ruta, el propósito, los parámetros de ruta
 | GET | `/api/v1/alerts/{id}` | Devuelve una alerta por su identificador. | `id` (ruta) | 200, 404 |
 
 **Incident Management** (5 endpoints)
+
+Documentación publicada: [Incidents](https://bottle-track-web-services-production.up.railway.app/scalar/#tag/incidents).
+
+<img src="assets/chapter5/sprint3/web-services-evidence/scalar-incidents.png" alt="Scalar con los endpoints de Incidents expandidos" width="800">
 
 | Verbo | Endpoint | Descripción | Parámetros | Respuestas |
 | :----- | :---------------------------- | :--------------------------------- | :--------------- | :---------- |
@@ -1281,6 +1329,15 @@ Si la contraseña no es correcta, la respuesta es `401 Unauthorized` con el deta
 
 <img src="assets/chapter5/sprint3/scalar-transport-operations.png" alt="Ejecución del endpoint GET transport-operations en Scalar con su respuesta" width="800">
 
+**Commits de la documentación.** El repositorio de los Web Services es https://github.com/1ASI0730-2620-8084-CodeCrafters/bottle-track-web-services. Los commits relacionados con la documentación de este Sprint son los siguientes:
+
+| Repository | Branch | Commit Id | Commit Message | Committed on (Date) |
+| :--------- | :----- | :-------- | :------------- | :------------------ |
+| bottle-track-web-services | feature/iam-authentication | `6b3e2c2` | `chore(api): replace scalar with swagger ui and use port 5280` | 2026-11-10 |
+| bottle-track-web-services | feature/scalar-api-reference | `67573a7` | `build(api): add the scalar api reference package` | 2026-11-12 |
+| bottle-track-web-services | feature/scalar-api-reference | `5c84891` | `feat(api): replace swagger ui with the scalar api reference` | 2026-11-12 |
+| bottle-track-web-services | feature/scalar-api-reference | `9797e76` | `docs(readme): point to the scalar api reference` | 2026-11-12 |  
+
 <a id="5237-software-deployment-evidence-for-sprint-review"></a>
 
 #### 5.2.3.7. Software Deployment Evidence for Sprint Review.
@@ -1292,6 +1349,10 @@ Si la contraseña no es correcta, la respuesta es `401 Unauthorized` con el deta
 | Web Services | bottle-track-web-services | Railway | v2.0.0 | Publicado junto con su base de datos MySQL en Railway, con la configuración por variables de entorno descrita en la sección 5.1.4. La documentación se consulta con Scalar. |
 
 El Landing Page se encuentra en https://1asi0730-2620-8084-codecrafters.netlify.app/, la Web Application en https://frontend-web-aplication.vercel.app y los Web Services en https://bottle-track-web-services-production.up.railway.app, con su documentación en https://bottle-track-web-services-production.up.railway.app/scalar. Las tres direcciones se verificaron en la entrega de AV2.
+
+**Web Services en Railway.** La captura muestra el servicio `bottle-track-web-services` en el entorno `production` de Railway: su estado es **Online** y su despliegue más reciente figura como **Active** con el resultado *Deployment successful*. Railway lo generó a partir de la fusión de la rama `release/2.0.0` en GitHub, en la región US West y con una réplica.
+
+<img src="assets/chapter5/sprint3/web-services-evidence/railway-service.png" alt="Servicio bottle-track-web-services en Railway con el despliegue de la rama release/2.0.0 activo y exitoso" width="800">
 
 <a id="5238-team-collaboration-insights-during-sprint"></a>
 
