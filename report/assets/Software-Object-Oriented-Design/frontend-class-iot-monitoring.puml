@@ -96,6 +96,7 @@ package "IoT Monitoring" {
     - #devicesEndpoint: BaseEndpoint
     + getVehicles(organizationId): Promise
     + getAllDevices(): Promise
+    + acknowledgeAlert(alertId, acknowledgedBy): Promise
   }
   class MonitoringAssembler <<Assembler>> {
     + {static} toMonitoredOperation(operation, references): MonitoredOperation
