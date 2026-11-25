@@ -870,7 +870,7 @@ Los diagramas del backend de los cinco bounded contexts, junto con el Shared Ker
 
 ### 4.8.1. Database Diagrams.
 
-El diagrama de base de datos corresponde al esquema relacional en MySQL. Las tablas siguen una convención única: nombres en inglés, en plural y en snake_case, y columnas en snake_case. Las claves primarias son identificadores `CHAR(36)` generados por la aplicación y las claves foráneas se nombran como `<entidad>_id`.
+El diagrama de base de datos corresponde al esquema relacional en MySQL. Las tablas siguen una convención única: nombres en inglés, en plural y en snake_case, y columnas en snake_case. Las claves primarias son identificadores `CHAR(36)` generados por la aplicación y las columnas que referencian otra tabla se nombran como `<entidad>_id`. Las líneas continuas son las diez llaves foráneas que crean las migraciones; las punteadas, referencias a otro agregado o bounded context que se validan en la aplicación y no tienen restricción en la base de datos. Las enumeraciones se guardan como `VARCHAR` con valores en snake_case, listados en la leyenda.
 
 Las doce tablas reflejan las migraciones de Entity Framework Core de los Web Services: `InitialCreate` (`organizations`, `users`, `vehicles` y `drivers`), `AddIncidentManagement` (`incidents` y `evidences`), `AddOperationsAndRoutes` (`delivery_points`, `transport_operations` y `delivery_stops`) y `AddIotMonitoring` (`iot_devices`, `sensor_readings` y `alerts`). Los estados y los tipos se guardan como texto (`VARCHAR`), y los correos, los RUC, las placas, los DNI, las licencias, los códigos de operación y de incidencia y los números de serie de los dispositivos son únicos.
 
