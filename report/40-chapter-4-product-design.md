@@ -716,7 +716,7 @@ El tablero se encuentra disponible en: https://miro.com/welcomeonboard/aEpQNnI1b
 
 El diagrama de contexto muestra a BottleTrack como una caja negra y su relación con las personas y los sistemas externos. Sus usuarios son el administrador de la distribuidora, el supervisor de flota y el responsable de la bodega. El conductor aparece como actor del dominio que reporta al supervisor, pero no usa la aplicación. Los sistemas externos son los dispositivos IoT instalados en los vehículos y el servicio de mapas y geolocalización, que constituye el servicio de terceros que consume la solución.
 
-Los diagramas C4 se elaboraron con Structurizr DSL y se renderizaron con Structurizr Playground (https://playground.structurizr.com). El código fuente de todos los diagramas (`containerDiagram.txt`) se encuentra junto a sus imágenes en la carpeta `report/assets/DD-SoftwareArchitecture` del repositorio.
+Los diagramas C4 se elaboraron como Diagram-as-Code con PlantUML y la biblioteca C4-PlantUML, y se exportaron en PNG a 200 dpi. El código fuente de todos los diagramas (`c4-diagrams.puml`) se encuentra junto a sus imágenes en la carpeta `report/assets/DD-SoftwareArchitecture` del repositorio. Cada elemento corresponde al código de la rama `develop` de los repositorios de BottleTrack; las líneas punteadas del diagrama de base de datos indican referencias entre agregados que no tienen una llave foránea en la base de datos.
 
 <img src="assets/DD-SoftwareArchitecture/contextDiagram.png" alt="Diagrama de contexto C4 de BottleTrack" width="800">
 
