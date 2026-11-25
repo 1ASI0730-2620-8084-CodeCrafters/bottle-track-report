@@ -38,7 +38,7 @@ A continuación se indican los productos de software que utiliza el equipo, el p
 | Figma | Wireframes, Mock-ups y Prototypes del Landing Page y de la Web Application. | https://www.figma.com |
 | FigJam | Wireflow Diagrams. | https://www.figma.com/figjam |
 | Graphviz | User Flow Diagrams elaborados como Diagram-as-Code en lenguaje DOT. | https://graphviz.org |
-| Structurizr DSL y Structurizr Playground | Diagramas de arquitectura de software bajo el C4 Model. | https://playground.structurizr.com |
+| PlantUML y C4-PlantUML | Diagramas de arquitectura de software bajo el C4 Model, de clases y de base de datos. | https://plantuml.com |
 | PlantUML | Diagramas UML de clases y diagrama de base de datos, elaborados como Diagram-as-Code. | https://plantuml.com |
 
 **Software Development**

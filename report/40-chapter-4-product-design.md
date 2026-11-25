@@ -716,7 +716,7 @@ El tablero se encuentra disponible en: https://miro.com/welcomeonboard/aEpQNnI1b
 
 El diagrama de contexto muestra a BottleTrack como una caja negra y su relación con las personas y los sistemas externos. Sus usuarios son el administrador de la distribuidora, el supervisor de flota y el responsable de la bodega. El conductor aparece como actor del dominio que reporta al supervisor, pero no usa la aplicación. Los sistemas externos son los dispositivos IoT instalados en los vehículos y el servicio de mapas y geolocalización, que constituye el servicio de terceros que consume la solución.
 
-Los diagramas C4 se elaboraron con Structurizr DSL y se renderizaron con Structurizr Playground (https://playground.structurizr.com). El código fuente de todos los diagramas (`containerDiagram.txt`) se encuentra junto a sus imágenes en la carpeta `report/assets/DD-SoftwareArchitecture` del repositorio.
+Los diagramas C4 se elaboraron como Diagram-as-Code con PlantUML y la biblioteca C4-PlantUML, y se exportaron en PNG a 200 dpi. El código fuente de todos los diagramas (`c4-diagrams.puml`) se encuentra junto a sus imágenes en la carpeta `report/assets/DD-SoftwareArchitecture` del repositorio. Cada elemento corresponde al código de la rama `develop` de los repositorios de BottleTrack; las líneas punteadas del diagrama de base de datos indican referencias entre agregados que no tienen una llave foránea en la base de datos.
 
 <img src="assets/DD-SoftwareArchitecture/contextDiagram.png" alt="Diagrama de contexto C4 de BottleTrack" width="800">
 
@@ -731,8 +731,8 @@ El diagrama de contenedores muestra las unidades desplegables de la solución:
 | Website | HTML5, CSS3, JavaScript | Netlify (contenido estático) |
 | Web Application Static Content | Archivos HTML, CSS y JavaScript generados por el build de Vue 3 | Vercel (contenido estático) |
 | Single-Page Application | Vue 3, PrimeVue, Pinia, Vue Router, vue-i18n, axios | Navegador del usuario |
-| Web Services | ASP.NET Core (.NET 10), C#, Entity Framework Core, documentado con OpenAPI y Scalar | Proveedor de nube (monolito) |
-| Database | MySQL | Proveedor de nube |
+| Web Services | ASP.NET Core (.NET 10), C#, Entity Framework Core, documentado con OpenAPI y Scalar | Railway (monolito) |
+| Database | MySQL | Railway |
 
 El Website y la Web Application son dos productos distintos y ambos se despliegan como contenido estático, es decir, como una copia de carpetas con archivos HTML, CSS y JavaScript hacia un hosting. Por eso el diagrama los representa con el contenedor de tipo carpeta.
 
@@ -746,25 +746,25 @@ La persona que visita el Website todavía no está autenticada, por lo que el di
 
 ### 4.6.4. Software Architecture Components Diagrams.
 
-Se elaboró un diagrama de componentes por bounded context. Los cinco bounded contexts ya están implementados en los Web Services. Los componentes dibujados con borde punteado y trazo tenue (*Planned*) son los que conectan un contexto con otro (facades, capas anticorrupción y eventos de dominio) y los adaptadores hacia servicios externos, que todavía no existen en el código; el resto corresponde a lo que ya está implementado en el repositorio. Todos siguen la misma estructura hexagonal: un controller como adaptador de entrada, command services y query services en la capa de aplicación, el modelo de dominio con sus agregados, la interfaz del repositorio como puerto de salida (borde punteado) y el repositorio de Entity Framework Core como adaptador que lo implementa.
+Se elaboró un diagrama de componentes por bounded context. Los cinco bounded contexts ya están implementados en los Web Services. Los diagramas solo muestran componentes que existen en el código de la rama `develop` de los Web Services. La comunicación entre contextos implementada es la de Operations and Routes con Fleet Management: el External Fleet Service de Operations llama a la Fleet Context Facade para reservar el vehículo y el conductor de una operación y liberarlos al cambiarlos, completarla o cancelarla. Todos siguen la misma estructura hexagonal: controllers como adaptadores de entrada, command services y query services en la capa de aplicación, el modelo de dominio con sus agregados, la interfaz del repositorio como puerto de salida y el repositorio de Entity Framework Core como adaptador que lo implementa.
 
 **Identity and Access Management.** Gestiona las organizaciones y los usuarios con sus roles. Implementado: registro, consulta y edición de organizaciones y de usuarios, asignación de rol, un adaptador de salida que calcula el hash de las contraseñas con PBKDF2 y el inicio de sesión, que valida las credenciales y emite un token JWT.
 
 <img src="assets/DD-SoftwareArchitecture/componentIAM_D.png" alt="Diagrama de componentes de Identity and Access Management" width="800">
 
-**Fleet Management.** Gestiona los vehículos y los conductores y su disponibilidad. Implementado: registro, consulta y edición de vehículos y de conductores, con filtro por disponibilidad. La facade con la que Operations and Routes reservará y liberará recursos está planificada.
+**Fleet Management.** Gestiona los vehículos y los conductores y su disponibilidad. Implementado: registro, consulta y edición de vehículos y de conductores, con filtro por disponibilidad, y la Fleet Context Facade, con la que Operations and Routes reserva y libera vehículos y conductores.
 
 <img src="assets/DD-SoftwareArchitecture/componentFleetM_D.png" alt="Diagrama de componentes de Fleet Management" width="800">
 
-**Operations and Routes.** Es el core del dominio. Gestiona el ciclo de vida de la operación de transporte, sus puntos de entrega y sus paradas. Implementado: registro y consulta de puntos de entrega, creación de operaciones con un código correlativo, agregado de paradas, despacho con un vehículo y un conductor, y consulta de las operaciones de una organización con sus paradas. La capa anticorrupción hacia Fleet Management y el adaptador de geocodificación hacia el servicio de mapas están planificados.
+**Operations and Routes.** Es el core del dominio. Gestiona el ciclo de vida de la operación de transporte, sus puntos de entrega y sus paradas. Implementado: registro y consulta de puntos de entrega, creación de operaciones con un código correlativo, agregado de paradas, reordenamiento de paradas, asignación de vehículo y conductor, despacho, inicio, registro del resultado de cada entrega, finalización y cancelación (`/moves`, `/vehicle-assignments`, `/driver-assignments`, `/dispatches`, `/starts`, `/deliveries`, `/completions` y `/cancellations`), y consulta de las operaciones de una organización con sus paradas. El External Fleet Service es la capa anticorrupción hacia Fleet Management.
 
 <img src="assets/DD-SoftwareArchitecture/componentOR_D.png" alt="Diagrama de componentes de Operations and Routes" width="800">
 
-**IoT Monitoring.** Registra los dispositivos con su rango seguro de temperatura y su umbral de impacto, recibe sus lecturas y gestiona las alertas. Implementado: registro y consulta de dispositivos, registro y consulta de lecturas por dispositivo, y registro, consulta y atención de alertas. La evaluación automática de cada lectura contra el rango seguro y la publicación del evento `AlertRaised` hacia Incident Management están planificadas.
+**IoT Monitoring.** Registra los dispositivos con su rango seguro de temperatura y su umbral de impacto, recibe sus lecturas y gestiona las alertas. Implementado: registro y consulta de dispositivos, registro y consulta de lecturas por dispositivo, y registro, consulta y atención de alertas. Las lecturas son simuladas en esta versión.
 
 <img src="assets/DD-SoftwareArchitecture/componentIoTM_D.png" alt="Diagrama de componentes de IoT Monitoring" width="800">
 
-**Incident Management.** Gestiona las incidencias, su evidencia, su severidad y su resolución, con origen en el supervisor, la bodega o una alerta IoT. Implementado: reporte de incidencias con un código correlativo, registro de evidencias como enlace al archivo, resolución y consulta de las incidencias de una operación. El manejador del evento `AlertRaised` y el servicio que almacena los archivos de evidencia están planificados.
+**Incident Management.** Gestiona las incidencias, su evidencia, su severidad y su resolución, con origen en el supervisor, la bodega o una alerta IoT. Implementado: reporte de incidencias con un código correlativo, registro de evidencias como enlace al archivo, resolución y consulta de las incidencias de una operación.
 
 <img src="assets/DD-SoftwareArchitecture/componentIM_D.png" alt="Diagrama de componentes de Incident Management" width="800">
 
