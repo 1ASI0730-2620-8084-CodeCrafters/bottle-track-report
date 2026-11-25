@@ -1,0 +1,231 @@
+' BottleTrack - C4 model: system context, containers and components of the Web Services.
+' Diagram-as-Code with C4-PlantUML. Each @startuml block produces the PNG named after it:
+'   java -jar plantuml.jar -tpng c4-diagrams.puml
+' Every element reflects the code of the develop branches of bottle-track-web-services,
+' bottle-track-web-application and bottle-track-website.
+
+@startuml contextDiagram
+!include <C4/C4_Context>
+skinparam dpi 200
+LAYOUT_LEFT_RIGHT()
+UpdateElementStyle("person", $bgColor="#4f2000", $borderColor="#4f2000")
+UpdateElementStyle("system", $bgColor="#b34900", $borderColor="#b34900")
+UpdateElementStyle("external_system", $bgColor="#8a8a8a", $borderColor="#8a8a8a")
+title System Context - BottleTrack
+
+Person(visitor, "Visitor", "Person who is not authenticated and explores the website to learn about the product.")
+Person(administrator, "Distributor Administrator", "Manages the company, its users, its vehicles and drivers, and reviews the indicators.")
+Person(fleetSupervisor, "Fleet Supervisor", "Plans and runs transport operations, records delivery results and follows up alerts and incidents.")
+Person(deliveryPointOwner, "Delivery Point Owner", "Owner of a convenience store or minimarket who tracks its orders and reports reception problems.")
+Person_Ext(driver, "Driver", "Drives the vehicle and reports delivery results to the fleet supervisor. Does not use the application.")
+System(bottleTrack, "BottleTrack", "Manages and tracks bottled beverage transport operations with IoT monitoring and incident reporting.")
+System_Ext(iotDevice, "Vehicle IoT Device", "Sends location, cargo temperature and impact readings during the trip. In the current version the readings are simulated.")
+
+Rel(visitor, bottleTrack, "Learns about BottleTrack through its website", "HTTPS")
+Rel(administrator, bottleTrack, "Manages the company, fleet and users, and reviews indicators", "HTTPS")
+Rel(fleetSupervisor, bottleTrack, "Plans operations, records deliveries and follows up incidents", "HTTPS")
+Rel(deliveryPointOwner, bottleTrack, "Tracks orders and reports reception problems", "HTTPS")
+Rel(driver, fleetSupervisor, "Reports delivery results and incidents by phone")
+Rel(iotDevice, bottleTrack, "Sends sensor readings to", "HTTPS / JSON")
+@enduml
+
+@startuml containerDiagram
+!include <C4/C4_Container>
+skinparam dpi 200
+LAYOUT_LEFT_RIGHT()
+UpdateElementStyle("person", $bgColor="#4f2000", $borderColor="#4f2000")
+UpdateElementStyle("container", $bgColor="#f97316", $borderColor="#b34900")
+UpdateElementStyle("external_system", $bgColor="#8a8a8a", $borderColor="#8a8a8a")
+title Container Diagram - BottleTrack
+
+Person(visitor, "Visitor")
+Person(administrator, "Distributor Administrator")
+Person(fleetSupervisor, "Fleet Supervisor")
+Person(deliveryPointOwner, "Delivery Point Owner")
+System_Ext(iotDevice, "Vehicle IoT Device", "Simulated in the current version.")
+
+System_Boundary(bottleTrack, "BottleTrack") {
+  Container(website, "Website", "HTML5, CSS3, JavaScript - Netlify", "Static website that presents BottleTrack, its subscription plans and the benefits for each target segment.")
+  Container(webApplicationStatic, "Web Application Static Content", "Vue 3 build - Vercel", "Serves the HTML, CSS and JavaScript files of the single-page application.")
+  Container(singlePageApplication, "Single-Page Application", "Vue 3, PrimeVue, Pinia, Vue Router, vue-i18n, axios", "Runs in the user's web browser and provides the features of each role, organized by bounded contexts.")
+  Container(webServices, "Web Services", "ASP.NET Core, C#, Entity Framework Core - Railway", "RESTful API organized as a modular monolith, one module per bounded context. Documented with OpenAPI and Scalar.")
+  ContainerDb(database, "Database", "MySQL - Railway", "Stores the data of every bounded context in its own set of tables.")
+}
+
+Rel(visitor, website, "Visits to learn about BottleTrack", "HTTPS")
+Rel(website, webApplicationStatic, "Links the plans and each segment to the web application", "HTTPS")
+Rel(administrator, webApplicationStatic, "Visits", "HTTPS")
+Rel(fleetSupervisor, webApplicationStatic, "Visits", "HTTPS")
+Rel(deliveryPointOwner, webApplicationStatic, "Visits", "HTTPS")
+Rel(webApplicationStatic, singlePageApplication, "Delivers to the user's web browser")
+Rel(singlePageApplication, webServices, "Makes API calls to", "HTTPS / JSON, JWT")
+Rel(webServices, database, "Reads from and writes to", "Entity Framework Core")
+Rel(iotDevice, webServices, "Sends sensor readings to", "HTTPS / JSON")
+@enduml
+
+@startuml componentIAM_D
+!include <C4/C4_Component>
+skinparam dpi 200
+LAYOUT_LEFT_RIGHT()
+UpdateElementStyle("container", $bgColor="#f97316", $borderColor="#b34900")
+UpdateElementStyle("component", $bgColor="#ffedd5", $fontColor="#303030", $borderColor="#b34900")
+title Component Diagram - Identity and Access Management Bounded Context
+
+Container(singlePageApplication, "Single-Page Application", "Vue 3")
+ContainerDb(database, "Database", "MySQL")
+Container_Boundary(webServices, "Web Services - Identity and Access Management") {
+  Component(tokensController, "Tokens Controller", "ASP.NET Core Controller", "POST /api/v1/tokens. Signs users in with their email and password.")
+  Component(iamControllers, "Organizations, Users and Roles Controllers", "ASP.NET Core Controllers", "Register, query and edit organizations and users, assign roles and list the users of a role.")
+  Component(authCommandService, "Authentication Command Service", "C# Application Service", "Validates the credentials and returns the authenticated user with a token.")
+  Component(iamCommandServices, "Organization and User Command Services", "C# Application Services", "Register and edit organizations and users, and assign roles.")
+  Component(iamQueryServices, "Organization and User Query Services", "C# Application Services", "Resolve organizations, users and the users of a role.")
+  Component(iamDomain, "IAM Domain Model", "C# Domain Model", "Aggregates Organization and User, value objects EmailAddress and TaxId, enums UserRole and UserStatus.")
+  Component(iamRepositories, "Organization and User Repositories", "C# Interfaces", "Outbound ports declared by the domain.")
+  Component(iamPersistence, "EF Core IAM Repositories", "Entity Framework Core", "Implement the repository ports.")
+  Component(passwordHasher, "Password Hasher", "PBKDF2", "Hashes and verifies passwords.")
+  Component(tokenService, "JWT Token Service", "JSON Web Token", "Issues signed access tokens.")
+}
+
+Rel(singlePageApplication, tokensController, "Signs in", "HTTPS / JSON")
+Rel(singlePageApplication, iamControllers, "Manages users and the company", "HTTPS / JSON")
+Rel(tokensController, authCommandService, "Sends commands to")
+Rel(authCommandService, iamRepositories, "Finds the user through")
+Rel(authCommandService, passwordHasher, "Verifies passwords with")
+Rel(authCommandService, tokenService, "Issues tokens with")
+Rel(iamControllers, iamCommandServices, "Sends commands to")
+Rel(iamControllers, iamQueryServices, "Sends queries to")
+Rel(iamCommandServices, iamDomain, "Applies business rules of")
+Rel(iamCommandServices, iamRepositories, "Persists aggregates through")
+Rel(iamCommandServices, passwordHasher, "Hashes passwords with")
+Rel(iamQueryServices, iamRepositories, "Reads through")
+Rel(iamPersistence, iamRepositories, "Implements")
+Rel(iamPersistence, database, "Reads from and writes to", "EF Core")
+@enduml
+
+@startuml componentFleetM_D
+!include <C4/C4_Component>
+skinparam dpi 200
+LAYOUT_LEFT_RIGHT()
+UpdateElementStyle("container", $bgColor="#f97316", $borderColor="#b34900")
+UpdateElementStyle("component", $bgColor="#ffedd5", $fontColor="#303030", $borderColor="#b34900")
+title Component Diagram - Fleet Management Bounded Context
+
+Container(singlePageApplication, "Single-Page Application", "Vue 3")
+ContainerDb(database, "Database", "MySQL")
+Container_Boundary(webServices, "Web Services - Fleet Management") {
+  Component(fleetControllers, "Vehicles and Drivers Controllers", "ASP.NET Core Controllers", "Register, edit and query vehicles and drivers, optionally only the available ones.")
+  Component(fleetCommandServices, "Vehicle and Driver Command Services", "C# Application Services", "Register and edit vehicles and drivers, send vehicles to maintenance and deactivate drivers.")
+  Component(fleetQueryServices, "Vehicle and Driver Query Services", "C# Application Services", "Resolve vehicles and drivers by id or by organization.")
+  Component(fleetFacade, "Fleet Context Facade", "C# Facade (IFleetContextFacade)", "Inbound port used by Operations and Routes to reserve and release vehicles and drivers.")
+  Component(fleetDomain, "Fleet Domain Model", "C# Domain Model", "Aggregates Vehicle and Driver, value objects PlateNumber and LicenseNumber, enums VehicleStatus and DriverStatus.")
+  Component(fleetRepositories, "Vehicle and Driver Repositories", "C# Interfaces", "Outbound ports declared by the domain.")
+  Component(fleetPersistence, "EF Core Fleet Repositories", "Entity Framework Core", "Implement the repository ports.")
+}
+Component(externalFleetService, "External Fleet Service", "Operations and Routes", "Anti-corruption layer of Operations and Routes.")
+
+Rel(singlePageApplication, fleetControllers, "Manages vehicles and drivers", "HTTPS / JSON")
+Rel(fleetControllers, fleetCommandServices, "Sends commands to")
+Rel(fleetControllers, fleetQueryServices, "Sends queries to")
+Rel(fleetCommandServices, fleetDomain, "Applies business rules of")
+Rel(fleetCommandServices, fleetRepositories, "Persists aggregates through")
+Rel(fleetQueryServices, fleetRepositories, "Reads through")
+Rel(externalFleetService, fleetFacade, "Reserves and releases vehicles and drivers through")
+Rel(fleetFacade, fleetDomain, "Changes the availability of")
+Rel(fleetFacade, fleetRepositories, "Reads and updates through")
+Rel(fleetPersistence, fleetRepositories, "Implements")
+Rel(fleetPersistence, database, "Reads from and writes to", "EF Core")
+@enduml
+
+@startuml componentOR_D
+!include <C4/C4_Component>
+skinparam dpi 200
+LAYOUT_LEFT_RIGHT()
+UpdateElementStyle("container", $bgColor="#f97316", $borderColor="#b34900")
+UpdateElementStyle("component", $bgColor="#ffedd5", $fontColor="#303030", $borderColor="#b34900")
+title Component Diagram - Operations and Routes Bounded Context
+
+Container(singlePageApplication, "Single-Page Application", "Vue 3")
+ContainerDb(database, "Database", "MySQL")
+Container_Boundary(webServices, "Web Services - Operations and Routes") {
+  Component(operationsControllers, "Transport Operations and Delivery Points Controllers", "ASP.NET Core Controllers", "Delivery points; operations with their delivery stops, moves, vehicle and driver assignments, dispatches, starts, deliveries, completions and cancellations.")
+  Component(operationsCommandServices, "Transport Operation and Delivery Point Command Services", "C# Application Services", "Register delivery points, create operations with a correlative code and run their lifecycle: add and reorder stops, assign resources, dispatch, start, record deliveries, complete and cancel.")
+  Component(operationsQueryServices, "Transport Operation and Delivery Point Query Services", "C# Application Services", "Resolve operations with their delivery stops and the delivery points, by id or by organization.")
+  Component(externalFleetService, "External Fleet Service", "C# Outbound Service", "Anti-corruption layer that reserves the new vehicle or driver and releases the previous ones.")
+  Component(operationsDomain, "Operations Domain Model", "C# Domain Model", "Aggregates TransportOperation and DeliveryPoint, entity DeliveryStop, enums TransportOperationStatus and DeliveryStopStatus.")
+  Component(operationsRepositories, "Transport Operation and Delivery Point Repositories", "C# Interfaces", "Outbound ports declared by the domain.")
+  Component(operationsPersistence, "EF Core Operations Repositories", "Entity Framework Core", "Implement the repository ports.")
+}
+Component(fleetFacade, "Fleet Context Facade", "Fleet Management", "Reserves and releases vehicles and drivers.")
+
+Rel(singlePageApplication, operationsControllers, "Plans and runs operations, and records deliveries", "HTTPS / JSON")
+Rel(operationsControllers, operationsCommandServices, "Sends commands to")
+Rel(operationsControllers, operationsQueryServices, "Sends queries to")
+Rel(operationsCommandServices, operationsDomain, "Applies business rules of")
+Rel(operationsCommandServices, operationsRepositories, "Persists aggregates through")
+Rel(operationsCommandServices, externalFleetService, "Reserves and releases resources through")
+Rel(operationsQueryServices, operationsRepositories, "Reads through")
+Rel(externalFleetService, fleetFacade, "Calls")
+Rel(operationsPersistence, operationsRepositories, "Implements")
+Rel(operationsPersistence, database, "Reads from and writes to", "EF Core")
+@enduml
+
+@startuml componentIoTM_D
+!include <C4/C4_Component>
+skinparam dpi 200
+LAYOUT_LEFT_RIGHT()
+UpdateElementStyle("container", $bgColor="#f97316", $borderColor="#b34900")
+UpdateElementStyle("component", $bgColor="#ffedd5", $fontColor="#303030", $borderColor="#b34900")
+UpdateElementStyle("external_system", $bgColor="#8a8a8a", $borderColor="#8a8a8a")
+title Component Diagram - IoT Monitoring Bounded Context
+
+Container(singlePageApplication, "Single-Page Application", "Vue 3")
+ContainerDb(database, "Database", "MySQL")
+System_Ext(iotDevice, "Vehicle IoT Device", "Simulated in the current version.")
+Container_Boundary(webServices, "Web Services - IoT Monitoring") {
+  Component(monitoringControllers, "IoT Devices, Sensor Readings and Alerts Controllers", "ASP.NET Core Controllers", "Register and query devices, record and list sensor readings, raise, acknowledge and list alerts.")
+  Component(monitoringCommandServices, "IoT Device, Sensor Reading and Alert Command Services", "C# Application Services", "Register devices with their safe range, record readings, raise and acknowledge alerts.")
+  Component(monitoringQueryServices, "IoT Device, Sensor Reading and Alert Query Services", "C# Application Services", "Resolve devices, and the readings and alerts of a device.")
+  Component(monitoringDomain, "Monitoring Domain Model", "C# Domain Model", "Aggregates IotDevice, SensorReading and Alert, enums DeviceStatus and AlertType.")
+  Component(monitoringRepositories, "Device, Reading and Alert Repositories", "C# Interfaces", "Outbound ports declared by the domain.")
+  Component(monitoringPersistence, "EF Core Monitoring Repositories", "Entity Framework Core", "Implement the repository ports.")
+}
+
+Rel(iotDevice, monitoringControllers, "Sends sensor readings to", "HTTPS / JSON")
+Rel(singlePageApplication, monitoringControllers, "Monitors the cargo and acknowledges alerts", "HTTPS / JSON")
+Rel(monitoringControllers, monitoringCommandServices, "Sends commands to")
+Rel(monitoringControllers, monitoringQueryServices, "Sends queries to")
+Rel(monitoringCommandServices, monitoringDomain, "Applies business rules of")
+Rel(monitoringCommandServices, monitoringRepositories, "Persists aggregates through")
+Rel(monitoringQueryServices, monitoringRepositories, "Reads through")
+Rel(monitoringPersistence, monitoringRepositories, "Implements")
+Rel(monitoringPersistence, database, "Reads from and writes to", "EF Core")
+@enduml
+
+@startuml componentIM_D
+!include <C4/C4_Component>
+skinparam dpi 200
+LAYOUT_LEFT_RIGHT()
+UpdateElementStyle("container", $bgColor="#f97316", $borderColor="#b34900")
+UpdateElementStyle("component", $bgColor="#ffedd5", $fontColor="#303030", $borderColor="#b34900")
+title Component Diagram - Incident Management Bounded Context
+
+Container(singlePageApplication, "Single-Page Application", "Vue 3")
+ContainerDb(database, "Database", "MySQL")
+Container_Boundary(webServices, "Web Services - Incident Management") {
+  Component(incidentsController, "Incidents Controller", "ASP.NET Core Controller", "Reports and queries incidents, adds evidences and registers resolutions.")
+  Component(incidentsCommandService, "Incident Command Service", "C# Application Service", "Reports incidents with a correlative code, adds evidences as links to the files and resolves them.")
+  Component(incidentsQueryService, "Incident Query Service", "C# Application Service", "Resolves an incident with its evidences and the incidents of an operation.")
+  Component(incidentsDomain, "Incident Domain Model", "C# Domain Model", "Aggregate Incident with entity Evidence, enums IncidentType, IncidentSeverity, IncidentStatus and IncidentSource.")
+  Component(incidentsRepository, "Incident Repository", "C# Interface", "Outbound port declared by the domain.")
+  Component(incidentsPersistence, "EF Core Incident Repository", "Entity Framework Core", "Implements the repository port.")
+}
+
+Rel(singlePageApplication, incidentsController, "Reports and follows up incidents", "HTTPS / JSON")
+Rel(incidentsController, incidentsCommandService, "Sends commands to")
+Rel(incidentsController, incidentsQueryService, "Sends queries to")
+Rel(incidentsCommandService, incidentsDomain, "Applies business rules of")
+Rel(incidentsCommandService, incidentsRepository, "Persists aggregates through")
+Rel(incidentsQueryService, incidentsRepository, "Reads through")
+Rel(incidentsPersistence, incidentsRepository, "Implements")
+Rel(incidentsPersistence, database, "Reads from and writes to", "EF Core")
+@enduml
