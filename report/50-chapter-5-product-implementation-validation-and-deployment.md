@@ -574,7 +574,7 @@ En el repositorio del Landing Page se aplicaron las correcciones de AV1 y se pub
 
 Al cierre del Sprint 2 la Frontend Web Application v1.0.0 se encuentra publicada en https://frontend-web-aplication.vercel.app. La aplicación ofrece una experiencia distinta para cada rol: el administrador gestiona los usuarios, la empresa, la flota y los dispositivos IoT; el supervisor de flota planifica y ejecuta las operaciones, monitorea la carga y registra las incidencias; y el responsable de la bodega sigue sus pedidos y reporta los problemas de recepción. Las vistas que siguen se capturaron con los datos del fake API y el idioma español; la aplicación cambia a inglés desde el selector de idioma.
 
-El recorrido de la aplicación con los tres roles se muestra en el video de exposición de TB1, publicado en Microsoft Stream y en YouTube. Stream: https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQB1u3FFP1TITYZ6Tj6d4ynQAcF7YM7w-LCNJYLUWoZkpE0?e=8x6kZa. YouTube: Aquí va el link de YouTube.
+El recorrido de la aplicación con los tres roles se muestra en el video de exposición de TB1, publicado en Microsoft Stream y en YouTube. Stream: https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQB1u3FFP1TITYZ6Tj6d4ynQAcF7YM7w-LCNJYLUWoZkpE0?e=8x6kZa. YouTube: https://youtu.be/JA8pDU0TrbU.
 
 **Inicio de sesión**
 
