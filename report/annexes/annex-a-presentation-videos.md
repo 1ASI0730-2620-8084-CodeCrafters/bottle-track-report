@@ -10,12 +10,13 @@
 
 ## Anexo A. Videos de Exposiciones
 
-En esta sección se registra de forma progresiva el video de exposición correspondiente a cada entrega del proyecto. Cada video se publica en Microsoft Stream con enlace privado y sigue la nomenclatura establecida en el enunciado del trabajo final: `upc-pre-202620-1asi0730-8084-codecrafters-expo-<entrega>`. El registro de los videos inicia con la entrega TB1.
+En esta sección se registra de forma progresiva el video de exposición correspondiente a cada entrega del proyecto. Cada video se publica en Microsoft Stream y en YouTube, con enlaces que cualquier persona puede abrir, y sigue la nomenclatura establecida en el enunciado del trabajo final: `upc-pre-202620-1asi0730-8084-codecrafters-expo-<entrega>`. El registro de los videos inicia con la entrega TB1.
 
-| Entrega | Video | Enlace |
-| :------ | :---- | :----- |
-| TB1 | upc-pre-202620-1asi0730-8084-codecrafters-expo-tb1 | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQB1u3FFP1TITYZ6Tj6d4ynQAcF7YM7w-LCNJYLUWoZkpE0?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=8x6kZa |
-| AV2 | upc-pre-202620-1asi0730-8084-codecrafters-expo-av2 | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQC1vXdkh8ZPTIoeH7f27cMDAR4Xt2WQZyaK-QIfELjpjWY?e=H23Xg4 |
+| Entrega | Video | YouTube | Stream |
+| :------ | :---- | :--- | :--- |
+| TB1 | upc-pre-202620-1asi0730-8084-codecrafters-expo-tb1 | Aquí va el link de YouTube. | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQB1u3FFP1TITYZ6Tj6d4ynQAcF7YM7w-LCNJYLUWoZkpE0?e=8x6kZa |
+| AV2 | upc-pre-202620-1asi0730-8084-codecrafters-expo-av2 | Aquí va el link de YouTube. | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQC1vXdkh8ZPTIoeH7f27cMDAR4Xt2WQZyaK-QIfELjpjWY?e=H23Xg4 |
+| Sprint 4 | Aquí va el nombre del archivo. | Aquí va el link de YouTube. | Aquí va el link de Stream. |
 
 <hr>
 
