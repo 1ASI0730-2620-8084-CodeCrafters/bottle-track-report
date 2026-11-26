@@ -1360,6 +1360,10 @@ El Landing Page se encuentra en https://1asi0730-2620-8084-codecrafters.netlify.
 
 <img src="assets/chapter5/sprint3/web-services-evidence/railway-service.png" alt="Servicio bottle-track-web-services en Railway con el despliegue de la rama release/2.0.0 activo y exitoso" width="800">
 
+**Base de datos en Railway.** El mismo proyecto de Railway, en el entorno `production`, contiene la base de datos **MySQL** con su volumen `mysql-volume` y el servicio `bottle-track-web-services` que se conecta a ella; ambos figuran en estado **Online**. Las credenciales y las variables de entorno no se muestran.
+
+<img src="assets/chapter5/sprint3/web-services-evidence/railway-database.png" alt="Proyecto de Railway con la base de datos MySQL y los Web Services en estado Online" width="800">
+
 <a id="5238-team-collaboration-insights-during-sprint"></a>
 
 #### 5.2.3.8. Team Collaboration Insights during Sprint.
