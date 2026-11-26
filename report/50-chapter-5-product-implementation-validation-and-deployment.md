@@ -1195,6 +1195,10 @@ Las capturas muestran la Frontend Web Application consumiendo los Web Services e
 
 <img src="assets/chapter5/sprint3/web-services-evidence/scalar-error-409.png" alt="Respuesta 409 Conflict de POST /api/v1/vehicles con una placa repetida" width="800">
 
+**Pruebas automáticas.** El proyecto `BottleTrack.API.Tests` contiene pruebas unitarias de las reglas de dominio y pruebas de integración de los endpoints, que se ejecutan sobre una base de datos SQLite en memoria. Ejecutadas con `dotnet test BottleTrack.API.Tests/BottleTrack.API.Tests.csproj` sobre la rama `main` (versión 2.0.0, la publicada en Railway), las 31 pruebas terminan con éxito: *total: 31; failed: 0; succeeded: 31*.
+
+<img src="assets/chapter5/sprint3/web-services-evidence/api-tests.png" alt="Resultado de dotnet test con las 31 pruebas de los Web Services exitosas" width="800">
+
 <a id="5236-services-documentation-evidence-for-sprint-review"></a>
 
 #### 5.2.3.6. Services Documentation Evidence for Sprint Review.
