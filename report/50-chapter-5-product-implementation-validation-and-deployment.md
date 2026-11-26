@@ -574,7 +574,7 @@ En el repositorio del Landing Page se aplicaron las correcciones de AV1 y se pub
 
 Al cierre del Sprint 2 la Frontend Web Application v1.0.0 se encuentra publicada en https://frontend-web-aplication.vercel.app. La aplicación ofrece una experiencia distinta para cada rol: el administrador gestiona los usuarios, la empresa, la flota y los dispositivos IoT; el supervisor de flota planifica y ejecuta las operaciones, monitorea la carga y registra las incidencias; y el responsable de la bodega sigue sus pedidos y reporta los problemas de recepción. Las vistas que siguen se capturaron con los datos del fake API y el idioma español; la aplicación cambia a inglés desde el selector de idioma.
 
-El recorrido de la aplicación con los tres roles se muestra en el video de exposición de TB1, publicado en Microsoft Stream y en YouTube. Stream: https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQB1u3FFP1TITYZ6Tj6d4ynQAcF7YM7w-LCNJYLUWoZkpE0?e=8x6kZa. YouTube: Aquí va el link de YouTube.
+El recorrido de la aplicación con los tres roles se muestra en el video de exposición de TB1, publicado en Microsoft Stream y en YouTube. Stream: https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQB1u3FFP1TITYZ6Tj6d4ynQAcF7YM7w-LCNJYLUWoZkpE0?e=8x6kZa. YouTube: https://youtu.be/JA8pDU0TrbU.
 
 **Inicio de sesión**
 
@@ -1434,7 +1434,7 @@ El registro sigue el mismo formato de la sección 2.2.2. Las entrevistas las rea
 
 | # | Nombres y Apellidos | Edad | Distrito | Screenshot | YouTube | Stream | Inicio | Duración |
 | :- | :------------------ | :--- | :------- | :--------- | :--- | :--- | :----- | :------- |
-| 1 | Luis Angel Tufiño Argüelles | 32 años | Pueblo Libre | <img src="assets/chapter5/validation/validation-luis-tufino.png" alt="Entrevista de validación con Luis Angel Tufiño Argüelles"> | https://youtu.be/vnJYp37qBu0 | Aquí va el link de Stream. | 00:00:00 | 13:32 |
+| 1 | Luis Angel Tufiño Argüelles | 32 años | Pueblo Libre | <img src="assets/chapter5/validation/validation-luis-tufino.png" alt="Entrevista de validación con Luis Angel Tufiño Argüelles"> | https://youtu.be/vnJYp37qBu0 | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQC9yUXuWoRUSKpMfjLdD3B_AeOvKKw-zTBHkJ7hKNipzQo?e=AQkCxJ | 00:00:00 | 13:32 |
 
 *Resumen de entrevista 1:*
 
@@ -1446,8 +1446,8 @@ Destaca la utilidad de BottleTrack para consultar el avance de las entregas, org
 
 | # | Nombres y Apellidos | Edad | Distrito | Screenshot | YouTube | Stream | Inicio | Duración |
 | :- | :------------------ | :--- | :------- | :--------- | :--- | :--- | :----- | :------- |
-| 1 | Arturo Axel Saravia Huaricancha | 20 años | Los Olivos | <img src="assets/chapter5/validation/validation-arturo-saravia.png" alt="Entrevista de validación con Arturo Axel Saravia Huaricancha"> | https://youtu.be/5J2oE865qiQ | Aquí va el link de Stream. | 00:00:00 | 07:59 |
-| 2 | Leo Giovany Yañez Santos | 23 años | Pueblo Libre | <img src="assets/chapter5/validation/validation-leo-yanez.png" alt="Entrevista de validación con Leo Giovany Yañez Santos"> | https://youtu.be/8L-3LssywR0 | Aquí va el link de Stream. | 00:00:00 | 07:48 |
+| 1 | Arturo Axel Saravia Huaricancha | 20 años | Los Olivos | <img src="assets/chapter5/validation/validation-arturo-saravia.png" alt="Entrevista de validación con Arturo Axel Saravia Huaricancha"> | https://youtu.be/5J2oE865qiQ | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQBQhlyaNeH1TpWe_qFk0XUJAQ4z-tY45OPNsEuGrl7XT84?e=QMn4Yt | 00:00:00 | 07:59 |
+| 2 | Leo Giovany Yañez Santos | 23 años | Pueblo Libre | <img src="assets/chapter5/validation/validation-leo-yanez.png" alt="Entrevista de validación con Leo Giovany Yañez Santos"> | https://youtu.be/8L-3LssywR0 | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQCQ_lI4W8X8RZr_zedOGRpUASpY9qL7egQh7wo4TbxStq0?e=SRhDg8 | 00:00:00 | 07:48 |
 
 *Resumen de entrevista 1:*
 
@@ -1486,7 +1486,7 @@ El video About-the-Product presenta BottleTrack a los visitantes del Landing Pag
 
 | Video | Nombre del archivo | Duración | YouTube | Stream |
 | :---- | :----------------- | :------- | :--- | :--- |
-| About-the-Product | upc-pre-202620-1asi0730-8084-codecrafters-about-the-product-sprint-3 | 03:53 | https://youtu.be/o26x4zDOFbk | Aquí va el link de Stream. |
+| About-the-Product | upc-pre-202620-1asi0730-8084-codecrafters-about-the-product-sprint-3 | 03:53 | https://youtu.be/o26x4zDOFbk | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQA1bzxF9vzSQa2ccxFp5_INAa8GDouRiq3aOsR5nZgPGDE?e=dawtFA |
 
 <img src="assets/chapter5/videos/about-the-product-youtube.png" alt="Video About-the-Product publicado en YouTube" width="800">
 

@@ -143,8 +143,22 @@ local function breakable(txt)
   return out
 end
 
+-- Enlaces de video: en el PDF el enlace va sobre palabras. Una URL larga de SharePoint, partida o
+-- recortada, no se puede abrir ni copiar.
+local function video_label(url)
+  if url:match('^https?://youtu%.be/') or url:match('^https?://www%.youtube%.com/watch') then
+    return 'Ver en YouTube'
+  end
+  if url:match('^https?://[^/]+%.sharepoint%.com/') then return 'Ver en Stream' end
+end
+
 local function shorten_link(l)
   local txt = stringify(l.content)
+  local label = video_label(l.target)
+  if label and txt:match('^https?://') then
+    l.content = { pandoc.Str(label) }
+    return l
+  end
   if #txt > 70 and txt:match('^https?://') then
     local inl = breakable(txt:sub(1, 60))
     table.insert(inl, pandoc.Str('…'))

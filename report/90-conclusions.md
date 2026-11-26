@@ -42,7 +42,7 @@ El video About-the-Team presenta a los integrantes de CodeCrafters, su motivaci�
 
 | Video | Nombre del archivo | Duración | YouTube | Stream |
 | :---- | :----------------- | :------- | :--- | :--- |
-| About-the-Team | upc-pre-202620-1asi0730-8084-codecrafters-about-the-team-sprint-3 | 06:45 | https://youtu.be/jtTP8YT2dOU | Aquí va el link de Stream. |
+| About-the-Team | upc-pre-202620-1asi0730-8084-codecrafters-about-the-team-sprint-3 | 06:45 | https://youtu.be/jtTP8YT2dOU | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQB1Nn2uuuttSrKe-LkjjCQXAc8s5jLVKOoBDVqAAVvmKy0?e=1mY1pq |
 
 <img src="assets/chapter5/videos/about-the-team-youtube.png" alt="Video About-the-Team publicado en YouTube" width="800">
 

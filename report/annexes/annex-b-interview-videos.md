@@ -11,7 +11,7 @@ En esta sección se consolidan los videos de entrevistas realizadas durante el c
 | Proceso | Sprint | Nombre del archivo | YouTube | Stream |
 | :------ | :----- | :----------------- | :--- | :--- |
 | Needfinding Interviews | Sprint 1 | upc-pre-202620-1asi0730-8084-codecrafters-needfinding-sprint-1 | Aquí va el link de YouTube. | https://upcedupe-my.sharepoint.com/personal/u20221g181_upc_edu_pe/_layouts/15/stream.aspx?id=%2Fpersonal%2Fu20221g181%5Fupc%5Fedu%5Fpe%2FDocuments%2Fupc%2Dpre%2D202620%2D1asi0730%2D8084%2Dcodecrafters%2Dneedfinding%2Dsprint%2D1%2Emp4&ga=1 |
-| Needfinding Interviews | Sprint 2 | upc-pre-202620-1asi0730-8084-codecrafters-needfinding-sprint-2 | Aquí va el link de YouTube. | https://upcedupe-my.sharepoint.com/:v:/g/personal/u202311912_upc_edu_pe/IQBojonPPXthQZqzYym1KU4AAaZRMaqOFJhhf7FbnKeIYyU?e=J1wLT6 |
+| Needfinding Interviews | Sprint 2 | upc-pre-202620-1asi0730-8084-codecrafters-needfinding-sprint-2 | https://youtu.be/mhshFB1vwnY | https://upcedupe-my.sharepoint.com/:v:/g/personal/u202311912_upc_edu_pe/IQBojonPPXthQZqzYym1KU4AAaZRMaqOFJhhf7FbnKeIYyU?e=J1wLT6 |
 
 El video de Needfinding del Sprint 1 reúne las seis primeras entrevistas registradas en la sección 2.2.2. Cada entrevista inicia con una portada que identifica al entrevistado, su segmento objetivo, su edad y su distrito. La duración total es de 1 hora, 0 minutos y 34 segundos. En el Sprint 2 se registraron dos entrevistas más del segmento Bodegas y minimarkets: la de Leo Giovany Yañez Santos, en el video de Needfinding del Sprint 2, y la de Alma Rosa Rodríguez Chota, en un video propio.
 
@@ -28,8 +28,8 @@ El video de Needfinding del Sprint 1 reúne las seis primeras entrevistas regist
 
 | # | Entrevistado | Segmento objetivo | YouTube | Stream | Inicio | Duración |
 | :- | :----------- | :---------------- | :--- | :--- | :----- | :------- |
-| 7 | Leo Giovany Yañez Santos | Bodegas y minimarkets | Aquí va el link de YouTube. | https://upcedupe-my.sharepoint.com/:v:/g/personal/u202311912_upc_edu_pe/IQBojonPPXthQZqzYym1KU4AAaZRMaqOFJhhf7FbnKeIYyU?e=J1wLT6 | 00:00:00 | 03:00 |
-| 8 | Alma Rosa Rodríguez Chota | Bodegas y minimarkets | Aquí va el link de YouTube. | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20211c201_upc_edu_pe/IQB1G5FzKF5WTI8rIznLyzZXARsgezdS_X1Mothtyj9vjKo?e=fUwC72 | 00:03:00 | 11:32 |
+| 7 | Leo Giovany Yañez Santos | Bodegas y minimarkets | https://youtu.be/mhshFB1vwnY | https://upcedupe-my.sharepoint.com/:v:/g/personal/u202311912_upc_edu_pe/IQBojonPPXthQZqzYym1KU4AAaZRMaqOFJhhf7FbnKeIYyU?e=J1wLT6 | 00:00:00 | 03:00 |
+| 8 | Alma Rosa Rodríguez Chota | Bodegas y minimarkets | https://youtu.be/ZyPTcwYRRyk | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20211c201_upc_edu_pe/IQB1G5FzKF5WTI8rIznLyzZXARsgezdS_X1Mothtyj9vjKo?e=fUwC72 | 00:03:00 | 11:32 |
 
 **Entrevistas de validación del Sprint 3**
 
@@ -37,9 +37,9 @@ Las entrevistas de validación registradas en la sección 5.3.2 se publicaron en
 
 | # | Entrevistado | Segmento objetivo | YouTube | Stream | Inicio | Duración |
 | :- | :----------- | :---------------- | :--- | :--- | :----- | :------- |
-| 1 | Luis Angel Tufiño Argüelles | Empresas distribuidoras de bebidas | https://youtu.be/vnJYp37qBu0 | Aquí va el link de Stream. | 00:00:00 | 13:32 |
-| 2 | Arturo Axel Saravia Huaricancha | Bodegas y minimarkets | https://youtu.be/5J2oE865qiQ | Aquí va el link de Stream. | 00:00:00 | 07:59 |
-| 3 | Leo Giovany Yañez Santos | Bodegas y minimarkets | https://youtu.be/8L-3LssywR0 | Aquí va el link de Stream. | 00:00:00 | 07:48 |
+| 1 | Luis Angel Tufiño Argüelles | Empresas distribuidoras de bebidas | https://youtu.be/vnJYp37qBu0 | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQC9yUXuWoRUSKpMfjLdD3B_AeOvKKw-zTBHkJ7hKNipzQo?e=AQkCxJ | 00:00:00 | 13:32 |
+| 2 | Arturo Axel Saravia Huaricancha | Bodegas y minimarkets | https://youtu.be/5J2oE865qiQ | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQBQhlyaNeH1TpWe_qFk0XUJAQ4z-tY45OPNsEuGrl7XT84?e=QMn4Yt | 00:00:00 | 07:59 |
+| 3 | Leo Giovany Yañez Santos | Bodegas y minimarkets | https://youtu.be/8L-3LssywR0 | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQCQ_lI4W8X8RZr_zedOGRpUASpY9qL7egQh7wo4TbxStq0?e=SRhDg8 | 00:00:00 | 07:48 |
 
 <hr>
 
