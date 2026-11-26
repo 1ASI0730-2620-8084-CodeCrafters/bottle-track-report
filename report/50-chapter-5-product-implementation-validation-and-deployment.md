@@ -1358,17 +1358,43 @@ El Landing Page se encuentra en https://1asi0730-2620-8084-codecrafters.netlify.
 
 #### 5.2.3.8. Team Collaboration Insights during Sprint.
 
-La siguiente tabla resume los commits de cada integrante en el Sprint 3, hasta la entrega de AV2, sin considerar los commits de integración de ramas:
+Los analíticos de GitHub Insights de los cuatro repositorios de la organización se capturaron con el período *Last 3 months*, del 22 de agosto al 21 de noviembre de 2026, y no incluyen los commits de integración de ramas. En bottle-track-web-services, cuyo desarrollo comenzó en el Sprint 3, el período corresponde por completo a este Sprint; en los demás repositorios abarca también los Sprints 1 y 2. Las capturas de bottle-track-web-services, bottle-track-web-application y bottle-track-report corresponden a la rama `main`, y la de bottle-track-website, a la rama `develop`.
+
+La siguiente tabla resume los commits de cada integrante según esas capturas:
 
 | Integrante | bottle-track-web-services | bottle-track-web-application | bottle-track-website | bottle-track-report | Total |
 | :--------- | :---: | :---: | :---: | :---: | :---: |
-| Crispin Valdivia, Angel Gabriel | 36 | 15 | 2 | 17 | 70 |
-| Cumba Rengifo, Leonardo Raul | 15 | 10 | 18 | 18 | 61 |
-| Palacin Lazo, Gerardo Valentin | 18 | 7 | 2 | 22 | 49 |
-| Pezo Castilla, Maria Jose | 16 | 8 | 11 | 14 | 49 |
-| Huapaya Buitron, Ariana Alheli | 0 | 0 | 0 | 0 | 0 |
+| Crispin Valdivia, Angel Gabriel | 36 | 35 | 19 | 77 | 167 |
+| Cumba Rengifo, Leonardo Raul | 15 | 22 | 20 | 44 | 101 |
+| Palacin Lazo, Gerardo Valentin | 18 | 12 | 5 | 35 | 70 |
+| Pezo Castilla, Maria Jose | 16 | 13 | 14 | 26 | 69 |
+| Huapaya Buitron, Ariana Alheli | 0 | 4 | 3 | 1 | 8 |
 
-Los cuatro integrantes que participaron en el Sprint contribuyeron en los cuatro repositorios. En los Web Services y en la Web Application, cada uno implementó los servicios y la integración de su bounded context y colaboró en Fleet Management, que el equipo comparte.
+Los commits de Gerardo Palacin en bottle-track-website se reparten entre sus cuentas GeraldP03 y GerardoPalacin03, con 3 y 2 commits respectivamente.
+
+**Contribuidores de bottle-track-web-services**
+
+<img src="assets/chapter5/sprint3/insights-contributors-bottle-track-web-services.png" alt="GitHub Insights, contribuidores del repositorio bottle-track-web-services" width="800">
+
+**Contribuidores de bottle-track-web-application**
+
+<img src="assets/chapter5/sprint3/insights-contributors-bottle-track-web-application.png" alt="GitHub Insights, contribuidores del repositorio bottle-track-web-application" width="800">
+
+**Contribuidores de bottle-track-website**
+
+<img src="assets/chapter5/sprint3/insights-contributors-bottle-track-website.png" alt="GitHub Insights, contribuidores del repositorio bottle-track-website" width="800">
+
+**Contribuidores de bottle-track-report**
+
+<img src="assets/chapter5/sprint3/insights-contributors-bottle-track-report.png" alt="GitHub Insights, contribuidores del repositorio bottle-track-report" width="800">
+
+**bottle-track-web-services.** Angel implementó Identity and Access Management, con el registro de empresas y usuarios, el inicio de sesión con tokens JWT y los roles, además de la configuración base del backend, las pruebas y las migraciones. Leonardo implementó Operations and Routes y el agregado Vehicle de Fleet Management. Gerardo implementó IoT Monitoring, con los dispositivos, las lecturas de los sensores y las alertas, y el controlador REST de vehículos. Maria Jose implementó Incident Management y el agregado Driver de Fleet Management. Ariana no registra commits en este repositorio.
+
+**bottle-track-web-application.** Angel integró la autenticación y el registro de empresas con los Web Services, y conectó Fleet Management con sus endpoints. Leonardo integró Operations and Routes con los Web Services y publicó la versión 1.2.0. Gerardo integró IoT Monitoring y los avisos de funciones próximas. Maria Jose integró Incident Management, con el listado de incidencias, la evidencia y el dashboard de analíticos. Ariana implementó Fleet Management, con el modelo de vehículos y conductores, el store y las vistas de gestión.
+
+**bottle-track-website.** Leonardo agregó la página de contacto, los componentes compartidos de cabecera y pie de página, y la sección de cierre. Angel implementó la base del sitio, con el design system, el cambio de idioma y la página de términos de servicio. Maria Jose agregó los planes de suscripción, las fotografías del equipo, la política de privacidad y los videos About-the-Product y About-the-Team. Gerardo incorporó las capturas de la aplicación en la sección del producto y la visualización del video del equipo. Ariana reemplazó el segmento de conductores por el de puntos de entrega y ajustó la descripción de la sección del producto.
+
+**bottle-track-report.** Angel actualizó el registro de versiones, la carátula y los diagramas de clases, y redactó la planificación y las evidencias de desarrollo del Sprint 3. Leonardo registró las entrevistas de validación, las direcciones de los Web Services publicados y el estado del despliegue, y alineó los diagramas de Operations and Routes. Gerardo reestructuró el informe en capítulos, redactó las conclusiones y las evidencias de ejecución del Sprint 3, y actualizó los diagramas de IoT Monitoring y de base de datos. Maria Jose registró los videos About-the-Product, About-the-Team y de exposición de AV2, la evidencia del despliegue y los diagramas de Fleet Management e Incident Management. Ariana registró en el Student Outcome las acciones de AV1.
 
 <a id="53-validation-interviews"></a>
 
