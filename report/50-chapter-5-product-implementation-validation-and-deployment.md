@@ -271,6 +271,8 @@ El Sprint 1 comprometió las User Stories del Landing Page y las de acceso e ide
 | US09 | Gestionar información de empresa | T01 | Company settings UI design | Diseñar en Figma la vista de configuración de la empresa. | 4 | Pezo Castilla, Maria Jose | Done |
 | US09 | Gestionar información de empresa | T02 | Company settings implementation | Implementar el formulario y el servicio para actualizar los datos de la empresa. | 5 | Pezo Castilla, Maria Jose | To-do |
 
+Al cierre del Sprint, 11 tareas están en **Done** y 6 en **To-do**. Las tareas en **To-do** corresponden a las historias US04 a US09, que pasaron al Sprint 2; por eso en el tablero esas historias figuran en la lista *Sprint 2 - Done* y la lista *Sprint 1 - Done* contiene las historias US01, US02 y US03.
+
 <a id="52x4-development-evidence-for-sprint-review"></a>
 
 #### 5.2.1.4. Development Evidence for Sprint Review.
