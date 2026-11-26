@@ -371,8 +371,8 @@ Las entrevistas deberán registrarse en video para conservar evidencia del proce
 
 | # | Nombres y Apellidos | Edad | Distrito | Screenshot | YouTube | Stream | Inicio | Duración |
 | :--- | :---------------------------- | :------- | :------------- | :------------------------------------------------------------------- | :--- | :--- | :----------- | :--------- |
-| 1 | Luis Angel Tufiño Argüelles | 32 años | Pueblo libre | <img src="assets/chapter2/luisE.png" alt="Entrevista - Luis"> | Aquí va el link de YouTube. | https://upcedupe-my.sharepoint.com/:v:/g/personal/u202311912_upc_edu_pe/IQCr82Alu2z7SZKNCmFaEpDPASkBq9PbtANVy94HciHpe8M?e=m3dgc1 | 00:00:00 | 11:23 |
-| 2 | Luis Palacin Lope | 51 años | Santa Anita | <img src="assets/chapter2/luisP.png" alt="Entrevista - Luis Palacin"> | Aquí va el link de YouTube. | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20211c201_upc_edu_pe/IQBNb-6tNRj-SbxSJjcvfr6xASOZ3O2LshfMq-RH77aQrw4?e=Tqmjyc | 00:00:07 | 17:55 |
+| 1 | Luis Angel Tufiño Argüelles | 32 años | Pueblo libre | <img src="assets/chapter2/luisE.png" alt="Entrevista - Luis"> | https://youtu.be/N4IeuXRClLg | https://upcedupe-my.sharepoint.com/:v:/g/personal/u202311912_upc_edu_pe/IQCr82Alu2z7SZKNCmFaEpDPASkBq9PbtANVy94HciHpe8M?e=m3dgc1 | 00:00:00 | 11:23 |
+| 2 | Luis Palacin Lope | 51 años | Santa Anita | <img src="assets/chapter2/luisP.png" alt="Entrevista - Luis Palacin"> | https://youtu.be/hNyvgWIADls | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20211c201_upc_edu_pe/IQBNb-6tNRj-SbxSJjcvfr6xASOZ3O2LshfMq-RH77aQrw4?e=Tqmjyc | 00:00:07 | 17:55 |
 
 *Resumen de entrevista 1:*
 
@@ -393,7 +393,7 @@ Los principales problemas identificados son los tiempos de espera para realizar 
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 1 | Rodrigo Alonso | 39 años | Miraflores | <img src="assets/chapter2/interview-rodrigo-alonso.jpeg" alt="Entrevista - Rodrigo Alonso"> | Aquí va el link de YouTube. | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c590_upc_edu_pe/IQBEz4WjtPJfQ7tdUoRLgCEGARl_T6mESG_qbuhWi5Yr9u0?e=pmUB2N | 00:00:00 | 8:39 |
 | 2 | Jorge Castilla | 37 años | La Molina | <img src="assets/chapter2/interview-jorge-castilla.jpeg" alt="Entrevista - Jorge Castilla"> | Aquí va el link de YouTube. | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c590_upc_edu_pe/IQA8zEtRuL5WTqnoOyQuJX5xATWNF1bk48oNO7vGYDMmLLg?e=QSsQ3y | 00:00:00 | 11:40 |
-| 3 | Pablo Ludeña Flores | 21 años | Miraflores | <img src="assets/chapter2/EntrevistaA.png" alt="Entrevista - Pablo Ludeña"> | Aquí va el link de YouTube. | https://upcedupe-my.sharepoint.com/:v:/g/personal/u202311912_upc_edu_pe/IQCANZeXFcbdQJFldztGiFupAXmK7J74aOjTF2SN9wugVdQ?e=KqzyQU | 00:00:00 | 5:00 |
+| 3 | Pablo Ludeña Flores | 21 años | Miraflores | <img src="assets/chapter2/EntrevistaA.png" alt="Entrevista - Pablo Ludeña"> | https://youtu.be/SxCEoodwIW8 | https://upcedupe-my.sharepoint.com/:v:/g/personal/u202311912_upc_edu_pe/IQCANZeXFcbdQJFldztGiFupAXmK7J74aOjTF2SN9wugVdQ?e=KqzyQU | 00:00:00 | 5:00 |
 
 *Resumen de entrevista 1:*
 
@@ -424,9 +424,9 @@ Pablo considera importante contar con una herramienta que permita disponer de in
 
 | # | Nombres y Apellidos | Edad | Distrito | Screenshot | YouTube | Stream | Inicio | Duración |
 | :-- | :--- | :-------- | :------------- | :------------------------------------------------------------------------------ | :--- | :--- | :--------- | :--------- |
-| 1 | Arturo Axel Saravia Huaricancha | 20 años | Los Olivos | <img src="assets/chapter2/ArturoE.png" alt="Entrevista - Arturo"> | Aquí va el link de YouTube. | https://upcedupe-my.sharepoint.com/:v:/g/personal/u202311912_upc_edu_pe/IQAP-k4Zr1FKRpVP6YNhIdtoAWEK4ETOrCSKD40I474akTU?e=7FiX5J | 00:00:00 | 6:06 |
-| 2 | Leo Giovany Yañez Santos | 23 años | Pueblo Libre | <img src="assets/chapter2/interview-leo-yanez.png" alt="Entrevista - Leo Yañez"> | Aquí va el link de YouTube. | https://upcedupe-my.sharepoint.com/:v:/g/personal/u202311912_upc_edu_pe/IQBojonPPXthQZqzYym1KU4AAaZRMaqOFJhhf7FbnKeIYyU?e=J1wLT6 | 00:00:00 | 03:00 |
-| 3 | Alma Rosa Rodríguez Chota | 36 años | Santa Anita | <img src="assets/chapter2/AlmaE.png" alt="Entrevista - Alma Rodríguez"> | Aquí va el link de YouTube. | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20211c201_upc_edu_pe/IQB1G5FzKF5WTI8rIznLyzZXARsgezdS_X1Mothtyj9vjKo?e=fUwC72 | 00:03:00 | 11:32 |
+| 1 | Arturo Axel Saravia Huaricancha | 20 años | Los Olivos | <img src="assets/chapter2/ArturoE.png" alt="Entrevista - Arturo"> | https://youtu.be/b2Oy6cRAKbM | https://upcedupe-my.sharepoint.com/:v:/g/personal/u202311912_upc_edu_pe/IQAP-k4Zr1FKRpVP6YNhIdtoAWEK4ETOrCSKD40I474akTU?e=7FiX5J | 00:00:00 | 6:06 |
+| 2 | Leo Giovany Yañez Santos | 23 años | Pueblo Libre | <img src="assets/chapter2/interview-leo-yanez.png" alt="Entrevista - Leo Yañez"> | https://youtu.be/mhshFB1vwnY | https://upcedupe-my.sharepoint.com/:v:/g/personal/u202311912_upc_edu_pe/IQBojonPPXthQZqzYym1KU4AAaZRMaqOFJhhf7FbnKeIYyU?e=J1wLT6 | 00:00:00 | 03:00 |
+| 3 | Alma Rosa Rodríguez Chota | 36 años | Santa Anita | <img src="assets/chapter2/AlmaE.png" alt="Entrevista - Alma Rodríguez"> | https://youtu.be/ZyPTcwYRRyk | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20211c201_upc_edu_pe/IQB1G5FzKF5WTI8rIznLyzZXARsgezdS_X1Mothtyj9vjKo?e=fUwC72 | 00:03:00 | 11:32 |
 
 
 *Resumen de entrevista 1:*
