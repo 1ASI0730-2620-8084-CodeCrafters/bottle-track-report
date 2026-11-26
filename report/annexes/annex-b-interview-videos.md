@@ -37,9 +37,9 @@ Las entrevistas de validación registradas en la sección 5.3.2 se publicaron en
 
 | # | Entrevistado | Segmento objetivo | YouTube | Stream | Inicio | Duración |
 | :- | :----------- | :---------------- | :--- | :--- | :----- | :------- |
-| 1 | Luis Angel Tufiño Argüelles | Empresas distribuidoras de bebidas | https://youtu.be/vnJYp37qBu0 | Aquí va el link de Stream. | 00:00:00 | 13:32 |
-| 2 | Arturo Axel Saravia Huaricancha | Bodegas y minimarkets | https://youtu.be/5J2oE865qiQ | Aquí va el link de Stream. | 00:00:00 | 07:59 |
-| 3 | Leo Giovany Yañez Santos | Bodegas y minimarkets | https://youtu.be/8L-3LssywR0 | Aquí va el link de Stream. | 00:00:00 | 07:48 |
+| 1 | Luis Angel Tufiño Argüelles | Empresas distribuidoras de bebidas | https://youtu.be/vnJYp37qBu0 | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQC9yUXuWoRUSKpMfjLdD3B_AeOvKKw-zTBHkJ7hKNipzQo?e=AQkCxJ | 00:00:00 | 13:32 |
+| 2 | Arturo Axel Saravia Huaricancha | Bodegas y minimarkets | https://youtu.be/5J2oE865qiQ | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQBQhlyaNeH1TpWe_qFk0XUJAQ4z-tY45OPNsEuGrl7XT84?e=QMn4Yt | 00:00:00 | 07:59 |
+| 3 | Leo Giovany Yañez Santos | Bodegas y minimarkets | https://youtu.be/8L-3LssywR0 | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQCQ_lI4W8X8RZr_zedOGRpUASpY9qL7egQh7wo4TbxStq0?e=SRhDg8 | 00:00:00 | 07:48 |
 
 <hr>
 

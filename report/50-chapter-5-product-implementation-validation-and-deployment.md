@@ -1434,7 +1434,7 @@ El registro sigue el mismo formato de la sección 2.2.2. Las entrevistas las rea
 
 | # | Nombres y Apellidos | Edad | Distrito | Screenshot | YouTube | Stream | Inicio | Duración |
 | :- | :------------------ | :--- | :------- | :--------- | :--- | :--- | :----- | :------- |
-| 1 | Luis Angel Tufiño Argüelles | 32 años | Pueblo Libre | <img src="assets/chapter5/validation/validation-luis-tufino.png" alt="Entrevista de validación con Luis Angel Tufiño Argüelles"> | https://youtu.be/vnJYp37qBu0 | Aquí va el link de Stream. | 00:00:00 | 13:32 |
+| 1 | Luis Angel Tufiño Argüelles | 32 años | Pueblo Libre | <img src="assets/chapter5/validation/validation-luis-tufino.png" alt="Entrevista de validación con Luis Angel Tufiño Argüelles"> | https://youtu.be/vnJYp37qBu0 | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQC9yUXuWoRUSKpMfjLdD3B_AeOvKKw-zTBHkJ7hKNipzQo?e=AQkCxJ | 00:00:00 | 13:32 |
 
 *Resumen de entrevista 1:*
 
@@ -1446,8 +1446,8 @@ Destaca la utilidad de BottleTrack para consultar el avance de las entregas, org
 
 | # | Nombres y Apellidos | Edad | Distrito | Screenshot | YouTube | Stream | Inicio | Duración |
 | :- | :------------------ | :--- | :------- | :--------- | :--- | :--- | :----- | :------- |
-| 1 | Arturo Axel Saravia Huaricancha | 20 años | Los Olivos | <img src="assets/chapter5/validation/validation-arturo-saravia.png" alt="Entrevista de validación con Arturo Axel Saravia Huaricancha"> | https://youtu.be/5J2oE865qiQ | Aquí va el link de Stream. | 00:00:00 | 07:59 |
-| 2 | Leo Giovany Yañez Santos | 23 años | Pueblo Libre | <img src="assets/chapter5/validation/validation-leo-yanez.png" alt="Entrevista de validación con Leo Giovany Yañez Santos"> | https://youtu.be/8L-3LssywR0 | Aquí va el link de Stream. | 00:00:00 | 07:48 |
+| 1 | Arturo Axel Saravia Huaricancha | 20 años | Los Olivos | <img src="assets/chapter5/validation/validation-arturo-saravia.png" alt="Entrevista de validación con Arturo Axel Saravia Huaricancha"> | https://youtu.be/5J2oE865qiQ | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQBQhlyaNeH1TpWe_qFk0XUJAQ4z-tY45OPNsEuGrl7XT84?e=QMn4Yt | 00:00:00 | 07:59 |
+| 2 | Leo Giovany Yañez Santos | 23 años | Pueblo Libre | <img src="assets/chapter5/validation/validation-leo-yanez.png" alt="Entrevista de validación con Leo Giovany Yañez Santos"> | https://youtu.be/8L-3LssywR0 | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQCQ_lI4W8X8RZr_zedOGRpUASpY9qL7egQh7wo4TbxStq0?e=SRhDg8 | 00:00:00 | 07:48 |
 
 *Resumen de entrevista 1:*
 
