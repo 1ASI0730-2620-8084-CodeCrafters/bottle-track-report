@@ -1486,7 +1486,7 @@ El video About-the-Product presenta BottleTrack a los visitantes del Landing Pag
 
 | Video | Nombre del archivo | Duración | YouTube | Stream |
 | :---- | :----------------- | :------- | :--- | :--- |
-| About-the-Product | upc-pre-202620-1asi0730-8084-codecrafters-about-the-product-sprint-3 | 03:53 | https://youtu.be/o26x4zDOFbk | Aquí va el link de Stream. |
+| About-the-Product | upc-pre-202620-1asi0730-8084-codecrafters-about-the-product-sprint-3 | 03:53 | https://youtu.be/o26x4zDOFbk | https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221g181_upc_edu_pe/IQA1bzxF9vzSQa2ccxFp5_INAa8GDouRiq3aOsR5nZgPGDE?e=dawtFA |
 
 <img src="assets/chapter5/videos/about-the-product-youtube.png" alt="Video About-the-Product publicado en YouTube" width="800">
 
