@@ -40,9 +40,9 @@
 
 El video About-the-Team presenta a los integrantes de CodeCrafters, su motivación para construir BottleTrack y la forma en que el equipo trabajó en cada Sprint, incluyendo los testimonios que sustentan el Student Outcome. Tiene una duración aproximada de 5 minutos más 1 minuto por integrante, se publica en Microsoft Stream y en YouTube, y se incrusta en la sección *The team* del Landing Page.
 
-| Video | Nombre del archivo | Duración | URL |
-| :---- | :----------------- | :------- | :-- |
-| About-the-Team | upc-pre-202620-1asi0730-8084-codecrafters-about-the-team-sprint-3 | 06:45 | [Ver video en YouTube](https://youtu.be/jtTP8YT2dOU) |
+| Video | Nombre del archivo | Duración | YouTube | Stream |
+| :---- | :----------------- | :------- | :--- | :--- |
+| About-the-Team | upc-pre-202620-1asi0730-8084-codecrafters-about-the-team-sprint-3 | 06:45 | https://youtu.be/jtTP8YT2dOU | Aquí va el link de Stream. |
 
 <img src="assets/chapter5/videos/about-the-team-youtube.png" alt="Video About-the-Team publicado en YouTube" width="800">
 
