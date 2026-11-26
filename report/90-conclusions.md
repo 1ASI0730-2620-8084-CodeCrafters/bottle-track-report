@@ -18,7 +18,7 @@
 
 4. La revisión de AV1 mostró que cumplir la forma exacta de cada artefacto pesa tanto como su contenido. Por ello, el equipo reescribió el Problem Statement con la plantilla Brand new initiative, completó el Lean UX Canvas, analizó las entrevistas con variables y porcentajes, reordenó el Product Backlog según el valor para el negocio y rehízo los diagramas de clases y de base de datos con una sola convención de nombres en inglés.
 
-5. En el Sprint 3 la distribución del trabajo por bounded context se trasladó al backend: los Web Services implementan los cinco contextos con 39 endpoints y doce tablas en MySQL. La integración con la Web Application quedó parcial, por lo que las acciones de estado de las operaciones, el monitoreo en vivo y el seguimiento de la bodega pasan al Sprint 4 y se comunican en la aplicación con el aviso Próximamente.
+5. En el Sprint 3 la distribución del trabajo por bounded context se trasladó al backend: los Web Services implementan los cinco contextos con 41 endpoints y doce tablas en MySQL. La integración con la Web Application quedó parcial, por lo que las acciones de estado de las operaciones, el monitoreo en vivo y el seguimiento de la bodega pasan al Sprint 4 y se comunican en la aplicación con el aviso Próximamente.
 
 6. Las entrevistas de validación confirmaron el valor de centralizar el seguimiento de las entregas y señalaron qué priorizar: estados y cantidades claros, avisos de retrasos, reclamos con fotografías y el uso desde el celular.
 
