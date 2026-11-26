@@ -1195,6 +1195,10 @@ Las capturas muestran la Frontend Web Application consumiendo los Web Services e
 
 <img src="assets/chapter5/sprint3/web-services-evidence/scalar-error-409.png" alt="Respuesta 409 Conflict de POST /api/v1/vehicles con una placa repetida" width="800">
 
+**Pruebas automáticas.** El proyecto `BottleTrack.API.Tests` contiene pruebas unitarias de las reglas de dominio y pruebas de integración de los endpoints, que se ejecutan sobre una base de datos SQLite en memoria. Ejecutadas con `dotnet test BottleTrack.API.Tests/BottleTrack.API.Tests.csproj` sobre la rama `main` (versión 2.0.0, la publicada en Railway), las 31 pruebas terminan con éxito: *total: 31; failed: 0; succeeded: 31*.
+
+<img src="assets/chapter5/sprint3/web-services-evidence/api-tests.png" alt="Resultado de dotnet test con las 31 pruebas de los Web Services exitosas" width="800">
+
 <a id="5236-services-documentation-evidence-for-sprint-review"></a>
 
 #### 5.2.3.6. Services Documentation Evidence for Sprint Review.
@@ -1355,6 +1359,10 @@ El Landing Page se encuentra en https://1asi0730-2620-8084-codecrafters.netlify.
 **Web Services en Railway.** La captura muestra el servicio `bottle-track-web-services` en el entorno `production` de Railway: su estado es **Online** y su despliegue más reciente figura como **Active** con el resultado *Deployment successful*. Railway lo generó a partir de la fusión de la rama `release/2.0.0` en GitHub, en la región US West y con una réplica.
 
 <img src="assets/chapter5/sprint3/web-services-evidence/railway-service.png" alt="Servicio bottle-track-web-services en Railway con el despliegue de la rama release/2.0.0 activo y exitoso" width="800">
+
+**Base de datos en Railway.** El mismo proyecto de Railway, en el entorno `production`, contiene la base de datos **MySQL** con su volumen `mysql-volume` y el servicio `bottle-track-web-services` que se conecta a ella; ambos figuran en estado **Online**. Las credenciales y las variables de entorno no se muestran.
+
+<img src="assets/chapter5/sprint3/web-services-evidence/railway-database.png" alt="Proyecto de Railway con la base de datos MySQL y los Web Services en estado Online" width="800">
 
 <a id="5238-team-collaboration-insights-during-sprint"></a>
 
