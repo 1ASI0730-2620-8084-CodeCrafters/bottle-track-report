@@ -1398,6 +1398,24 @@ Los commits de Gerardo Palacin en bottle-track-website se reparten entre sus cue
 
 <img src="assets/chapter5/sprint3/insights-contributors-bottle-track-report.png" alt="GitHub Insights, contribuidores del repositorio bottle-track-report" width="800">
 
+La vista *Commits* de GitHub Insights muestra la cantidad de commits por semana de cada repositorio durante el último año. Los picos de octubre y noviembre corresponden a los Sprints 2 y 3; bottle-track-web-services registra commits solo desde el Sprint 3, cuando comenzó su desarrollo.
+
+**Commits por semana de bottle-track-web-services**
+
+<img src="assets/chapter5/sprint3/insights-commits-bottle-track-web-services.png" alt="GitHub Insights, commits por semana del repositorio bottle-track-web-services" width="800">
+
+**Commits por semana de bottle-track-web-application**
+
+<img src="assets/chapter5/sprint3/insights-commits-bottle-track-web-application.png" alt="GitHub Insights, commits por semana del repositorio bottle-track-web-application" width="800">
+
+**Commits por semana de bottle-track-website**
+
+<img src="assets/chapter5/sprint3/insights-commits-bottle-track-website.png" alt="GitHub Insights, commits por semana del repositorio bottle-track-website" width="800">
+
+**Commits por semana de bottle-track-report**
+
+<img src="assets/chapter5/sprint3/insights-commits-bottle-track-report.png" alt="GitHub Insights, commits por semana del repositorio bottle-track-report" width="800">
+
 **bottle-track-web-services.** Angel implementó Identity and Access Management, con el registro de empresas y usuarios, el inicio de sesión con tokens JWT y los roles, además de la configuración base del backend, las pruebas y las migraciones. Leonardo implementó Operations and Routes y el agregado Vehicle de Fleet Management. Gerardo implementó IoT Monitoring, con los dispositivos, las lecturas de los sensores y las alertas, y el controlador REST de vehículos. Maria Jose implementó Incident Management y el agregado Driver de Fleet Management. Ariana no registra commits en este repositorio.
 
 **bottle-track-web-application.** Angel integró la autenticación y el registro de empresas con los Web Services, y conectó Fleet Management con sus endpoints. Leonardo integró Operations and Routes con los Web Services y publicó la versión 1.2.0. Gerardo integró IoT Monitoring y los avisos de funciones próximas. Maria Jose integró Incident Management, con el listado de incidencias, la evidencia y el dashboard de analíticos. Ariana implementó Fleet Management, con el modelo de vehículos y conductores, el store y las vistas de gestión.
