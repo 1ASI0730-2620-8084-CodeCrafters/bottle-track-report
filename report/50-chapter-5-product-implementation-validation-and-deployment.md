@@ -225,7 +225,7 @@ El proveedor de nube y la instancia de MySQL se seleccionarán y documentarán e
 | Sprint 0 Review Summary | Es el primer Sprint del proyecto, por lo que no existe un Sprint anterior que revisar. |
 | Sprint 0 Retrospective Summary | Es el primer Sprint del proyecto, por lo que no existe una retrospectiva anterior. |
 | **Sprint Goal & User Stories** | |
-| Sprint 1 Goal | *Nuestro enfoque está en* que los visitantes de cada segmento objetivo comprendan la propuesta de BottleTrack y encuentren su camino hacia la aplicación.<br>*Creemos que esto entrega* claridad sobre el problema que resolvemos y un punto de entrada propio a los administradores de distribuidoras y a los supervisores de flota.<br>*Esto se confirmará cuando* el Landing Page esté publicado, pueda recorrerse en inglés y en español desde escritorio y móvil, y cada segmento tenga su llamada a la acción. |
+| Sprint 1 Goal | *Nuestro enfoque está en* que los visitantes de cada segmento objetivo comprendan la propuesta de BottleTrack y encuentren su camino hacia la aplicación.<br>*Creemos que esto entrega* claridad sobre el problema que resolvemos y un punto de entrada propio a los administradores de distribuidoras, a los supervisores de flota y a los responsables de bodegas.<br>*Esto se confirmará cuando* el Landing Page esté publicado y, desde la página de inicio, cada uno de los tres segmentos llegue a la aplicación con **1 clic** en la llamada a la acción de su sección; el **100 %** de los textos pueda leerse en español y en inglés con **1 clic** en el selector de idioma; y la página se recorra completa en un celular sin desplazamiento horizontal. |
 | Sprint 1 Velocity | 27 |
 | Sum of Story Points | 27 |
 
